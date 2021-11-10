@@ -15,16 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pacman.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\SnakesWithKeys_Full_code\Snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Point_.cpp">
@@ -33,21 +24,36 @@
     <ClCompile Include="io_utils_.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pacman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Users\Nave\Desktop\SnakesWithKeys_Full_code\Snake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Point_.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="io_utils_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

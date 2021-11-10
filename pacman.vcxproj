@@ -139,16 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Board.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Main.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Users\Nave\Desktop\SnakesWithKeys_Full_code\Snake.cpp" />
+    <ClCompile Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="io_utils_.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Point_.cpp" />
+    <ClCompile Include="Board.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Users\Nave\Desktop\Board.h" />
-    <ClInclude Include="..\..\..\..\..\..\..\Users\Nave\Desktop\SnakesWithKeys_Full_code\Snake.h" />
+    <ClInclude Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.h" />
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="io_utils_.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point_.h" />

@@ -3,22 +3,25 @@
 #include "Point_.h"
 
 
-
-
 class Pacman
 {
 private:
-	Point body;
+	Point pacmanBody;
+	int score = 0;
+	int life = 3;
 	int direction = 3;
-
-	enum myenum1 { a, w, d, x, s };
-	enum myenum1 { A, W, D, X, S };
 
 
 public:
+	Pacman();
 	void move();
-	const void getdirection();
-	void setdirection(int direction);
+	const void getDirection();
+	void setDirection(int direction);
+	const int getScore() { return score; };
+	const int getLife() { return life; };
+	void setNewLife() { life--; }
+	void setNewScore() { score++; }
+	void setPacmanBody(int x, int y) {}
 
 };
 
