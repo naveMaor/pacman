@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Point_.h"
 
-Point::Point(int _x, int _y) {
-	x = _x;
-	y = _y;
-}
+//Point::Point(int _x, int _y) {
+//	x = _x;
+//	y = _y;
+//}
 
 void Point::draw(char ch) {
 	gotoxy(x, y);
@@ -43,5 +43,29 @@ void Point::move(int dir) {
 			x = 1;
 		}
 		break;
+	case 4: //Nothing
+		
+		break;
 	}
+
+}
+
+void Point::setX(int newX)
+{
+	x = newX;
+}
+
+int Point::getX ()  const
+{
+	return x;
+}
+
+void Point::setY(int newY) 
+{
+	y = newY;
+}
+
+int Point::getY()  const
+{
+	return y;
 }

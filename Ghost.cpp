@@ -6,7 +6,18 @@
 
 void Ghost::move() 
 {
-	body.draw(' ');
-	body.randomMove();
-	body.draw('$');
+	Ghostbody.draw(' ');
+	Ghostbody.randomMove();
+	Ghostbody.draw('$');
+}
+
+void Ghost::setGhostBody(int newX, int newY)
+{
+	Ghostbody.setX(newX);
+	Ghostbody.setY(newY);
+}
+
+Point Ghost::getGhostBody() const
+{
+	return Ghostbody;
 }

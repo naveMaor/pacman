@@ -13,15 +13,28 @@ private:
 
 
 public:
-	Pacman();
-	void move();
-	const void getDirection();
-	void setDirection(int direction);
-	const int getScore() { return score; };
-	const int getLife() { return life; };
-	void setNewLife() { life--; }
-	void setNewScore() { score++; }
-	void setPacmanBody(int x, int y) {}
+	//constractor
+	Pacman(int newX, int newY)
+		:pacmanBody(newX, newY) {};
+	//____________________________________________________________________________________________
+
+	//Move pacman by class member - "direction"
+	void			move();
+	//____________________________________________________________________________________________
+
+	//Getters and setters
+	int				getDirection() const;
+	void			setDirection(int newDirection);
+	 int			getScore() const { return score; };
+	void			setScore() { score++; }
+
+	 int			getLife() const { return life; };
+	void			setLife() { life--; }
+
+	Point			getPacmanBody();
+	void			setPacmanBody(int x, int y) {}
+	//____________________________________________________________________________________________
+
 
 };
 

@@ -2,16 +2,17 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Board.h"
 #include "Pacman.h"
-
+#include "Board.h"
+#include "Ghost.h"
+#include "io_utils_.h"
+#include "Pacman.h"
+#include "Point_.h"
+#include "Game.h"
 
 
 int main()
 {
-	Board b;
-	b.printBoard();
-
-	Pacman p;
-	p.setPacmanBody(10, 15);
+	Game Newgame;
 
 	return 0;
 }

@@ -3,6 +3,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Pacman.h"
 
+int Pacman::getDirection() const
+{
+	return direction;
+}
+
+void Pacman::setDirection(int newDirection)
+{
+	direction = newDirection;
+}
+
 void Pacman::move()
 {
 	pacmanBody.draw(' ');
@@ -14,5 +24,10 @@ void Pacman::setPacmanBody(int newX, int newY)
 {
 	pacmanBody.setX(newX);
 	pacmanBody.setY(newY);
+}
+
+Point Pacman::getPacmanBody()
+{
+	return pacmanBody;
 }
 

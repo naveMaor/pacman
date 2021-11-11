@@ -9,16 +9,27 @@ using namespace std;
 
 
 
-class Point {
-	int x = 39, y = 12;
+class Point 
+{
+private:
+		int x;
+		int y; 
 
 public:
-	Point(int x, int y);
-	void draw(char ch);
-	void move(int direction);
-	void randomMove();
-	void setX(int x);
-	void setY(int y);
+	//constractor
+	Point(int newX, int newY)
+		:x(newX), y(newY) {};
+
+	void		draw(char ch);
+	void		move(int direction);
+	void		randomMove();
+
+	void		setX(int newX);
+	int			getX() const;
+
+	void		setY(int newY);
+	int			getY() const;
+
 };
 
 #endif
