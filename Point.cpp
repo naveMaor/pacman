@@ -1,6 +1,6 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-#include "Point_.h"
+#include "Point.h"
 
 //Point::Point(int _x, int _y) {
 //	x = _x;
@@ -50,20 +50,20 @@ void Point::move(int dir) {
 
 }
 
-void Point::setX(int newX)
-{
-	x = newX;
-}
+//void Point::setX(int newX)
+//{
+//	x = newX;
+//}
 
 int Point::getX ()  const
 {
 	return x;
 }
 
-void Point::setY(int newY) 
-{
-	y = newY;
-}
+//void Point::setY(int newY) 
+//{
+//	y = newY;
+//}
 
 int Point::getY()  const
 {

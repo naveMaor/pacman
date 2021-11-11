@@ -1,5 +1,5 @@
 #pragma once
-#include "Point_.h"
+#include "Point.h"
 
 
 class Ghost
@@ -8,9 +8,9 @@ class Ghost
 	int direction = 3;
 
 public:
+	Ghost();
 	//constractor
-	Ghost(int newX, int newY) 
-		:	Ghostbody(newX, newY) {};
+	Ghost(int newX, int newY) : Ghostbody(newX, newY) {};
 	//____________________________________________________________________________________________
 
 	//Move ghost radomdly

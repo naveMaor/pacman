@@ -20,11 +20,6 @@ void Pacman::move()
 	pacmanBody.draw('@');
 }
 
-void Pacman::setPacmanBody(int newX, int newY)
-{
-	pacmanBody.setX(newX);
-	pacmanBody.setY(newY);
-}
 
 Point Pacman::getPacmanBody()
 {

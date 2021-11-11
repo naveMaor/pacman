@@ -18,7 +18,7 @@
     <ClCompile Include="Pacman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Point_.cpp">
+    <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="io_utils_.cpp">
@@ -44,7 +44,7 @@
     <ClInclude Include="Pacman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Point_.h">
+    <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="io_utils_.h">

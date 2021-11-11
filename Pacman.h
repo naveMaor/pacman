@@ -1,7 +1,5 @@
 #pragma once
-
-#include "Point_.h"
-
+#include "Point.h"
 
 class Pacman
 {
@@ -14,8 +12,7 @@ private:
 
 public:
 	//constractor
-	Pacman(int newX, int newY)
-		:pacmanBody(newX, newY) {};
+	Pacman(int newX, int newY):pacmanBody(newX, newY) {};
 	//____________________________________________________________________________________________
 
 	//Move pacman by class member - "direction"
@@ -25,14 +22,13 @@ public:
 	//Getters and setters
 	int				getDirection() const;
 	void			setDirection(int newDirection);
-	 int			getScore() const { return score; };
+	int			getScore() const { return score; };
 	void			setScore() { score++; }
 
-	 int			getLife() const { return life; };
+	int			getLife() const { return life; };
 	void			setLife() { life--; }
 
 	Point			getPacmanBody();
-	void			setPacmanBody(int x, int y) {}
 	//____________________________________________________________________________________________
 
 

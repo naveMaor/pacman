@@ -6,13 +6,19 @@
 #include "Ghost.h"
 #include "io_utils_.h"
 #include "Pacman.h"
-#include "Point_.h"
+#include "Point.h"
 #include "Game.h"
 
 
 int main()
 {
 	Game Newgame;
-
+	/*
+	Board board;
+	board.printBoard();
+	Pacman p(1,1);
+	p.move();
+	*/
+	
 	return 0;
 }
