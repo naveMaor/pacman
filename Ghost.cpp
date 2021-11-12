@@ -4,18 +4,19 @@
 
 void Ghost::move() 
 {
-	Ghostbody.draw(' ');
-	Ghostbody.randomMove();
-	Ghostbody.draw('$');
+	ghostBody.draw(' ');
+	ghostBody.randomMove();
+	ghostBody.draw('$');
 }
 
 void Ghost::setGhostBody(int newX, int newY)
 {
-	Ghostbody.setX(newX);
-	Ghostbody.setY(newY);
+	ghostBody.setX(newX);
+	ghostBody.setY(newY);
 }
 
 Point Ghost::getGhostBody() const
 {
-	return Ghostbody;
+	return ghostBody;
 }
+

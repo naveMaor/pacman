@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Game.h"
 
-void Game::menu()
+int Game::menu()
 {
 	cout << "Welcome to PacmanGame \n"
 		"(1) Start a new game\n"
@@ -11,19 +11,77 @@ void Game::menu()
 		"\nChoice: "<< endl;
 
 	cin >> userChoice;
+	return userChoice;
+}
 
-	switch (userChoice)
+void Game::playGame(int userChoice)
+{
+	//while (userChoice != 9)
+	//
+		switch (userChoice)
+		{
+		case 1:
+			clear_screen();
+			initGame();
+
+			break;
+
+		case 8:
+			break;
+
+		case 9:
+			break;
+
+		}
+	//}
+	
+}
+
+void Game::initGame()
+{
+	board.printBoard();
+	player.getPacmanBody().draw('@');
+	while (player.getLife() > 0)
 	{
-	case 1:
-		break;
-
-	case 8:
-		break;
-
-	case 9:
-		break;
-
+		if (PacmanHitGhost(ghostOne, player) || PacmanHitGhost(ghostTwo, player))
+		{
+			
+		}
+		ghostOne.move();
+		ghostTwo.move();
 	}
+	
+}
+
+void Game::pacmanMove() 
+{
+	int x = player.getPacmanBody().getX();
+	int y = player.getPacmanBody().getY();
+	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
+	// If wall
+	if (charAtPoint == 219)
+		player.setDirection(4);
+
+	// If breadcrumbes
+	else if(charAtPoint == 250)
+	{
+		player.setScore();
+		board.setBoardValByPoint(x, y);
+	}
+
+	// Tunnels
+	else if (charAtPoint == ' ')
+	{
+		if (x == 0)
+			player.setPacmanBody(70, y);
+		else if (x == 70)
+			player.setPacmanBody(0, y);
+		else if (y == 0)
+			player.setPacmanBody(x, 20);
+		else if (y == 20)
+			player.setPacmanBody(x, 0);
+	}
+	player.move();
 }
 
 
@@ -41,3 +99,47 @@ bool Game::PacmanHitGhost(Ghost g1, Pacman player)
 	return false;
 }
 
+
+void Game::ghostRandomMove(Ghost ghost)
+{
+	int x = ghost.getGhostBody().getX();
+	int y = ghost.getGhostBody().getY();
+	int dir = rand() % 4;
+	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
+	
+	// If wall
+	if (charAtPoint == 219)
+		while (!checkGhostNextMove(x, y, dir))
+		{
+			dir = rand() % 4;
+			charAtPoint = board.getBoardValFromPoint(x, y);
+		}
+			
+
+	// If breadcrumbes
+	else if (charAtPoint == 250)
+	{
+		player.setScore();
+		board.setBoardValByPoint(x, y);
+	}
+}
+
+
+bool Game::checkGhostNextMove(int x, int y, int dir)
+{
+	switch (dir)
+	{
+	case 0: // LEFT
+		x--;
+		break;
+	case 1: // RIGHT
+		x++;
+		break;
+	case 2: // UP
+		y--;
+		break;
+	case 3: // DOWN
+		y++;
+		break;
+	}
+}

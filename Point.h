@@ -20,7 +20,6 @@ public:
 
 	void		draw(char ch);
 	void		move(int direction);
-	void		randomMove();
 
 	void		setX(int newX) { x = newX; }
 	int			getX() const;

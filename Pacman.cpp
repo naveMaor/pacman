@@ -26,3 +26,9 @@ Point Pacman::getPacmanBody()
 	return pacmanBody;
 }
 
+void Pacman::setPacmanBody(int x, int y)
+{
+	pacmanBody.setX(x);
+	pacmanBody.setY(y);
+}
+

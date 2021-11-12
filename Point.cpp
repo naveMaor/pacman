@@ -12,35 +12,32 @@ void Point::draw(char ch) {
 	cout << ch << endl;
 }
 
-void Point::randomMove() {
-	int dir = rand() % 4;
-	move(dir);
-}
+
 
 void Point::move(int dir) {
 	switch (dir) {
-	case 0: // UP
-		--y;
-		if (y < 1) {
-			y = 24;
-		}
-		break;
-	case 1: // DOWN
-		++y;
-		if (y > 24) {
-			y = 1;
-		}
-		break;
-	case 2: // LEFT
+	case 0: // LEFT
 		--x;
 		if (x < 1) {
-			x = 79;
+			x = 69;
 		}
 		break;
-	case 3: // RIGHT
+	case 1: // RIGHT
 		++x;
-		if (x > 79) {
+		if (x > 69) {
 			x = 1;
+		}
+		break;
+	case 2: // UP
+		--y;
+		if (y < 1) {
+			y = 19;
+		}
+		break;
+	case 3: // DOWN
+		++y;
+		if (y > 20) {
+			y = 1;
 		}
 		break;
 	case 4: //Nothing
@@ -50,20 +47,10 @@ void Point::move(int dir) {
 
 }
 
-//void Point::setX(int newX)
-//{
-//	x = newX;
-//}
-
 int Point::getX ()  const
 {
 	return x;
 }
-
-//void Point::setY(int newY) 
-//{
-//	y = newY;
-//}
 
 int Point::getY()  const
 {

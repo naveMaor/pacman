@@ -5,15 +5,12 @@
 
 using namespace std;
 
-#ifndef WINDOWS
-void gotoxy(int x, int y) {}
+
 int _getch(void) { return 0; }
 int _kbhit(void) { return 0; }
 void Sleep(unsigned long) {}
 //void setTextColor(Color color) {}
-void hideCursor() {}
-void clear_screen() {}
-#else
+
 void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;
@@ -25,9 +22,9 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
 }
 
-void setTextColor(Color colorToSet) {
+/*void setTextColor(Color colorToSet) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)colorToSet);
-}
+}*/
 
 void hideCursor()
 {
@@ -42,7 +39,5 @@ void clear_screen()
 {
 	system("cls");
 }
-
-#endif
 
 

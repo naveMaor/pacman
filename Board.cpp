@@ -13,5 +13,6 @@ void Board::printBoard()
             cout << board[i][j];
         cout << endl;
     }
+    
 };
 

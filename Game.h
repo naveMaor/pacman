@@ -6,22 +6,30 @@
 #include "io_utils_.h"
 #include "Pacman.h"
 #include "Point.h"
-#include "Game.h"
+
 
 
 class Game
 {
 private:
-	int userChoice;
-	Ghost ghostArr[2];
-	/*Pacman player(int x,int y);*/
+	int userChoice = 4;
+	Ghost ghostOne = {10,15};
+	Ghost ghostTwo = {30,15};
+	Pacman player = {1,1};
+	Board board;
+
 	
 
 public:
-	Game();
-	void menu();
+	int menu();
+	void playGame(int userChoice);
+	void initGame();
 	// returns true if x and y values of Ghost and Pacman are equal.
 	bool PacmanHitGhost(Ghost g1, Pacman player);
+	void pacmanMove();
+	void ghostRandomMove(Ghost ghost);
+	bool checkGhostNextMove(int x, int y, int dir);
+	
 
 };
 

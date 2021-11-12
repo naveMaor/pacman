@@ -29,6 +29,7 @@ public:
 	void			setLife() { life--; }
 
 	Point			getPacmanBody();
+	void			setPacmanBody(int x, int y);
 	//____________________________________________________________________________________________
 
 

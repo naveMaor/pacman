@@ -4,13 +4,14 @@
 
 class Ghost
 {
-	Point Ghostbody;
+	Point ghostBody;
 	int direction = 3;
 
 public:
 	Ghost();
+
 	//constractor
-	Ghost(int newX, int newY) : Ghostbody(newX, newY) {};
+	Ghost(int newX, int newY) : ghostBody(newX, newY) {};
 	//____________________________________________________________________________________________
 
 	//Move ghost radomdly
@@ -21,6 +22,7 @@ public:
 	//Getters and setters
 	void	setGhostBody(int newx, int newy);
 	Point	getGhostBody() const;
+	void set
 
 	
 
