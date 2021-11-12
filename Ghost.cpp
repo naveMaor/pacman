@@ -5,7 +5,7 @@
 void Ghost::move() 
 {
 	ghostBody.draw(' ');
-	ghostBody.randomMove();
+	ghostBody.move(direction);
 	ghostBody.draw('$');
 }
 
@@ -20,3 +20,7 @@ Point Ghost::getGhostBody() const
 	return ghostBody;
 }
 
+void Ghost::setGhostDirection(int direction)
+{
+	this->direction = direction;
+}

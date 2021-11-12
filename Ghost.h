@@ -22,7 +22,9 @@ public:
 	//Getters and setters
 	void	setGhostBody(int newx, int newy);
 	Point	getGhostBody() const;
-	void set
+	void setGhostDirection(int direction);
+
+	
 
 	
 

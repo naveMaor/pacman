@@ -104,28 +104,35 @@ void Game::ghostRandomMove(Ghost ghost)
 {
 	int x = ghost.getGhostBody().getX();
 	int y = ghost.getGhostBody().getY();
-	int dir = rand() % 4;
-	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
-	
-	// If wall
-	if (charAtPoint == 219)
-		while (!checkGhostNextMove(x, y, dir))
-		{
-			dir = rand() % 4;
-			charAtPoint = board.getBoardValFromPoint(x, y);
-		}
-			
+	int direction = rand() % 4;
 
-	// If breadcrumbes
-	else if (charAtPoint == 250)
+	// If wall
+	while (!checkGhostValidMove(x, y, direction))
+		direction = rand() % 4;
+	
+	// Food
+	ghost.setGhostDirection(direction); 
+	ghost.move();
+	
+	if (ifLastGhostPositionWasFood(x, y));
 	{
-		player.setScore();
-		board.setBoardValByPoint(x, y);
-	}
+		gotoxy(x, y);
+		cout << '·';
+	}	
 }
 
 
-bool Game::checkGhostNextMove(int x, int y, int dir)
+bool Game::checkGhostValidMove(int x, int y, int dir)
+{
+	ghostNextMove(x, y, dir);
+	// If wall
+	if (board.getBoardValFromPoint(x, y) == 219)
+		return false;
+	return true;
+}
+
+
+void Game::ghostNextMove(int& x, int& y, int dir)
 {
 	switch (dir)
 	{
@@ -142,4 +149,11 @@ bool Game::checkGhostNextMove(int x, int y, int dir)
 		y++;
 		break;
 	}
+}
+
+bool Game::ifLastGhostPositionWasFood(int x, int y)
+{
+	if (board.getBoardValFromPoint(x, y) == 250)
+		return true;
+	return false;
 }

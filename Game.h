@@ -28,7 +28,9 @@ public:
 	bool PacmanHitGhost(Ghost g1, Pacman player);
 	void pacmanMove();
 	void ghostRandomMove(Ghost ghost);
-	bool checkGhostNextMove(int x, int y, int dir);
+	bool checkGhostValidMove(int x, int y, int dir);
+	void ghostNextMove(int& x, int& y, int dir);
+	bool ifLastGhostPositionWasFood(int x, int y);
 	
 
 };
