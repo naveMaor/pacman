@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="io_utils_.cpp" />
@@ -149,10 +148,10 @@
     <ClCompile Include="Board.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\SnakesWithKeys_Full_code\Snake.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="io_utils_.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />

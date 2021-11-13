@@ -4,9 +4,9 @@
 #include <iostream>
 #include "io_utils_.h"
 #include <stdlib.h>
+#include "io_utils_.h"
 
 using namespace std;
-
 
 
 class Point 
@@ -26,6 +26,8 @@ public:
 
 	void		setY(int newY) { y = newY; }
 	int			getY() const;
+	bool operator == (const Point &point);
+	
 
 };
 

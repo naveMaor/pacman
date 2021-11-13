@@ -1,15 +1,9 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "io_utils_.h"
-//#include "Color.h"
+#include "Color.h"
 
 using namespace std;
-
-
-int _getch(void) { return 0; }
-int _kbhit(void) { return 0; }
-void sleep(unsigned long) {}
-//void setTextColor(Color color) {}
 
 void gotoxy(int x, int y)
 {
@@ -20,11 +14,12 @@ void gotoxy(int x, int y)
 	dwCursorPosition.Y = y;
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
+	hideCursor();
 }
 
-/*void setTextColor(Color colorToSet) {
+void setTextColor(Color colorToSet) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)colorToSet);
-}*/
+}
 
 void hideCursor()
 {

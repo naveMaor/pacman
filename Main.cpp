@@ -2,15 +2,36 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Game.h"
 
-
 int main()
 {
-	Game newGame;
-	int userChoice = newGame.menu();
-	newGame.playGame(userChoice);
+	Game game;
+	int userChoice = game.menu();
+	while (userChoice != 9)
+	{
+		switch (userChoice)
+		{
+		case 1:
+		{
+			game.playGame();
+			game.gameOver();
+			break;
+		}
+		case 8:
+		{
+			game.printInstructions();
+			break;
+		}
+		default:
+		{
+			cout << "You entered incorrect option, please enter again" << endl;
+			break;
+		}	
+		}
+		userChoice = game.menu();
+	}
 
-
-
-	
+	clear_screen();
+	cout << "Bye Bye!\n"
+		"Thank you for playing with us!" << endl;
 	return 0;
 }

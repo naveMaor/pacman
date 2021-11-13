@@ -5,14 +5,28 @@
 
 /* This function print the board*/
 void Board::printBoard()
-{
-    
+{  
     for (int i = 0; i < HIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
-            cout << board[i][j];
+                cout << board[i][j];
+        cout << endl;
+    } 
+};
+
+void Board::printPreviousBoard()
+{
+    for (int i = 0; i < HIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            if (board[i][j] == 's')
+                cout << ' ';
+            else
+                cout << board[i][j];
+        }
         cout << endl;
     }
-    
-};
+}
+
 

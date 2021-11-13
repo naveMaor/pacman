@@ -7,31 +7,44 @@
 #include "Pacman.h"
 #include "Point.h"
 
-
-
 class Game
 {
 private:
 	int userChoice = 4;
-	Ghost ghostOne = {10,15};
-	Ghost ghostTwo = {3,3};
+	Ghost ghostOne = {50,14};
+	Ghost ghostTwo = {10,3};
 	Pacman player = {1,1};
 	Board board;
 
-	
-
 public:
 	int menu();
-	void playGame(int userChoice);
+	void printInstructions();
 	void initGame();
-	// returns true if x and y values of Ghost and Pacman are equal.
-	bool PacmanHitGhost(Ghost g1, Pacman player);
-	void pacmanMove();
+	void playGame();
+	void pauseGame();
+	void printPreviousGame();
+	void gameOver();
+	void printLife();
+	void printScore();
+
+
+	// Ghosts functions
+	bool ghostHit(Ghost ghost);
+	bool ghostsHit();
 	void ghostRandomMove(Ghost& ghost);
-	bool checkGhostValidMove(int x, int y, int dir);
-	void ghostNextMove(int& x, int& y, int dir);
-	bool ifLastGhostPositionWasFood(int x, int y);
+	void ghostIlustrateNextMove(int& x, int& y, int dir);
+	bool ifLastGhostPositionWasBreadcrumb(int x, int y);
 	void printBreadCrumbs(int x, int y);
+	void initGameAfterGhostHit();
+	void ghostsMove();
+	bool checkGhostValidMove(int x, int y, int dir);
+	void removeGhosts();
+	void removeGhost(Ghost ghost);
+
+	// Pacman functions
+	void pacmanMove();
+	void getUserKeyboard();
+	void removePacman();
 
 };
 

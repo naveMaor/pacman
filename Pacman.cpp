@@ -17,6 +17,7 @@ void Pacman::move()
 {
 	pacmanBody.draw(' ');
 	pacmanBody.move(direction);
+	setTextColor(color);
 	pacmanBody.draw('@');
 }
 
@@ -32,3 +33,7 @@ void Pacman::setPacmanBody(int x, int y)
 	pacmanBody.setY(y);
 }
 
+void Pacman::setColor(Color color)
+{
+	this->color = color;
+}

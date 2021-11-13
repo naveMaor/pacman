@@ -1,32 +1,24 @@
 #pragma once
 #include "Point.h"
 
-
 class Ghost
 {
+	// Ghost data members
 	Point ghostBody;
+	Color color;
 	int direction = 3;
 
 public:
+	// Constractor
 	Ghost();
-
-	//constractor
 	Ghost(int newX, int newY) : ghostBody(newX, newY) {};
-	//____________________________________________________________________________________________
 
-	//Move ghost radomdly
+	// Ghost functions
 	void	move();
-	//____________________________________________________________________________________________
-
-
-	//Getters and setters
 	void	setGhostBody(int newx, int newy);
 	Point	getGhostBody() const;
 	void setGhostDirection(int direction);
-
-	
-
-	
-
+	Color getColor() { return color; };
+	void setColor(Color color);
 };
 

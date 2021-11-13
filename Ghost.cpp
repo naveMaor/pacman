@@ -6,6 +6,7 @@ void Ghost::move()
 {
 	ghostBody.draw(' ');
 	ghostBody.move(direction);
+	setTextColor(color);
 	ghostBody.draw('$');
 }
 
@@ -23,4 +24,9 @@ Point Ghost::getGhostBody() const
 void Ghost::setGhostDirection(int direction)
 {
 	this->direction = direction;
+}
+
+void Ghost::setColor(Color color)
+{
+	this->color = color;
 }

@@ -15,7 +15,7 @@ void Point::draw(char ch) {
 void Point::move(int dir) {
 	switch (dir) {
 	case 0: // LEFT
-		this->x = x - 1;
+		--x;
 
 		break;
 	case 1: // RIGHT
@@ -44,4 +44,11 @@ int Point::getX ()  const
 int Point::getY()  const
 {
 	return y;
+}
+
+bool Point:: operator == (const Point& point)
+{
+	if ((this->x == point.x) && (this->y == point.y))
+		return true;
+	return false;
 }

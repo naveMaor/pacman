@@ -4,34 +4,30 @@
 class Pacman
 {
 private:
+	// Pacman data members
 	Point pacmanBody;
 	int score = 0;
 	int life = 3;
-	int direction = 3;
-
+	int direction = 4;
+	Color color;
 
 public:
-	//constractor
+	// Constractor
 	Pacman(int newX, int newY):pacmanBody(newX, newY) {};
-	//____________________________________________________________________________________________
 
-	//Move pacman by class member - "direction"
-	void			move();
-	//____________________________________________________________________________________________
+	// Pacman functions
+	void move();
 
 	//Getters and setters
-	int				getDirection() const;
-	void			setDirection(int newDirection);
-	int			getScore() const { return score; };
-	void			setScore() { score++; }
-
-	int			getLife() const { return life; };
-	void			setLife() { life--; }
-
-	Point			getPacmanBody();
-	void			setPacmanBody(int x, int y);
-	//____________________________________________________________________________________________
-
-
+	int getDirection() const;
+	void setDirection(int newDirection);
+	int	getScore() const { return score; };
+	void setPlusScore() { score++; }
+	int	getLife() const { return life; };
+	void setMinusLife() { life--; }
+	Point getPacmanBody();
+	void setPacmanBody(int x, int y);
+	Color getColor() { return color; };
+	void setColor(Color color);
 };
 
