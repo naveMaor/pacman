@@ -47,31 +47,34 @@ void Game::initGame()
 		{
 			
 		}
-		ghostOne.move();
-		ghostTwo.move();
+		ghostRandomMove(ghostOne);
+		ghostRandomMove(ghostTwo);
+		
 	}
 	
 }
 
-void Game::pacmanMove() 
+void Game::pacmanMove()
 {
 	int x = player.getPacmanBody().getX();
 	int y = player.getPacmanBody().getY();
+
+	Point nextPos = player.getPacmanBody();
+	nextPos.move(player.getDirection());
+
+	unsigned char charAtnextPoint = board.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
 	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
-	// If wall
-	if (charAtPoint == 219)
-		player.setDirection(4);
 
-	// If breadcrumbes
-	else if(charAtPoint == 250)
-	{
-		player.setScore();
-		board.setBoardValByPoint(x, y);
-	}
 
-	// Tunnels
-	else if (charAtPoint == ' ')
+	if (charAtnextPoint == ' ')
 	{
+		if (charAtPoint == 250)
+		{
+			player.setScore();
+			board.setBoardValByPoint(x, y);
+		}
+		player.getPacmanBody().draw(' ');
+
 		if (x == 0)
 			player.setPacmanBody(70, y);
 		else if (x == 70)
@@ -80,14 +83,33 @@ void Game::pacmanMove()
 			player.setPacmanBody(x, 20);
 		else if (y == 20)
 			player.setPacmanBody(x, 0);
+		else
+			player.move();
+
+		player.getPacmanBody().draw('@');
 	}
-	player.move();
+
+	// If breadcrumbes
+	else if (charAtPoint == 250 && charAtnextPoint != 219)
+	{
+		player.setScore();
+		board.setBoardValByPoint(x, y);
+		player.move();
+	}
+
+	// If wall
+	else if (charAtnextPoint == 219)
+		player.setDirection(4);
+
+	// Tunnels
+	else {
+		player.move();
+	}
 }
 
 
 bool Game::PacmanHitGhost(Ghost g1, Pacman player)
 {
-
 	Point Ppacman = player.getPacmanBody();
 	Point Pghost = g1.getGhostBody();
 
@@ -95,12 +117,11 @@ bool Game::PacmanHitGhost(Ghost g1, Pacman player)
 	{
 		return true;
 	}
-
 	return false;
 }
 
-
-void Game::ghostRandomMove(Ghost ghost)
+// The ghost eats walls and get out of the board!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void Game::ghostRandomMove(Ghost& ghost)
 {
 	int x = ghost.getGhostBody().getX();
 	int y = ghost.getGhostBody().getY();
@@ -114,24 +135,36 @@ void Game::ghostRandomMove(Ghost ghost)
 	ghost.setGhostDirection(direction); 
 	ghost.move();
 	
-	if (ifLastGhostPositionWasFood(x, y));
-	{
-		gotoxy(x, y);
-		cout << '·';
-	}	
+	if (ifLastGhostPositionWasFood(x, y))
+		printBreadCrumbs(x, y);
+
+	sleep(10000);
 }
 
+void Game::printBreadCrumbs(int x, int y)
+{
+	unsigned char bc = 250;
+	gotoxy(x, y);
+	cout << bc;
+}
 
+/* This function check if ghost next move is valid */
 bool Game::checkGhostValidMove(int x, int y, int dir)
 {
 	ghostNextMove(x, y, dir);
-	// If wall
-	if (board.getBoardValFromPoint(x, y) == 219)
+	unsigned char charAtNextPoint = board.getBoardValFromPoint(x, y);
+
+	// If the ghost out of board
+	if ((x == 70) || (x == 0) || (y == 0) || (y == 20))
+		return false;
+
+	// If the next move is wall, tunnel or ghost this isn't valid move
+	if ((charAtNextPoint == 219) || (charAtNextPoint == ' ') || (charAtNextPoint == '$'))
 		return false;
 	return true;
 }
 
-
+/* This function ilustrate the next ghost move*/
 void Game::ghostNextMove(int& x, int& y, int dir)
 {
 	switch (dir)

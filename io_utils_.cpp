@@ -8,7 +8,7 @@ using namespace std;
 
 int _getch(void) { return 0; }
 int _kbhit(void) { return 0; }
-void Sleep(unsigned long) {}
+void sleep(unsigned long) {}
 //void setTextColor(Color color) {}
 
 void gotoxy(int x, int y)

@@ -9,43 +9,32 @@
 
 void Point::draw(char ch) {
 	gotoxy(x, y);
-	cout << ch << endl;
+	cout << ch;
 }
-
-
 
 void Point::move(int dir) {
 	switch (dir) {
 	case 0: // LEFT
-		--x;
-		if (x < 1) {
-			x = 69;
-		}
+		this->x = x - 1;
+
 		break;
 	case 1: // RIGHT
 		++x;
-		if (x > 69) {
-			x = 1;
-		}
+
 		break;
 	case 2: // UP
 		--y;
-		if (y < 1) {
-			y = 19;
-		}
+
 		break;
 	case 3: // DOWN
 		++y;
-		if (y > 20) {
-			y = 1;
-		}
 		break;
 	case 4: //Nothing
-		
+
 		break;
 	}
-
 }
+
 
 int Point::getX ()  const
 {

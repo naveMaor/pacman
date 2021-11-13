@@ -16,6 +16,6 @@ void hideCursor();
 void clear_screen();
 int _getch(void);
 int _kbhit(void);
-void Sleep(unsigned long);
+void sleep(unsigned long);
 
 #endif

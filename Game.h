@@ -14,7 +14,7 @@ class Game
 private:
 	int userChoice = 4;
 	Ghost ghostOne = {10,15};
-	Ghost ghostTwo = {30,15};
+	Ghost ghostTwo = {3,3};
 	Pacman player = {1,1};
 	Board board;
 
@@ -27,11 +27,11 @@ public:
 	// returns true if x and y values of Ghost and Pacman are equal.
 	bool PacmanHitGhost(Ghost g1, Pacman player);
 	void pacmanMove();
-	void ghostRandomMove(Ghost ghost);
+	void ghostRandomMove(Ghost& ghost);
 	bool checkGhostValidMove(int x, int y, int dir);
 	void ghostNextMove(int& x, int& y, int dir);
 	bool ifLastGhostPositionWasFood(int x, int y);
-	
+	void printBreadCrumbs(int x, int y);
 
 };
 
