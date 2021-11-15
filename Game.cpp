@@ -19,28 +19,27 @@ int Game::menu()
 /* This function handle the game*/
 void Game::playGame()
 {
-	bool b_ghostMoved = false;
+	int countGhostMove = 0;
 
 	initGame();
-	
+
 	while (player.getLife() > 0)
 	{
 		printScore();
-		if (!b_ghostMoved)
+		if (countGhostMove == 2)
 		{
-			pacmanMove();
 			ghostsMove();
-			b_ghostMoved = true;
+			countGhostMove = 0;
 		}
 		else
 		{
+			Sleep(500);
 			pacmanMove();
-			b_ghostMoved = false;
+			countGhostMove++;
 		}
-
 		if (ghostsHit())
 			initGameAfterGhostHit();
-	}
+	}	
 }
 
 /* This fnction init the game*/
@@ -51,6 +50,7 @@ void Game::initGame()
 	player.setColor(YELLOW);
 	ghostOne.setColor(LIGHTGREEN);
 	ghostTwo.setColor(LIGHTCYAN);
+	drawGameObj();
 	printScore();
 	printLife();
 }
@@ -65,6 +65,7 @@ void Game::initGameAfterGhostHit()
 	player.setDirection(4);
 	ghostOne.setGhostBody(50,14);
 	ghostTwo.setGhostBody(10,3);
+	drawGameObj();
 	printLife();
 }
 
@@ -233,7 +234,6 @@ void Game::ghostsMove()
 {
 	ghostRandomMove(ghostOne);
 	ghostRandomMove(ghostTwo);
-	Sleep(700);
 }
 
 /* This function handle ghost randome move*/
@@ -358,6 +358,13 @@ void Game::printPreviousGame()
 {
 	clear_screen();
 	board.printPreviousBoard();
+	player.getPacmanBody().draw('@');
+	ghostOne.getGhostBody().draw('$');
+	ghostTwo.getGhostBody().draw('$');
+}
+
+void Game:: drawGameObj()
+{
 	player.getPacmanBody().draw('@');
 	ghostOne.getGhostBody().draw('$');
 	ghostTwo.getGhostBody().draw('$');
