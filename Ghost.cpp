@@ -10,6 +10,12 @@ void Ghost::move()
 	ghostBody.draw('$');
 }
 
+void Ghost::  draw()
+{
+	setTextColor(color);
+	ghostBody.draw('$');
+}
+
 void Ghost::setGhostBody(int newX, int newY)
 {
 	ghostBody.setX(newX);

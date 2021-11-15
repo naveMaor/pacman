@@ -13,17 +13,26 @@ int Game::menu()
 		"\nChoice: "<< endl;
 
 	cin >> userChoice;
+	if (!checkValidUserInput(userChoice))
+	{
+		clear_screen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		menu();
+	}
+		
 	return userChoice;
 }
 
 /* This function handle the game*/
 void Game::playGame()
 {
+	chooseColor();
 	int countGhostMove = 0;
+	bool b_won = false;
 
-	initGame();
+	initGame(getColor());
 
-	while (player.getLife() > 0)
+	while ((player.getLife() > 0) && (!b_won))
 	{
 		printScore();
 		if (countGhostMove == 2)
@@ -33,23 +42,35 @@ void Game::playGame()
 		}
 		else
 		{
-			Sleep(500);
+			Sleep(300);
 			pacmanMove();
 			countGhostMove++;
 		}
 		if (ghostsHit())
 			initGameAfterGhostHit();
+
+		if (checkWin())
+		{
+			b_won = true;
+			winGame();
+		}
 	}	
+
+	// If lose
+	if(player.getLife() == 0)
+		gameOver();
 }
 
 /* This fnction init the game*/
-void Game::initGame()
+void Game::initGame(bool b_color)
 {
 	clear_screen();
 	board.printBoard();
-	player.setColor(YELLOW);
-	ghostOne.setColor(LIGHTGREEN);
-	ghostTwo.setColor(LIGHTCYAN);
+	if (b_color) {
+		player.setColor(YELLOW);
+		ghostOne.setColor(LIGHTGREEN);
+		ghostTwo.setColor(LIGHTCYAN);
+	}
 	drawGameObj();
 	printScore();
 	printLife();
@@ -61,10 +82,13 @@ void Game::initGameAfterGhostHit()
 	player.setMinusLife();
 	removePacman();
 	removeGhosts();
-	player.setPacmanBody(1, 1);
-	player.setDirection(4);
-	ghostOne.setGhostBody(50,14);
-	ghostTwo.setGhostBody(10,3);
+	if (player.getLife() > 0)
+	{
+		player.setPacmanBody(1, 1);
+		player.setDirection(4);
+		ghostOne.setGhostBody(50, 14);
+		ghostTwo.setGhostBody(10, 3);
+	}
 	drawGameObj();
 	printLife();
 }
@@ -139,9 +163,10 @@ void Game::pauseGame()
 	bool b_Continue = false;
 
 	clear_screen();
-	gotoxy(0, 0);
-	cout << "Game paused!\n"
-		"Press ESC to continue";
+	gotoxy(27, 10);
+	cout << "Game paused!";
+	gotoxy(27, 11);
+		cout << "Press ESC to continue";
 	
 	while (!b_Continue)
 	{
@@ -218,7 +243,7 @@ void Game::pacmanMove()
 /* This function check if the ghost hit the pacman*/
 bool Game::ghostsHit()
 {
-	return(ghostHit(ghostOne) && ghostHit(ghostTwo));
+	return(ghostHit(ghostOne) || ghostHit(ghostTwo));
 }
 
 /* This function handle ghost hit*/
@@ -309,18 +334,18 @@ bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 	return false;
 }
 
-/* This function print pacman life*/
-void Game::printLife() {
-	setTextColor(WHITE);
-	gotoxy(28, 22);
-	cout << "Remaining lives: " << player.getLife();
-}
-
 /* This function print pacman score*/
 void Game::printScore() {
 	setTextColor(WHITE);
 	gotoxy(28, 21);
 	cout << "Pacman Score: " << player.getScore();
+}
+
+/* This function print pacman life*/
+void Game::printLife() {
+	setTextColor(WHITE);
+	gotoxy(28, 22);
+	cout << "Remaining lives: " << player.getLife();
 }
 
 /* This function handle game over*/
@@ -329,11 +354,11 @@ void Game::gameOver()
 	Sleep(4000);
 	clear_screen();
 	gotoxy(0, 0);
-	cout << "You losed!" << endl;
+	cout << "You losed!\n\n" << endl;
 }
 
 /* This function print pacman instructions*/
-void Game::printInstructions()
+void const Game ::printInstructions()
 {
 	clear_screen();
 	cout << "Pacman game instructions:\n"
@@ -354,7 +379,7 @@ void Game::printInstructions()
 }
 
 /* This function print the game before paused*/
-void Game::printPreviousGame()
+void const Game::printPreviousGame()
 {
 	clear_screen();
 	board.printPreviousBoard();
@@ -363,9 +388,74 @@ void Game::printPreviousGame()
 	ghostTwo.getGhostBody().draw('$');
 }
 
+/* This function draw ghosts and player*/
 void Game:: drawGameObj()
 {
-	player.getPacmanBody().draw('@');
-	ghostOne.getGhostBody().draw('$');
-	ghostTwo.getGhostBody().draw('$');
+	player.draw();
+	ghostOne.draw();
+	ghostTwo.draw();
+}
+
+/* Thsi function check if the player eat all breadcrumbs he win*/
+bool Game:: checkWin()
+{
+	return player.getScore() == 1092;
+}
+
+/* This function handle win situation*/
+void const Game::winGame()
+{
+	setTextColor(GREEN);
+	gotoxy(28, 24);	
+	cout << "You won the game!!!" << endl;
+	Sleep(3000);
+	clear_screen();
+}
+
+/* Check if user input is correct*/
+bool Game::checkValidUserInput(int userChoice)
+{
+	if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9))
+		return true;
+	return false;
+}
+
+
+void Game::chooseColor()
+{
+	char colorchoise = 'd';
+	clear_screen();
+	cout << "Do you want to use colors in the game?" << endl;
+	cout << "Press Y for yes or N for no" << endl;
+	cin >> colorchoise;
+
+	while (colorchoise != 'y' && colorchoise != 'Y' && colorchoise != 'n' && colorchoise != 'N')
+	{
+		clear_screen();
+		cout << "You entered incorrect option, please enter again" << endl;
+		cout << "Do you want to use colors in the game?" << endl;
+		cout << "Press Y for yes or N for no" << endl;
+
+		cin >> colorchoise;
+	}
+
+	if (colorchoise == 'y' || colorchoise == 'Y')
+	{
+		setColor(true);
+		cout << "\nYou will play with colors!" << endl;
+		cout << "Press any key to start the game" << endl;
+
+		_getch();
+		clear_screen();
+
+	}
+	else if (colorchoise == 'n' || colorchoise == 'N')
+	{
+		setColor(false);
+		cout << "\nYou will play without colors!" << endl;
+		cout << "Press any key to start the game" << endl;
+
+		_getch();
+		clear_screen();
+	}
 }

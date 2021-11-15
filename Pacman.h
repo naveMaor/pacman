@@ -9,7 +9,7 @@ private:
 	int score = 0;
 	int life = 3;
 	int direction = 4;
-	Color color;
+	Color color = WHITE;
 
 public:
 	// Constractor
@@ -17,6 +17,7 @@ public:
 
 	// Pacman functions
 	void move();
+	void draw();
 
 	//Getters and setters
 	int getDirection() const;

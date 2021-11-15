@@ -21,6 +21,11 @@ void Pacman::move()
 	pacmanBody.draw('@');
 }
 
+void Pacman:: draw()
+{
+	setTextColor(color);
+	pacmanBody.draw('@');
+}
 
 Point Pacman::getPacmanBody()
 {

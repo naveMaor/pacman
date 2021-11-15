@@ -32,7 +32,7 @@ class Board
         {w,w,w,w,w,w,w,w,w,w,' ',' ',' ',w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,' ',' ',' ',w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,' ',' ',' ',w,w,w,w,w,w,w,w,w,w}
     };
 public:
-	void printBoard();
+	void const printBoard();
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
     void setBoardValByPoint(int x, int y) { board[y][x] = 's'; }; // garabge value
     void printPreviousBoard();

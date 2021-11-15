@@ -4,7 +4,7 @@
 #include "Board.h"
 
 /* This function print the board*/
-void Board::printBoard()
+void const Board::printBoard()
 {  
     for (int i = 0; i < HIGHT; i++)
     {

@@ -13,7 +13,6 @@ int main()
 		case 1:
 		{
 			game.playGame();
-			game.gameOver();
 			break;
 		}
 		case 8:

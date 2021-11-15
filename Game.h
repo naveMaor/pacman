@@ -15,18 +15,26 @@ private:
 	Ghost ghostTwo = {10,3};
 	Pacman player = {1,1};
 	Board board;
+	bool color = true;
 
 public:
 	int menu();
-	void printInstructions();
-	void initGame();
+	bool checkValidUserInput(int userChoice);
+	void const printInstructions();
+	void initGame(bool b_color);
 	void playGame();
 	void pauseGame();
-	void printPreviousGame();
+	void const printPreviousGame();
+	bool checkWin();
+	void const winGame();
 	void gameOver();
 	void printLife();
 	void printScore();
 	void drawGameObj();
+	void chooseColor();
+	bool getColor() const { return color; };
+	void setColor(bool boolean) { color = boolean; }
+
 
 
 	// Ghosts functions

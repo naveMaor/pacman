@@ -5,7 +5,7 @@ class Ghost
 {
 	// Ghost data members
 	Point ghostBody;
-	Color color;
+	Color color = WHITE;
 	int direction = 3;
 
 public:
@@ -15,6 +15,7 @@ public:
 
 	// Ghost functions
 	void	move();
+	void draw();
 	void	setGhostBody(int newx, int newy);
 	Point	getGhostBody() const;
 	void setGhostDirection(int direction);
