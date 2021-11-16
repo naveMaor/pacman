@@ -197,7 +197,7 @@ void Game::pacmanMove()
 	// If player is going through tunnel
 	if (charAtnextPoint == ' ')
 	{
-		if (charAtPoint == 250) // if there was at curr pos then raise score
+		if (charAtPoint == bc) // if there was at curr pos then raise score
 		{
 			player.setPlusScore();
 			board.setBoardValByPoint(x, y);
@@ -226,12 +226,12 @@ void Game::pacmanMove()
 	}
 
 	//if  there is wall in the next move
-	else if (charAtnextPoint == 219)
+	else if (charAtnextPoint == w)
 		player.setDirection(4);
 
 	else
 	{
-		if (charAtPoint == 250)
+		if (charAtPoint == bc)
 		{
 			player.setPlusScore();
 		}
@@ -283,10 +283,9 @@ void Game::ghostRandomMove(Ghost& ghost)
 /* This function print breadcrumbs at point*/
 void Game::printBreadCrumbs(int x, int y)
 {
-	unsigned char breadcrumb = 250;
 	setTextColor(WHITE);
 	gotoxy(x, y);
-	cout << breadcrumb;
+	cout << bc;
 }
 
 /* This function check if ghost next move is valid */
@@ -300,7 +299,7 @@ bool Game::checkGhostValidMove(int x, int y, int dir)
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtNextPoint == 219) || (charAtNextPoint == ' ') || (charAtNextPoint == '$' ))
+	if ((charAtNextPoint == w) || (charAtNextPoint == ' ') || (charAtNextPoint == '$' ))
 		return false;
 	
 	return true;
@@ -329,7 +328,7 @@ void Game::ghostIlustrateNextMove(int& x, int& y, int dir)
 /* This function check if in the last position of the ghost was bread crumbs*/
 bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 {
-	if (board.getBoardValFromPoint(x, y) == 250)
+	if (board.getBoardValFromPoint(x, y) == bc)
 		return true;
 	return false;
 }
