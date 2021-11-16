@@ -1,17 +1,14 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Point.h"
 
-//Point::Point(int _x, int _y) {
-//	x = _x;
-//	y = _y;
-//}
 
+/* This function draw requested char in point*/
 void Point::draw(char ch) {
 	gotoxy(x, y);
 	cout << ch;
 }
 
+/* This function change x or y by requested direction*/
 void Point::move(int dir) {
 	switch (dir) {
 	case 0: // LEFT
@@ -35,20 +32,20 @@ void Point::move(int dir) {
 	}
 }
 
-
+/* This function get the x of point*/
 int Point::getX ()  const
 {
 	return x;
 }
 
+/* This function get the y of point*/
 int Point::getY()  const
 {
 	return y;
 }
 
-bool Point:: operator == (const Point& point)
+/* This freind function overloading == opeartor for point*/
+bool operator== (const Point& pointOne, const Point& pointTwo)
 {
-	if ((this->x == point.x) && (this->y == point.y))
-		return true;
-	return false;
+	return ((pointOne.getX() == pointTwo.getX()) && (pointOne.getY() == pointTwo.getY()));
 }

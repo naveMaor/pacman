@@ -29,7 +29,7 @@ int main()
 		userChoice = game.menu();
 	}
 
-	clear_screen();
+	clearScreen();
 	cout << "Bye Bye!\n"
 		"Thank you for playing with us!" << endl;
 	return 0;

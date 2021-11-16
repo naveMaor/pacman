@@ -1,5 +1,3 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "Board.h"
 
@@ -14,14 +12,15 @@ void const Board::printBoard()
     } 
 };
 
+/* This function print the previous board before pausing*/
 void Board::printPreviousBoard()
 {
     for (int i = 0; i < HIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
         {
-            if (board[i][j] == 's')
-                cout << ' ';
+            if (board[i][j] == boardGarbageVal)
+                cout << space;
             else
                 cout << board[i][j];
         }

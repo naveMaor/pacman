@@ -5,22 +5,29 @@
 /* This function get user choice of menu*/
 int Game::menu()
 {
+	printGameMenu();
+	cin >> userChoice;
+
+	/* If the user enter invalid option clear and ignore cin input */
+	if (!checkValidUserInput(userChoice))
+	{
+		std::cin.clear();
+		std::cin.ignore();
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		menu();
+	}	
+	return userChoice;
+}
+
+void Game::printGameMenu()
+{
 	setTextColor(WHITE);
 	cout << "Welcome to PacmanGame \n"
 		"(1) Start a new game\n"
 		"(8) Present instructions and keys\n"
 		"(9) EXIT\n"
-		"\nChoice: "<< endl;
-
-	cin >> userChoice;
-	if (!checkValidUserInput(userChoice))
-	{
-		clear_screen();
-		cout << "You enterd incorrect option, please choose again.\n\n";
-		menu();
-	}
-		
-	return userChoice;
+		"\nChoice: " << endl;
 }
 
 /* This function handle the game*/
@@ -30,7 +37,7 @@ void Game::playGame()
 	int countGhostMove = 0;
 	bool b_won = false;
 
-	initGame(getColor());
+	initGame(getIsColorGame());
 
 	while ((player.getLife() > 0) && (!b_won))
 	{
@@ -42,7 +49,7 @@ void Game::playGame()
 		}
 		else
 		{
-			Sleep(300);
+			Sleep(pacmanSpeed);
 			pacmanMove();
 			countGhostMove++;
 		}
@@ -52,6 +59,7 @@ void Game::playGame()
 		if (checkWin())
 		{
 			b_won = true;
+			printScore();
 			winGame();
 		}
 	}	
@@ -64,7 +72,7 @@ void Game::playGame()
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
 {
-	clear_screen();
+	clearScreen();
 	board.printBoard();
 	if (b_color) {
 		player.setColor(YELLOW);
@@ -80,24 +88,42 @@ void Game::initGame(bool b_color)
 void Game::initGameAfterGhostHit()
 {
 	player.setMinusLife();
-	removePacman();
-	removeGhosts();
+	
 	if (player.getLife() > 0)
 	{
-		player.setPacmanBody(1, 1);
+		printPlayerHitGhost();
+		Sleep(shortPauseWindow);
+		removePrintPlayerHitGhost();
+		removePacman();
+		removeGhosts();
+		player.setPacmanBody(pacmanStartX, pacmanStartY);
 		player.setDirection(4);
-		ghostOne.setGhostBody(50, 14);
-		ghostTwo.setGhostBody(10, 3);
+		ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
+		ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
+		drawGameObj();
+		printLife();
 	}
-	drawGameObj();
-	printLife();
+}
+
+void Game::printPlayerHitGhost()
+{
+	if (getIsColorGame())
+		setTextColor(RED);
+	gotoxy(26, 23);
+	cout << "You hit the ghost!" << endl;
+}
+
+void Game::removePrintPlayerHitGhost()
+{
+	gotoxy(26, 23);
+	cout << "                     ";
 }
 
 /* This function remove pacman last character after ghost hit*/
 void Game::removePacman()
 {
 	gotoxy(player.getPacmanBody().getX(), player.getPacmanBody().getY());
-	cout << ' ';
+	cout << (char)space;
 }
 
 /* This function remove ghosts last character after pacman hit*/
@@ -116,7 +142,7 @@ void Game::removeGhost(Ghost ghost)
 	if (ifLastGhostPositionWasBreadcrumb(x, y))
 		printBreadCrumbs(x, y);
 	else
-		cout << ' ';
+		cout << (char)space;
 }
 
 /* This function get the user key board hit*/
@@ -162,8 +188,9 @@ void Game::pauseGame()
 	char ch = 0;
 	bool b_Continue = false;
 
-	clear_screen();
-	gotoxy(27, 10);
+	//clearScreen();
+	clearCenter();
+	gotoxy(27, 9);
 	cout << "Game paused!";
 	gotoxy(27, 11);
 		cout << "Press ESC to continue";
@@ -195,7 +222,7 @@ void Game::pacmanMove()
 	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
 
 	// If player is going through tunnel
-	if (charAtnextPoint == ' ')
+	if (charAtnextPoint == space)
 	{
 		if (charAtPoint == bc) // if there was at curr pos then raise score
 		{
@@ -204,33 +231,34 @@ void Game::pacmanMove()
 		}
 
 		if (x == 1) {
-			player.getPacmanBody().draw(' ');
+			player.getPacmanBody().draw(space);
 			player.setPacmanBody(69, y);
 		}
 
 		else if (x == 68) {
-			player.getPacmanBody().draw(' ');
+			player.getPacmanBody().draw(space);
 			player.setPacmanBody(0, y);
 		}
 		else if (y == 1)
 		{
-			player.getPacmanBody().draw(' ');
+			player.getPacmanBody().draw(space);
 			player.setPacmanBody(x, 19);
 		}
 		else if (y == 18)
 		{
-			player.getPacmanBody().draw(' ');
+			player.getPacmanBody().draw(space);
 			player.setPacmanBody(x, 0);
 		}
 		player.move();
 	}
 
-	//if  there is wall in the next move
+	// if there is wall in the next move
 	else if (charAtnextPoint == w)
 		player.setDirection(4);
 
 	else
 	{
+		// if there breadcrumb
 		if (charAtPoint == bc)
 		{
 			player.setPlusScore();
@@ -283,9 +311,10 @@ void Game::ghostRandomMove(Ghost& ghost)
 /* This function print breadcrumbs at point*/
 void Game::printBreadCrumbs(int x, int y)
 {
+	unsigned char breadCrumb = bc;
 	setTextColor(WHITE);
 	gotoxy(x, y);
-	cout << bc;
+	cout << breadCrumb;
 }
 
 /* This function check if ghost next move is valid */
@@ -299,7 +328,7 @@ bool Game::checkGhostValidMove(int x, int y, int dir)
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtNextPoint == w) || (charAtNextPoint == ' ') || (charAtNextPoint == '$' ))
+	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon ))
 		return false;
 	
 	return true;
@@ -336,30 +365,32 @@ bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 /* This function print pacman score*/
 void Game::printScore() {
 	setTextColor(WHITE);
-	gotoxy(28, 21);
+	gotoxy(38, 21);
 	cout << "Pacman Score: " << player.getScore();
 }
 
 /* This function print pacman life*/
 void Game::printLife() {
 	setTextColor(WHITE);
-	gotoxy(28, 22);
+	gotoxy(16, 21);
 	cout << "Remaining lives: " << player.getLife();
 }
 
 /* This function handle game over*/
 void Game::gameOver()
 {
-	Sleep(4000);
-	clear_screen();
-	gotoxy(0, 0);
-	cout << "You losed!\n\n" << endl;
+	if (getIsColorGame())
+		setTextColor(LIGHTRED);
+	gotoxy(30, 23);
+	cout << "You losed!";
+	Sleep(longPauseWindow);
+	clearScreen();
 }
 
 /* This function print pacman instructions*/
 void const Game ::printInstructions()
 {
-	clear_screen();
+	clearScreen();
 	cout << "Pacman game instructions:\n"
 		"The purpose of the game is to eat all the breadcrumbs (dots).\n"
 		"If pacman makes contact with a ghost, he will lose a life.\n"
@@ -373,18 +404,21 @@ void const Game ::printInstructions()
 		"Pause/continue the game- ESC\n\n"
 		"Press any key to return the menu\n";
 	
-	_getch();
-	clear_screen();
+	char c = _getch();
+	clearScreen();
 }
 
 /* This function print the game before paused*/
 void const Game::printPreviousGame()
 {
-	clear_screen();
+	clearScreen();
 	board.printPreviousBoard();
-	player.getPacmanBody().draw('@');
-	ghostOne.getGhostBody().draw('$');
-	ghostTwo.getGhostBody().draw('$');
+
+	player.getPacmanBody().draw(pacmanIcon);
+	ghostOne.getGhostBody().draw(ghostIcon);
+	ghostTwo.getGhostBody().draw(ghostIcon);
+	printScore();
+	printLife();
 }
 
 /* This function draw ghosts and player*/
@@ -404,57 +438,61 @@ bool Game:: checkWin()
 /* This function handle win situation*/
 void const Game::winGame()
 {
-	setTextColor(GREEN);
-	gotoxy(28, 24);	
+	if(getIsColorGame())
+		setTextColor(GREEN);
+	gotoxy(26, 23);	
 	cout << "You won the game!!!" << endl;
-	Sleep(3000);
-	clear_screen();
+	Sleep(longPauseWindow);
+	clearScreen();
 }
 
 /* Check if user input is correct*/
 bool Game::checkValidUserInput(int userChoice)
 {
-	if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9))
+	if ((userChoice == 1) || (userChoice == 8) || (userChoice == 9))
 		return true;
 	return false;
 }
 
-
+/* This function*/
 void Game::chooseColor()
 {
-	char colorchoise = 'd';
-	clear_screen();
+	char colorChoice = 'd';
+	clearScreen();
 	cout << "Do you want to use colors in the game?" << endl;
 	cout << "Press Y for yes or N for no" << endl;
-	cin >> colorchoise;
+	colorChoice = _getch();
 
-	while (colorchoise != 'y' && colorchoise != 'Y' && colorchoise != 'n' && colorchoise != 'N')
+	while (colorChoice != 'y' && colorChoice != 'Y' && colorChoice != 'n' && colorChoice != 'N' && !_kbhit())
 	{
-		clear_screen();
+		clearScreen();
 		cout << "You entered incorrect option, please enter again" << endl;
 		cout << "Do you want to use colors in the game?" << endl;
 		cout << "Press Y for yes or N for no" << endl;
-
-		cin >> colorchoise;
+		colorChoice = _getch();
 	}
 
-	if (colorchoise == 'y' || colorchoise == 'Y')
+	if (colorChoice == 'y' || colorChoice == 'Y')
 	{
-		setColor(true);
+		setIsColorGame(true);
 		cout << "\nYou will play with colors!" << endl;
-		cout << "Press any key to start the game" << endl;
-
-		_getch();
-		clear_screen();
-
 	}
-	else if (colorchoise == 'n' || colorchoise == 'N')
+	else if (colorChoice == 'n' || colorChoice == 'N')
 	{
-		setColor(false);
+		setIsColorGame(false);
 		cout << "\nYou will play without colors!" << endl;
-		cout << "Press any key to start the game" << endl;
+	}
+	cout << "The game will start automaticliy in " << shortPauseWindow/1000 << " seconds.";
+	Sleep(shortPauseWindow);
+	clearScreen();
+}
 
-		_getch();
-		clear_screen();
+/* This function clear the center of the screen when pausing the game*/
+void Game::clearCenter()
+{
+	for (int j = 0; j < 5; j++)
+	{
+		gotoxy(20, 8 + j);
+		cout << "                                  ";
 	}
 }

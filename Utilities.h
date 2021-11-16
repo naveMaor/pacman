@@ -1,7 +1,5 @@
 #ifndef UTILITIES
 #define UTILITIES
-// you must have a config file, both for windows and for compiling on Linux (MAMA)
-// BUT, you need to change the content of the config!
 
 #include "Color.h"
 #include <iostream>
@@ -10,12 +8,15 @@
 #include <conio.h>
 #include <windows.h>
 
+using std::cout;
+using std::cin;
+using std::endl;
+
 // Wall and BreadCrumbs enum
-static enum characterEnum { w = 219, bc = 250 };
+enum characterEnum { w = 219, bc = 250, pacmanIcon = 64, ghostIcon= 36, space =  32, boardGarbageVal = 53};
 void gotoxy(int x, int y);
 void setTextColor(Color);
 void hideCursor();
-void clear_screen();
-
+void clearScreen();
 
 #endif

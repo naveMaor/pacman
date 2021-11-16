@@ -10,15 +10,23 @@
 class Game
 {
 private:
+	enum initObjLocation {
+		pacmanStartX = 1, pacmanStartY = 1,
+		ghostOneStartX = 50, ghostOneStartY = 14,
+		ghostTwoStartX = 10, ghostTwoStartY = 3
+	};
+	enum sleepEnum { shortPauseWindow = 3000, longPauseWindow = 7000, pacmanSpeed = 100 };
 	int userChoice = 4;
-	Ghost ghostOne = {50,14};
-	Ghost ghostTwo = {10,3};
-	Pacman player = {1,1};
+	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
+	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
+	Pacman player = {pacmanStartX,pacmanStartY};
 	Board board;
-	bool color = true;
+	bool b_IsColorGame = true;
 
 public:
+	// Game functions
 	int menu();
+	void printGameMenu();
 	bool checkValidUserInput(int userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);
@@ -30,12 +38,13 @@ public:
 	void gameOver();
 	void printLife();
 	void printScore();
+	void printPlayerHitGhost();
+	void removePrintPlayerHitGhost();
 	void drawGameObj();
 	void chooseColor();
-	bool getColor() const { return color; };
-	void setColor(bool boolean) { color = boolean; }
-
-
+	bool getIsColorGame() const { return b_IsColorGame; };
+	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
+	void clearCenter();
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);
@@ -54,6 +63,5 @@ public:
 	void pacmanMove();
 	void getUserKeyboard();
 	void removePacman();
-
 };
 

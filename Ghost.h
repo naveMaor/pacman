@@ -14,12 +14,12 @@ public:
 	Ghost(int newX, int newY) : ghostBody(newX, newY) {};
 
 	// Ghost functions
-	void	move();
+	void move();
 	void draw();
-	void	setGhostBody(int newx, int newy);
-	Point	getGhostBody() const;
+	void setGhostBody(int newX, int newY);
+	Point getGhostBody() const;
 	void setGhostDirection(int direction);
-	Color getColor() { return color; };
+	Color getColor() const { return color; };
 	void setColor(Color color);
 };
 

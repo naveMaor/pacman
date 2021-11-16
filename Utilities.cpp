@@ -1,10 +1,12 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Utilities.h"
 #include "Color.h"
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::flush;
 
+/* This functiom change the cursor coordinate in the window by request x,y*/
 void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;
@@ -17,10 +19,12 @@ void gotoxy(int x, int y)
 	hideCursor();
 }
 
+/* This function change the text color of the window*/
 void setTextColor(Color colorToSet) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)colorToSet);
 }
 
+/* This function hide the cursor*/
 void hideCursor()
 {
 	HANDLE myconsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -30,9 +34,11 @@ void hideCursor()
 	SetConsoleCursorInfo(myconsole, &CURSOR);//second argument need pointer
 }
 
-void clear_screen()
+void clearScreen()
 {
 	system("cls");
 }
+
+
 
 
