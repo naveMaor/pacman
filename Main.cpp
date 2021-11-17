@@ -15,6 +15,11 @@ int main()
 			game.playGame();
 			break;
 		}
+		case 2:
+		{
+			game.chooseColor();
+			break;
+		}
 		case 8:
 		{
 			game.printInstructions();
@@ -22,7 +27,7 @@ int main()
 		}
 		default:
 		{
-			cout << "You entered incorrect option, please enter again" << endl;
+			cout << "You entered incorrect option, please enter again!" << endl;
 			break;
 		}	
 		}

@@ -36,5 +36,6 @@ public:
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
     void printPreviousBoard();
+    
 };
 

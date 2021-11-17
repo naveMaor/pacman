@@ -23,8 +23,10 @@ public:
 	int getDirection() const;
 	void setDirection(int newDirection);
 	int	getScore() const { return score; };
+	void setScore(int x) { score = x; };
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
+	void setLife() { life = 3; };
 	void setMinusLife() { life--; }
 	Point getPacmanBody();
 	void setPacmanBody(int x, int y);
