@@ -37,8 +37,10 @@ void Game::printGameSettings() const
 	cout << "Pacman settings:\n"
 		"(1) Change color settings (current- ";
 	printIsColorGame();
-	cout<< ")\n" 
-		"(2) Change pacman speed\n\n"
+	cout << ")\n"
+		"(2) Change pacman speed (current - ";
+	printCurrentSpeedGame();
+	cout << ")\n"
 		"Choice: ";
 }
 
@@ -643,9 +645,9 @@ void Game::gameSpeed()
 void Game::printPacmanSpeedOptions() const
 {
 	setTextColor(Color:: WHITE);
-	cout << "Please enter pacman speed: \n"
+	cout << "Please enter pacman speed\n"
 		"1. Easy\n"
-		"2. Medium - default\n"
+		"2. Medium\n"
 		"3. Hard\n"
 		"4. Expert\n\n"
 		"Choice: ";
@@ -694,4 +696,19 @@ bool Game::checkValidSpeedSettingsInput(string input) const
 			return true;
 	}
 	return false;
+}
+
+/* This function print current speed game*/
+void Game::printCurrentSpeedGame() const
+{
+	int currentSpeed = getGameSpeedVal();
+	
+	if (currentSpeed == easyGameSpeed)
+		cout << "easy";
+	else if (currentSpeed == mediumGameSpeed)
+		cout << "medium";
+	else if (currentSpeed == hardGameSpeed)
+		cout << "hard";
+	else // currentSpeed == expertGameSpeed
+		cout << "expert";
 }

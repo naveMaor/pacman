@@ -19,8 +19,9 @@ private:
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
 	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000, defalutGameSpeed = 300};
+	enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300 , hardGameSpeed = 140, expertGameSpeed = 70};
 	int userChoice = 4;
-	int gameSpeedVal = defalutGameSpeed;
+	int gameSpeedVal = mediumGameSpeed;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
 	Pacman player = {pacmanStartX,pacmanStartY};
@@ -62,6 +63,8 @@ public:
 	bool checkValidSpeedSettingsInput(string input) const;
 	void printPacmanSpeedOptions()const;
 	void printIsColorGame() const;
+	void printCurrentSpeedGame()const;
+	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
 	char stringToChar(string& s)const;
 
