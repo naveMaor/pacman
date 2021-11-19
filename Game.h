@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 #include "Board.h"
 #include "Pacman.h"
 #include "Board.h"
@@ -8,6 +10,7 @@
 #include "Point.h"
 #include <string>
 #include <stdio.h>
+using namespace std;
 
 class Game
 {

@@ -7,17 +7,22 @@
 int Game::menu()
 {
 	printGameMenu();
-	cin >> userChoice;
+	string input;
+	getline(cin, input);
+	
+
+	//cin >> userChoice;
 
 	/* If the user enter invalid option clear and ignore cin input */
-	if (!checkValidUserInput(userChoice))
+	if (!checkValidUserInput(input))
 	{
-		std::cin.clear();
-		std::cin.ignore();
+		//std::cin.clear();
+		//std::cin.ignore();
 		clearScreen();
 		cout << "You enterd incorrect option, please choose again.\n\n";
 		menu();
 	}
+	userChoice = stoi(input);
 	return userChoice;
 }
 
@@ -500,10 +505,14 @@ void const Game::winGame()
 }
 
 /* Check if user input is correct*/
-bool Game::checkValidUserInput(int userChoice)
+bool Game::checkValidUserInput(string input)
 {
-	if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9) )
-		return true;
+	if (input.length() == 1 && userChoice!=0)
+	{
+		int userChoice = stoi(input);
+		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9))
+			return true;
+	}
 	return false;
 }
 
