@@ -41,6 +41,8 @@ void Game::printGameSettings() const
 		"(2) Change pacman speed (current - ";
 	printCurrentSpeedGame();
 	cout << ")\n"
+		"(3) Back to main menu";
+	cout << "\n"
 		"Choice: ";
 }
 
@@ -67,6 +69,9 @@ void Game::gameSettings()
 
 	case 2:
 		gameSpeed();
+		break;
+	case 3:
+		clearScreen();
 		break;
 	default:
 		break;
@@ -602,7 +607,7 @@ bool Game::checkValidUserSettings(string input) const
 	if (input.length() == 1 && userChoice != 0)
 	{
 		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2))
+		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
 			return true;
 	}
 	return false;
@@ -662,7 +667,7 @@ void Game::handleGameMenuSettingsInput()
 	while (!checkValidUserSettings(input))
 	{
 		clearScreen();
-		cout << "You enterd incorrect option, please choose again.\n\n";
+		cout << "You entered incorrect option, please choose again.\n\n";
 		printGameSettings();
 		getline(cin, input);
 	}
