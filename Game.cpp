@@ -1,5 +1,3 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Game.h"
 
 
@@ -23,7 +21,7 @@ int Game::menu()
 	return userChoice;
 }
 
-void Game::printGameMenu()
+void Game::printGameMenu() const
 {
 	cout << "Welcome to PacmanGame \n"
 		"(1) Start a new game\n"
@@ -33,13 +31,23 @@ void Game::printGameMenu()
 }
 
 /* This function print game settings options*/
-void Game::printGameSettings()
+void Game::printGameSettings() const
 {
 	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
-		"(1) Change color settings\n"
-		"(2) Change pacman speed\n"
-		"\nChoice: " << endl;
+		"(1) Change color settings (current- ";
+	printIsColorGame();
+	cout<< ")\n" 
+		"(2) Change pacman speed\n\n"
+		"Choice: ";
+}
+
+void Game::printIsColorGame() const
+{
+	if (getIsColorGame())
+		cout << "is color game";
+	else
+		cout << "isn't color game";
 }
 
 /* This function handle settings options*/
@@ -57,7 +65,6 @@ void Game::gameSettings()
 
 	case 2:
 		gameSpeed();
-		
 		break;
 	default:
 		break;
@@ -76,6 +83,7 @@ void Game::playGame()
 	while ((player.getLife() > 0) && (!b_won))
 	{
 		printScore();
+
 		if (countGhostMove == 2)
 		{
 			ghostsMove();
@@ -132,8 +140,8 @@ void Game::initGameAfterGhostHit()
 		printPlayerHitGhost();
 		Sleep(shortPauseWindow);
 		removePrintPlayerHitGhost();
-		removePacman();
 		removeGhosts();
+		removePacman();
 		player.setPacmanBody(pacmanStartX, pacmanStartY);
 		player.setDirection(4);
 		ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
@@ -142,7 +150,7 @@ void Game::initGameAfterGhostHit()
 	}
 }
 
-void Game::printPlayerHitGhost()
+void Game::printPlayerHitGhost() const
 {
 	if (getIsColorGame())
 		setTextColor(Color::RED);
@@ -150,7 +158,7 @@ void Game::printPlayerHitGhost()
 	cout << "You hit the ghost!" << endl;
 }
 
-void Game::removePrintPlayerHitGhost()
+void Game::removePrintPlayerHitGhost() const
 {
 	gotoxy(26, 23);
 	cout << "                     ";
@@ -400,7 +408,8 @@ bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 }
 
 /* This function print pacman score*/
-void Game::printScore() {
+void Game::printScore() const
+{
 	setTextColor(Color::WHITE);
 	gotoxy(38, 21);
 	cout << "Pacman Score: ";
@@ -410,7 +419,8 @@ void Game::printScore() {
 }
 
 /* This function print pacman life*/
-void Game::printLife() {
+void Game::printLife()  const
+{
 	setTextColor(Color::WHITE);
 	resetPrintLife();
 	gotoxy(16, 21);
@@ -421,7 +431,7 @@ void Game::printLife() {
 		cout << (char)heart;	
 }
 
-void Game::resetPrintLife() {
+void Game::resetPrintLife() const {
 	gotoxy(16, 21);
 	cout << "                     ";
 }
@@ -460,35 +470,33 @@ void const Game ::printInstructions()
 }
 
 /* This function print the game before paused*/
-void const Game::printPreviousGame()
+void Game::printPreviousGame() const
 {
 	clearScreen();
 	board.printPreviousBoard();
-
-	player.getPacmanBody().draw(pacmanIcon);
-	ghostOne.getGhostBody().draw(ghostIcon);
-	ghostTwo.getGhostBody().draw(ghostIcon);
+	player.draw();
+	ghostOne.draw();
+	ghostTwo.draw();
 	printScore();
 	printLife();
 }
 
 /* This function draw ghosts and player*/
-void Game:: drawGameObj()
+void Game:: drawGameObj() const
 {
 	player.draw();
 	ghostOne.draw();
 	ghostTwo.draw();
 }
 
-/* Thsi function check if the player eat all breadcrumbs he win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-bool Game:: checkWin()
+/* This function check if the player eat all breadcrumbs he win!!*/
+bool Game:: checkWin() const
 {
 	return player.getScore() == 1092;
-	//return player.getScore() == 10;
 }
 
 /* This function handle win situation*/
-void const Game::winGame()
+void Game::winGame()
 {
 	if(getIsColorGame())
 		setTextColor(Color::GREEN);
@@ -500,18 +508,14 @@ void const Game::winGame()
 }
 
 /* Check if user input is correct*/
-bool Game::checkValidUserInput(string input)
+bool Game::checkValidUserInput(string input) const
 {
 	if (input.length() == 1)
 	{
 		char chUser = stringToChar(input);
 		if (chUser >= '0' && chUser <= '9')
-		{
-			
-			if (chUser != '0')
-				if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
-					return true;
-		}
+			if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
+				return true;
 	}
 	return false;
 }
@@ -554,7 +558,7 @@ void Game::chooseColor()
 }
 
 /* This function clear the center of the screen when pausing the game*/
-void Game::clearCenter()
+void Game::clearCenter() const
 {
 	for (int j = 0; j < 5; j++)
 	{
@@ -573,7 +577,6 @@ void Game::resetGame()
 	ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
 	ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
 	board.resetBoard();
-	setIsColorGame(false);
 }
 
 /* This function init pacman and ghosts*/
@@ -590,7 +593,9 @@ void Game::initGhosts()
 	ghostTwo.initGhost();
 }
 
-bool Game::checkValidUserSettings(string input)
+
+/* This function check valid user input*/
+bool Game::checkValidUserSettings(string input) const
 {
 	if (input.length() == 1 && userChoice != 0)
 	{
@@ -601,14 +606,14 @@ bool Game::checkValidUserSettings(string input)
 	return false;
 }
 
-
-char Game::stringToChar(string& s)
+/* This function change string to char*/
+char Game::stringToChar(string& s) const
 {
 	char res = s[0];
 		return res;
 }	
 
-
+/* This function handle the speed of the game settings*/
 void Game::gameSpeed()
 {
 	clearScreen();
@@ -623,10 +628,10 @@ void Game::gameSpeed()
 		setGameSpeed(defalutGameSpeed);
 		break;
 	case 3:
-		setGameSpeed(150);
+		setGameSpeed(140);
 		break;
 	case 4:
-		setGameSpeed(50);
+		setGameSpeed(70);
 		break;
 
 	default:
@@ -634,9 +639,10 @@ void Game::gameSpeed()
 	}
 }
 
-void Game::printPacmanSpeedOptions()
+/* This function prints the pacman speed settings options*/
+void Game::printPacmanSpeedOptions() const
 {
-	setTextColor(WHITE);
+	setTextColor(Color:: WHITE);
 	cout << "Please enter pacman speed: \n"
 		"1. Easy\n"
 		"2. Medium - default\n"
@@ -645,6 +651,7 @@ void Game::printPacmanSpeedOptions()
 		"Choice: ";
 }
 
+/* This function handle the game menu settings input*/
 void Game::handleGameMenuSettingsInput()
 {
 	string input;
@@ -660,7 +667,7 @@ void Game::handleGameMenuSettingsInput()
 	userChoice = stoi(input);
 }
 
-
+/* This function handle game menu speed settings input*/
 void Game::handleGameMenuSpeedSettingsInput()
 {
 	string input;
@@ -677,7 +684,8 @@ void Game::handleGameMenuSpeedSettingsInput()
 
 }
 
-bool Game::checkValidSpeedSettingsInput(string input)
+/* This function check valid speed settings input*/
+bool Game::checkValidSpeedSettingsInput(string input) const
 {
 	if (input.length() == 1 && userChoice != 0)
 	{

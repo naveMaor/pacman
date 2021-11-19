@@ -1,8 +1,7 @@
-
 #include "Board.h"
 
 /* This function print the board*/
-void const Board::printBoard()
+void const Board::printBoard() const
 {  
     for (int i = 0; i < HIGHT; i++)
     {
@@ -13,7 +12,7 @@ void const Board::printBoard()
 };
 
 /* This function print the previous board before pausing*/
-void Board::printPreviousBoard()
+void Board::printPreviousBoard() const
 {
     for (int i = 0; i < HIGHT; i++)
     {

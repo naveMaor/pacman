@@ -1,4 +1,3 @@
-
 #include "Ghost.h"
 
 /* This function remove ghost from board and draw it in the new place by direction*/
@@ -10,7 +9,7 @@ void Ghost::move()
 }
 
 /* This function draw the ghost in current location*/
-void Ghost::draw()
+void Ghost::draw() const
 {
 	setTextColor(color);
 	ghostBody.draw(ghostIcon);

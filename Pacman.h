@@ -17,7 +17,7 @@ public:
 
 	// Pacman functions
 	void move();
-	void draw();
+	void draw() const;
 
 	//Getters and setters
 	int getDirection() const;
@@ -28,9 +28,9 @@ public:
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
 	void setLife(int newLife) { life = newLife; };
-	Point getPacmanBody();
+	Point getPacmanBody() const;
 	void setPacmanBody(int x, int y);
-	Color getColor() { return color; };
+	Color getColor() const { return color; };
 	void setColor(Color color);
 };
 

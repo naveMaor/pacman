@@ -1,6 +1,3 @@
-
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Pacman.h"
 
 /* This function get the direction of the pacman*/
@@ -24,14 +21,14 @@ void Pacman::move()
 }
 
 /* This function draw the ghost in current location*/
-void Pacman:: draw()
+void Pacman:: draw() const
 {
 	setTextColor(color);
 	pacmanBody.draw(pacmanIcon);
 }
 
 /* This function return pacman current location as Point (x,y)*/
-Point Pacman::getPacmanBody()
+Point Pacman::getPacmanBody() const
 {
 	return pacmanBody;
 }

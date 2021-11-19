@@ -17,7 +17,7 @@ public:
 	//constractor
 	Point(int newX, int newY) : x(newX), y(newY) {};
 
-	void draw(char ch);
+	void draw(char ch) const;
 	void move(int direction);
 	void setX(int newX) { x = newX; }
 	int	getX() const;
