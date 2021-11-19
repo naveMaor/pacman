@@ -11,6 +11,9 @@ int Game::menu()
 	getline(cin, input);
 	
 
+	//cin >> userChoice;
+	//cin >> userChoice;
+	//cin >> userChoice;
 
 	/* If the user enter invalid option clear and ignore cin input */
 	while (!checkValidUserInput(input))
@@ -26,14 +29,47 @@ int Game::menu()
 }
 
 void Game::printGameMenu()
-{
-	setTextColor(WHITE);
+		"(1) Start a new game\n"
+		"(2) Game settings\n"
 	cout << "Welcome to PacmanGame \n"
-		"(1) Start a new game with colors\n"
-		"(2) Start a new game without colors\n"
+		"(1) Start a new game\n"
+		"(2) Game settings\n"
 		"(8) Present instructions and keys\n"
 		"(9) EXIT\n"
+/* This function print game settings options*/
+void Game::printGameSettings()
+{
+	setTextColor(WHITE);
+	cout << "Pacman settings:\n"
+		"(1) Change color settings\n"
+		"(2) Change pacman speed\n"
 		"\nChoice: " << endl;
+}
+
+/* This function handle settings options*/
+void Game::gameSettings()
+{
+	int userChoice;
+
+	clearScreen();
+	printGameSettings();
+	cin >> userChoice;
+	switch (userChoice)
+	{
+	case 1:
+		chooseColor();
+		break;
+
+
+	case 2:
+		cout << "Please enter pacman seped: \n";
+		break;
+	default:
+		break;
+	}
+}
+
+	}
 }
 
 /* This function handle the game*/
@@ -196,6 +232,7 @@ void Game::pauseGame()
 	char ch = 0;
 	bool b_Continue = false;
 
+	setTextColor(WHITE);
 	clearCenter();
 	gotoxy(27, 9);
 	cout << "Game paused!";
@@ -555,9 +592,18 @@ void Game::initGameObj()
 
 /* This function init ghosts*/
 void Game::initGhosts()
+}
+
+bool Game::checkValidUserSettings(string input)
 {
-	ghostOne.initGhost();
-	ghostTwo.initGhost();
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int userChoice = stoi(input);
+		if ((userChoice == 1) || (userChoice == 2))
+			return true;
+	}
+	return false;
+}
 }
 
 char Game::stringToChar(string& s)
@@ -565,4 +611,5 @@ char Game::stringToChar(string& s)
 	char res = s[0];
 
 		return res;
+}	ghostTwo.initGhost();
 }
