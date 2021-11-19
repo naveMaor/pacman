@@ -29,6 +29,8 @@ public:
 	// Game functions
 	int menu();
 	void printGameMenu();
+	void printGameSettings();
+	void gameSettings();
 	bool checkValidUserInput(int userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);

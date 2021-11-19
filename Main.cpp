@@ -18,7 +18,8 @@ int main()
 		}
 		case 2:
 		{
-			game.setIsColorGame(false);
+			game.gameSettings();
+			userChoice = game.menu();
 			game.playGame();
 			break;
 		}
@@ -37,6 +38,7 @@ int main()
 	}
 
 	clearScreen();
+	setTextColor(WHITE);
 	cout << "Bye Bye!\n"
 		"Thank you for playing with us!" << endl;
 	return 0;

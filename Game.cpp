@@ -25,11 +25,44 @@ void Game::printGameMenu()
 {
 	setTextColor(WHITE);
 	cout << "Welcome to PacmanGame \n"
-		"(1) Start a new game with colors\n"
-		"(2) Start a new game without colors\n"
+		"(1) Start a new game\n"
+		"(2) Game settings\n"
 		"(8) Present instructions and keys\n"
 		"(9) EXIT\n"
 		"\nChoice: " << endl;
+}
+
+void Game::printGameSettings()
+{
+	setTextColor(WHITE);
+	cout << "Pacman settings:\n"
+		"(1) Change color settings\n"
+		"(2) Change pacman speed\n"
+		"\nChoice: " << endl;
+
+	
+}
+
+void Game::gameSettings()
+{
+	int userChoice;
+
+	clearScreen();
+	printGameSettings();
+	cin >> userChoice;
+	switch (userChoice)
+	{
+	case 1:
+		chooseColor();
+		break;
+
+
+	case 2:
+
+		break;
+	default:
+		break;
+	}
 }
 
 /* This function handle the game*/
@@ -192,6 +225,7 @@ void Game::pauseGame()
 	char ch = 0;
 	bool b_Continue = false;
 
+	setTextColor(WHITE);
 	clearCenter();
 	gotoxy(27, 9);
 	cout << "Game paused!";
