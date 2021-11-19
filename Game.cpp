@@ -36,6 +36,7 @@ void Game::printGameMenu()
 		"\nChoice: " << endl;
 }
 
+/* This function print game settings options*/
 void Game::printGameSettings()
 {
 	setTextColor(WHITE);
@@ -43,10 +44,9 @@ void Game::printGameSettings()
 		"(1) Change color settings\n"
 		"(2) Change pacman speed\n"
 		"\nChoice: " << endl;
-
-	
 }
 
+/* This function handle settings options*/
 void Game::gameSettings()
 {
 	int userChoice;
@@ -62,7 +62,7 @@ void Game::gameSettings()
 
 
 	case 2:
-
+		cout << "Please enter pacman seped: \n";
 		break;
 	default:
 		break;
@@ -587,4 +587,15 @@ void Game::initGhosts()
 {
 	ghostOne.initGhost();
 	ghostTwo.initGhost();
+}
+
+bool Game::checkValidUserSettings(string input)
+{
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int userChoice = stoi(input);
+		if ((userChoice == 1) || (userChoice == 2))
+			return true;
+	}
+	return false;
 }
