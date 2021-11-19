@@ -21,5 +21,6 @@ public:
 	void setGhostDirection(int direction);
 	Color getColor() const { return color; };
 	void setColor(Color color);
+	void initGhost();
 };
 

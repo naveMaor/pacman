@@ -6,8 +6,8 @@ void const Board::printBoard()
 {  
     for (int i = 0; i < HIGHT; i++)
     {
-        for (int j = 0; j < WIDTH; j++)
-                cout << board[i][j];
+        for (int j = 0; j < WIDTH; j++)       
+            cout << board[i][j];
         cout << endl;
     } 
 };
@@ -28,6 +28,18 @@ void Board::printPreviousBoard()
     }
 }
 
+/* This function reset the board to the begining*/
+void Board::resetBoard()
+{
+    for (int i = 0; i < HIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            if (board[i][j] == boardGarbageVal)
+                board[i][j] = bc;
+        }
+    }
+}
 
 
 

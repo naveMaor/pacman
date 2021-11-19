@@ -27,8 +27,7 @@ public:
 	void setScore(int x) { score = x; };
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
-	void setLife() { life = 3; };
-	void setMinusLife() { life--; }
+	void setLife(int newLife) { life = newLife; };
 	Point getPacmanBody();
 	void setPacmanBody(int x, int y);
 	Color getColor() { return color; };

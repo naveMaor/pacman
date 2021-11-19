@@ -12,12 +12,14 @@ int main()
 		{
 		case 1:
 		{
+			game.setIsColorGame(true);
 			game.playGame();
 			break;
 		}
 		case 2:
 		{
-			game.chooseColor();
+			game.setIsColorGame(false);
+			game.playGame();
 			break;
 		}
 		case 8:

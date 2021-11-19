@@ -17,7 +17,7 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
-	enum sleepEnum { shortPauseWindow = 3000, longPauseWindow = 4000, pacmanSpeed = 100 };
+	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000, pacmanSpeed = 100 };
 	int userChoice = 4;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
@@ -32,6 +32,8 @@ public:
 	bool checkValidUserInput(int userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);
+	void initGameObj();
+	void initGhosts();
 	void playGame();
 	void pauseGame();
 	void const printPreviousGame();
@@ -39,6 +41,7 @@ public:
 	void const winGame();
 	void gameOver();
 	void printLife();
+	void resetPrintLife();
 	void printScore();
 	void printPlayerHitGhost();
 	void removePrintPlayerHitGhost();

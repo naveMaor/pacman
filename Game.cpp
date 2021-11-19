@@ -3,9 +3,6 @@
 #include "Game.h"
 
 
-
-
-
 /* This function get user choice of menu*/
 int Game::menu()
 {
@@ -28,8 +25,8 @@ void Game::printGameMenu()
 {
 	setTextColor(WHITE);
 	cout << "Welcome to PacmanGame \n"
-		"(1) Start a new game\n"
-		"(2) Game color settings\n"
+		"(1) Start a new game with colors\n"
+		"(2) Start a new game without colors\n"
 		"(8) Present instructions and keys\n"
 		"(9) EXIT\n"
 		"\nChoice: " << endl;
@@ -38,7 +35,6 @@ void Game::printGameMenu()
 /* This function handle the game*/
 void Game::playGame()
 {
-	//chooseColor();
 	int countGhostMove = 0;
 	bool b_won = false;
 
@@ -79,12 +75,14 @@ void Game::initGame(bool b_color)
 {
 	clearScreen();
 	board.printBoard();
+	initGameObj();
+
 	if (b_color) {
 		player.setColor(YELLOW);
 		ghostOne.setColor(LIGHTGREEN);
 		ghostTwo.setColor(LIGHTCYAN);
 	}
-	player.initPacman();
+
 	drawGameObj();
 	printScore();
 	printLife();
@@ -94,13 +92,11 @@ void Game::initGame(bool b_color)
 void Game::initGameAfterGhostHit()
 {
 	player.setLife(player.getLife() - 1);
-	player.setMinusLife();
 	printLife();
 	
 	if (player.getLife() > 0)
 	{
 		printPlayerHitGhost();
-		printLife();
 		Sleep(shortPauseWindow);
 		removePrintPlayerHitGhost();
 		removePacman();
@@ -111,7 +107,6 @@ void Game::initGameAfterGhostHit()
 		ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
 		drawGameObj();
 	}
-	printLife();
 }
 
 void Game::printPlayerHitGhost()
@@ -197,7 +192,6 @@ void Game::pauseGame()
 	char ch = 0;
 	bool b_Continue = false;
 
-	//clearScreen();
 	clearCenter();
 	gotoxy(27, 9);
 	cout << "Game paused!";
@@ -375,14 +369,27 @@ bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 void Game::printScore() {
 	setTextColor(WHITE);
 	gotoxy(38, 21);
-	cout << "Pacman Score: " << player.getScore();
+	cout << "Pacman Score: ";
+	if (getIsColorGame())
+		setTextColor(YELLOW);
+	cout << player.getScore();
 }
 
 /* This function print pacman life*/
 void Game::printLife() {
 	setTextColor(WHITE);
+	resetPrintLife();
 	gotoxy(16, 21);
-	cout << "Remaining lives: " << player.getLife();
+	cout << "Remaining lives: "; 
+	if(getIsColorGame())
+		setTextColor(LIGHTRED);
+	for (int i = 0; i < player.getLife(); i++)
+		cout << (char)heart;	
+}
+
+void Game::resetPrintLife() {
+	gotoxy(16, 21);
+	cout << "                     ";
 }
 
 /* This function handle game over*/
@@ -442,8 +449,8 @@ void Game:: drawGameObj()
 /* Thsi function check if the player eat all breadcrumbs he win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 bool Game:: checkWin()
 {
-	//return player.getScore() == 1092;
-	return player.getScore() == 10;
+	return player.getScore() == 1092;
+	//return player.getScore() == 10;
 }
 
 /* This function handle win situation*/
@@ -496,8 +503,6 @@ void Game::chooseColor()
 		clearScreen();
 		cout << "You will play without colors!" << endl;
 	}
-	//cout << "The game will start automaticliy in " << shortPauseWindow/1000 << " seconds.";
-	//Sleep(shortPauseWindow);
 
 	cout << "Press any key to return the menu\n" << endl;
 
@@ -515,14 +520,29 @@ void Game::clearCenter()
 	}
 }
 
-/// MISSING A FUNCTION FOR BOARD RESET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/* This function reset the game when starting again*/
 void Game::resetGame()
 {
 	player.setScore(0);
-	player.setLife();
+	player.setLife(3);
 	player.setPacmanBody(pacmanStartX, pacmanStartY);
 	player.setDirection(4);
 	ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
 	ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
-	/// MISSING A FUNCTION FOR BOARD RESET!!!!!!!!!!!!!!!!!!!
+	board.resetBoard();
+	setIsColorGame(false);
+}
+
+/* This function init pacman and ghosts*/
+void Game::initGameObj()
+{
+	player.initPacman();
+	initGhosts();
+}
+
+/* This function init ghosts*/
+void Game::initGhosts()
+{
+	ghostOne.initGhost();
+	ghostTwo.initGhost();
 }
