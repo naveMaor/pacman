@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 #include "Board.h"
 #include "Pacman.h"
 #include "Board.h"
@@ -8,6 +10,7 @@
 #include "Point.h"
 #include <string>
 #include <stdio.h>
+using namespace std;
 
 class Game
 {
@@ -29,7 +32,7 @@ public:
 	// Game functions
 	int menu();
 	void printGameMenu();
-	bool checkValidUserInput(int userChoice);
+	bool checkValidUserInput(string userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);
 	void initGameObj();
