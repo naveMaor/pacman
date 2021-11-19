@@ -34,7 +34,7 @@ public:
 	void printGameMenu();
 	void printGameSettings();
 	void gameSettings();
-	bool checkValidUserInput(int userChoice);
+	bool checkValidUserInput(string userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);
 	void initGameObj();

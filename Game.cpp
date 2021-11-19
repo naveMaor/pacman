@@ -10,7 +10,6 @@ int Game::menu()
 	string input;
 	getline(cin, input);
 	
-
 	//cin >> userChoice;
 
 	/* If the user enter invalid option clear and ignore cin input */
