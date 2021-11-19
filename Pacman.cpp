@@ -52,7 +52,7 @@ void Pacman::setColor(Color color)
 /* This function init pacman after new game*/
 void Pacman:: initPacman()
 {
-	this->color = WHITE;
+	this->color = Color::WHITE;
 	this->direction = 4;
 	this->score = 0;
 	this->life = 3;

@@ -5,7 +5,7 @@ class Ghost
 {
 	// Ghost data members
 	Point ghostBody;
-	Color color = WHITE;
+	Color color = Color::WHITE;
 	int direction = 3;
 
 public:

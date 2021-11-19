@@ -38,7 +38,7 @@ int main()
 	}
 
 	clearScreen();
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	cout << "Bye Bye!\n"
 		"Thank you for playing with us!" << endl;
 	return 0;
