@@ -20,12 +20,14 @@ void Board::printPreviousBoard()
         for (int j = 0; j < WIDTH; j++)
         {
             if (board[i][j] == boardGarbageVal)
-                cout << space;
+                cout << (char)space;
             else
                 cout << board[i][j];
         }
         cout << endl;
     }
 }
+
+
 
 

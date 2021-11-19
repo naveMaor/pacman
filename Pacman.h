@@ -24,10 +24,11 @@ public:
 	void initPacman();
 	void setDirection(int newDirection);
 	int	getScore() const { return score; };
-	void setScroe(int newScore) { score = newScore; };
+	void setScore(int x) { score = x; };
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
-	void setLife(int newLife) { life = newLife; }
+	void setLife() { life = 3; };
+	void setMinusLife() { life--; }
 	Point getPacmanBody();
 	void setPacmanBody(int x, int y);
 	Color getColor() { return color; };

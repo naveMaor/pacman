@@ -6,6 +6,8 @@
 #include "Utilities.h"
 #include "Pacman.h"
 #include "Point.h"
+#include <string>
+#include <stdio.h>
 
 class Game
 {
@@ -15,7 +17,7 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
-	enum sleepEnum { shortPauseWindow = 3000, longPauseWindow = 7000, pacmanSpeed = 100 };
+	enum sleepEnum { shortPauseWindow = 3000, longPauseWindow = 4000, pacmanSpeed = 100 };
 	int userChoice = 4;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
@@ -45,6 +47,7 @@ public:
 	bool getIsColorGame() const { return b_IsColorGame; };
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void clearCenter();
+	void resetGame();
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);
@@ -63,5 +66,6 @@ public:
 	void pacmanMove();
 	void getUserKeyboard();
 	void removePacman();
+
 };
 

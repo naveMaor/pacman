@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include "Game.h"
 
+
+
+
+
 /* This function get user choice of menu*/
 int Game::menu()
 {
@@ -16,7 +20,7 @@ int Game::menu()
 		clearScreen();
 		cout << "You enterd incorrect option, please choose again.\n\n";
 		menu();
-	}	
+	}
 	return userChoice;
 }
 
@@ -25,6 +29,7 @@ void Game::printGameMenu()
 	setTextColor(WHITE);
 	cout << "Welcome to PacmanGame \n"
 		"(1) Start a new game\n"
+		"(2) Game color settings\n"
 		"(8) Present instructions and keys\n"
 		"(9) EXIT\n"
 		"\nChoice: " << endl;
@@ -33,7 +38,7 @@ void Game::printGameMenu()
 /* This function handle the game*/
 void Game::playGame()
 {
-	chooseColor();
+	//chooseColor();
 	int countGhostMove = 0;
 	bool b_won = false;
 
@@ -89,6 +94,8 @@ void Game::initGame(bool b_color)
 void Game::initGameAfterGhostHit()
 {
 	player.setLife(player.getLife() - 1);
+	player.setMinusLife();
+	printLife();
 	
 	if (player.getLife() > 0)
 	{
@@ -386,6 +393,7 @@ void Game::gameOver()
 	gotoxy(30, 23);
 	cout << "You losed!";
 	Sleep(longPauseWindow);
+	resetGame();
 	clearScreen();
 }
 
@@ -431,10 +439,11 @@ void Game:: drawGameObj()
 	ghostTwo.draw();
 }
 
-/* Thsi function check if the player eat all breadcrumbs he win*/
+/* Thsi function check if the player eat all breadcrumbs he win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 bool Game:: checkWin()
 {
-	return player.getScore() == 1092;
+	//return player.getScore() == 1092;
+	return player.getScore() == 10;
 }
 
 /* This function handle win situation*/
@@ -445,13 +454,14 @@ void const Game::winGame()
 	gotoxy(26, 23);	
 	cout << "You won the game!!!" << endl;
 	Sleep(longPauseWindow);
+	resetGame();
 	clearScreen();
 }
 
 /* Check if user input is correct*/
 bool Game::checkValidUserInput(int userChoice)
 {
-	if ((userChoice == 1) || (userChoice == 8) || (userChoice == 9))
+	if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9) )
 		return true;
 	return false;
 }
@@ -477,15 +487,21 @@ void Game::chooseColor()
 	if (colorChoice == 'y' || colorChoice == 'Y')
 	{
 		setIsColorGame(true);
-		cout << "\nYou will play with colors!" << endl;
+		clearScreen();
+		cout << "You will play with colors!" << endl;
 	}
 	else if (colorChoice == 'n' || colorChoice == 'N')
 	{
 		setIsColorGame(false);
-		cout << "\nYou will play without colors!" << endl;
+		clearScreen();
+		cout << "You will play without colors!" << endl;
 	}
-	cout << "The game will start automaticliy in " << shortPauseWindow/1000 << " seconds.";
-	Sleep(shortPauseWindow);
+	//cout << "The game will start automaticliy in " << shortPauseWindow/1000 << " seconds.";
+	//Sleep(shortPauseWindow);
+
+	cout << "Press any key to return the menu\n" << endl;
+
+	char c = _getch();
 	clearScreen();
 }
 
@@ -497,4 +513,16 @@ void Game::clearCenter()
 		gotoxy(20, 8 + j);
 		cout << "                                  ";
 	}
+}
+
+/// MISSING A FUNCTION FOR BOARD RESET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void Game::resetGame()
+{
+	player.setScore(0);
+	player.setLife();
+	player.setPacmanBody(pacmanStartX, pacmanStartY);
+	player.setDirection(4);
+	ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
+	ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
+	/// MISSING A FUNCTION FOR BOARD RESET!!!!!!!!!!!!!!!!!!!
 }
