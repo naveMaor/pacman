@@ -39,6 +39,3 @@ void clearScreen()
 	system("cls");
 }
 
-
-
-

@@ -11,18 +11,17 @@ int Game::menu()
 	getline(cin, input);
 	
 
-	//cin >> userChoice;
 
 	/* If the user enter invalid option clear and ignore cin input */
-	if (!checkValidUserInput(input))
+	while (!checkValidUserInput(input))
 	{
-		//std::cin.clear();
-		//std::cin.ignore();
 		clearScreen();
 		cout << "You enterd incorrect option, please choose again.\n\n";
-		menu();
+		printGameMenu();
+		getline(cin, input);
 	}
 	userChoice = stoi(input);
+
 	return userChoice;
 }
 
@@ -473,11 +472,16 @@ void const Game::winGame()
 /* Check if user input is correct*/
 bool Game::checkValidUserInput(string input)
 {
-	if (input.length() == 1 && userChoice!=0)
+	if (input.length() == 1)
 	{
-		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 8) || (userChoice == 9))
-			return true;
+		char chUser = stringToChar(input);
+		if (chUser >= '0' && chUser <= '9')
+		{
+			
+			if (chUser != '0')
+				if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
+					return true;
+		}
 	}
 	return false;
 }
@@ -554,4 +558,11 @@ void Game::initGhosts()
 {
 	ghostOne.initGhost();
 	ghostTwo.initGhost();
+}
+
+char Game::stringToChar(string& s)
+{
+	char res = s[0];
+
+		return res;
 }
