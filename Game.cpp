@@ -35,7 +35,7 @@ void Game::printGameMenu()
 /* This function print game settings options*/
 void Game::printGameSettings()
 {
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
 		"(1) Change color settings\n"
 		"(2) Change pacman speed\n"
@@ -111,9 +111,9 @@ void Game::initGame(bool b_color)
 	initGameObj();
 
 	if (b_color) {
-		player.setColor(YELLOW);
-		ghostOne.setColor(LIGHTGREEN);
-		ghostTwo.setColor(LIGHTCYAN);
+		player.setColor(Color::YELLOW);
+		ghostOne.setColor(Color::LIGHTGREEN);
+		ghostTwo.setColor(Color::LIGHTCYAN);
 	}
 
 	drawGameObj();
@@ -145,7 +145,7 @@ void Game::initGameAfterGhostHit()
 void Game::printPlayerHitGhost()
 {
 	if (getIsColorGame())
-		setTextColor(RED);
+		setTextColor(Color::RED);
 	gotoxy(26, 23);
 	cout << "You hit the ghost!" << endl;
 }
@@ -225,7 +225,7 @@ void Game::pauseGame()
 	char ch = 0;
 	bool b_Continue = false;
 
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	clearCenter();
 	gotoxy(27, 9);
 	cout << "Game paused!";
@@ -349,7 +349,7 @@ void Game::ghostRandomMove(Ghost& ghost)
 void Game::printBreadCrumbs(int x, int y)
 {
 	unsigned char breadCrumb = bc;
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	gotoxy(x, y);
 	cout << breadCrumb;
 }
@@ -401,22 +401,22 @@ bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
 
 /* This function print pacman score*/
 void Game::printScore() {
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	gotoxy(38, 21);
 	cout << "Pacman Score: ";
 	if (getIsColorGame())
-		setTextColor(YELLOW);
+		setTextColor(Color::YELLOW);
 	cout << player.getScore();
 }
 
 /* This function print pacman life*/
 void Game::printLife() {
-	setTextColor(WHITE);
+	setTextColor(Color::WHITE);
 	resetPrintLife();
 	gotoxy(16, 21);
 	cout << "Remaining lives: "; 
 	if(getIsColorGame())
-		setTextColor(LIGHTRED);
+		setTextColor(Color::LIGHTRED);
 	for (int i = 0; i < player.getLife(); i++)
 		cout << (char)heart;	
 }
@@ -430,7 +430,7 @@ void Game::resetPrintLife() {
 void Game::gameOver()
 {
 	if (getIsColorGame())
-		setTextColor(LIGHTRED);
+		setTextColor(Color::LIGHTRED);
 	gotoxy(30, 23);
 	cout << "You losed!";
 	Sleep(longPauseWindow);
@@ -491,7 +491,7 @@ bool Game:: checkWin()
 void const Game::winGame()
 {
 	if(getIsColorGame())
-		setTextColor(GREEN);
+		setTextColor(Color::GREEN);
 	gotoxy(26, 23);	
 	cout << "You won the game!!!" << endl;
 	Sleep(longPauseWindow);

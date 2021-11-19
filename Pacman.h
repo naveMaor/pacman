@@ -9,7 +9,7 @@ private:
 	int score = 0;
 	int life = 3;
 	int direction = 4;
-	Color color = WHITE;
+	Color color = Color::WHITE;
 
 public:
 	// Constractor

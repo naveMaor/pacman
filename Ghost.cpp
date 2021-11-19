@@ -44,7 +44,7 @@ void Ghost::setColor(Color color)
 /* This function init ghost*/
 void Ghost:: initGhost()
 {
-	this->color = WHITE;
+	this->color = Color::WHITE;
 	this->direction = 3;
 }
 
