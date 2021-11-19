@@ -21,11 +21,13 @@ public:
 
 	//Getters and setters
 	int getDirection() const;
+	void initPacman();
 	void setDirection(int newDirection);
 	int	getScore() const { return score; };
+	void setScroe(int newScore) { score = newScore; };
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
-	void setMinusLife() { life--; }
+	void setLife(int newLife) { life = newLife; }
 	Point getPacmanBody();
 	void setPacmanBody(int x, int y);
 	Color getColor() { return color; };

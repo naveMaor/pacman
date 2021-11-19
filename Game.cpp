@@ -79,6 +79,7 @@ void Game::initGame(bool b_color)
 		ghostOne.setColor(LIGHTGREEN);
 		ghostTwo.setColor(LIGHTCYAN);
 	}
+	player.initPacman();
 	drawGameObj();
 	printScore();
 	printLife();
@@ -87,11 +88,12 @@ void Game::initGame(bool b_color)
 /* This function init the game after ghost hit pacman*/
 void Game::initGameAfterGhostHit()
 {
-	player.setMinusLife();
+	player.setLife(player.getLife() - 1);
 	
 	if (player.getLife() > 0)
 	{
 		printPlayerHitGhost();
+		printLife();
 		Sleep(shortPauseWindow);
 		removePrintPlayerHitGhost();
 		removePacman();
@@ -101,8 +103,8 @@ void Game::initGameAfterGhostHit()
 		ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
 		ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
 		drawGameObj();
-		printLife();
 	}
+	printLife();
 }
 
 void Game::printPlayerHitGhost()
