@@ -9,11 +9,6 @@ int Game::menu()
 	printGameMenu();
 	string input;
 	getline(cin, input);
-	
-
-	//cin >> userChoice;
-	//cin >> userChoice;
-	//cin >> userChoice;
 
 	/* If the user enter invalid option clear and ignore cin input */
 	while (!checkValidUserInput(input))
@@ -29,13 +24,14 @@ int Game::menu()
 }
 
 void Game::printGameMenu()
-		"(1) Start a new game\n"
-		"(2) Game settings\n"
+{
 	cout << "Welcome to PacmanGame \n"
 		"(1) Start a new game\n"
 		"(2) Game settings\n"
 		"(8) Present instructions and keys\n"
-		"(9) EXIT\n"
+		"(9) EXIT\n";
+}
+
 /* This function print game settings options*/
 void Game::printGameSettings()
 {
@@ -62,15 +58,17 @@ void Game::gameSettings()
 
 
 	case 2:
+		
 		cout << "Please enter pacman seped: \n";
+		int speed;
+		cin >> speed;
+		setPacmanSpeed(speed);
 		break;
 	default:
 		break;
 	}
 }
 
-	}
-}
 
 /* This function handle the game*/
 void Game::playGame()
@@ -592,6 +590,9 @@ void Game::initGameObj()
 
 /* This function init ghosts*/
 void Game::initGhosts()
+{
+	ghostOne.initGhost();
+	ghostTwo.initGhost();
 }
 
 bool Game::checkValidUserSettings(string input)
@@ -604,12 +605,10 @@ bool Game::checkValidUserSettings(string input)
 	}
 	return false;
 }
-}
+
 
 char Game::stringToChar(string& s)
 {
 	char res = s[0];
-
 		return res;
-}	ghostTwo.initGhost();
-}
+}	
