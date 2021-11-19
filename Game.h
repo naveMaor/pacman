@@ -18,9 +18,9 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
-	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000};
+	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000, defalutGameSpeed = 300};
 	int userChoice = 4;
-	int pacmanSpeed = 100;
+	int gameSpeedVal = defalutGameSpeed;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
 	Pacman player = {pacmanStartX,pacmanStartY};
@@ -33,6 +33,7 @@ public:
 	void printGameMenu();
 	void printGameSettings();
 	void gameSettings();
+	void gameSpeed();
 	bool checkValidUserInput(string userChoice);
 	void const printInstructions();
 	void initGame(bool b_color);
@@ -56,6 +57,10 @@ public:
 	void clearCenter();
 	void resetGame();
 	bool checkValidUserSettings(string input);
+	void handleGameMenuSettingsInput();
+	void handleGameMenuSpeedSettingsInput();
+	bool checkValidSpeedSettingsInput(string input);
+	void printPacmanSpeedOptions();
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);
@@ -74,9 +79,7 @@ public:
 	void pacmanMove();
 	void getUserKeyboard();
 	void removePacman();
-	void setPacmanSpeed(int pacmanSpeed) { this->pacmanSpeed = pacmanSpeed; }
-
-
+	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
 	char stringToChar(string& s);
 };
 

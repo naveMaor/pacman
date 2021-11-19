@@ -5,22 +5,21 @@
 int main()
 {
 	Game game;
+	setTextColor(WHITE);
 	int userChoice = game.menu();
 	while (userChoice != 9)
 	{
+
 		switch (userChoice)
 		{
 		case 1:
 		{
-			game.setIsColorGame(true);
 			game.playGame();
 			break;
 		}
 		case 2:
 		{
 			game.gameSettings();
-			userChoice = game.menu();
-			game.playGame();
 			break;
 		}
 		case 8:
@@ -34,6 +33,8 @@ int main()
 			break;
 		}	
 		}
+		clearScreen();
+		setTextColor(WHITE);
 		userChoice = game.menu();
 	}
 

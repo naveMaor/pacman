@@ -45,24 +45,19 @@ void Game::printGameSettings()
 /* This function handle settings options*/
 void Game::gameSettings()
 {
-	int userChoice;
-
 	clearScreen();
 	printGameSettings();
-	cin >> userChoice;
+	handleGameMenuSettingsInput();
+	
 	switch (userChoice)
 	{
 	case 1:
 		chooseColor();
 		break;
 
-
 	case 2:
+		gameSpeed();
 		
-		cout << "Please enter pacman seped: \n";
-		int speed;
-		cin >> speed;
-		setPacmanSpeed(speed);
 		break;
 	default:
 		break;
@@ -88,7 +83,7 @@ void Game::playGame()
 		}
 		else
 		{
-			Sleep(pacmanSpeed);
+			Sleep(gameSpeedVal);
 			pacmanMove();
 			countGhostMove++;
 		}
@@ -612,3 +607,83 @@ char Game::stringToChar(string& s)
 	char res = s[0];
 		return res;
 }	
+
+
+void Game::gameSpeed()
+{
+	clearScreen();
+	printPacmanSpeedOptions();
+	handleGameMenuSpeedSettingsInput();
+	switch (userChoice)
+	{
+	case 1:
+		setGameSpeed(600);
+		break;
+	case 2:
+		setGameSpeed(defalutGameSpeed);
+		break;
+	case 3:
+		setGameSpeed(150);
+		break;
+	case 4:
+		setGameSpeed(50);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void Game::printPacmanSpeedOptions()
+{
+	setTextColor(WHITE);
+	cout << "Please enter pacman speed: \n"
+		"1. Easy\n"
+		"2. Medium - default\n"
+		"3. Hard\n"
+		"4. Expert\n\n"
+		"Choice: ";
+}
+
+void Game::handleGameMenuSettingsInput()
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidUserSettings(input))
+	{
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		printGameSettings();
+		getline(cin, input);
+	}
+	userChoice = stoi(input);
+}
+
+
+void Game::handleGameMenuSpeedSettingsInput()
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidSpeedSettingsInput(input))
+	{
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		printPacmanSpeedOptions();
+		getline(cin, input);
+	}
+	userChoice = stoi(input);
+
+}
+
+bool Game::checkValidSpeedSettingsInput(string input)
+{
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int speed = stoi(input);
+		if ((speed == 1) || (speed == 2) || (speed == 3) || (speed == 4))
+			return true;
+	}
+	return false;
+}
