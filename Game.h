@@ -7,6 +7,7 @@
 #include "Utilities.h"
 #include "Pacman.h"
 #include "Point.h"
+#include "Fruit.h"
 #include <string>
 #include <stdio.h>
 
@@ -18,13 +19,19 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
-	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000, defalutGameSpeed = 300};
+	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000};
 	enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300 , hardGameSpeed = 140, expertGameSpeed = 70};
+
+	//------------------
+	int Width, Hight;
+	//------------------
+
 	int userChoice = 4;
 	int gameSpeedVal = mediumGameSpeed;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
 	Pacman player = {pacmanStartX,pacmanStartY};
+	Fruit fruit;
 	Board board;
 	bool b_IsColorGame = true;
 
@@ -36,7 +43,7 @@ public:
 	void gameSettings();
 	void gameSpeed();
 	bool checkValidUserInput(string userChoice)const;
-	void const printInstructions();
+	void printInstructions()const;
 	void initGame(bool b_color);
 	void initGameObj();
 	void initGhosts();
@@ -85,6 +92,14 @@ public:
 	void pacmanMove();
 	void getUserKeyboard();
 	void removePacman();
+	
+
+	// Fruit functions
+	void initFruit();
+	bool ghostHitFruit();
+	bool pacmanHitFruit();
+	void unDisplayFruit();
+	void fruitMove();
 	
 };
 

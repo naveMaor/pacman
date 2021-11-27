@@ -426,7 +426,7 @@ void Game::printScore() const
 }
 
 /* This function print pacman life*/
-void Game::printLife()  const
+void Game::printLife() const
 {
 	setTextColor(Color::WHITE);
 	resetPrintLife();
@@ -438,7 +438,8 @@ void Game::printLife()  const
 		cout << (char)heart;	
 }
 
-void Game::resetPrintLife() const {
+void Game::resetPrintLife() const
+{
 	gotoxy(16, 21);
 	cout << "                     ";
 }
@@ -456,7 +457,7 @@ void Game::gameOver()
 }
 
 /* This function print pacman instructions*/
-void const Game ::printInstructions()
+void Game :: printInstructions() const
 {
 	clearScreen();
 	cout << "Pacman game instructions:\n"
@@ -632,7 +633,7 @@ void Game::gameSpeed()
 		setGameSpeed(600);
 		break;
 	case 2:
-		setGameSpeed(defalutGameSpeed);
+		setGameSpeed(mediumGameSpeed);
 		break;
 	case 3:
 		setGameSpeed(140);
@@ -716,4 +717,40 @@ void Game::printCurrentSpeedGame() const
 		cout << "hard";
 	else // currentSpeed == expertGameSpeed
 		cout << "expert";
+}
+
+/* This function init fruit location*/
+void Game::initFruit()
+{
+
+	Point fruitLocation(rand() % (Width-1) + 0, rand() % (Hight-1) + 0);
+
+	while (fruitLocation == ghostOne.getGhostBody() ||
+		fruitLocation == ghostTwo.getGhostBody() ||
+		fruitLocation == player.getPacmanBody() ||
+		board.getBoardValFromPoint(fruitLocation.getX(), fruitLocation.getY()) == w)
+	{
+		fruitLocation.setX(rand() % Width + 0);
+		fruitLocation.setY(rand() % Hight + 0);
+	}
+
+	fruit.setFruitBody(fruitLocation);
+
+}
+bool Game::ghostHitFruit()
+{
+
+}
+bool Game::pacmanHitFruit()
+{
+
+}
+void Game::unDisplayFruit()
+{
+
+}
+
+void Game::fruitMove()
+{
+
 }

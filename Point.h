@@ -15,6 +15,7 @@ private:
 
 public:
 	//constractor
+	Point();
 	Point(int newX, int newY) : x(newX), y(newY) {};
 
 	void draw(char ch) const;
