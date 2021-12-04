@@ -136,6 +136,8 @@
 
 
 
+
+
 /* This function handle the game*/
 void Game::playGame()
 {
@@ -536,8 +538,6 @@ void Game::gameOver()
 	clearScreen();
 }
 
-
-
 /* This function print the game before paused*/
 void Game::printPreviousGame() const
 {
@@ -575,8 +575,6 @@ void Game::winGame()
 	resetGame();
 	clearScreen();
 }
-
-
 
 /* This function*/
 void Game::chooseColor()
@@ -647,11 +645,6 @@ void Game::initGhosts()
 	ghostTwo.initGameObject();
 }
 
-
-
-
-
-
 /* This function handle the speed of the game settings*/
 void Game::gameSpeed()
 {
@@ -695,7 +688,6 @@ void Game::printGameSettings() const
 		"Choice: ";
 }
 
-
 void Game::printIsColorGame() const
 {
 	if (getIsColorGame())
@@ -719,10 +711,6 @@ void Game::handleGameMenuSettingsInput()
 	}
 	menu.setUserChoice(stoi(input));
 }
-
-
-
-
 
 /* This function print current speed game*/
 void Game::printCurrentSpeedGame() const
@@ -757,20 +745,20 @@ void Game::initFruit()
 	fruit.setBody(fruitLocation.getX(),fruitLocation.getY());
 
 }
-bool Game::ghostHitFruit()
-{
-	return false;
-}
-bool Game::pacmanHitFruit()
-{
-	return false;
-}
-void Game::unDisplayFruit()
-{
-
-}
-
-void Game::fruitMove()
-{
-
-}
+//bool Game::ghostHitFruit()
+//{
+//	return false;
+//}
+//bool Game::pacmanHitFruit()
+//{
+//	return false;
+//}
+//void Game::unDisplayFruit()
+//{
+//
+//}
+//
+//void Game::fruitMove()
+//{
+//
+//}

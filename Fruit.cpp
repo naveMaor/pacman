@@ -1,11 +1,5 @@
 #include "Fruit.h"
 
-/* This fruit constructor*/
-Fruit::Fruit(int x, int y) : GameObject(x, y, fruitScore)
-{
-	fruitScore = (char)rand() % 57 + 53;
-	this->setObjectIcon(fruitScore);
-}
 
 void Fruit ::setNewFruitScore()
 {
@@ -15,6 +9,7 @@ void Fruit ::setNewFruitScore()
 		num = (char)rand() % 57 + 53;
 	}
 	fruitScore = num;
+	this->setObjectIcon(fruitScore);
 }
 
 

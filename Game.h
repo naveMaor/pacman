@@ -28,20 +28,21 @@ private:
 
 	/* Menu Changes*/
 	//int userChoice = 4;
-	Menu menu;
 
 
 
 	//--------------
 
 
-	int gameSpeedVal = mediumGameSpeed;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
 	Pacman player = {pacmanStartX,pacmanStartY};
-	Fruit fruit;
+	Fruit fruit = {5,5};
 	Board board;
+	Menu menu;
 	bool b_IsColorGame = true;
+	int gameSpeedVal = mediumGameSpeed;
+
 
 
 public:
@@ -116,10 +117,10 @@ public:
 
 	// Fruit functions
 	void initFruit();
-	bool ghostHitFruit();
+	/*bool ghostHitFruit();
 	bool pacmanHitFruit();
 	void unDisplayFruit();
-	void fruitMove();
+	void fruitMove();*/
 	
 };
 

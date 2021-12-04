@@ -9,7 +9,10 @@ class Fruit : public GameObject
 
 
 public:
-	Fruit(int x, int y);
+	Fruit(int x, int y) : GameObject(x, y, fruitScore) {
+		fruitScore = (char)rand() % 57 + 53;
+		this->setObjectIcon(fruitScore);
+	};
 
 	// Functions
 	char getFruitScore() const { return fruitScore; };
