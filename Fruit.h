@@ -4,9 +4,7 @@
 
 class Fruit : public GameObject
 {
-	Point fruitBody;
 	char fruitScore = defaltFruitIcon;
-
 
 public:
 	Fruit(int x, int y) : GameObject(x, y, fruitScore) {

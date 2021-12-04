@@ -745,20 +745,23 @@ void Game::initFruit()
 	fruit.setBody(fruitLocation.getX(),fruitLocation.getY());
 
 }
-//bool Game::ghostHitFruit()
-//{
-//	return false;
-//}
-//bool Game::pacmanHitFruit()
-//{
-//	return false;
-//}
-//void Game::unDisplayFruit()
-//{
-//
-//}
-//
-//void Game::fruitMove()
-//{
-//
-//}
+
+bool Game::ghostHitFruit()
+{
+	return false;
+}
+
+bool Game::pacmanHitFruit()
+{
+	return false;
+}
+
+void Game::unDisplayFruit()
+{
+
+}
+
+void Game::fruitMove()
+{
+
+}

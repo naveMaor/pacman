@@ -47,31 +47,14 @@ private:
 
 public:
 	// Game functions
-	Game();
-	//int menu();
-	//void printGameMenu()const;
-	//void printPacmanSpeedOptions()const;
-	//void printInstructions()const;
-	//bool checkValidUserInput(string userChoice)const;
-//	char stringToChar(string& s)const;
-//	bool checkValidUserSettings(string input) const;
-	//void handleGameMenuSpeedSettingsInput();
-	//bool checkValidSpeedSettingsInput(string input) const;
-
-	void printGameSettings()const;
+	void printGameSettings() const;
 	void printIsColorGame() const;
 	void handleGameMenuSettingsInput();
-
 	void gameSettings();
-	
 	void printCurrentSpeedGame()const;
-
 	void gameSpeed();
-	// if dedicate menu class
-
 	void initGame(bool b_color);
 	void initGameObj();
-	void initGhosts();
 	void playGame();
 	void pauseGame();
 	void printPreviousGame()const;
@@ -86,15 +69,11 @@ public:
 	void drawGameObj()const;
 	void clearCenter()const;
 	void resetGame();
-
 	void chooseColor();
 	bool getIsColorGame() const { return b_IsColorGame; };
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
-
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
-	//end of menu class
-
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);
@@ -106,6 +85,7 @@ public:
 	void initGameAfterGhostHit();
 	void ghostsMove();
 	bool checkGhostValidMove(int x, int y, int dir);
+	void initGhosts();
 	void removeGhosts();
 	void removeGhost(Ghost ghost);
 
@@ -117,10 +97,26 @@ public:
 
 	// Fruit functions
 	void initFruit();
-	/*bool ghostHitFruit();
+	bool ghostHitFruit();
 	bool pacmanHitFruit();
 	void unDisplayFruit();
-	void fruitMove();*/
+	void fruitMove();
+
+
+
+	//------------------------------------
+	// Thos functions move to menu class 
+	// 
+	//
+	//int menu();
+	//void printGameMenu()const;
+	//void printPacmanSpeedOptions()const;
+	//void printInstructions()const;
+	//bool checkValidUserInput(string userChoice)const;
+//	char stringToChar(string& s)const;
+//	bool checkValidUserSettings(string input) const;
+	//void handleGameMenuSpeedSettingsInput();
+	//bool checkValidSpeedSettingsInput(string input) const;
 	
 };
 
