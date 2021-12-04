@@ -1,21 +1,16 @@
 #include "Fruit.h"
 
-void Fruit :: setNewDigit()
+
+void Fruit ::setNewFruitScore()
 {
 	char num = (char)rand() % 57 + 53;
-	while (num == digit)
+	while (num == fruitScore)
 	{
 		num = (char)rand() % 57 + 53;
 	}
-	digit = num;
-}
-char Fruit::getDigit() const
-{
-	return digit;
+	fruitScore = num;
+	this->setObjectIcon(fruitScore);
 }
 
 
-void Fruit::setFruitBody(Point newLocation)
-{
-	FruitBody = newLocation;
-}
+

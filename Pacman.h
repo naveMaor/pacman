@@ -1,36 +1,43 @@
 #pragma once
 #include "Point.h"
+#include "GameObject.h"
 
-class Pacman
+class Pacman : public GameObject
 {
 private:
 	// Pacman data members
-	Point pacmanBody;
+	/*Point pacmanBody;
+	int direction = 4;
+	Color color = Color::WHITE;*/
+
 	int score = 0;
 	int life = 3;
-	int direction = 4;
-	Color color = Color::WHITE;
+	
 
 public:
 	// Constractor
-	Pacman(int newX, int newY):pacmanBody(newX, newY) {};
+	Pacman(int x, int y): GameObject(x,y,pacmanIcon) {};
 
-	// Pacman functions
-	void move();
-	void draw() const;
+	//// Pacman functions
+	//void move();
+	//void draw() const;
 
-	//Getters and setters
-	int getDirection() const;
-	void initPacman();
-	void setDirection(int newDirection);
+	////Getters and setters
+	//int getDirection() const;
+	//void setDirection(int newDirection);
+	//
+	//Point getPacmanBody() const;
+	//void setPacmanBody(int x, int y);
+	//Color getColor() const { return this->getColor(); };
+	//void setColor(Color color);
+
+
 	int	getScore() const { return score; };
 	void setScore(int x) { score = x; };
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
 	void setLife(int newLife) { life = newLife; };
-	Point getPacmanBody() const;
-	void setPacmanBody(int x, int y);
-	Color getColor() const { return color; };
-	void setColor(Color color);
+	void initPacman();
+
 };
 

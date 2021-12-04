@@ -1,20 +1,18 @@
 #pragma once
 #include "Point.h"
+#include "GameObject.h"
 
-class Fruit
+class Fruit : public GameObject
 {
-	Point FruitBody;
-	char digit;
-
+	char fruitScore = defaltFruitIcon;
 
 public:
-	Fruit() : digit((char)rand() % 57 + 53) {}
-	Fruit(int newX, int newY) : FruitBody(newX, newY), digit((char)rand() % 57 + 53) {}
+	Fruit(int x, int y) : GameObject(x, y, fruitScore) {
+		fruitScore = (char)rand() % 57 + 53;
+		this->setObjectIcon(fruitScore);
+	};
 
 	// Functions
-	void move();
-
-	void setFruitBody(Point newLocation);
-	char getDigit() const;
-	void setNewDigit();
+	char getFruitScore() const { return fruitScore; };
+	void setNewFruitScore();
 };
