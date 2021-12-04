@@ -6,13 +6,12 @@ class GameObject
 	// Ghost data members
 	Point pBody;
 	Color color = Color::WHITE;
-	char gameObjIcon;
+	char objectIcon;
 	int direction = 3;
 
 public:
 	// Constractor
-	GameObject();
-	GameObject(int x, int y, char icon) : pBody(x, y), gameObjIcon(icon) {};
+	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 
 	// Ghost functions
 	void setBody(int x, int y);
@@ -21,8 +20,8 @@ public:
 	void setDirection(int direction);
 	Color getColor() const { return color; };
 	void setColor(Color color);
-	void setObjIcon(char icon) { gameObjIcon = icon; }
-	char getObjIcon() { return gameObjIcon; }
+	void setObjectIcon(char icon) { objectIcon = icon; }
+	char getObjectIcon() { return objectIcon; }
 
 	void move();
 	void draw() const;

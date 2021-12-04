@@ -1,21 +1,21 @@
 #include "Fruit.h"
 
-void Fruit :: setNewDigit()
+/* This fruit constructor*/
+Fruit::Fruit(int x, int y) : GameObject(x, y, fruitScore)
+{
+	fruitScore = (char)rand() % 57 + 53;
+	this->setObjectIcon(fruitScore);
+}
+
+void Fruit ::setNewFruitScore()
 {
 	char num = (char)rand() % 57 + 53;
-	while (num == digit)
+	while (num == fruitScore)
 	{
 		num = (char)rand() % 57 + 53;
 	}
-	digit = num;
-}
-char Fruit::getDigit() const
-{
-	return digit;
+	fruitScore = num;
 }
 
 
-void Fruit::setFruitBody(Point newLocation)
-{
-	FruitBody = newLocation;
-}
+

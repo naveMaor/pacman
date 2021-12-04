@@ -754,7 +754,7 @@ void Game::initFruit()
 		fruitLocation.setY(rand() % Hight + 0);
 	}
 
-	fruit.setFruitBody(fruitLocation);
+	fruit.setBody(fruitLocation.getX(),fruitLocation.getY());
 
 }
 bool Game::ghostHitFruit()

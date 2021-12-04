@@ -46,6 +46,7 @@ private:
 
 public:
 	// Game functions
+	Game();
 	//int menu();
 	//void printGameMenu()const;
 	//void printPacmanSpeedOptions()const;

@@ -11,7 +11,7 @@ void GameObject::move()
 void GameObject::draw() const
 {
 	setTextColor(color);
-	pBody.draw(gameObjIcon);
+	pBody.draw(objectIcon);
 }
 
 void GameObject::setBody(int x, int y)
