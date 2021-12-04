@@ -1,10 +1,13 @@
 #include "Game.h"
+#include "Menu.h"
 
 int main()
 {
 	Game game;
+	Menu menu;
+
 	setTextColor(Color::WHITE);
-	int userChoice = game.menu();
+	int userChoice = menu.menu();
 	while (userChoice != 9)
 	{
 		switch (userChoice)
@@ -21,7 +24,7 @@ int main()
 		}
 		case 8:
 		{
-			game.printInstructions();
+			menu.printInstructions();
 			break;
 		}
 		default:
@@ -32,7 +35,7 @@ int main()
 		}
 		clearScreen();
 		setTextColor(Color::WHITE);
-		userChoice = game.menu();
+		userChoice = menu.menu();
 	}
 
 	clearScreen();

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
 #include "Board.h"
@@ -19,31 +20,53 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
-	enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000};
-	enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300 , hardGameSpeed = 140, expertGameSpeed = 70};
 
 	//------------------
 	int Width, Hight;
 	//------------------
 
-	int userChoice = 4;
+
+	/* Menu Changes*/
+	//int userChoice = 4;
+	Menu menu;
+
+
+
+	//--------------
+
+
 	int gameSpeedVal = mediumGameSpeed;
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
-	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY};
+	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
 	Pacman player = {pacmanStartX,pacmanStartY};
 	Fruit fruit;
 	Board board;
 	bool b_IsColorGame = true;
 
+
 public:
 	// Game functions
-	int menu();
-	void printGameMenu()const;
+	//int menu();
+	//void printGameMenu()const;
+	//void printPacmanSpeedOptions()const;
+	//void printInstructions()const;
+	//bool checkValidUserInput(string userChoice)const;
+//	char stringToChar(string& s)const;
+//	bool checkValidUserSettings(string input) const;
+	//void handleGameMenuSpeedSettingsInput();
+	//bool checkValidSpeedSettingsInput(string input) const;
+
 	void printGameSettings()const;
+	void printIsColorGame() const;
+	void handleGameMenuSettingsInput();
+
 	void gameSettings();
+	
+	void printCurrentSpeedGame()const;
+
 	void gameSpeed();
-	bool checkValidUserInput(string userChoice)const;
-	void printInstructions()const;
+	// if dedicate menu class
+
 	void initGame(bool b_color);
 	void initGameObj();
 	void initGhosts();
@@ -59,21 +82,17 @@ public:
 	void printPlayerHitGhost()const;
 	void removePrintPlayerHitGhost()const;
 	void drawGameObj()const;
+	void clearCenter()const;
+	void resetGame();
+
 	void chooseColor();
 	bool getIsColorGame() const { return b_IsColorGame; };
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
-	void clearCenter()const;
-	void resetGame();
-	bool checkValidUserSettings(string input) const;
-	void handleGameMenuSettingsInput();
-	void handleGameMenuSpeedSettingsInput();
-	bool checkValidSpeedSettingsInput(string input) const;
-	void printPacmanSpeedOptions()const;
-	void printIsColorGame() const;
-	void printCurrentSpeedGame()const;
+
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
-	char stringToChar(string& s)const;
+	//end of menu class
+
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);

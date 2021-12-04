@@ -1,82 +1,139 @@
 #include "Game.h"
 
 
-/* This function get user choice of menu*/
-int Game::menu()
-{
-	printGameMenu();
-	string input;
-	getline(cin, input);
+///* This function get user choice of menu*/
+//int Game::menu()
+//{
+//	printGameMenu();
+//	string input;
+//	getline(cin, input);
+//
+//	/* If the user enter invalid option clear and ignore cin input */
+//	while (!checkValidUserInput(input))
+//	{
+//		clearScreen();
+//		cout << "You enterd incorrect option, please choose again.\n\n";
+//		printGameMenu();
+//		getline(cin, input);
+//	}
+//	//userChoice = stoi(input);
+//	setUserChoice(stoi(input));
+//
+//	//return userChoice;
+//	return getUserChoice();
+//}
+//
+//void Game::printGameMenu() const
+//{
+//	cout << "Welcome to PacmanGame \n"
+//		"(1) Start a new game\n"
+//		"(2) Game settings\n"
+//		"(8) Present instructions and keys\n"
+//		"(9) EXIT\n";
+//}
+//
+//
+//
+///* This function print pacman instructions*/
+//void Game::printInstructions() const
+//{
+//	clearScreen();
+//	cout << "Pacman game instructions:\n"
+//		"The purpose of the game is to eat all the breadcrumbs (dots).\n"
+//		"If pacman makes contact with a ghost, he will lose a life.\n"
+//		"The game ends when all lives are lost.\n\n"
+//		"The keys:\n"
+//		"Up- 'w' or 'W'\n"
+//		"Down- 'x' or 'X'\n"
+//		"Left- 'a' or 'A'\n"
+//		"Right- 'd' or 'D'\n"
+//		"Stay- 's' or 'S'\n"
+//		"Pause/continue the game- ESC\n\n"
+//		"Press any key to return the menu\n";
+//
+//	char c = _getch();
+//	clearScreen();
+//}
+//
+///* This function prints the pacman speed settings options*/
+//void Game::printPacmanSpeedOptions() const
+//{
+//	setTextColor(Color::WHITE);
+//	cout << "Please enter pacman speed\n"
+//		"1. Easy\n"
+//		"2. Medium\n"
+//		"3. Hard\n"
+//		"4. Expert\n\n"
+//		"Choice: ";
+//}
+//
 
-	/* If the user enter invalid option clear and ignore cin input */
-	while (!checkValidUserInput(input))
-	{
-		clearScreen();
-		cout << "You enterd incorrect option, please choose again.\n\n";
-		printGameMenu();
-		getline(cin, input);
-	}
-	userChoice = stoi(input);
+//
+///* Check if user input is correct*/
+//bool Game::checkValidUserInput(string input) const
+//{
+//	if (input.length() == 1)
+//	{
+//		char chUser = stringToChar(input);
+//		if (chUser >= '0' && chUser <= '9')
+//			if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
+//				return true;
+//	}
+//	return false;
+//}
+///* This function change string to char*/
+//char Game::stringToChar(string& s) const
+//{
+//	char res = s[0];
+//	return res;
+//}
+//
+//
+///* This function check valid user input*/
+//bool Game::checkValidUserSettings(string input) const
+//{
+//	//if (input.length() == 1 && userChoice != 0)
+//	if (input.length() == 1 && menu.getUserChoice() != 0)
+//	{
+//		int userChoice = stoi(input);
+//		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
+//			return true;
+//	}
+//	return false;
+//}
+//
+//
+///* This function handle game menu speed settings input*/
+//void Game::handleGameMenuSpeedSettingsInput()
+//{
+//	string input;
+//	getline(cin, input);
+//
+//	while (!checkValidSpeedSettingsInput(input))
+//	{
+//		clearScreen();
+//		cout << "You enterd incorrect option, please choose again.\n\n";
+//		menu.printPacmanSpeedOptions();
+//		getline(cin, input);
+//	}
+//	//userChoice = stoi(input);
+//	menu.setUserChoice(stoi(input));
+//
+//}
+//
+///* This function check valid speed settings input*/
+//bool Game::checkValidSpeedSettingsInput(string input) const
+//{
+//	if (input.length() == 1 && menu.getUserChoice() != 0)
+//	{
+//		int speed = stoi(input);
+//		if ((speed == 1) || (speed == 2) || (speed == 3) || (speed == 4))
+//			return true;
+//	}
+//	return false;
+//}
 
-	return userChoice;
-}
 
-void Game::printGameMenu() const
-{
-	cout << "Welcome to PacmanGame \n"
-		"(1) Start a new game\n"
-		"(2) Game settings\n"
-		"(8) Present instructions and keys\n"
-		"(9) EXIT\n";
-}
-
-/* This function print game settings options*/
-void Game::printGameSettings() const
-{
-	setTextColor(Color::WHITE);
-	cout << "Pacman settings:\n"
-		"(1) Change color settings (current- ";
-	printIsColorGame();
-	cout << ")\n"
-		"(2) Change pacman speed (current - ";
-	printCurrentSpeedGame();
-	cout << ")\n"
-		"(3) Back to main menu";
-	cout << "\n"
-		"Choice: ";
-}
-
-void Game::printIsColorGame() const
-{
-	if (getIsColorGame())
-		cout << "is color game";
-	else
-		cout << "isn't color game";
-}
-
-/* This function handle settings options*/
-void Game::gameSettings()
-{
-	clearScreen();
-	printGameSettings();
-	handleGameMenuSettingsInput();
-	
-	switch (userChoice)
-	{
-	case 1:
-		chooseColor();
-		break;
-
-	case 2:
-		gameSpeed();
-		break;
-	case 3:
-		clearScreen();
-		break;
-	default:
-		break;
-	}
-}
 
 
 /* This function handle the game*/
@@ -136,6 +193,29 @@ void Game::initGame(bool b_color)
 	printLife();
 }
 
+/* This function handle settings options*/
+void Game::gameSettings()
+{
+	clearScreen();
+	printGameSettings();
+	handleGameMenuSettingsInput();
+
+	switch (menu.getUserChoice())
+	{
+	case 1:
+		chooseColor();
+		break;
+	case 2:
+		gameSpeed();
+		break;
+	case 3:
+		clearScreen();
+		break;
+	default:
+		break;
+	}
+}
+
 /* This function init the game after ghost hit pacman*/
 void Game::initGameAfterGhostHit()
 {
@@ -149,10 +229,10 @@ void Game::initGameAfterGhostHit()
 		removePrintPlayerHitGhost();
 		removeGhosts();
 		removePacman();
-		player.setPacmanBody(pacmanStartX, pacmanStartY);
+		player.setBody(pacmanStartX, pacmanStartY);
 		player.setDirection(4);
-		ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
-		ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
+		ghostOne.setBody(ghostOneStartX, ghostOneStartY);
+		ghostTwo.setBody(ghostTwoStartX, ghostTwoStartY);
 		drawGameObj();
 	}
 }
@@ -174,7 +254,7 @@ void Game::removePrintPlayerHitGhost() const
 /* This function remove pacman last character after ghost hit*/
 void Game::removePacman()
 {
-	gotoxy(player.getPacmanBody().getX(), player.getPacmanBody().getY());
+	gotoxy(player.getBody().getX(), player.getBody().getY());
 	cout << (char)space;
 }
 
@@ -188,8 +268,8 @@ void Game::removeGhosts()
 /* This function remove ghost last character after pacman hit*/
 void Game::removeGhost(Ghost ghost)
 {
-	int x = ghost.getGhostBody().getX();
-	int y = ghost.getGhostBody().getY();
+	int x = ghost.getBody().getX();
+	int y = ghost.getBody().getY();
 	gotoxy(x, y);
 	if (ifLastGhostPositionWasBreadcrumb(x, y))
 		printBreadCrumbs(x, y);
@@ -263,10 +343,10 @@ void Game::pacmanMove()
 {
 	getUserKeyboard();
 
-	int x = player.getPacmanBody().getX();
-	int y = player.getPacmanBody().getY();
+	int x = player.getBody().getX();
+	int y = player.getBody().getY();
 
-	Point nextPos = player.getPacmanBody();
+	Point nextPos = player.getBody();
 	nextPos.move(player.getDirection());
 	
 
@@ -283,23 +363,23 @@ void Game::pacmanMove()
 		}
 
 		if (x == 1) {
-			player.getPacmanBody().draw(space);
-			player.setPacmanBody(69, y);
+			player.getBody().draw(space);
+			player.setBody(69, y);
 		}
 
 		else if (x == 68) {
-			player.getPacmanBody().draw(space);
-			player.setPacmanBody(0, y);
+			player.getBody().draw(space);
+			player.setBody(0, y);
 		}
 		else if (y == 1)
 		{
-			player.getPacmanBody().draw(space);
-			player.setPacmanBody(x, 19);
+			player.getBody().draw(space);
+			player.setBody(x, 19);
 		}
 		else if (y == 18)
 		{
-			player.getPacmanBody().draw(space);
-			player.setPacmanBody(x, 0);
+			player.getBody().draw(space);
+			player.setBody(x, 0);
 		}
 		player.move();
 	}
@@ -329,7 +409,7 @@ bool Game::ghostsHit()
 /* This function handle ghost hit*/
 bool Game::ghostHit(Ghost ghost)
 {
-	if (ghost.getGhostBody() == player.getPacmanBody())
+	if (ghost.getBody() == player.getBody())
 		return true;
 	return false;
 }
@@ -344,15 +424,15 @@ void Game::ghostsMove()
 /* This function handle ghost randome move*/
 void Game::ghostRandomMove(Ghost& ghost)
 {
-	int x = ghost.getGhostBody().getX();
-	int y = ghost.getGhostBody().getY();
+	int x = ghost.getBody().getX();
+	int y = ghost.getBody().getY();
 	int direction = rand() % 4;
 	
 	// If wall get new random direction
 	while (!checkGhostValidMove(x, y, direction))
 		direction = rand() % 4;	
 		
-	ghost.setGhostDirection(direction); 
+	ghost.setDirection(direction); 
 	ghost.move();
 
 	// If last ghost position was breadcrumb print breadcrumb
@@ -456,26 +536,7 @@ void Game::gameOver()
 	clearScreen();
 }
 
-/* This function print pacman instructions*/
-void Game :: printInstructions() const
-{
-	clearScreen();
-	cout << "Pacman game instructions:\n"
-		"The purpose of the game is to eat all the breadcrumbs (dots).\n"
-		"If pacman makes contact with a ghost, he will lose a life.\n"
-		"The game ends when all lives are lost.\n\n"
-		"The keys:\n"
-		"Up- 'w' or 'W'\n"
-		"Down- 'x' or 'X'\n"
-		"Left- 'a' or 'A'\n"
-		"Right- 'd' or 'D'\n"
-		"Stay- 's' or 'S'\n"
-		"Pause/continue the game- ESC\n\n"
-		"Press any key to return the menu\n";
-	
-	char c = _getch();
-	clearScreen();
-}
+
 
 /* This function print the game before paused*/
 void Game::printPreviousGame() const
@@ -515,34 +576,21 @@ void Game::winGame()
 	clearScreen();
 }
 
-/* Check if user input is correct*/
-bool Game::checkValidUserInput(string input) const
-{
-	if (input.length() == 1)
-	{
-		char chUser = stringToChar(input);
-		if (chUser >= '0' && chUser <= '9')
-			if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
-				return true;
-	}
-	return false;
-}
+
 
 /* This function*/
 void Game::chooseColor()
 {
 	char colorChoice = 'd';
 	clearScreen();
-	cout << "Do you want to use colors in the game?" << endl;
-	cout << "Press Y for yes or N for no" << endl;
+	menu.printColorMenu();
 	colorChoice = _getch();
 
 	while (colorChoice != 'y' && colorChoice != 'Y' && colorChoice != 'n' && colorChoice != 'N' && !_kbhit())
 	{
 		clearScreen();
 		cout << "You entered incorrect option, please enter again" << endl;
-		cout << "Do you want to use colors in the game?" << endl;
-		cout << "Press Y for yes or N for no" << endl;
+		menu.printColorMenu();
 		colorChoice = _getch();
 	}
 
@@ -578,12 +626,10 @@ void Game::clearCenter() const
 /* This function reset the game when starting again*/
 void Game::resetGame()
 {
-	player.setScore(0);
-	player.setLife(3);
-	player.setPacmanBody(pacmanStartX, pacmanStartY);
-	player.setDirection(4);
-	ghostOne.setGhostBody(ghostOneStartX, ghostOneStartY);
-	ghostTwo.setGhostBody(ghostTwoStartX, ghostTwoStartY);
+	initGameObj();
+	player.setBody(pacmanStartX, pacmanStartY);
+	ghostOne.setBody(ghostOneStartX, ghostOneStartY);
+	ghostTwo.setBody(ghostTwoStartX, ghostTwoStartY);
 	board.resetBoard();
 }
 
@@ -597,49 +643,35 @@ void Game::initGameObj()
 /* This function init ghosts*/
 void Game::initGhosts()
 {
-	ghostOne.initGhost();
-	ghostTwo.initGhost();
+	ghostOne.initGameObject();
+	ghostTwo.initGameObject();
 }
 
 
-/* This function check valid user input*/
-bool Game::checkValidUserSettings(string input) const
-{
-	if (input.length() == 1 && userChoice != 0)
-	{
-		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
-			return true;
-	}
-	return false;
-}
 
-/* This function change string to char*/
-char Game::stringToChar(string& s) const
-{
-	char res = s[0];
-		return res;
-}	
+
+
 
 /* This function handle the speed of the game settings*/
 void Game::gameSpeed()
 {
 	clearScreen();
-	printPacmanSpeedOptions();
-	handleGameMenuSpeedSettingsInput();
-	switch (userChoice)
+	menu.printPacmanSpeedOptions();
+	menu.handleGameMenuSpeedSettingsInput();
+	//switch (userChoice)
+	switch (menu.getUserChoice())
 	{
 	case 1:
-		setGameSpeed(600);
+		setGameSpeed(easyGameSpeed);
 		break;
 	case 2:
 		setGameSpeed(mediumGameSpeed);
 		break;
 	case 3:
-		setGameSpeed(140);
+		setGameSpeed(hardGameSpeed);
 		break;
 	case 4:
-		setGameSpeed(70);
+		setGameSpeed(expertGameSpeed);
 		break;
 
 	default:
@@ -647,16 +679,29 @@ void Game::gameSpeed()
 	}
 }
 
-/* This function prints the pacman speed settings options*/
-void Game::printPacmanSpeedOptions() const
+/* This function print game settings options*/
+void Game::printGameSettings() const
 {
-	setTextColor(Color:: WHITE);
-	cout << "Please enter pacman speed\n"
-		"1. Easy\n"
-		"2. Medium\n"
-		"3. Hard\n"
-		"4. Expert\n\n"
+	setTextColor(Color::WHITE);
+	cout << "Pacman settings:\n"
+		"(1) Change color settings (current- ";
+	printIsColorGame();
+	cout << ")\n"
+		"(2) Change pacman speed (current - ";
+	printCurrentSpeedGame();
+	cout << ")\n"
+		"(3) Back to main menu";
+	cout << "\n"
 		"Choice: ";
+}
+
+
+void Game::printIsColorGame() const
+{
+	if (getIsColorGame())
+		cout << "is color game";
+	else
+		cout << "isn't color game";
 }
 
 /* This function handle the game menu settings input*/
@@ -665,50 +710,25 @@ void Game::handleGameMenuSettingsInput()
 	string input;
 	getline(cin, input);
 
-	while (!checkValidUserSettings(input))
+	while (!menu.checkValidUserSettings(input))
 	{
 		clearScreen();
 		cout << "You entered incorrect option, please choose again.\n\n";
 		printGameSettings();
 		getline(cin, input);
 	}
-	userChoice = stoi(input);
+	menu.setUserChoice(stoi(input));
 }
 
-/* This function handle game menu speed settings input*/
-void Game::handleGameMenuSpeedSettingsInput()
-{
-	string input;
-	getline(cin, input);
 
-	while (!checkValidSpeedSettingsInput(input))
-	{
-		clearScreen();
-		cout << "You enterd incorrect option, please choose again.\n\n";
-		printPacmanSpeedOptions();
-		getline(cin, input);
-	}
-	userChoice = stoi(input);
 
-}
 
-/* This function check valid speed settings input*/
-bool Game::checkValidSpeedSettingsInput(string input) const
-{
-	if (input.length() == 1 && userChoice != 0)
-	{
-		int speed = stoi(input);
-		if ((speed == 1) || (speed == 2) || (speed == 3) || (speed == 4))
-			return true;
-	}
-	return false;
-}
 
 /* This function print current speed game*/
 void Game::printCurrentSpeedGame() const
 {
 	int currentSpeed = getGameSpeedVal();
-	
+
 	if (currentSpeed == easyGameSpeed)
 		cout << "easy";
 	else if (currentSpeed == mediumGameSpeed)
@@ -725,9 +745,9 @@ void Game::initFruit()
 
 	Point fruitLocation(rand() % (Width-1) + 0, rand() % (Hight-1) + 0);
 
-	while (fruitLocation == ghostOne.getGhostBody() ||
-		fruitLocation == ghostTwo.getGhostBody() ||
-		fruitLocation == player.getPacmanBody() ||
+	while (fruitLocation == ghostOne.getBody() ||
+		fruitLocation == ghostTwo.getBody() ||
+		fruitLocation == player.getBody() ||
 		board.getBoardValFromPoint(fruitLocation.getX(), fruitLocation.getY()) == w)
 	{
 		fruitLocation.setX(rand() % Width + 0);
@@ -739,11 +759,11 @@ void Game::initFruit()
 }
 bool Game::ghostHitFruit()
 {
-
+	return false;
 }
 bool Game::pacmanHitFruit()
 {
-
+	return false;
 }
 void Game::unDisplayFruit()
 {

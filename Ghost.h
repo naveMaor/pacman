@@ -1,26 +1,30 @@
 #pragma once
 #include "Point.h"
+#include "GameObject.h"
 
-class Ghost
+class Ghost : public GameObject
 {
 	// Ghost data members
+	/*
 	Point ghostBody;
 	Color color = Color::WHITE;
 	int direction = 3;
+	*/
+
 
 public:
 	// Constractor
 	Ghost();
-	Ghost(int newX, int newY) : ghostBody(newX, newY) {};
+	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 
 	// Ghost functions
-	void move();
+	/*void move();
 	void draw() const;
 	void setGhostBody(int newX, int newY);
 	Point getGhostBody() const;
 	void setGhostDirection(int direction);
-	Color getColor() const { return color; };
+	Color getColor() const { return this->getColor(); };
 	void setColor(Color color);
-	void initGhost();
+	void initGhost();*/
 };
 
