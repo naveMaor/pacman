@@ -396,7 +396,7 @@ void Game::gameOver()
 	if (getIsColorGame())
 		setTextColor(Color::LIGHTRED);
 	gotoxy(30, 23);
-	cout << "You losed!";
+	cout << "You lost!";
 	Sleep(longPauseWindow);
 	resetGame();
 	clearScreen();
