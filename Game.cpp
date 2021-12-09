@@ -1,5 +1,8 @@
 #include "Game.h"
 
+
+
+
 /* This function handle the game*/
 void Game::playGame()
 {
@@ -11,6 +14,7 @@ void Game::playGame()
 	while ((player.getLife() > 0) && (!b_won))
 	{
 		printScore();
+		//TODO: change to wholegamemove functiom
 
 		if (countGhostMove == 2)
 		{
@@ -280,19 +284,76 @@ bool Game::ghostHit(Ghost ghost)
 	return false;
 }
 
+
+
+
+
 /* This function handle ghosts move*/
-void Game::ghostsMove()
+void Game::ghostsMove(int & countGhostMoves, int level)
 {
-	ghostRandomMove(ghostOne);
-	ghostRandomMove(ghostTwo);
+	int direction;
+
+	switch (level)
+	{
+	case(NOVICE):
+	{
+		if (countGhostMoves == 20)
+		{
+			direction = rand() % 4;
+			countGhostMoves = 0;
+		}
+		ghostRandomMove(ghostOne, direction);
+		ghostRandomMove(ghostTwo, direction);
+		countGhostMoves++;
+		break;
+	}
+
+	case(GOOD):
+	{
+		if (countGhostMoves >= 20 && countGhostMoves <= 25)
+		{
+			if (countGhostMoves == 25)
+			{
+				countGhostMoves = 0;
+			}
+			if (countGhostMoves == 20) {
+				direction = rand() % 4;
+			}
+			ghostRandomMove(ghostOne, direction);
+			ghostRandomMove(ghostTwo, direction);
+			countGhostMoves++;
+		}
+		else
+		{
+			ghostBfsMove(ghostOne);
+			ghostBfsMove(ghostTwo);
+			//TODO:: IMPLIMENT HERE BFS ALGORITHM!! DONT FORGET TO ADD THE COUNTER --> countGhostMoves++
+
+		}
+		break;
+	}
+	case(BEST):
+	{
+		ghostBfsMove(ghostOne);
+		ghostBfsMove(ghostTwo);
+		break;
+	}
+		//TODO:: IMPLIMENT HERE ANOTHER BFS ALGORITHM!! DONT FORGET TO ADD THE COUNTER --> countGhostMoves++
+
+
+	default:
+		break;
+	}
+
 }
 
 /* This function handle ghost randome move*/
-void Game::ghostRandomMove(Ghost& ghost)
+void Game::ghostRandomMove(Ghost& ghost, int direction)
 {
+	int direction;
 	int x = ghost.getBody().getX();
 	int y = ghost.getBody().getY();
-	int direction = rand() % 4;
+
 	
 	// If wall get new random direction
 	while (!checkGhostValidMove(x, y, direction))
@@ -620,6 +681,9 @@ bool Game::pacmanHitFruit()
 	return false;
 }
 
+
+
+
 void Game::unDisplayFruit()
 {
 
@@ -628,4 +692,40 @@ void Game::unDisplayFruit()
 void Game::fruitMove()
 {
 
+}
+
+/*if (countGhostMove == 2)
+		{
+			ghostsMove();
+			countGhostMove = 0;
+		}
+		else
+		{
+			Sleep(gameSpeedVal);
+			pacmanMove();
+			countGhostMove++;
+		}*/
+
+
+
+
+
+
+void Game::wholeGameMove(int ghostlevelplay)
+{
+	static int countMoves = 0;
+	static int countGhostMoves = 0;
+
+
+	if (countMoves == 2)
+	{
+		ghostsMove(countGhostMoves, ghostlevelplay);
+		countMoves = 0;
+	}
+	else
+	{
+		Sleep(gameSpeedVal);
+		pacmanMove();
+		countMoves++;
+	}
 }

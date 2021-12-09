@@ -20,6 +20,9 @@ private:
 		ghostOneStartX = 50, ghostOneStartY = 14,
 		ghostTwoStartX = 10, ghostTwoStartY = 3
 	};
+	enum Ghostlevels {
+		NOVICE = 1, GOOD, BEST
+	};
 
 	//------------------
 	int Width, Hight;
@@ -42,6 +45,7 @@ private:
 	Menu menu;
 	bool b_IsColorGame = true;
 	int gameSpeedVal = mediumGameSpeed;
+	int ghostLevel = Ghostlevels::NOVICE;
 
 
 
@@ -74,20 +78,26 @@ public:
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
+	void wholeGameMove(int ghostlevelplay);	
+	void NoviceGamePlay(int& countMoves, int& countGhostMoves);
+	void GoodGamePlay(int& countMoves);
+	//TODO complete wholegamemove func
+
 
 	// Ghosts functions
 	bool ghostHit(Ghost ghost);
 	bool ghostsHit();
-	void ghostRandomMove(Ghost& ghost);
+	void ghostRandomMove(Ghost& ghost, int countMoves);
 	void ghostIlustrateNextMove(int& x, int& y, int dir);
 	bool ifLastGhostPositionWasBreadcrumb(int x, int y);
 	void printBreadCrumbs(int x, int y);
 	void initGameAfterGhostHit();
-	void ghostsMove();
+	void ghostsMove(int& countGhostMoves, int level);
 	bool checkGhostValidMove(int x, int y, int dir);
 	void initGhosts();
 	void removeGhosts();
 	void removeGhost(Ghost ghost);
+	void ghostBfsMove(Ghost& ghost);
 
 	// Pacman functions
 	void pacmanMove();

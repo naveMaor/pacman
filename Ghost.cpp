@@ -1,4 +1,31 @@
 #include "Ghost.h"
+
+void Ghost::setghostLevel(int level)
+{
+	switch (level)
+	{
+	case (Ghostlevels::NOVICE):
+		{
+			ghostLevel = Ghostlevels::NOVICE;
+			break;
+		}
+	case (Ghostlevels::GOOD):
+		{
+			ghostLevel = Ghostlevels::GOOD;
+			break;
+		}
+	case (Ghostlevels::BEST):
+	{
+		ghostLevel = Ghostlevels::BEST;
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+
+
 //
 ///* This function remove ghost from board and draw it in the new place by direction*/
 //void Ghost::move() 
