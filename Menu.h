@@ -30,7 +30,7 @@ public:
 
 
 	/// Changes
-	void setUserChoice(int userChoice) { userChoice = userChoice; }
+	void setUserChoice(int newUserChoice) { userChoice = newUserChoice; }
 	int getUserChoice() const { return userChoice; }
 };
 

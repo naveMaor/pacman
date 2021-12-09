@@ -1,143 +1,5 @@
 #include "Game.h"
 
-
-///* This function get user choice of menu*/
-//int Game::menu()
-//{
-//	printGameMenu();
-//	string input;
-//	getline(cin, input);
-//
-//	/* If the user enter invalid option clear and ignore cin input */
-//	while (!checkValidUserInput(input))
-//	{
-//		clearScreen();
-//		cout << "You enterd incorrect option, please choose again.\n\n";
-//		printGameMenu();
-//		getline(cin, input);
-//	}
-//	//userChoice = stoi(input);
-//	setUserChoice(stoi(input));
-//
-//	//return userChoice;
-//	return getUserChoice();
-//}
-//
-//void Game::printGameMenu() const
-//{
-//	cout << "Welcome to PacmanGame \n"
-//		"(1) Start a new game\n"
-//		"(2) Game settings\n"
-//		"(8) Present instructions and keys\n"
-//		"(9) EXIT\n";
-//}
-//
-//
-//
-///* This function print pacman instructions*/
-//void Game::printInstructions() const
-//{
-//	clearScreen();
-//	cout << "Pacman game instructions:\n"
-//		"The purpose of the game is to eat all the breadcrumbs (dots).\n"
-//		"If pacman makes contact with a ghost, he will lose a life.\n"
-//		"The game ends when all lives are lost.\n\n"
-//		"The keys:\n"
-//		"Up- 'w' or 'W'\n"
-//		"Down- 'x' or 'X'\n"
-//		"Left- 'a' or 'A'\n"
-//		"Right- 'd' or 'D'\n"
-//		"Stay- 's' or 'S'\n"
-//		"Pause/continue the game- ESC\n\n"
-//		"Press any key to return the menu\n";
-//
-//	char c = _getch();
-//	clearScreen();
-//}
-//
-///* This function prints the pacman speed settings options*/
-//void Game::printPacmanSpeedOptions() const
-//{
-//	setTextColor(Color::WHITE);
-//	cout << "Please enter pacman speed\n"
-//		"1. Easy\n"
-//		"2. Medium\n"
-//		"3. Hard\n"
-//		"4. Expert\n\n"
-//		"Choice: ";
-//}
-//
-
-//
-///* Check if user input is correct*/
-//bool Game::checkValidUserInput(string input) const
-//{
-//	if (input.length() == 1)
-//	{
-//		char chUser = stringToChar(input);
-//		if (chUser >= '0' && chUser <= '9')
-//			if ((chUser == '1') || (chUser == '2') || (chUser == '8') || (chUser == '9'))
-//				return true;
-//	}
-//	return false;
-//}
-///* This function change string to char*/
-//char Game::stringToChar(string& s) const
-//{
-//	char res = s[0];
-//	return res;
-//}
-//
-//
-///* This function check valid user input*/
-//bool Game::checkValidUserSettings(string input) const
-//{
-//	//if (input.length() == 1 && userChoice != 0)
-//	if (input.length() == 1 && menu.getUserChoice() != 0)
-//	{
-//		int userChoice = stoi(input);
-//		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
-//			return true;
-//	}
-//	return false;
-//}
-//
-//
-///* This function handle game menu speed settings input*/
-//void Game::handleGameMenuSpeedSettingsInput()
-//{
-//	string input;
-//	getline(cin, input);
-//
-//	while (!checkValidSpeedSettingsInput(input))
-//	{
-//		clearScreen();
-//		cout << "You enterd incorrect option, please choose again.\n\n";
-//		menu.printPacmanSpeedOptions();
-//		getline(cin, input);
-//	}
-//	//userChoice = stoi(input);
-//	menu.setUserChoice(stoi(input));
-//
-//}
-//
-///* This function check valid speed settings input*/
-//bool Game::checkValidSpeedSettingsInput(string input) const
-//{
-//	if (input.length() == 1 && menu.getUserChoice() != 0)
-//	{
-//		int speed = stoi(input);
-//		if ((speed == 1) || (speed == 2) || (speed == 3) || (speed == 4))
-//			return true;
-//	}
-//	return false;
-//}
-
-
-
-
-
-
 /* This function handle the game*/
 void Game::playGame()
 {
@@ -239,6 +101,7 @@ void Game::initGameAfterGhostHit()
 	}
 }
 
+/* This function print player hot ghost message*/
 void Game::printPlayerHitGhost() const
 {
 	if (getIsColorGame())
@@ -247,6 +110,7 @@ void Game::printPlayerHitGhost() const
 	cout << "You hit the ghost!" << endl;
 }
 
+/* This function remove player hit ghost message*/
 void Game::removePrintPlayerHitGhost() const
 {
 	gotoxy(26, 23);

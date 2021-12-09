@@ -27,12 +27,12 @@ Point GameObject::getBody() const
 
 void GameObject::setDirection(int direction)
 {
-	direction = direction;
+	this->direction = direction;
 }
 
 void GameObject::setColor(Color color)
 {
-	color = color;
+	this->color = color;
 }
 
 void GameObject::initGameObject()
