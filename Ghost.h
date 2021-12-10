@@ -2,6 +2,8 @@
 #include "Point.h"
 #include "GameObject.h"
 
+
+
 class Ghost : public GameObject
 {
 	// Ghost data members
@@ -10,7 +12,6 @@ class Ghost : public GameObject
 	Color color = Color::WHITE;
 	int direction = 3;
 	*/
-
 
 public:
 	// Constractor
