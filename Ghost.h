@@ -16,6 +16,7 @@ public:
 	// Constractor
 	Ghost();
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
+	void initGameObject() override;
 
 	// Ghost functions
 	/*void move();

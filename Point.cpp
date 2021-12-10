@@ -10,22 +10,22 @@ void Point::draw(char ch)  const {
 /* This function change x or y by requested direction*/
 void Point::move(int dir) {
 	switch (dir) {
-	case 0: // LEFT
+	case Left: // LEFT
 		--x;
 
 		break;
-	case 1: // RIGHT
+	case Right: // RIGHT
 		++x;
 
 		break;
-	case 2: // UP
+	case Up: // UP
 		--y;
 
 		break;
-	case 3: // DOWN
+	case Down: // DOWN
 		++y;
 		break;
-	case 4: //Nothing
+	case Nothing: //Nothing
 
 		break;
 	}

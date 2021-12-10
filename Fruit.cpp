@@ -12,5 +12,5 @@ void Fruit ::setNewFruitScore()
 	this->setObjectIcon(fruitScore);
 }
 
-
+void Fruit::initGameObject() {}
 

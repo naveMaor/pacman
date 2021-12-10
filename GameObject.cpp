@@ -1,5 +1,22 @@
 #include "GameObject.h"
 
+void GameObject::setBody(int x, int y)
+{
+	pBody.setX(x);
+	pBody.setY(y);
+}
+
+
+void GameObject::setDirection(int direction)
+{
+	this->direction = direction;
+}
+
+void GameObject::setColor(Color color)
+{
+	this->color = color;
+}
+
 
 void GameObject::move()
 {
@@ -14,29 +31,5 @@ void GameObject::draw() const
 	pBody.draw(objectIcon);
 }
 
-void GameObject::setBody(int x, int y)
-{
-	pBody.setX(x);
-	pBody.setY(y);
-}
 
-Point GameObject::getBody() const
-{
-	return pBody;
-}
 
-void GameObject::setDirection(int direction)
-{
-	this->direction = direction;
-}
-
-void GameObject::setColor(Color color)
-{
-	this->color = color;
-}
-
-void GameObject::initGameObject()
-{
-	this->color = Color::WHITE;
-	this->direction = 4;
-}

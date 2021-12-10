@@ -498,16 +498,11 @@ void Game::resetGame()
 /* This function init pacman and ghosts*/
 void Game::initGameObj()
 {
-	player.initPacman();
-	initGhosts();
-}
-
-/* This function init ghosts*/
-void Game::initGhosts()
-{
+	player.initGameObject();
 	ghostOne.initGameObject();
 	ghostTwo.initGameObject();
 }
+
 
 /* This function handle the speed of the game settings*/
 void Game::gameSpeed()

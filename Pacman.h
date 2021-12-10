@@ -17,6 +17,7 @@ private:
 public:
 	// Constractor
 	Pacman(int x, int y): GameObject(x,y,pacmanIcon) {};
+	void initGameObject() override;
 
 	//// Pacman functions
 	//void move();
@@ -37,7 +38,7 @@ public:
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
 	void setLife(int newLife) { life = newLife; };
-	void initPacman();
+	//void initPacman();
 
 };
 

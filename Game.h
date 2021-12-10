@@ -85,7 +85,6 @@ public:
 	void initGameAfterGhostHit();
 	void ghostsMove();
 	bool checkGhostValidMove(int x, int y, int dir);
-	void initGhosts();
 	void removeGhosts();
 	void removeGhost(Ghost ghost);
 

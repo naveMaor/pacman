@@ -15,4 +15,5 @@ public:
 	// Functions
 	char getFruitScore() const { return fruitScore; };
 	void setNewFruitScore();
+	void initGameObject() override;
 };
