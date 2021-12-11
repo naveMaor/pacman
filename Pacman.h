@@ -19,20 +19,6 @@ public:
 	Pacman(int x, int y): GameObject(x,y,pacmanIcon) {};
 	void initGameObject() override;
 
-	//// Pacman functions
-	//void move();
-	//void draw() const;
-
-	////Getters and setters
-	//int getDirection() const;
-	//void setDirection(int newDirection);
-	//
-	//Point getPacmanBody() const;
-	//void setPacmanBody(int x, int y);
-	//Color getColor() const { return this->getColor(); };
-	//void setColor(Color color);
-
-
 	int	getScore() const { return score; };
 	void setScore(int x) { score = x; };
 	void setPlusScore() { score++; }

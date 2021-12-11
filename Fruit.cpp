@@ -38,3 +38,20 @@ void Fruit::setNewFruitlocation(Board& b)
 	
 }
 
+void Fruit::changePosition(Board& b)
+{
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+	int direction = rand() % 4;
+
+	// If wall get new random direction
+	while (!checkValidMove(x, y, direction, b))
+		direction = rand() % 4;
+
+	this->setDirection(direction);
+	this->move();
+
+	// If last ghost position was breadcrumb print breadcrumb
+	if (b.getBoardValFromPoint(x, y) == bc)
+		printBreadCrumbs(x, y);
+}

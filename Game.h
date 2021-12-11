@@ -83,10 +83,11 @@ public:
 	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
 	bool ghostsHit();
-	void printBreadCrumbs(int x, int y);
+	void removeGhosts();	
 	void ghostsMove();
-	void removeGhosts();
-	void removeGhost(Ghost ghost);
+
+	//void printBreadCrumbs(int x, int y);
+	//void removeGhost(Ghost ghost);
 
 	// Pacman functions
 	void pacmanMove();

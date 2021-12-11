@@ -19,5 +19,7 @@ public:
 	void initGameObject() override;
 	void setNewFruitlocation(Board& b);
 	void initFruit(Board& b);
+	void changePosition(Board& b) override;
+
 
 };

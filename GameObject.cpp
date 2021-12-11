@@ -31,5 +31,50 @@ void GameObject::draw() const
 	pBody.draw(objectIcon);
 }
 
+void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
+{
+	switch (dir)
+	{
+	case 0: // LEFT
+		x--;
+		break;
+	case 1: // RIGHT
+		x++;
+		break;
+	case 2: // UP
+		y--;
+		break;
+	case 3: // DOWN
+		y++;
+		break;
+	}
+
+}
+
+void GameObject::printBreadCrumbs(int x, int y)
+{
+	unsigned char breadCrumb = bc;
+	setTextColor(Color::WHITE);
+	gotoxy(x, y);
+	cout << breadCrumb;
+}
+
+
+bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
+{
+	IlustrateNextMove(x, y, dir, b);
+	unsigned char charAtNextPoint = b.getBoardValFromPoint(x, y);
+
+	// If the ghost out of board
+	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
+		return false;
+
+	// If the next move is wall, tunnel or ghost this isn't valid move
+	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon))
+		return false;
+
+	return true;
+}
+
 
 
