@@ -84,7 +84,7 @@ public:
 
 
 	// Pacman functions
-	void pacmanMove();
+	void pacmanMove(Board &b);
 	void getUserKeyboard();
 	void removePacman();
 	

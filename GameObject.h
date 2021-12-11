@@ -27,7 +27,7 @@ public:
 	void move();
 	void draw() const;
 	virtual void initGameObject() = 0;
-	virtual void changePosition(Board& b) {};
+	virtual void changePosition(Board& b) =0;
 	bool checkValidMove(int x, int y, int dir, Board &b);
 	void IlustrateNextMove(int& x, int& y, int dir, Board &b);
 	void printBreadCrumbs(int x, int y);

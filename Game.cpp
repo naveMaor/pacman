@@ -20,7 +20,7 @@ void Game::playGame()
 		else
 		{
 			Sleep(gameSpeedVal);
-			pacmanMove();
+			pacmanMove(board);
 			countGhostMove++;
 		}
 		if (ghostsHit())
@@ -196,66 +196,14 @@ void Game::pauseGame()
 	}
 }
 
+
+
+
 /* This function handle pacman move*/
-void Game::pacmanMove()
+void Game::pacmanMove(Board & b)
 {
 	getUserKeyboard();
-
-	int x = player.getBody().getX();
-	int y = player.getBody().getY();
-
-	Point nextPos = player.getBody();
-	nextPos.move(player.getDirection());
-	
-
-	unsigned char charAtnextPoint = board.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
-	unsigned char charAtPoint = board.getBoardValFromPoint(x, y);
-
-	// If player is going through tunnel
-	if (charAtnextPoint == space)
-	{
-		if (charAtPoint == bc) // if there was at curr pos then raise score
-		{
-			player.setPlusScore();
-			board.setBoardValByPoint(x, y);
-		}
-
-		if (x == 1) {
-			player.getBody().draw(space);
-			player.setBody(69, y);
-		}
-
-		else if (x == 68) {
-			player.getBody().draw(space);
-			player.setBody(0, y);
-		}
-		else if (y == 1)
-		{
-			player.getBody().draw(space);
-			player.setBody(x, 19);
-		}
-		else if (y == 18)
-		{
-			player.getBody().draw(space);
-			player.setBody(x, 0);
-		}
-		player.move();
-	}
-
-	// if there is wall in the next move
-	else if (charAtnextPoint == w)
-		player.setDirection(4);
-
-	else
-	{
-		// if there breadcrumb
-		if (charAtPoint == bc)
-		{
-			player.setPlusScore();
-		}
-		board.setBoardValByPoint(x, y);
-		player.move();
-	}
+	player.changePosition(b);
 }
 
 /* This function check if the ghost hit the pacman*/
