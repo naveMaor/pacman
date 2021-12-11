@@ -1,7 +1,7 @@
 #include "Ghost.h"
 
-void Ghost::initGameObject()
+void Ghost::initGameObject () 
 {
-	setColor(Color::WHITE);
-	setDirection(Nothing);
+	this->setColor(Color::WHITE);
+	this->setDirection(Nothing);
 }

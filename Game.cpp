@@ -137,7 +137,7 @@ void Game::removeGhost(Ghost ghost)
 	int x = ghost.getBody().getX();
 	int y = ghost.getBody().getY();
 	gotoxy(x, y);
-	if (ifLastGhostPositionWasBreadcrumb(x, y))
+	if (ifLastPositionWasBreadcrumb(x, y))
 		printBreadCrumbs(x, y);
 	else
 		cout << (char)space;
@@ -283,26 +283,26 @@ bool Game::ghostHit(Ghost ghost)
 /* This function handle ghosts move*/
 void Game::ghostsMove()
 {
-	ghostRandomMove(ghostOne);
-	ghostRandomMove(ghostTwo);
+	RandomMove(ghostOne);
+	RandomMove(ghostTwo);
 }
 
 /* This function handle ghost randome move*/
-void Game::ghostRandomMove(Ghost& ghost)
+void Game::RandomMove(Ghost& ghost)
 {
 	int x = ghost.getBody().getX();
 	int y = ghost.getBody().getY();
 	int direction = rand() % 4;
 	
 	// If wall get new random direction
-	while (!checkGhostValidMove(x, y, direction))
+	while (!checkValidMove(x, y, direction))
 		direction = rand() % 4;	
 		
 	ghost.setDirection(direction); 
 	ghost.move();
 
 	// If last ghost position was breadcrumb print breadcrumb
-	if (ifLastGhostPositionWasBreadcrumb(x, y))
+	if (ifLastPositionWasBreadcrumb(x, y))
 		printBreadCrumbs(x, y);
 }
 
@@ -316,9 +316,9 @@ void Game::printBreadCrumbs(int x, int y)
 }
 
 /* This function check if ghost next move is valid */
-bool Game::checkGhostValidMove(int x, int y, int dir)
+bool Game::checkValidMove(int x, int y, int dir)
 {
-	ghostIlustrateNextMove(x, y, dir);
+	IlustrateNextMove(x, y, dir);
 	unsigned char charAtNextPoint = board.getBoardValFromPoint(x, y);
 
 	// If the ghost out of board
@@ -333,7 +333,7 @@ bool Game::checkGhostValidMove(int x, int y, int dir)
 }
 
 /* This function ilustrate the next ghost move*/
-void Game::ghostIlustrateNextMove(int& x, int& y, int dir)
+void Game::IlustrateNextMove(int& x, int& y, int dir)
 {
 	switch (dir)
 	{
@@ -353,7 +353,7 @@ void Game::ghostIlustrateNextMove(int& x, int& y, int dir)
 }
 
 /* This function check if in the last position of the ghost was bread crumbs*/
-bool Game::ifLastGhostPositionWasBreadcrumb(int x, int y)
+bool Game::ifLastPositionWasBreadcrumb(int x, int y)
 {
 	if (board.getBoardValFromPoint(x, y) == bc)
 		return true;

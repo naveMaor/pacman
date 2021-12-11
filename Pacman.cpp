@@ -2,8 +2,8 @@
 
 void Pacman::initGameObject()
 {
-	setColor(Color::WHITE);
-	setDirection(Nothing);
+	this->setColor(Color::WHITE);
+	this->setDirection(Nothing);
 	score = 0;
 	life = 3;
 }

@@ -12,5 +12,29 @@ void Fruit ::setNewFruitScore()
 	this->setObjectIcon(fruitScore);
 }
 
-void Fruit::initGameObject() {}
+void Fruit::initGameObject() {
+	setColor(Color::WHITE);
+	setDirection(Nothing);
+}
+
+void Fruit::initFruit(Board& b)
+{
+	setColor(Color::WHITE);
+	setDirection(Nothing);
+	setNewFruitlocation(b);
+}
+
+void Fruit::setNewFruitlocation(Board& b)
+{
+	int newx = rand() % (20 + 1);
+	int newy = rand() % (70 + 1);
+	char ch = b.getBoardValFromPoint(newx, newy);
+	while (ch == characterEnum::w || ch== characterEnum::space)
+	{
+		newx = rand() % (20 + 1);
+		newy = rand() % (70 + 1);
+		ch = b.getBoardValFromPoint(newx, newy);
+	}
+	
+}
 

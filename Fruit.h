@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include "Board.h"
 #include "GameObject.h"
 
 class Fruit : public GameObject
@@ -16,4 +17,7 @@ public:
 	char getFruitScore() const { return fruitScore; };
 	void setNewFruitScore();
 	void initGameObject() override;
+	void setNewFruitlocation(Board& b);
+	void initFruit(Board& b);
+
 };
