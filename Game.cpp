@@ -133,17 +133,7 @@ void Game::removeGhosts()
 	//removeGhost(ghostTwo);
 }
 
-///* This function remove ghost last character after pacman hit*/
-//void Game::removeGhost(Ghost ghost)
-//{
-//	int x = ghost.getBody().getX();
-//	int y = ghost.getBody().getY();
-//	gotoxy(x, y);
-//	if (ifLastPositionWasBreadcrumb(x, y))
-//		printBreadCrumbs(x, y);
-//	else
-//		cout << (char)space;
-//}
+
 
 /* This function get the user key board hit*/
 void Game::getUserKeyboard()
@@ -288,82 +278,8 @@ void Game::ghostsMove()
 	ghostOne.changePosition(board);
 	ghostTwo.changePosition(board);
 
-	//RandomMove(ghostOne);
-	//RandomMove(ghostTwo);
 }
 
-/* This function handle ghost randome move*/
-//void Game::RandomMove(Ghost& ghost)
-//{
-//	int x = ghost.getBody().getX();
-//	int y = ghost.getBody().getY();
-//	int direction = rand() % 4;
-//	
-//	// If wall get new random direction
-//	while (!checkValidMove(x, y, direction))
-//		direction = rand() % 4;	
-//		
-//	ghost.setDirection(direction); 
-//	ghost.move();
-//
-//	// If last ghost position was breadcrumb print breadcrumb
-//	if (ifLastPositionWasBreadcrumb(x, y))
-//		printBreadCrumbs(x, y);
-//}
-//
-///* This function print breadcrumbs at point*/
-//void Game::printBreadCrumbs(int x, int y)
-//{
-//	unsigned char breadCrumb = bc;
-//	setTextColor(Color::WHITE);
-//	gotoxy(x, y);
-//	cout << breadCrumb;
-//}
-//
-///* This function check if ghost next move is valid */
-//bool Game::checkValidMove(int x, int y, int dir)
-//{
-//	IlustrateNextMove(x, y, dir);
-//	unsigned char charAtNextPoint = board.getBoardValFromPoint(x, y);
-//
-//	// If the ghost out of board
-//	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
-//		return false;
-//
-//	// If the next move is wall, tunnel or ghost this isn't valid move
-//	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon ))
-//		return false;
-//	
-//	return true;
-//}
-//
-///* This function ilustrate the next ghost move*/
-//void Game::IlustrateNextMove(int& x, int& y, int dir)
-//{
-//	switch (dir)
-//	{
-//	case 0: // LEFT
-//		x--;
-//		break;
-//	case 1: // RIGHT
-//		x++;
-//		break;
-//	case 2: // UP
-//		y--;
-//		break;
-//	case 3: // DOWN
-//		y++;
-//		break;
-//	}
-//}
-//
-///* This function check if in the last position of the ghost was bread crumbs*/
-//bool Game::ifLastPositionWasBreadcrumb(int x, int y)
-//{
-//	if (board.getBoardValFromPoint(x, y) == bc)
-//		return true;
-//	return false;
-//}
 
 /* This function print pacman score*/
 void Game::printScore() const

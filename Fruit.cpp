@@ -38,6 +38,7 @@ void Fruit::setNewFruitlocation(Board& b)
 	
 }
 
+/* This function handle Fruit move*/
 void Fruit::changePosition(Board& b)
 {
 	int x = this->getBody().getX();

@@ -6,6 +6,7 @@ void Ghost::initGameObject ()
 	this->setDirection(Nothing);
 }
 
+/* This function handle ghost move*/
 void Ghost::changePosition(Board& b)
 {
 	int x = this->getBody().getX();
@@ -24,7 +25,7 @@ void Ghost::changePosition(Board& b)
 		printBreadCrumbs(x, y);
 }
 
-
+///* This function remove ghost last character after pacman hit*/
 void Ghost::removeGhost(Board& b)
 {
 	int x = this->getBody().getX();

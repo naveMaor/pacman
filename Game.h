@@ -73,11 +73,7 @@ public:
 	bool getIsColorGame() const { return b_IsColorGame; };
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
-	bool checkValidMove(int x, int y, int dir);
-	void IlustrateNextMove(int& x, int& y, int dir);
-	void RandomMove(Ghost& ghost);
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
-	bool ifLastPositionWasBreadcrumb(int x, int y);
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
@@ -86,8 +82,6 @@ public:
 	void removeGhosts();	
 	void ghostsMove();
 
-	//void printBreadCrumbs(int x, int y);
-	//void removeGhost(Ghost ghost);
 
 	// Pacman functions
 	void pacmanMove();

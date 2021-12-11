@@ -31,6 +31,8 @@ void GameObject::draw() const
 	pBody.draw(objectIcon);
 }
 
+
+///* This function ilustrate the next move*/
 void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
 {
 	switch (dir)
@@ -51,6 +53,7 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
 
 }
 
+///* This function print breadcrumbs at point*/
 void GameObject::printBreadCrumbs(int x, int y)
 {
 	unsigned char breadCrumb = bc;
@@ -59,7 +62,7 @@ void GameObject::printBreadCrumbs(int x, int y)
 	cout << breadCrumb;
 }
 
-
+///* This function check if next move is valid */
 bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 {
 	IlustrateNextMove(x, y, dir, b);
