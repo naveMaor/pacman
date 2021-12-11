@@ -3,36 +3,31 @@
 
 void Fruit ::setNewFruitScore()
 {
-	char num = (char)rand() % 57 + 53;
+	char num = randomBetween(53, 57);
 	while (num == fruitScore)
 	{
-		num = (char)rand() % 57 + 53;
+		num = randomBetween(53, 57);
 	}
 	fruitScore = num;
 	this->setObjectIcon(fruitScore);
 }
 
-void Fruit::initGameObject() {
-	setColor(Color::WHITE);
-	setDirection(Nothing);
-}
 
 void Fruit::initFruit(Board& b)
 {
-	setColor(Color::WHITE);
-	setDirection(Nothing);
+	initGameObject();
 	setNewFruitlocation(b);
 }
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = rand() % (20 + 1);
-	int newy = rand() % (70 + 1);
+	int newx = randomBetween(0, HIGHT);
+	int newy = randomBetween(0, WIDTH);
 	char ch = b.getBoardValFromPoint(newx, newy);
 	while (ch == characterEnum::w || ch== characterEnum::space)
 	{
-		newx = rand() % (20 + 1);
-		newy = rand() % (70 + 1);
+		newx = randomBetween(0, HIGHT);
+		newy = randomBetween(0, WIDTH);
 		ch = b.getBoardValFromPoint(newx, newy);
 	}
 	
@@ -43,11 +38,11 @@ void Fruit::changePosition(Board& b)
 {
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();
-	int direction = rand() % 4;
+	int direction = randomBetween(0, 4);
 
 	// If wall get new random direction
 	while (!checkValidMove(x, y, direction, b))
-		direction = rand() % 4;
+		direction = randomBetween(0, 4);
 
 	this->setDirection(direction);
 	this->move();
@@ -55,4 +50,28 @@ void Fruit::changePosition(Board& b)
 	// If last ghost position was breadcrumb print breadcrumb
 	if (b.getBoardValFromPoint(x, y) == bc)
 		printBreadCrumbs(x, y);
+}
+
+void Fruit::hideshowFruit(bool showfruit,Board &b)
+{
+	if (showfruit)
+	{
+		setNewFruitlocation(b);
+		draw();
+	}
+
+	else
+	{
+		unsigned char c = b.getBoardValFromPoint(getBody().getX(), getBody().getY());
+		if (c == boardGarbageVal)
+		{
+			gotoxy(getBody().getX(), getBody().getY());
+			cout << (char)space;
+		}
+		else
+		{
+			gotoxy(getBody().getX(), getBody().getY());
+			cout << c;
+		}
+	}
 }

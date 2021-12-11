@@ -3,8 +3,9 @@
 /* This function handle the game*/
 void Game::playGame()
 {
-	int countGhostMove = 0;
+	int countMoves = 0;
 	bool b_won = false;
+	bool showFruit = false;
 
 	initGame(getIsColorGame());
 
@@ -12,17 +13,27 @@ void Game::playGame()
 	{
 		printScore();
 
-		if (countGhostMove == 2)
+		if (countMoves % 20==0)
+		{
+			showFruit = (!showFruit);
+			fruit.hideshowFruit(showFruit,board);
+			fruit.setNewFruitScore();
+		}
+
+		if (countMoves % 5 == 0 && showFruit)
+		{
+			fruit.changePosition(board);
+		}
+
+		if (countMoves % 2 == 0)
 		{
 			ghostsMove();
-			countGhostMove = 0;
 		}
-		else
-		{
-			Sleep(gameSpeedVal);
-			pacmanMove(board);
-			countGhostMove++;
-		}
+		
+		Sleep(gameSpeedVal);
+		pacmanMove(board);
+		countMoves++;
+		
 		if (ghostsHit())
 			initGameAfterGhostHit();
 
@@ -289,12 +300,13 @@ void Game:: drawGameObj() const
 	player.draw();
 	ghostOne.draw();
 	ghostTwo.draw();
+	fruit.draw();
 }
 
 /* This function check if the player eat all breadcrumbs he win!!*/
 bool Game:: checkWin() const
 {
-	return player.getScore() == 1092;
+	return !board.breadcrumbleft();
 }
 
 /* This function handle win situation*/
@@ -370,6 +382,7 @@ void Game::initGameObj()
 	player.initGameObject();
 	ghostOne.initGameObject();
 	ghostTwo.initGameObject();
+	fruit.initGameObject();
 }
 
 
@@ -459,7 +472,7 @@ void Game::printCurrentSpeedGame() const
 void Game::initFruit()
 {
 
-	Point fruitLocation(rand() % (Width-1) + 0, rand() % (Hight-1) + 0);
+	Point fruitLocation(rand() % (Width+1) + 0, rand() % (Hight+1) + 0);
 
 	while (fruitLocation == ghostOne.getBody() ||
 		fruitLocation == ghostTwo.getBody() ||
@@ -485,11 +498,6 @@ bool Game::pacmanHitFruit()
 }
 
 void Game::unDisplayFruit()
-{
-
-}
-
-void Game::fruitMove()
 {
 
 }

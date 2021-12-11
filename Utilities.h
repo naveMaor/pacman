@@ -22,6 +22,7 @@ void gotoxy(int x, int y);
 void setTextColor(Color);
 void hideCursor();
 void clearScreen();
+int randomBetween(int min, int max);
 
 
 #endif

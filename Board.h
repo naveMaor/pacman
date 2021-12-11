@@ -4,10 +4,10 @@
 #include "Utilities.h"
 
 
+enum sizeEnum { WIDTH = 70, HIGHT = 20 };
 
 class Board
 {
-    enum sizeEnum { WIDTH = 70, HIGHT = 20};
     unsigned char board[HIGHT][WIDTH] = {
         {w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w},
         {w,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,w,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,w,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,bc,w},
@@ -37,6 +37,7 @@ public:
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
     void printPreviousBoard() const;
     void resetBoard();
+    bool breadcrumbleft() const;
     
 };
 

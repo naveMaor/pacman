@@ -30,7 +30,11 @@ void GameObject::draw() const
 	setTextColor(color);
 	pBody.draw(objectIcon);
 }
-
+void GameObject::initGameObject()
+{
+	setColor(Color::WHITE);
+	setDirection(Nothing);
+}
 
 ///* This function ilustrate the next move*/
 void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
