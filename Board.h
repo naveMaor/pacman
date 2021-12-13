@@ -2,11 +2,15 @@
 #include <iostream>
 #include <string.h>
 #include "Utilities.h"
-
+#include "File.h"
 
 
 class Board
 {
+    int width, hight, counter = 0;
+    Point pacmanStartPoint, ghostOneStartPoint, ghostTwoStartPoint;
+
+
     enum sizeEnum { WIDTH = 70, HIGHT = 20};
     unsigned char board[HIGHT][WIDTH] = {
         {w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,space,space,space,w,w,w,w,w,w,w,w,w,w},
