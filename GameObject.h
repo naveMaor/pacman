@@ -24,6 +24,7 @@ public:
 	void setObjectIcon(char icon) { objectIcon = icon; }
 	char getObjectIcon() { return objectIcon; }
 
+	void moveAndDraw();
 	void move();
 	void draw() const;
 	virtual void initGameObject();
@@ -31,6 +32,8 @@ public:
 	bool checkValidMove(int x, int y, int dir, Board &b);
 	void IlustrateNextMove(int& x, int& y, int dir, Board &b);
 	void printBreadCrumbs(int x, int y);
+	bool checkValidPos(int x, int y, Board& b);
+
 	
 };
 

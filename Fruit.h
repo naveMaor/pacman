@@ -22,4 +22,5 @@ public:
 	void initFruit(Board& b);
 	void changePosition(Board& b) override;
 	void setshowfruit() { showfruit = (!showfruit); };
+
 };

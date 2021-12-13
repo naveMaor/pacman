@@ -12,12 +12,17 @@ void Game::playGame()
 	{
 		printScore();
 
-		if (countMoves % 10==0)
+		if (countMoves*3 % 10==0 )
 		{
 			fruit.setshowfruit();
 			hideOrShowFruit();
-			fruit.setNewFruitScore();
+			if (!fruit.getshowfruit())
+			{
+				fruit.setNewFruitScore();
+			}
+
 		}
+
 
 		if (countMoves % 3 == 0 && fruit.getshowfruit())
 		{
@@ -28,11 +33,8 @@ void Game::playGame()
 		{
 			ghostsMove();
 		}
+
 		
-		//if (!fruit.getshowfruit())
-		//{
-		//	fruit.changePosition(board);
-		//}
 
 
 		Sleep(gameSpeedVal);
@@ -492,27 +494,10 @@ void Game::initFruit()
 
 }
 
-void Game::setNewFruitlocation() {
-	int x = randomBetween(1, 2);
-	switch (x)
-	{
-	case 1:
-		fruit.setBody(ghostOne.getBody().getX(), ghostOne.getBody().getY());
-			break;
-	case 2:
-		fruit.setBody(ghostTwo.getBody().getX(), ghostTwo.getBody().getY());
-			break;
-	default:
-		break;
-	}
-
-}
-
 void Game::hideOrShowFruit()
 {
 	if (fruit.getshowfruit())
 	{
-		setNewFruitlocation();
 		fruit.draw();
 	}
 
@@ -529,6 +514,7 @@ void Game::hideOrShowFruit()
 			gotoxy(fruit.getBody().getX(), fruit.getBody().getY());
 			cout << c;
 		}
+		fruit.setNewFruitlocation(board);
 	}
 
 }

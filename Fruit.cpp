@@ -21,19 +21,20 @@ void Fruit::initFruit(Board& b)
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = randomBetween(0, HIGHT);
-	int newy = randomBetween(0, WIDTH);
-	char ch = b.getBoardValFromPoint(newx, newy);
-	while (ch == characterEnum::w || ch== characterEnum::space)
+	int newx = randomBetween(0, WIDTH-1);
+	int newy = randomBetween(0, HIGHT-1);
+	bool valid = checkValidPos(newx, newy, b);
+	while (!valid)
 	{
 		newx = randomBetween(0, HIGHT);
 		newy = randomBetween(0, WIDTH);
-		ch = b.getBoardValFromPoint(newx, newy);
+		valid = b.getBoardValFromPoint(newx, newy);
 	}
-	
+	setBody(newx, newy);
 }
 
 /* This function handle Fruit move*/
+
 void Fruit::changePosition(Board& b)
 {
 	int x = this->getBody().getX();
@@ -51,5 +52,3 @@ void Fruit::changePosition(Board& b)
 	if (b.getBoardValFromPoint(x, y) == bc)
 		printBreadCrumbs(x, y);
 }
-
-

@@ -96,7 +96,6 @@ public:
 	void unDisplayFruit();
 	void fruitMove();
 	void hideOrShowFruit();
-	void setNewFruitlocation();
 
 
 

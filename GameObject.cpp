@@ -17,8 +17,15 @@ void GameObject::setColor(Color color)
 	this->color = color;
 }
 
-
 void GameObject::move()
+{
+	pBody.draw(space);
+	pBody.move(direction);
+	draw();
+}
+
+
+void GameObject::moveAndDraw()
 {
 	pBody.draw(space);
 	pBody.move(direction);
@@ -83,5 +90,17 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 	return true;
 }
 
+bool GameObject::checkValidPos(int x, int y, Board& b)
+{
+	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
+	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
+		return false;
 
+	// If the next move is wall, tunnel or ghost this isn't valid move
+	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon))
+		return false;
+
+	return true;
+
+}
 

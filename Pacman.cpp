@@ -48,7 +48,7 @@ void Pacman::changePosition(Board& b)
 			this->getBody().draw(space);
 			this->setBody(x, 0);
 		}
-		this->move();
+		this->moveAndDraw();
 	}
 
 	// if there is wall in the next move
@@ -63,7 +63,7 @@ void Pacman::changePosition(Board& b)
 			this->setPlusScore();
 		}
 		b.setBoardValByPoint(x, y);
-		this->move();
+		this->moveAndDraw();
 	}
 
 }
