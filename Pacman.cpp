@@ -1,57 +1,69 @@
 #include "Pacman.h"
-//
-///* This function get the direction of the pacman*/
-//int Pacman::getDirection() const
-//{
-//	return direction;
-//}
-//
-///* This function set new direction of pacman*/
-//void Pacman::setDirection(int newDirection)
-//{
-//	direction = newDirection;
-//}
-//
-///* This function remove pacman from board and draw it in the new place by direction*/
-//void Pacman::move()
-//{
-//	pacmanBody.draw(space);
-//	pacmanBody.move(direction);
-//	draw();
-//}
-//
-///* This function draw the ghost in current location*/
-//void Pacman:: draw() const
-//{
-//	setTextColor(color);
-//	pacmanBody.draw(pacmanIcon);
-//}
-//
-///* This function return pacman current location as Point (x,y)*/
-//Point Pacman::getPacmanBody() const
-//{
-//	return pacmanBody;
-//}
-//
-///* This function set pacman new location*/
-//void Pacman::setPacmanBody(int x, int y)
-//{
-//	pacmanBody.setX(x);
-//	pacmanBody.setY(y);
-//}
-//
-///* This function change pacman color*/
-//void Pacman::setColor(Color color)
-//{
-//	this->color = color;
-//}
-//
-/* This function init pacman after new game*/
 
-void Pacman::initPacman()
+void Pacman::initGameObject()
 {
-	initGameObject();
+	this->setColor(Color::WHITE);
+	this->setDirection(Nothing);
 	score = 0;
 	life = 3;
 }
 
+void Pacman::changePosition(Board& b)
+{
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+
+	Point nextPos = this->getBody();
+	nextPos.move(this->getDirection());
+
+
+	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
+	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
+
+	// If player is going through tunnel
+	if (charAtnextPoint == space)
+	{
+		if (charAtPoint == bc) // if there was at curr pos then raise score
+		{
+			this->setPlusScore();
+			b.setBoardValByPoint(x, y);
+		}
+
+		if (x == 1) {
+			this->getBody().draw(space);
+			this->setBody(69, y);
+		}
+
+		else if (x == 68) {
+			this->getBody().draw(space);
+			this->setBody(0, y);
+		}
+		else if (y == 1)
+		{
+			this->getBody().draw(space);
+			this->setBody(x, 19);
+		}
+		else if (y == 18)
+		{
+			this->getBody().draw(space);
+			this->setBody(x, 0);
+		}
+		this->move();
+	}
+
+	// if there is wall in the next move
+	else if (charAtnextPoint == w)
+		this->setDirection(4);
+
+	else
+	{
+		// if there breadcrumb
+		if (charAtPoint == bc)
+		{
+			this->setPlusScore();
+		}
+		b.setBoardValByPoint(x, y);
+		this->move();
+	}
+
+}

@@ -47,15 +47,16 @@ private:
 
 public:
 	// Game functions
+	void playGame();
+	void initGame(bool b_color);
+	void gameSettings();
+	void printPlayerHitGhost()const;
 	void printGameSettings() const;
 	void printIsColorGame() const;
 	void handleGameMenuSettingsInput();
-	void gameSettings();
 	void printCurrentSpeedGame()const;
 	void gameSpeed();
-	void initGame(bool b_color);
 	void initGameObj();
-	void playGame();
 	void pauseGame();
 	void printPreviousGame()const;
 	bool checkWin()const;
@@ -64,7 +65,6 @@ public:
 	void printLife()const;
 	void resetPrintLife() const;
 	void printScore()const;
-	void printPlayerHitGhost()const;
 	void removePrintPlayerHitGhost()const;
 	void drawGameObj()const;
 	void clearCenter()const;
@@ -76,21 +76,15 @@ public:
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
 
 	// Ghosts functions
+	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
 	bool ghostsHit();
-	void ghostRandomMove(Ghost& ghost);
-	void ghostIlustrateNextMove(int& x, int& y, int dir);
-	bool ifLastGhostPositionWasBreadcrumb(int x, int y);
-	void printBreadCrumbs(int x, int y);
-	void initGameAfterGhostHit();
+	void removeGhosts();	
 	void ghostsMove();
-	bool checkGhostValidMove(int x, int y, int dir);
-	void initGhosts();
-	void removeGhosts();
-	void removeGhost(Ghost ghost);
+
 
 	// Pacman functions
-	void pacmanMove();
+	void pacmanMove(Board &b);
 	void getUserKeyboard();
 	void removePacman();
 	

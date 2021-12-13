@@ -1,49 +1,39 @@
 #include "Ghost.h"
-//
-///* This function remove ghost from board and draw it in the new place by direction*/
-//void Ghost::move() 
-//{
-//	ghostBody.draw(space);
-//	ghostBody.move(direction);
-//	draw();
-//}
-//
-///* This function draw the ghost in current location*/
-//void Ghost::draw() const
-//{
-//	setTextColor(color);
-//	ghostBody.draw(ghostIcon);
-//}
-//
-///* This function get x,y and set it to ghost*/
-//void Ghost::setGhostBody(int newX, int newY)
-//{
-//	ghostBody.setX(newX);
-//	ghostBody.setY(newY);
-//}
-//
-///* This function return ghost Point (x,y)*/
-//Point Ghost::getGhostBody() const
-//{
-//	return ghostBody;
-//}
-//
-///* This function set ghost direction*/
-//void Ghost::setGhostDirection(int direction)
-//{
-//	this->direction = direction;
-//}
-//
-///* This function change ghost color*/
-//void Ghost::setColor(Color color)
-//{
-//	this->color = color;
-//}
-//
-///* This function init ghost*/
-//void Ghost:: initGhost()
-//{
-//	this->color = Color::WHITE;
-//	this->direction = 3;
-//}
-//
+
+void Ghost::initGameObject () 
+{
+	this->setColor(Color::WHITE);
+	this->setDirection(Nothing);
+}
+
+/* This function handle ghost move*/
+void Ghost::changePosition(Board& b)
+{
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+	int direction = rand() % 4;
+
+	// If wall get new random direction
+	while (!checkValidMove(x, y, direction, b))
+		direction = rand() % 4;
+
+	this->setDirection(direction);
+	this->move();
+
+	// If last ghost position was breadcrumb print breadcrumb
+	if (b.getBoardValFromPoint(x, y) == bc)
+		printBreadCrumbs(x, y);
+}
+
+///* This function remove ghost last character after pacman hit*/
+void Ghost::removeGhost(Board& b)
+{
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+	gotoxy(x, y);
+	if (b.getBoardValFromPoint(x, y) == bc)
+		printBreadCrumbs(x, y);
+	else
+		cout << (char)space;
+
+}

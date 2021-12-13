@@ -1,9 +1,10 @@
 #pragma once
 #include "Point.h"
+#include "Board.h"
 
 class GameObject
 {
-	// Ghost data members
+	// GameObject data members
 	Point pBody;
 	Color color = Color::WHITE;
 	char objectIcon;
@@ -13,9 +14,9 @@ public:
 	// Constractor
 	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 
-	// Ghost functions
+	// GameObject functions
 	void setBody(int x, int y);
-	Point getBody() const;
+	Point getBody() const {	return pBody;};
 	int getDirection() { return direction; }
 	void setDirection(int direction);
 	Color getColor() const { return color; };
@@ -25,7 +26,11 @@ public:
 
 	void move();
 	void draw() const;
-	void initGameObject();
+	virtual void initGameObject();
+	virtual void changePosition(Board& b) =0;
+	bool checkValidMove(int x, int y, int dir, Board &b);
+	void IlustrateNextMove(int& x, int& y, int dir, Board &b);
+	void printBreadCrumbs(int x, int y);
 	
 };
 
