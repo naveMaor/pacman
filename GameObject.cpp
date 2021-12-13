@@ -33,7 +33,7 @@ void GameObject::draw() const
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
-	setDirection(Nothing);
+	setDirection(Stay);
 }
 
 ///* This function ilustrate the next move*/

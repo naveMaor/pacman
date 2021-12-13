@@ -95,6 +95,8 @@ public:
 	bool pacmanHitFruit();
 	void unDisplayFruit();
 	void fruitMove();
+	void hideOrShowFruit();
+	void setNewFruitlocation();
 
 
 

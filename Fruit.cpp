@@ -52,26 +52,4 @@ void Fruit::changePosition(Board& b)
 		printBreadCrumbs(x, y);
 }
 
-void Fruit::hideshowFruit(bool showfruit,Board &b)
-{
-	if (showfruit)
-	{
-		setNewFruitlocation(b);
-		draw();
-	}
 
-	else
-	{
-		unsigned char c = b.getBoardValFromPoint(getBody().getX(), getBody().getY());
-		if (c == boardGarbageVal)
-		{
-			gotoxy(getBody().getX(), getBody().getY());
-			cout << (char)space;
-		}
-		else
-		{
-			gotoxy(getBody().getX(), getBody().getY());
-			cout << c;
-		}
-	}
-}

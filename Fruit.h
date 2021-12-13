@@ -6,6 +6,7 @@
 class Fruit : public GameObject
 {
 	char fruitScore = defaltFruitIcon;
+	bool showfruit = true;
 
 public:
 	Fruit(int x, int y) : GameObject(x, y, fruitScore) {
@@ -15,10 +16,10 @@ public:
 
 	// Functions
 	char getFruitScore() const { return fruitScore; };
+	bool getshowfruit() const { return showfruit; }
 	void setNewFruitScore();
 	void setNewFruitlocation(Board& b);
 	void initFruit(Board& b);
 	void changePosition(Board& b) override;
-	void hideshowFruit(bool showfruit, Board& b);
-
+	void setshowfruit() { showfruit = (!showfruit); };
 };

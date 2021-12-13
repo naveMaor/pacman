@@ -3,7 +3,7 @@
 void Ghost::initGameObject () 
 {
 	this->setColor(Color::WHITE);
-	this->setDirection(Nothing);
+	this->setDirection(Stay);
 }
 
 /* This function handle ghost move*/
