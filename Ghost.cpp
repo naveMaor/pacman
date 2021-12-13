@@ -3,7 +3,7 @@
 void Ghost::initGameObject () 
 {
 	this->setColor(Color::WHITE);
-	this->setDirection(Stay);
+	this->setDirection(directions::Stay);
 }
 
 /* This function handle ghost move*/
@@ -18,7 +18,7 @@ void Ghost::changePosition(Board& b)
 		direction = rand() % 4;
 
 	this->setDirection(direction);
-	this->move();
+	this->moveAndDraw();
 
 	// If last ghost position was breadcrumb print breadcrumb
 	if (b.getBoardValFromPoint(x, y) == bc)
