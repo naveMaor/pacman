@@ -25,7 +25,7 @@ void Point::move(int dir) {
 	case Down: // DOWN
 		++y;
 		break;
-	case Nothing: //Nothing
+	case Stay: //Nothing
 
 		break;
 	}

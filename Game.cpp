@@ -5,7 +5,6 @@ void Game::playGame()
 {
 	int countMoves = 0;
 	bool b_won = false;
-	bool showFruit = false;
 
 	initGame(getIsColorGame());
 
@@ -13,14 +12,14 @@ void Game::playGame()
 	{
 		printScore();
 
-		if (countMoves % 20==0)
+		if (countMoves % 10==0)
 		{
-			showFruit = (!showFruit);
-			fruit.hideshowFruit(showFruit,board);
+			fruit.setshowfruit();
+			hideOrShowFruit();
 			fruit.setNewFruitScore();
 		}
 
-		if (countMoves % 5 == 0 && showFruit)
+		if (countMoves % 3 == 0 && fruit.getshowfruit())
 		{
 			fruit.changePosition(board);
 		}
@@ -30,6 +29,12 @@ void Game::playGame()
 			ghostsMove();
 		}
 		
+		//if (!fruit.getshowfruit())
+		//{
+		//	fruit.changePosition(board);
+		//}
+
+
 		Sleep(gameSpeedVal);
 		pacmanMove(board);
 		countMoves++;
@@ -105,7 +110,7 @@ void Game::initGameAfterGhostHit()
 		removeGhosts();
 		removePacman();
 		player.setBody(pacmanStartX, pacmanStartY);
-		player.setDirection(Nothing);
+		player.setDirection(Stay);
 		ghostOne.setBody(ghostOneStartX, ghostOneStartY);
 		ghostTwo.setBody(ghostTwoStartX, ghostTwoStartY);
 		drawGameObj();
@@ -484,6 +489,47 @@ void Game::initFruit()
 	}
 
 	fruit.setBody(fruitLocation.getX(),fruitLocation.getY());
+
+}
+
+void Game::setNewFruitlocation() {
+	int x = randomBetween(1, 2);
+	switch (x)
+	{
+	case 1:
+		fruit.setBody(ghostOne.getBody().getX(), ghostOne.getBody().getY());
+			break;
+	case 2:
+		fruit.setBody(ghostTwo.getBody().getX(), ghostTwo.getBody().getY());
+			break;
+	default:
+		break;
+	}
+
+}
+
+void Game::hideOrShowFruit()
+{
+	if (fruit.getshowfruit())
+	{
+		setNewFruitlocation();
+		fruit.draw();
+	}
+
+	else
+	{
+		unsigned char c = board.getBoardValFromPoint(fruit.getBody().getX(), fruit.getBody().getY());
+		if (c == boardGarbageVal)
+		{
+			gotoxy(fruit.getBody().getX(), fruit.getBody().getY());
+			cout << (char)space;
+		}
+		else
+		{
+			gotoxy(fruit.getBody().getX(), fruit.getBody().getY());
+			cout << c;
+		}
+	}
 
 }
 
