@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string.h>
 #include "Utilities.h"
+#include "File.h"
 
 
 enum sizeEnum { WIDTH = 70, HIGHT = 20 };
