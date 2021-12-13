@@ -6,6 +6,9 @@ void Game::playGame()
 	int countMoves = 0;
 	bool b_won = false;
 
+
+	File::openFile("C:\\Users\\Meital\\source\\repos\\naveMaor\\pacman\\mapa1.txt",board);
+
 	initGame(getIsColorGame());
 
 	while ((player.getLife() > 0) && (!b_won))

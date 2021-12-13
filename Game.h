@@ -9,6 +9,7 @@
 #include "Pacman.h"
 #include "Point.h"
 #include "Fruit.h"
+#include "File.h"
 #include <string>
 #include <stdio.h>
 

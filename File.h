@@ -1,17 +1,26 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-using std::ifstream;
+#define _CRT_SECURE_NO_WARNINGS
 
-static class File
+#include <iostream>
+//#include <istream>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include "Utilities.h"
+#include "Board.h"
+
+using std::ios;
+using std::fstream;
+using std::filesystem::directory_iterator;
+
+class File
 {
-	ifstream screenFile;
-	
+
 
 public:
-	void openFile(char* fileName);
-
-
+	static void openLicFile(string const PATH);
+	static void openFile(string const fileName, Board &board);
+	
 
 };
 

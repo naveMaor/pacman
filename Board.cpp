@@ -52,3 +52,11 @@ bool Board::breadcrumbleft() const
         }
     }
 }
+
+
+void Board:: setBoardLine(int hight, unsigned char* line)
+{
+    int length = strlen((char*)line);
+    for (int i = 0; i < length; i++)
+        board[hight][i] = line[i];
+}

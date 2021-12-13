@@ -1,17 +1,19 @@
 #ifndef UTILITIES
 #define UTILITIES
-
 #include "Color.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
+#include <string>
+
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+
 
 // Wall and BreadCrumbs enum
 enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000 };
