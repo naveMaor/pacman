@@ -518,15 +518,37 @@ void Game::hideOrShowFruit()
 	}
 
 }
-
-bool Game::ghostHitFruit()
+//todo improve this fanc
+void Game::ghostHitFruit()
 {
-	return false;
+	Point pGhostOne = ghostOne.getBody();
+	Point pGhostTwo = ghostTwo.getBody();
+	Point pFruit = fruit.getBody();
+
+	if (pGhostOne.getX() == pFruit.getX() && pGhostOne.getY() == pFruit.getY())
+	{
+		gotoxy(pGhostOne.getX(), pGhostOne.getY());
+		ghostOne.draw();
+	}
+	if (pGhostTwo.getX() == pFruit.getX() && pGhostTwo.getY() == pFruit.getY())
+	{
+		gotoxy(pGhostTwo.getX(), pGhostTwo.getY());
+		ghostTwo.draw();
+	}
 }
 
-bool Game::pacmanHitFruit()
+void Game::pacmanHitFruit()
 {
-	return false;
+	Point pPlayer = player.getBody();
+	Point pFruit = fruit.getBody();
+
+	if (pPlayer.getX() == pFruit.getX() && pPlayer.getY() == pFruit.getY())
+	{
+		int Oldscore = player.getScore();
+		player.setScore(Oldscore + fruit.getFruitScore());
+		gotoxy(pPlayer.getX(), pPlayer.getY());
+		player.draw();
+	}
 }
 
 void Game::unDisplayFruit()

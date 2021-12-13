@@ -91,8 +91,8 @@ public:
 
 	// Fruit functions
 	void initFruit();
-	bool ghostHitFruit();
-	bool pacmanHitFruit();
+	void ghostHitFruit();
+	void pacmanHitFruit();
 	void unDisplayFruit();
 	void fruitMove();
 	void hideOrShowFruit();
