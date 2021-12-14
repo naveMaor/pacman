@@ -9,6 +9,7 @@ class Fruit : public GameObject
 	bool showfruit = true;
 
 public:
+	Fruit();
 	Fruit(int x, int y) : GameObject(x, y, fruitScore) {
 		fruitScore = randomBetween(53, 57);
 		this->setObjectIcon(fruitScore);

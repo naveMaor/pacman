@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string.h>
 #include "Utilities.h"
+#include "Point.h"
 
 //enum sizeEnum { WIDTH = 70, HIGHT = 20 };
 enum sizeEnum { WIDTH = 80, HIGHT = 25 };
@@ -9,6 +10,10 @@ enum sizeEnum { WIDTH = 80, HIGHT = 25 };
 class Board
 {
     unsigned char board[HIGHT][WIDTH] = {};
+    int boardWidth, boardHight;
+    Point pacmanStartingPosition;
+    Point ghostStartingPositions[4];
+    Point Legenad;
     
 public:
 	void const printBoard() const;
@@ -19,6 +24,9 @@ public:
     void printPreviousBoard() const;
     void resetBoard();
     bool breadcrumbleft() const;
+
+    void setBoardWidth(int width) { boardWidth = width; };
+    void setBoardHight(int hight) { boardHight = hight; };
     
 };
 

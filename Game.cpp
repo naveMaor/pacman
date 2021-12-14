@@ -5,55 +5,59 @@ void Game::playGame()
 {
 	int countMoves = 0;
 	bool b_won = false;
-
-
-	File::openFile("C:\\Users\\Meital\\source\\repos\\naveMaor\\pacman\\mapa1.txt",board);
-
-	initGame(getIsColorGame());
-
-	while ((player.getLife() > 0) && (!b_won))
+	int screenCount = 0;
+	string screenPath = "";
+	
+	// Open licsogrhapic screens files
+	for (const auto& file : directory_iterator(PATH))
 	{
-		printScore();
-
-		if (countMoves*3 % 10==0 )
+		// Only screens
+		if (file.path().extension() == ".screen")
 		{
-			fruit.setshowfruit();
-			hideOrShowFruit();
-			if (!fruit.getshowfruit())
+			screenPath = file.path().filename().string();
+			
+			// If the the file is valid
+			if (File::fileToBoard(screenPath, board))
 			{
-				fruit.setNewFruitScore();
+				initGame(getIsColorGame());
+
+				while ((player.getLife() > 0) && (!b_won))
+				{
+					printScore();
+
+					if (countMoves * 3 % 10 == 0)
+					{
+						fruit.setshowfruit();
+						hideOrShowFruit();
+						if (!fruit.getshowfruit())
+							fruit.setNewFruitScore();
+					}
+
+					if (countMoves % 3 == 0 && fruit.getshowfruit())
+						fruit.changePosition(board);
+
+					if (countMoves % 2 == 0)
+						ghostsMove();
+
+					Sleep(gameSpeedVal);
+					pacmanMove(board);
+					countMoves++;
+
+					if (ghostsHit())
+						initGameAfterGhostHit();
+
+					if (checkWin())
+					{
+						b_won = true;
+						printScore();
+						winGame();
+					}
+				}
 			}
 
+			
 		}
-
-
-		if (countMoves % 3 == 0 && fruit.getshowfruit())
-		{
-			fruit.changePosition(board);
-		}
-
-		if (countMoves % 2 == 0)
-		{
-			ghostsMove();
-		}
-
-		
-
-
-		Sleep(gameSpeedVal);
-		pacmanMove(board);
-		countMoves++;
-		
-		if (ghostsHit())
-			initGameAfterGhostHit();
-
-		if (checkWin())
-		{
-			b_won = true;
-			printScore();
-			winGame();
-		}
-	}	
+	}
 
 	// If lose
 	if(player.getLife() == 0)

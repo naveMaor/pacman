@@ -27,9 +27,6 @@ private:
 	//------------------
 
 
-	/* Menu Changes*/
-	//int userChoice = 4;
-
 
 
 	//--------------
@@ -39,6 +36,10 @@ private:
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
 	Pacman player = {pacmanStartX,pacmanStartY};
 	Fruit fruit = {5,5};
+	/*Ghost ghostOne = {};
+	Ghost ghostTwo = {};
+	Pacman player = {};
+	Fruit fruit = {};*/
 	Board board;
 	Menu menu;
 	bool b_IsColorGame = true;
