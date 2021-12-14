@@ -1,10 +1,9 @@
-#ifndef _POINT_H_
-#define _POINT_H_
+#ifndef POINT_H
+#define POINT_H
 
 #include <iostream>
 #include "Utilities.h"
 #include <stdlib.h>
-
 
 using std::cout;
 
@@ -20,7 +19,7 @@ private:
 
 public:
 	//constractor
-	Point();
+	Point() = default;
 	Point(int newX, int newY) : x(newX), y(newY) {};
 
 	void draw(char ch) const;

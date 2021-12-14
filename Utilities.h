@@ -1,5 +1,5 @@
-#ifndef UTILITIES
-#define UTILITIES
+#ifndef UTILITIES_H
+#define UTILITIES_H
 #include "Color.h"
 #include <iostream>
 #include <stdio.h>
@@ -7,7 +7,6 @@
 #include <conio.h>
 #include <windows.h>
 #include <string>
-
 
 using std::cout;
 using std::cin;

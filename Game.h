@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 #include <iostream>
 #include "Menu.h"
 #include "Board.h"
@@ -32,14 +33,16 @@ private:
 	//--------------
 
 
-	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
+	/*Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
 	Pacman player = {pacmanStartX,pacmanStartY};
-	Fruit fruit = {5,5};
-	/*Ghost ghostOne = {};
-	Ghost ghostTwo = {};
-	Pacman player = {};
-	Fruit fruit = {};*/
+	Fruit fruit = {5,5};*/
+	Ghost ghosts[4];
+	int numOfGhosts;
+	Ghost ghostOne;
+	Ghost ghostTwo;
+	Pacman player;
+	Fruit fruit;
 	Board board;
 	Menu menu;
 	bool b_IsColorGame = true;
@@ -76,6 +79,7 @@ public:
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
+	void setGameObjectsPositions();
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
@@ -117,3 +121,5 @@ public:
 	
 };
 
+
+#endif

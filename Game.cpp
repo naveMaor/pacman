@@ -4,20 +4,15 @@
 void Game::playGame()
 {
 	int countMoves = 0;
-	bool b_won = false;
+	bool b_won = false, alive = true;
 	int screenCount = 0;
-	string screenPath = "";
-	
-	// Open licsogrhapic screens files
-	for (const auto& file : directory_iterator(PATH))
+	vector<string> screensNames = File::getScreensName(PATH);
+	int numOfScreens = screensNames.size();
+
+	for (int i = 0; i < numOfScreens && alive; i++)
 	{
-		// Only screens
-		if (file.path().extension() == ".screen")
-		{
-			screenPath = file.path().filename().string();
-			
 			// If the the file is valid
-			if (File::fileToBoard(screenPath, board))
+			if (File::fileToBoard(screensNames[i], board))
 			{
 				initGame(getIsColorGame());
 
@@ -53,21 +48,24 @@ void Game::playGame()
 						winGame();
 					}
 				}
+
+				// If lose
+				if (player.getLife() == 0)
+				{
+					alive = false;
+					gameOver();
+				}
 			}
-
-			
-		}
-	}
-
-	// If lose
-	if(player.getLife() == 0)
-		gameOver();
+	}	
 }
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
 {
 	clearScreen();
+	board.initBoard();
+	setGameObjectsPositions();
+	
 	board.printBoard();
 	initGameObj();
 
@@ -312,8 +310,10 @@ void Game::printPreviousGame() const
 void Game:: drawGameObj() const
 {
 	player.draw();
-	ghostOne.draw();
-	ghostTwo.draw();
+	
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].draw();
+	
 	fruit.draw();
 }
 
@@ -394,8 +394,8 @@ void Game::resetGame()
 void Game::initGameObj()
 {
 	player.initGameObject();
-	ghostOne.initGameObject();
-	ghostTwo.initGameObject();
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].initGameObject();
 	fruit.initGameObject();
 }
 
@@ -561,4 +561,13 @@ void Game::pacmanHitFruit()
 void Game::unDisplayFruit()
 {
 
+}
+
+void Game::setGameObjectsPositions()
+{
+	player.setBody(board.getPacmanStartingPosition());
+	numOfGhosts = board.getNumOfGhosts();
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].setBody(board.getGhostStartingPosition(i));
+	
 }

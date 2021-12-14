@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PACMAN_H
+#define PACMAN_H
 #include "Point.h"
 #include "GameObject.h"
 
@@ -16,7 +17,7 @@ private:
 
 public:
 	// Constractor
-	Pacman();
+	Pacman() = default;
 	Pacman(int x, int y): GameObject(x,y,pacmanIcon) {};
 	void initGameObject() override;
 
@@ -30,3 +31,4 @@ public:
 
 };
 
+#endif

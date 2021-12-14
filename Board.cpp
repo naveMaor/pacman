@@ -54,9 +54,46 @@ bool Board::breadcrumbleft() const
 }
 
 
-void Board:: setBoardLine(int hight, unsigned char* line)
+void Board:: setBoardLine(int hight, char* line,int width)
 {
-    int length = strlen((char*)line);
-    for (int i = 0; i < length; i++)
-        board[hight][i] = line[i];
+    for (int x = 0; x < width; x++)
+    {
+       
+        if (line[x] == '#')
+            board[hight][x] = w;
+        else if (line[x] == '@')
+            pacmanStartingPosition = { x, hight };
+        else if (line[x] == '$')
+        {
+            ghostStartingPositions[ghostCount] = { x, hight };
+            ghostCount++;
+        }
+        else if (line[x] == '&')
+            infoPosition = { x, hight };
+        else
+        {
+            board[hight][x] = bc;
+            breadCrumbsCount++;
+        }
+    }      
+}
+
+void Board::initBoard() 
+{
+    int hight = infoPosition.getY();
+    int j = 0;
+    for (int i = 0; i < 3; i++)
+    {
+        if (i==0 || i == 2)
+            for (j = 0; j < 20; j++)
+                board[hight][j] = w;
+        else
+        {
+            for (j = 0; j < 20; j++)
+                if(j == 0 || j== 20)
+                    board[hight][j] = w;
+                else
+                    board[hight][j] = ' ';
+        }
+    }
 }

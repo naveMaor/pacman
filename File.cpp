@@ -2,23 +2,27 @@
 
 static fstream screenFile;
 
-void File::openLicFile(string const PATH, Board& board)
+/* This function return vector of screens names*/
+vector<string> File::getScreensName(string const PATH)
 {
+	vector<string> filesVector;
+
 	for (const auto& file : directory_iterator(PATH))
 	{
-		if(file.path().extension() == ".screen")
-			cout << file.path() << endl;
-
+		if (file.path().extension() == ".screen")
+			filesVector.push_back(file.path().filename().string());
 	}
+	filesVector.shrink_to_fit();
+	return filesVector;
 }
 
 bool File::fileToBoard(string const screenPath, Board& board)
 {
 	int width = 0, hight = -1;
-	unsigned char cLine[80] = {};
+	char cLine[80] = {};
 	string line;
 	bool openFileSuccess = openFile(screenPath);
-
+	
 	if (openFileSuccess)
 	{	
 		while (getline(screenFile, line))
@@ -36,11 +40,11 @@ bool File::fileToBoard(string const screenPath, Board& board)
 			}
 			hight++;
 			cout << line << endl;
-			strcpy((char*)cLine, line.c_str());
-			board.setBoardLine(hight, cLine);
+			strcpy(cLine, line.c_str());
+			board.setBoardLine(hight, cLine,width);
+			line.clear();
 		}
-		cout << "width: " << width << endl;
-		cout << "Hight: " << hight << endl;
+		board.setBoardHight(hight);
 	}
 	
 	return openFileSuccess;

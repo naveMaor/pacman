@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GHOST_H
+#define GHOST_H
 #include "Point.h"
 #include "GameObject.h"
 
@@ -15,7 +16,7 @@ class Ghost : public GameObject
 
 public:
 	// Constractor
-	Ghost();
+	Ghost() = default;
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	void initGameObject() override;
 	void changePosition(Board& b) override;
@@ -34,3 +35,4 @@ public:
 	void initGhost();*/
 };
 
+#endif

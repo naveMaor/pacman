@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 #include "Point.h"
 #include "Board.h"
 
@@ -11,10 +12,12 @@ class GameObject
 	int direction = 3;
 
 public:
+	GameObject() = default;
 	// Constractor
 	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 
 	// GameObject functions
+	void setBody(Point point);
 	void setBody(int x, int y);
 	Point getBody() const {	return pBody;};
 	int getDirection() { return direction; }
@@ -37,3 +40,4 @@ public:
 	
 };
 
+#endif

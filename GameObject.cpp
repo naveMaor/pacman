@@ -1,5 +1,10 @@
 #include "GameObject.h"
 
+void GameObject::setBody(Point point)
+{
+	pBody = point; // low copy
+}
+
 void GameObject::setBody(int x, int y)
 {
 	pBody.setX(x);
