@@ -96,7 +96,7 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
 		return false;
 
-	// If the next move is wall, tunnel or ghost this isn't valid move
+	// If wall, tunnel or ghost this isn't valid move
 	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon))
 		return false;
 

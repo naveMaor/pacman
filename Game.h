@@ -30,9 +30,9 @@ class Game
 {
 private:
 	enum initObjLocation {
-		pacmanStartX = 3, pacmanStartY = 8,
-		ghostOneStartX = 9, ghostOneStartY = 8,
-		ghostTwoStartX = 14, ghostTwoStartY = 8
+		pacmanStartX = 14, pacmanStartY = 9,
+		ghostOneStartX = 10, ghostOneStartY = 9,
+		ghostTwoStartX = 14, ghostTwoStartY = 14
 	};
 
 	//------------------

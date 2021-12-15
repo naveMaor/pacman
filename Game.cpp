@@ -559,7 +559,7 @@ void Game::unDisplayFruit()
 Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 {
 	Point Pcurr(0, 0);
-	QItem source(GhostLocation.getX(), GhostLocation.getY(), Pcurr);
+	QItem source(PlayerLocation.getX(), PlayerLocation.getY(), Pcurr);
 
 	// To keep track of visited QItems. Marking
 	// blocked cells as visited.
@@ -567,17 +567,14 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 	for (int i = 0; i < HIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++)
 		{
-			if (board.getBoardValFromPoint(j,i) == w)
-				visited[i][j] = true;
-			else
 				visited[i][j] = false;
 
 		}
 	}
 
 	// init source
-	source.row = GhostLocation.getX();
-	source.col = GhostLocation.getY();
+	source.row = PlayerLocation.getX();
+	source.col = PlayerLocation.getY();
 
 
 
@@ -591,11 +588,10 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 		q.pop();
 
 		// Destination found;
-		if (PlayerLocation.getX() == curr.row && PlayerLocation.getY() == curr.col)
+		if (GhostLocation.getX() == curr.row && GhostLocation.getY() == curr.col)
 		{
 			return curr.p;
 		}
-
 
 		Pcurr.setX(curr.row);
 		Pcurr.setY(curr.col);
@@ -603,48 +599,66 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 		// moving left
 		if (curr.col - 1 >= 0 && visited[curr.row][curr.col - 1] == false)
 		{
-			q.push(QItem(curr.row, curr.col - 1,  Pcurr));
-			visited[curr.row][curr.col - 1] = true;
+			if (player.checkValidPos(curr.row, curr.col-1, board))
+			{
+				q.push(QItem(curr.row, curr.col - 1, Pcurr));
+				visited[curr.row][curr.col - 1] = true;
+			}
 		}
-
 
 		// moving up
 		if (curr.row - 1 >= 0 && visited[curr.row - 1][curr.col] == false)
 		{
-			q.push(QItem(curr.row - 1, curr.col, Pcurr));
-			visited[curr.row - 1][curr.col] = true;
+			if (player.checkValidPos(curr.row-1, curr.col, board))
+			{
+				q.push(QItem(curr.row - 1, curr.col, Pcurr));
+				visited[curr.row - 1][curr.col] = true;
+			}
 		}
-
 		// moving down
 		if (curr.row + 1 < HIGHT && visited[curr.row + 1][curr.col] == false)
 		{
-			q.push(QItem(curr.row + 1, curr.col, Pcurr));
-			visited[curr.row + 1][curr.col] = true;
+			if (player.checkValidPos(curr.row+1, curr.col, board))
+			{
+				q.push(QItem(curr.row + 1, curr.col, Pcurr));
+				visited[curr.row + 1][curr.col] = true;
+			}
 		}
-
 
 		// moving right
 		if (curr.col + 1 < WIDTH && visited[curr.row][curr.col + 1] == false)
 		{
-			q.push(QItem(curr.row, curr.col + 1, Pcurr));
-			visited[curr.row][curr.col + 1] = true;
+			if (player.checkValidMove(curr.row, curr.col, Right, board))
+			{
+				q.push(QItem(curr.row, curr.col + 1, Pcurr));
+				visited[curr.row][curr.col + 1] = true;
+			}
 		}
 	}
-	return notfound();
+	Point p1(-1, -1);
+	return p1;
 }
 
 
 void Game::GhostchangeSmartPosition(Ghost &G)
 {
-	Point newPoint = minDistance(G.getBody(), player.getBody());
-
+	Point newPoint = minDistance(G.getBody(),player.getBody());
+	Point tmp(-1, -1);
 	int x = G.getBody().getX();
 	int y = G.getBody().getY();
-	G.changedirectionbyPoint(newPoint);
-	G.moveAndDraw();
+	if (newPoint == tmp)
+	{
+
+	}
+	else
+	{
+		G.changedirectionbyPoint(newPoint);
+		G.moveAndDraw();
 
 
-	// If last ghost position was breadcrumb print breadcrumb
-	if (board.getBoardValFromPoint(x, y) == bc)
-		G.printBreadCrumbs(x, y);
+		// If last ghost position was breadcrumb print breadcrumb
+		if (board.getBoardValFromPoint(x, y) == bc)
+			G.printBreadCrumbs(x, y);
+	}
+
 }
