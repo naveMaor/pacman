@@ -40,15 +40,3 @@ void Board::resetBoard()
     }
 }
 
-
-bool Board::breadcrumbleft() const
-{
-    for (int i = 0; i < HIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            if (board[i][j] == bc)
-                return true;
-        }
-    }
-}

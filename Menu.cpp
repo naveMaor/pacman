@@ -145,3 +145,53 @@ bool Menu::checkValidSpeedSettingsInput(string input) const
 	}
 	return false;
 }
+
+void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed)
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidUserSettings(input))
+	{
+		clearScreen();
+		cout << "You entered incorrect option, please choose again.\n\n";
+		printGameSettings(getIsColorGame, currentSpeed);
+		getline(cin, input);
+	}
+	setUserChoice(stoi(input));
+}
+
+void Menu::printGameSettings(bool getIsColorGame, int currentSpeed)const
+{
+	setTextColor(Color::WHITE);
+	cout << "Pacman settings:\n"
+		"(1) Change color settings (current- ";
+	printIsColorGame(getIsColorGame);
+	cout << ")\n"
+		"(2) Change pacman speed (current - ";
+	printCurrentSpeedGame(currentSpeed);
+	cout << ")\n"
+		"(3) Back to main menu";
+	cout << "\n"
+		"Choice: ";
+}
+
+void Menu::printIsColorGame(bool getIsColorGame)const
+{
+	if (getIsColorGame)
+		cout << "is color game";
+	else
+		cout << "isn't color game";
+}
+
+void Menu::printCurrentSpeedGame(int currentSpeed)const
+{
+	if (currentSpeed == easyGameSpeed)
+		cout << "easy";
+	else if (currentSpeed == mediumGameSpeed)
+		cout << "medium";
+	else if (currentSpeed == hardGameSpeed)
+		cout << "hard";
+	else // currentSpeed == expertGameSpeed
+		cout << "expert";
+}

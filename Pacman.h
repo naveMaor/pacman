@@ -24,7 +24,7 @@ public:
 	void setPlusScore() { score++; }
 	int	getLife() const { return life; };
 	void setLife(int newLife) { life = newLife; };
-	//void initPacman();
+	void remove();
 	void changePosition(Board& b) override;
 
 };

@@ -97,7 +97,7 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move
-	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon))
+	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon) || ((charAtPoint>=53) && (charAtPoint <=57)))
 		return false;
 
 	return true;

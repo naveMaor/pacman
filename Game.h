@@ -12,6 +12,7 @@
 #include "Fruit.h"
 #include <string>
 #include <stdio.h>
+#include "Print.h"
 
 
 struct  QItem {
@@ -53,8 +54,11 @@ private:
 	Fruit fruit = {5,5};
 	Board board;
 	Menu menu;
+	Print print;
 	bool b_IsColorGame = true;
 	int gameSpeedVal = mediumGameSpeed;
+	int win = 1092;
+	
 
 
 
@@ -63,27 +67,13 @@ public:
 	void playGame();
 	void initGame(bool b_color);
 	void gameSettings();
-	void printPlayerHitGhost()const;
-	void printGameSettings() const;
-	void printIsColorGame() const;
-	void handleGameMenuSettingsInput();
-	void printCurrentSpeedGame()const;
 	void gameSpeed();
 	void initGameObj();
-	void pauseGame();
 	void printPreviousGame()const;
 	bool checkWin()const;
-	void winGame();
-	void gameOver();
-	void printLife()const;
-	void resetPrintLife() const;
-	void printScore()const;
-	void removePrintPlayerHitGhost()const;
 	void drawGameObj()const;
-	void clearCenter()const;
 	void resetGame();
 	void chooseColor();
-	bool getIsColorGame() const { return b_IsColorGame; };
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
@@ -101,38 +91,28 @@ public:
 	// Pacman functions
 	void pacmanMove(Board &b);
 	void getUserKeyboard();
-	void removePacman();
 	
 
 	// Fruit functions
-	void initFruit();
-	void ghostHitFruit();
-	void pacmanHitFruit();
-	void unDisplayFruit();
-	void fruitMove();
-	void hideOrShowFruit();
+	void checkPacmanHitFruit();
+
+	// Print function
+	void winGame();
+	void gameOver();
 
 
 
-	Point notfound(){
-		Point p1(-1, -1);
-		cout << "not found" << endl;
-		return p1;
-	}
 
-	//------------------------------------
-	// Thos functions move to menu class 
-	// 
-	//
-	//int menu();
-	//void printGameMenu()const;
-	//void printPacmanSpeedOptions()const;
-	//void printInstructions()const;
-	//bool checkValidUserInput(string userChoice)const;
-//	char stringToChar(string& s)const;
-//	bool checkValidUserSettings(string input) const;
-	//void handleGameMenuSpeedSettingsInput();
-	//bool checkValidSpeedSettingsInput(string input) const;
+	//void printLife()const;
+	//void resetPrintLife() const;
+	//void pauseGame() const;
+	//void clearCenter()const;
+	//void printPlayerHitGhost()const;
+	//void printScore()const;
+	//void removePrintPlayerHitGhost()const;
+
+
+
 	
 };
 

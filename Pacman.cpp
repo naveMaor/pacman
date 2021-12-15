@@ -67,3 +67,10 @@ void Pacman::changePosition(Board& b)
 	}
 
 }
+
+/* This function remove pacman last character*/
+void Pacman::remove()
+{
+	gotoxy(this->getBody().getX(), this->getBody().getY());
+	cout << (char)space;
+}

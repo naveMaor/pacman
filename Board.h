@@ -38,7 +38,7 @@ public:
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
     void printPreviousBoard() const;
     void resetBoard();
-    bool breadcrumbleft() const;
+
     
 };
 
