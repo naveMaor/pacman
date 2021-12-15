@@ -5,7 +5,7 @@
 #include "File.h"
 
 
-enum sizeEnum { WIDTH = 70, HIGHT = 20 };
+enum sizeEnum { HIGHT = 20, WIDTH = 70  };
 
 class Board
 {

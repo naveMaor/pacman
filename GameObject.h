@@ -33,7 +33,7 @@ public:
 	void IlustrateNextMove(int& x, int& y, int dir, Board &b);
 	void printBreadCrumbs(int x, int y);
 	bool checkValidPos(int x, int y, Board& b);
-
+	void changedirectionbyPoint(Point p);
 	
 };
 

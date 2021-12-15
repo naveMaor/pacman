@@ -18,10 +18,9 @@ struct  QItem {
 public:
 	int row;
 	int col;
-	int dist;
 	Point p;
-	QItem(int x, int y, int w, Point p)
-		: row(x), col(y), dist(w), p(p)
+	QItem(int x, int y,  Point p)
+		: row(x), col(y), p(p)
 	{
 	}
 };
@@ -31,9 +30,9 @@ class Game
 {
 private:
 	enum initObjLocation {
-		pacmanStartX = 1, pacmanStartY = 1,
-		ghostOneStartX = 50, ghostOneStartY = 14,
-		ghostTwoStartX = 10, ghostTwoStartY = 3
+		pacmanStartX = 3, pacmanStartY = 8,
+		ghostOneStartX = 9, ghostOneStartY = 8,
+		ghostTwoStartX = 14, ghostTwoStartY = 8
 	};
 
 	//------------------
@@ -96,7 +95,7 @@ public:
 	bool ghostsHit();
 	void removeGhosts();	
 	void ghostsMove();
-	void GhostchangeSmartPosition(Ghost& G, Point& PlayerLocation);
+	void GhostchangeSmartPosition(Ghost& G);
 
 
 	// Pacman functions

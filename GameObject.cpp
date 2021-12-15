@@ -104,3 +104,33 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 
 }
 
+void GameObject::changedirectionbyPoint(Point NewP)
+{
+	int Bodyx = pBody.getX();
+	int Bodyy = pBody.getY();
+	int NewPx = NewP.getX();
+	int NewPy = NewP.getY();
+
+//	Go UP
+	if (NewPx < Bodyx)
+	{
+		setDirection(Left);
+	}
+
+//	Go Right
+	else if (NewPx > Bodyx)
+	{
+		setDirection(Right);
+	}
+
+//	Go Up
+	else if (NewPy < Bodyy)
+	{
+		setDirection(Up);
+	}
+	//	Go Down
+	else if (NewPy > Bodyy)
+	{
+		setDirection(Down);
+	}
+}
