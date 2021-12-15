@@ -29,7 +29,7 @@ void Game::playGame()
 		//	fruit.changePosition(board);
 		//}
 
-		if (countMoves % 4 == 0)
+		if (countMoves % 3 == 0)
 		{
 			ghostsMove();
 		}
@@ -239,9 +239,7 @@ bool Game::ghostHit(Ghost ghost)
 void Game::ghostsMove()
 {
 	GhostchangeSmartPosition(ghostOne);
-	//GhostchangeSmartPosition(ghostTwo);
-	//ghostOne.changePosition(board);
-	//ghostTwo.changePosition(board);
+	GhostchangeSmartPosition(ghostTwo);
 
 }
 
@@ -560,14 +558,8 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 
 	// To keep track of visited QItems. Marking
 	// blocked cells as visited.
-	bool visited[HIGHT][WIDTH];
-	for (int i = 0; i < HIGHT; i++) {
-		for (int j = 0; j < WIDTH; j++)
-		{
-				visited[i][j] = false;
+	bool visited[HIGHT][WIDTH] = { false };
 
-		}
-	}
 
 	// init source
 	source.row = PlayerLocation.getX();
