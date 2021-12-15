@@ -1,6 +1,7 @@
 #pragma once
 #include "Point.h"
 #include "Board.h"
+#include "MoveStrategy.h"
 
 class GameObject
 {
@@ -9,6 +10,7 @@ class GameObject
 	Color color = Color::WHITE;
 	char objectIcon;
 	int direction = 3;
+	MoveStrategy MoveStrategy;
 
 public:
 	// Constractor
@@ -29,11 +31,11 @@ public:
 	void draw() const;
 	virtual void initGameObject();
 	virtual void changePosition(Board& b) =0;
-	bool checkValidMove(int x, int y, int dir, Board &b);
-	void IlustrateNextMove(int& x, int& y, int dir, Board &b);
 	void printBreadCrumbs(int x, int y);
-	bool checkValidPos(int x, int y, Board& b);
 	void changedirectionbyPoint(Point p);
-	
+	static bool checkValidPos(int x, int y, Board& b);
+	static bool checkValidMove(int x, int y, int dir, Board &b);
+	static void IlustrateNextMove(int& x, int& y, int dir, Board &b);
+
 };
 

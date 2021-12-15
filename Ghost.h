@@ -1,6 +1,7 @@
 #pragma once
 #include "Point.h"
 #include "GameObject.h"
+#include "MoveStrategy.h"
 
 
 
