@@ -13,14 +13,14 @@ enum directions
 	Left = 0, Right=1, Up = 2, Down = 3, Stay = 4
 };
 
-class Point 
+class Point
 {
 private:
-		int x = 1, y = 1;
+	int x = 1, y = 1;
 
 public:
 	//constractor
-	Point();
+	Point(){};
 	Point(int newX, int newY) : x(newX), y(newY) {};
 
 	void draw(char ch) const;

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <queue>
 #include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
@@ -11,6 +12,20 @@
 #include "Fruit.h"
 #include <string>
 #include <stdio.h>
+
+
+struct  QItem {
+public:
+	int row;
+	int col;
+	int dist;
+	Point p;
+	QItem(int x, int y, int w, Point p)
+		: row(x), col(y), dist(w), p(p)
+	{
+	}
+};
+
 
 class Game
 {
@@ -32,7 +47,6 @@ private:
 
 
 	//--------------
-
 
 	Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
 	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
@@ -74,6 +88,7 @@ public:
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
+	Point minDistance(Point GhostLocation, Point PlayerLocation);
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
@@ -81,6 +96,7 @@ public:
 	bool ghostsHit();
 	void removeGhosts();	
 	void ghostsMove();
+	void GhostchangeSmartPosition(Ghost& G, Point& PlayerLocation);
 
 
 	// Pacman functions
@@ -98,6 +114,12 @@ public:
 	void hideOrShowFruit();
 
 
+
+	Point notfound(){
+		Point p1(-1, -1);
+		cout << "not found" << endl;
+		return p1;
+	}
 
 	//------------------------------------
 	// Thos functions move to menu class 

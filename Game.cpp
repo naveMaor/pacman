@@ -12,30 +12,27 @@ void Game::playGame()
 	{
 		printScore();
 
-		if (countMoves*3 % 10==0 )
-		{
-			fruit.setshowfruit();
-			hideOrShowFruit();
-			if (!fruit.getshowfruit())
-			{
-				fruit.setNewFruitScore();
-			}
+		//if (countMoves*3 % 10==0 )
+		//{
+		//	fruit.setshowfruit();
+		//	hideOrShowFruit();
+		//	if (!fruit.getshowfruit())
+		//	{
+		//		fruit.setNewFruitScore();
+		//	}
 
-		}
+		//}
 
 
-		if (countMoves % 3 == 0 && fruit.getshowfruit())
-		{
-			fruit.changePosition(board);
-		}
+		//if (countMoves % 3 == 0 && fruit.getshowfruit())
+		//{
+		//	fruit.changePosition(board);
+		//}
 
 		if (countMoves % 2 == 0)
 		{
 			ghostsMove();
 		}
-
-		
-
 
 		Sleep(gameSpeedVal);
 		pacmanMove(board);
@@ -241,6 +238,7 @@ bool Game::ghostHit(Ghost ghost)
 /* This function handle ghosts move*/
 void Game::ghostsMove()
 {
+
 	ghostOne.changePosition(board);
 	ghostTwo.changePosition(board);
 
@@ -307,7 +305,8 @@ void Game:: drawGameObj() const
 	player.draw();
 	ghostOne.draw();
 	ghostTwo.draw();
-	fruit.draw();
+	//fruit.draw(); 
+	// todo : changed
 }
 
 /* This function check if the player eat all breadcrumbs he win!!*/
@@ -554,4 +553,100 @@ void Game::pacmanHitFruit()
 void Game::unDisplayFruit()
 {
 
+}
+
+Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
+{
+	Point Pcurr(0, 0);
+	QItem source(GhostLocation.getX(), GhostLocation.getY(), 0, Pcurr);
+
+	// To keep track of visited QItems. Marking
+	// blocked cells as visited.
+	bool visited[HIGHT][WIDTH];
+	for (int i = 0; i < HIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++)
+		{
+			if (board.getBoardValFromPoint(i,j) == 'w')
+				visited[i][j] = true;
+			else
+				visited[i][j] = false;
+
+		}
+	}
+
+	// init source
+	source.row = GhostLocation.getX();
+	source.col = GhostLocation.getY();
+
+
+
+	// applying BFS on matrix cells starting from source
+	std::queue<QItem> q;
+	q.push(source);
+	visited[source.row][source.col] = true;
+	while (!q.empty())
+	{
+		QItem curr = q.front();
+		q.pop();
+
+		// Destination found;
+		if (PlayerLocation.getX() == curr.row && PlayerLocation.getY() == curr.col)
+		{
+			return curr.p;
+		}
+
+
+		Pcurr.setX(curr.row);
+		Pcurr.setY(curr.col);
+
+
+		// moving up
+		if (curr.row - 1 >= 0 && visited[curr.row - 1][curr.col] == false)
+		{
+			q.push(QItem(curr.row - 1, curr.col, curr.dist + 1, Pcurr));
+			visited[curr.row - 1][curr.col] = true;
+		}
+
+		// moving down
+		if (curr.row + 1 < HIGHT && visited[curr.row + 1][curr.col] == false)
+		{
+			q.push(QItem(curr.row + 1, curr.col, curr.dist + 1, Pcurr));
+			visited[curr.row + 1][curr.col] = true;
+		}
+
+		// moving left
+		if (curr.col - 1 >= 0 && visited[curr.row][curr.col - 1] == false)
+		{
+			q.push(QItem(curr.row, curr.col - 1, curr.dist + 1, Pcurr));
+			visited[curr.row][curr.col - 1] = true;
+		}
+
+		// moving right
+		if (curr.col + 1 < WIDTH && visited[curr.row][curr.col + 1] == false)
+		{
+			q.push(QItem(curr.row, curr.col + 1, curr.dist + 1, Pcurr));
+			visited[curr.row][curr.col + 1] = true;
+		}
+	}
+	return notfound();
+}
+
+
+void Game::GhostchangeSmartPosition(Ghost &G, Point &PlayerLocation)
+{
+	Point newPoint = minDistance(G.getBody(), PlayerLocation);
+
+
+	int x = G.getBody().getX();
+	int y = G.getBody().getY();
+
+	G.getBody().draw(space);
+	G.setBody(newPoint.getX(), newPoint.getY());
+	G.draw();
+
+
+
+	// If last ghost position was breadcrumb print breadcrumb
+	if (board.getBoardValFromPoint(x, y) == bc)
+		G.printBreadCrumbs(x, y);
 }

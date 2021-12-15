@@ -16,16 +16,8 @@ void GameObject::setColor(Color color)
 {
 	this->color = color;
 }
-
+//todo: fix balagan
 void GameObject::move()
-{
-	pBody.draw(space);
-	pBody.move(direction);
-	draw();
-}
-
-
-void GameObject::moveAndDraw()
 {
 	pBody.draw(space);
 	pBody.move(direction);
@@ -37,6 +29,14 @@ void GameObject::draw() const
 	setTextColor(color);
 	pBody.draw(objectIcon);
 }
+
+void GameObject::moveAndDraw()
+{
+	pBody.draw(space);
+	pBody.move(direction);
+	draw();
+}
+
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
