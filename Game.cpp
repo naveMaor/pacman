@@ -493,6 +493,7 @@ void Game::initFruit()
 	fruit.setBody(fruitLocation.getX(),fruitLocation.getY());
 
 }
+// todo transfer this to fruit cpp
 
 void Game::hideOrShowFruit()
 {
@@ -551,10 +552,6 @@ void Game::pacmanHitFruit()
 	}
 }
 
-void Game::unDisplayFruit()
-{
-
-}
 
 Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 {
@@ -596,43 +593,31 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 		Pcurr.setX(curr.row);
 		Pcurr.setY(curr.col);
 
-		// moving left
-		if (curr.col - 1 >= 0 && visited[curr.row][curr.col - 1] == false)
-		{
-			if (player.checkValidPos(curr.row, curr.col-1, board))
-			{
-				q.push(QItem(curr.row, curr.col - 1, Pcurr));
-				visited[curr.row][curr.col - 1] = true;
-			}
-		}
+
 
 		// moving up
-		if (curr.row - 1 >= 0 && visited[curr.row - 1][curr.col] == false)
+		if (curr.row - 1 >= 0 && player.checkValidPos(curr.row - 1, curr.col, board) && visited[curr.row - 1][curr.col] == false)
 		{
-			if (player.checkValidPos(curr.row-1, curr.col, board))
-			{
 				q.push(QItem(curr.row - 1, curr.col, Pcurr));
 				visited[curr.row - 1][curr.col] = true;
-			}
 		}
 		// moving down
-		if (curr.row + 1 < HIGHT && visited[curr.row + 1][curr.col] == false)
+		if (curr.row + 1 < HIGHT && player.checkValidPos(curr.row + 1, curr.col, board)  && visited[curr.row + 1][curr.col] == false)
 		{
-			if (player.checkValidPos(curr.row+1, curr.col, board))
-			{
 				q.push(QItem(curr.row + 1, curr.col, Pcurr));
 				visited[curr.row + 1][curr.col] = true;
-			}
 		}
-
-		// moving right
-		if (curr.col + 1 < WIDTH && visited[curr.row][curr.col + 1] == false)
+		// moving left
+		if (curr.col - 1 >= 0 && player.checkValidPos(curr.row, curr.col - 1, board) && visited[curr.row][curr.col - 1] == false)
 		{
-			if (player.checkValidMove(curr.row, curr.col, Right, board))
-			{
+				q.push(QItem(curr.row, curr.col - 1, Pcurr));
+				visited[curr.row][curr.col - 1] = true;
+		}
+		// moving right
+		if (curr.col + 1 < WIDTH &&  player.checkValidMove(curr.row, curr.col, Right, board) && visited[curr.row][curr.col + 1] == false)
+		{
 				q.push(QItem(curr.row, curr.col + 1, Pcurr));
 				visited[curr.row][curr.col + 1] = true;
-			}
 		}
 	}
 	Point p1(-1, -1);
