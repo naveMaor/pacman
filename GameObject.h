@@ -12,7 +12,7 @@ class GameObject
 	int direction = 3;
 
 public:
-	GameObject() = default;
+	GameObject(char objectIcon) : objectIcon(objectIcon) {}
 	// Constractor
 	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 

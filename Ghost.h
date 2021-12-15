@@ -16,7 +16,7 @@ class Ghost : public GameObject
 
 public:
 	// Constractor
-	Ghost() = default;
+	Ghost() : GameObject(ghostIcon) {}
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	void initGameObject() override;
 	void changePosition(Board& b) override;

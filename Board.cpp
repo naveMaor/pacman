@@ -1,11 +1,18 @@
 #include "Board.h"
 
+Board::Board()
+{
+    for (int i = 0; i < HIGHT; i++)
+        for (int j = 0; j < WIDTH; j++)
+            board[i][j] = ' ';
+}
+
 /* This function print the board*/
 void const Board::printBoard() const
 {  
-    for (int i = 0; i < HIGHT; i++)
+    for (int i = 0; i < boardHight; i++)
     {
-        for (int j = 0; j < WIDTH; j++)       
+        for (int j = 0; j < boardWidth; j++)
             cout << board[i][j];
         cout << endl;
     } 
@@ -14,9 +21,9 @@ void const Board::printBoard() const
 /* This function print the previous board before pausing*/
 void Board::printPreviousBoard() const
 {
-    for (int i = 0; i < HIGHT; i++)
+    for (int i = 0; i < boardHight; i++)
     {
-        for (int j = 0; j < WIDTH; j++)
+        for (int j = 0; j < boardWidth; j++)
         {
             if (board[i][j] == boardGarbageVal)
                 cout << (char)space;
@@ -30,9 +37,9 @@ void Board::printPreviousBoard() const
 /* This function reset the board to the begining*/
 void Board::resetBoard()
 {
-    for (int i = 0; i < HIGHT; i++)
+    for (int i = 0; i < boardHight; i++)
     {
-        for (int j = 0; j < WIDTH; j++)
+        for (int j = 0; j < boardWidth; j++)
         {
             if (board[i][j] == boardGarbageVal)
                 board[i][j] = bc;
@@ -43,14 +50,15 @@ void Board::resetBoard()
 
 bool Board::breadcrumbleft() const
 {
-    for (int i = 0; i < HIGHT; i++)
+    for (int i = 0; i < boardHight; i++)
     {
-        for (int j = 0; j < WIDTH; j++)
+        for (int j = 0; j < boardWidth; j++)
         {
             if (board[i][j] == bc)
                 return true;
         }
     }
+    return false;
 }
 
 
@@ -58,29 +66,31 @@ void Board:: setBoardLine(int hight, char* line,int width)
 {
     for (int x = 0; x < width; x++)
     {
-       
         if (line[x] == '#')
             board[hight][x] = w;
-        else if (line[x] == '@')
-            pacmanStartingPosition = { x, hight };
-        else if (line[x] == '$')
-        {
-            ghostStartingPositions[ghostCount] = { x, hight };
-            ghostCount++;
-        }
         else if (line[x] == '&')
             infoPosition = { x, hight };
+        else if (line[x] == '%')
+            board[hight][x] = ' ';
         else
         {
             board[hight][x] = bc;
             breadCrumbsCount++;
+
+            if (line[x] == '$')
+            {
+                ghostStartingPositions[ghostCount] = { x, hight };
+                ghostCount++;
+            }
+            else if (line[x] == '@')
+                pacmanStartingPosition = { x, hight };
         }
     }      
 }
 
 void Board::initBoard() 
 {
-    int hight = infoPosition.getY();
+    int hight = infoPosition.getY() - 1;
     int j = 0;
     for (int i = 0; i < 3; i++)
     {
@@ -95,5 +105,6 @@ void Board::initBoard()
                 else
                     board[hight][j] = ' ';
         }
+        hight++;
     }
 }

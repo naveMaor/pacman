@@ -18,7 +18,7 @@ vector<string> File::getScreensName(string const PATH)
 
 bool File::fileToBoard(string const screenPath, Board& board)
 {
-	int width = 0, hight = -1;
+	int width = 0, hight = 0;
 	char cLine[80] = {};
 	string line;
 	bool openFileSuccess = openFile(screenPath);
@@ -27,10 +27,11 @@ bool File::fileToBoard(string const screenPath, Board& board)
 	{	
 		while (getline(screenFile, line))
 		{
+			width = (int)line.length();
+
 			// Get the width of the board by the first line of the file
-			if (hight == -1)
+			if (hight == 0)
 			{
-				width = (int)line.length();
 				if (width == 0)
 				{
 					cout << "The width of the screen is 0, moving to the next screen" << endl;
@@ -38,11 +39,14 @@ bool File::fileToBoard(string const screenPath, Board& board)
 				}
 				board.setBoardWidth(width);
 			}
+			
+			//cout << line << endl;
+			if (line.length() != 0)
+			{
+				strcpy(cLine, line.c_str());
+				board.setBoardLine(hight, cLine, width);
+			}
 			hight++;
-			cout << line << endl;
-			strcpy(cLine, line.c_str());
-			board.setBoardLine(hight, cLine,width);
-			line.clear();
 		}
 		board.setBoardHight(hight);
 	}

@@ -17,7 +17,7 @@ private:
 
 public:
 	// Constractor
-	Pacman() = default;
+	Pacman() : GameObject(pacmanIcon) {}
 	Pacman(int x, int y): GameObject(x,y,pacmanIcon) {};
 	void initGameObject() override;
 

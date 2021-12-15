@@ -18,6 +18,7 @@ class Board
     Point infoPosition;
     
 public:
+    Board();
 	void const printBoard() const;
     // This function return the value in the board of request place, the x and y that requested are opposite in the board
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
@@ -27,6 +28,8 @@ public:
     void resetBoard();
     bool breadcrumbleft() const;
     void initBoard();
+    int getBoardWidth() { return boardWidth; }
+    int getBoardHight() { return boardHight; }
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };
     int getNumOfGhosts() { return ghostCount; }

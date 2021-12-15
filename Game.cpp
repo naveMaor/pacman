@@ -8,6 +8,7 @@ void Game::playGame()
 	int screenCount = 0;
 	vector<string> screensNames = File::getScreensName(PATH);
 	int numOfScreens = screensNames.size();
+	
 
 	for (int i = 0; i < numOfScreens && alive; i++)
 	{
