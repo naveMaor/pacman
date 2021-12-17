@@ -221,7 +221,7 @@ void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int Numberof
 		"(5) Change ghosts Level (current - ";
 	printCurrentGhostsLevel(GhostsLevel);
 	cout << ")\n"
-		"(6) Back to main menu\n"
+		"Press any key to return main menu\n"
 		"Choice: ";
 }
 

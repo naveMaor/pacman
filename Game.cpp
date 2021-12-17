@@ -4,7 +4,8 @@
 /* This function handle the game*/
 void Game::playGame(bool isSingleGame, string screenName)
 {
-	int screenCount = 0, numOfScreens = screensNames.size();;		
+	int screenCount = 0, numOfScreens = screensNames.size();;	
+	alive = true;
 	if (isSingleGame)
 	{
 		if (File::fileToBoard(screenName, board))
@@ -98,12 +99,13 @@ void Game::gameSettings()
 		gameGhosts();
 		break;
 	case 4:
-		clearScreen();
+		menu.handleChooseScreen(screensNames);
 		break;
 	case 5:
 		gameGhostsLevel();
 		break;
 	default:
+		clearScreen();
 		break;
 	}
 }
@@ -335,7 +337,6 @@ void Game::chooseColor()
 /* This function reset the game when starting again*/
 void Game::resetGame()
 {
-	alive = true;
 	initGameObj();
 	player.setScore(0);
 	setGameObjectsPositions();
