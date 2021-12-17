@@ -224,6 +224,7 @@ void Game:: drawGameObj() const
 bool Game:: checkWin() const
 {	
 	return 	player.getScore() == maxScoreInCurrScreen;
+	//return 	player.getScore() == 10;
 }
 
 /* This function handle win situation*/
@@ -288,7 +289,6 @@ void Game::initGameObj()
 	fruit.initGameObject();
 }
 
-
 /* This function handle the speed of the game settings*/
 void Game::gameSpeed()
 {
@@ -347,7 +347,7 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 	// applying BFS on matrix cells starting from source
 	std::queue<QItem> q;
 	q.push(source);
-	visited[source.row][source.col] = true;
+	visited[source.col][source.row] = true;
 	while (!q.empty())
 	{
 		QItem curr = q.front();
@@ -360,32 +360,32 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 		Pcurr.setX(curr.row);
 		Pcurr.setY(curr.col);
 
+		// moving right
+		if (curr.row + 1 < Width && player.checkValidPos(curr.row + 1, curr.col, board) && visited[curr.col][curr.row + 1] == false)
+		{
+			q.push(QItem(curr.row + 1, curr.col, Pcurr));
+			visited[curr.col][curr.row + 1] = true;
+		}
 		// moving down
-		if (curr.col + 1 < Width && player.checkValidPos(curr.row, curr.col + 1, board) && visited[curr.row][curr.col + 1] == false)
+		if (curr.col + 1 < Hight && player.checkValidPos(curr.row, curr.col + 1, board) && visited[curr.col + 1][curr.row] == false)
 		{
 			q.push(QItem(curr.row, curr.col + 1, Pcurr));
-			visited[curr.row][curr.col + 1] = true;
+			visited[curr.col + 1][curr.row] = true;
 		}
 
 		// moving left
-		if (curr.row - 1 >= 0 && player.checkValidPos(curr.row - 1, curr.col, board) && visited[curr.row - 1][curr.col] == false)
+		if (curr.row - 1 >= 0 && player.checkValidPos(curr.row - 1, curr.col, board) && visited[curr.col][curr.row - 1] == false)
 		{
 				q.push(QItem(curr.row - 1, curr.col, Pcurr));
-				visited[curr.row - 1][curr.col] = true;
-		}
-		// moving right
-		if (curr.row + 1 < Hight && player.checkValidPos(curr.row + 1, curr.col, board) && visited[curr.row + 1][curr.col] == false)
-		{
-				q.push(QItem(curr.row + 1, curr.col, Pcurr));
-				visited[curr.row + 1][curr.col] = true;
-		}
-		// moving up
-		if (curr.col - 1 >= 0 && player.checkValidPos(curr.row, curr.col - 1, board) && visited[curr.row][curr.col - 1] == false)
-		{
-				q.push(QItem(curr.row, curr.col - 1, Pcurr));
-				visited[curr.row][curr.col - 1] = true;
+				visited[curr.col][curr.row - 1] = true;
 		}
 		
+		// moving up
+		if (curr.col - 1 >= 0 && player.checkValidPos(curr.row, curr.col - 1, board) && visited[curr.col - 1][curr.row] == false)
+		{
+				q.push(QItem(curr.row, curr.col - 1, Pcurr));
+				visited[curr.col - 1][curr.row] = true;
+		}		
 	}
 	Point p1(-1, -1);
 	return p1;

@@ -21,13 +21,13 @@ void Fruit::initFruit(Board& b)
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = randomBetween(0, WIDTH - 1);
-	int newy = randomBetween(0, HIGHT - 1);
+	int newx = randomBetween(0, b.getBoardWidth() - 1);
+	int newy = randomBetween(0, b.getBoardHight() - 1);
 	bool valid = checkValidPos(newx, newy, b);
 	while (!valid)
 	{
-		newx = randomBetween(0, WIDTH - 1);
-		newy = randomBetween(0, HIGHT - 1);
+		newx = randomBetween(0, b.getBoardWidth() - 1);
+		newy = randomBetween(0, b.getBoardHight() - 1);
 		valid = b.getBoardValFromPoint(newx, newy);
 	}
 	setBody(newx, newy);
@@ -57,24 +57,16 @@ void Fruit::changePosition(Board& b)
 void Fruit::hideOrShowFruit(Board& b)
 {
 	if (showfruit)
-	{
 		this->draw();
-	}
 	else
 	{
 		unsigned char c = b.getBoardValFromPoint(this->getBody().getX(), this->getBody().getY());
 		gotoxy(this->getBody().getX(), this->getBody().getY());
 		if (c == boardGarbageVal)
-		{
 			cout << (char)space;
-		}
 		else
-		{
 			cout << c;
-		}
 		setNewFruitlocation(b);
-
-
 	}
 }
 
