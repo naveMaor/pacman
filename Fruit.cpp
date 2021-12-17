@@ -21,13 +21,13 @@ void Fruit::initFruit(Board& b)
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = randomBetween(0, b.getBoardWidth() - 1);
-	int newy = randomBetween(0, b.getBoardHight() - 1);
+	int newx = randomBetween(0, b.getBoardWidth());
+	int newy = randomBetween(0, b.getBoardHight());
 	bool valid = checkValidPos(newx, newy, b);
 	while (!valid)
 	{
-		newx = randomBetween(0, b.getBoardWidth() - 1);
-		newy = randomBetween(0, b.getBoardHight() - 1);
+		newx = randomBetween(0, b.getBoardWidth());
+		newy = randomBetween(0, b.getBoardHight());
 		valid = checkValidPos(newx, newy, b);
 	}
 	setBody(newx, newy);
