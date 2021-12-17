@@ -89,3 +89,8 @@ void Board::initBoard()
         hight++;
     }
 }
+
+Point Board:: getGhostStartingPosition(int index) const 
+{
+    return ghostStartingPositions[index]; 
+}

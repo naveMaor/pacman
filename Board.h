@@ -32,7 +32,7 @@ public:
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
-    Point getGhostStartingPosition(int index) const{ return ghostStartingPositions[index]; }
+    Point getGhostStartingPosition(int index) const;
     Point getInfoPosition() const { return infoPosition; }
 
     void eatBreadCrumb() { breadCrumbsLeft--; }

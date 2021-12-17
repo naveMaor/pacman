@@ -2,13 +2,15 @@
 
 void GameObject::setBody(Point point)
 {
-	pBody = point; // low copy
+	this-> pBody = point; // low copy
+	/*pBody.setX(point.getX());
+	pBody.setY(point.getX());*/
 }
 
 void GameObject::setBody(int x, int y)
 {
-	pBody.setX(x);
-	pBody.setY(y);
+	this->pBody.setX(x);
+	this->pBody.setY(y);
 }
 
 

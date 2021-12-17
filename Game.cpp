@@ -66,12 +66,10 @@ void Game::initGame(bool b_color)
 	numOfGhosts = board.getNumOfGhosts();
 	gameInfo = board.getInfoPosition();
 	gameInfo.setX(gameInfo.getX() + 1);
-
-	setGameObjectsPositions();
-	
 	board.printBoard();
 	setMaxScoreInCurrScreen(board.getBreadCrumbsLeft());
 	initGameObj();
+	setGameObjectsPositions();
 
 	if (b_color)
 		setGameObjectsColors();
@@ -245,7 +243,6 @@ void Game::checkGhostsHit(Point Body)
 }
 
 
-
 /* This function handle ghosts move*/
 void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
@@ -350,30 +347,27 @@ void Game::initGameObj()
 	player.initGameObject();
 	for (int i = 0; i < numOfGhosts; i++)
 	{
-		ghosts[i]->initGameObject();
 		switch (GhostsLevel)
 		{
 		case 1:
 		{
-			NoviceGhost ghost;
-			ghosts[i] = &ghost;
+			ghosts[i] = new NoviceGhost;
+			break;
 		}
 		case 2:
 		{
-			GoodGhost ghost;
-			ghosts[i] = &ghost;
+			ghosts[i] = new GoodGhost;
+			break;
 		}
 		case 3:
 		{
-			BestGhost ghost;
-			ghosts[i] = &ghost;
+			ghosts[i] = new BestGhost;
+			break;
 		}
-
 		default:
 			break;
 		}
-
-
+		ghosts[i]->initGameObject();
 	}
 	fruit.initGameObject();
 }

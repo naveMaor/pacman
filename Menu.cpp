@@ -260,6 +260,8 @@ void Menu::printScreenNames(vector<string> screenNames) const
 string Menu::handleChooseScreen(vector<string> screenNames)
 {
 	string input;
+	clearScreen();
+
 	getline(cin, input);
 
 	while (!checkValidScreenInput(input, screenNames))
