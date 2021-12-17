@@ -10,7 +10,7 @@ class GameObject
 	Color color = Color::WHITE;
 	char objectIcon;
 	int direction = 3;
-	MoveStrategy MoveStrategy;
+	//MoveStrategy MoveStrategy;
 
 public:
 	// Constractor
