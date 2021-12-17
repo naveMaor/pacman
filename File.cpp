@@ -35,6 +35,7 @@ bool File::fileToBoard(string const screenPath, Board& board)
 				if (width == 0)
 				{
 					cout << "The width of the screen is 0, moving to the next screen" << endl;
+					Sleep(shortPauseWindow);
 					return false;
 				}
 				board.setBoardWidth(width);

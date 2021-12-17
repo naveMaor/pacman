@@ -217,10 +217,10 @@ void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int Numberof
 		"(3) Change number of ghosts (current - ";
 	printCurrentNumberOfGhosts(NumberofGhosts);
 	cout << ")\n"
-		"(4) Choose a specific screen from list \n";
-	cout << ")\n"
+		"(4) Choose a specific screen \n"
 		"(5) Change ghosts Level (current - ";
 	printCurrentGhostsLevel(GhostsLevel);
+	cout << ")\n"
 		"(6) Back to main menu\n"
 		"Choice: ";
 }
@@ -249,8 +249,7 @@ void Menu::printCurrentSpeedGame(int currentSpeed)const
 /* This function print the name of the screens in the directory*/
 void Menu::printScreenNames(vector<string> screenNames) const
 {
-	clearScreen();
-	cout << "Choose screen from list: \n" << endl;
+	cout << "Choose screen from list: " << endl;
 	for (int i = 0; i < screenNames.size(); i++)
 		cout << i + 1 << ") " << screenNames[i] << endl;
 	cout << "Choice: ";
@@ -261,7 +260,7 @@ string Menu::handleChooseScreen(vector<string> screenNames)
 {
 	string input;
 	clearScreen();
-
+	printScreenNames(screenNames);
 	getline(cin, input);
 
 	while (!checkValidScreenInput(input, screenNames))
@@ -272,7 +271,7 @@ string Menu::handleChooseScreen(vector<string> screenNames)
 		getline(cin, input);
 	}
 	userChoice = stoi(input);
-	return screenNames[userChoice];
+	return screenNames[userChoice - 1];
 }
 
 /* This function check user input of the screen name*/
