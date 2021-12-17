@@ -17,6 +17,7 @@ using std::vector;
 
 
 // Wall and BreadCrumbs enum
+enum GhostsLevel {easy = 1, Medium = 2, Hard = 3};
 enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000 };
 enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300, hardGameSpeed = 140, expertGameSpeed = 70 };
 enum characterEnum { w = 219, bc = 250, pacmanIcon = 2, ghostIcon= 36, defaltFruitIcon = 53, 

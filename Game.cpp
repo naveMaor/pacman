@@ -86,8 +86,8 @@ void Game::initGame(bool b_color)
 void Game::gameSettings()
 {
 	clearScreen();
-	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts, screenPath, screensNames);
-	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, numOfGhosts, screenPath, screensNames);
+	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts, GhostsLevel, screenPath, screensNames);
+	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, numOfGhosts, GhostsLevel, screenPath, screensNames);
 
 	switch (menu.getUserChoice())
 	{
@@ -103,10 +103,34 @@ void Game::gameSettings()
 	case 4:
 		clearScreen();
 		break;
+	case 5:
+
 	default:
 		break;
 	}
 }
+
+void Game::gameGhostsLevel()
+{
+	clearScreen();
+	menu.printPacmanGhostsLevelOptions();
+	menu.handleGameMenuGhostsLevelSettingsInput();
+	switch (menu.getUserChoice())
+	{
+	case 1:
+		GhostsLevel = easy;
+		break;
+	case 2:
+		GhostsLevel = Medium;
+		break;
+	case 3:
+		GhostsLevel = Hard;
+		break;
+	default:
+		break;
+	}
+}
+
 
 void Game::gameGhosts()
 {
@@ -325,7 +349,32 @@ void Game::initGameObj()
 {
 	player.initGameObject();
 	for (int i = 0; i < numOfGhosts; i++)
+	{
 		ghosts[i]->initGameObject();
+		switch (GhostsLevel)
+		{
+		case 1:
+		{
+			NoviceGhost ghost;
+			ghosts[i] = &ghost;
+		}
+		case 2:
+		{
+			GoodGhost ghost;
+			ghosts[i] = &ghost;
+		}
+		case 3:
+		{
+			BestGhost ghost;
+			ghosts[i] = &ghost;
+		}
+
+		default:
+			break;
+		}
+
+
+	}
 	fruit.initGameObject();
 }
 

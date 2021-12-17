@@ -11,6 +11,9 @@
 #include <string>
 #include <stdio.h>
 #include "Fruit.h"
+#include "NoviceGhost.h"
+#include "GoodGhost.h"
+#include "BestGhost.h"
 
 
 
@@ -29,7 +32,7 @@ private:
 	Print print;
 	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, alive = true;
-	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts;
+	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts, GhostsLevel = 1;
 	
 public:
 	// Game functions
@@ -46,6 +49,7 @@ public:
 	void resetGame();
 	void chooseColor();
 	string choseScreen();
+	void gameGhostsLevel();
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
