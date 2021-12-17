@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include "Fruit.h"
 
-
-
 class Game
 {
 private:
