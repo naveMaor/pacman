@@ -19,19 +19,19 @@ void Print::gameOver(bool b_IsColorGame) const
 	Sleep(longPauseWindow);
 }
 
-void Print::resetPrintLife(bool b_IsColorGame) const
+void Print::resetPrintLife(Point gameInfoPosition) const
 {
-	gotoxy(16, 21);
-	cout << "                     ";
+	gotoxy(gameInfoPosition);
+	cout << "                  ";
 }
 
 /* This function print pacman life*/
-void Print::printLife(bool b_IsColorGame, int playerlife)const
+void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const
 {
 	setTextColor(Color::WHITE);
-	resetPrintLife(b_IsColorGame);
-	gotoxy(16, 21);
-	cout << "Remaining lives: ";
+	resetPrintLife(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX() + 1, gameInfoPosition.getY());
+	cout << "Lives: ";
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
 	for (int i = 0; i < playerlife; i++)
@@ -48,31 +48,15 @@ void Print::clearCenter()const
 	}
 }
 
-
-/* This function handle paused game*/
-void Print::pauseGame() const
+void Print::printPauseGame() const
 {
-	char ch = 0;
-	bool b_Continue = false;
-
 	setTextColor(Color::WHITE);
 	clearCenter();
 	gotoxy(27, 9);
 	cout << "Game paused!";
 	gotoxy(27, 11);
 	cout << "Press ESC to continue";
-
-	while (!b_Continue)
-	{
-		if (_kbhit())
-		{
-			ch = _getch();
-			if (ch == 27)
-				b_Continue = true;
-		}
-	}
 }
-
 
 /* This function print player hit ghost message*/
 void Print::printPlayerHitGhost(bool b_IsColorGame)const
@@ -85,14 +69,14 @@ void Print::printPlayerHitGhost(bool b_IsColorGame)const
 
 
 /* This function print pacman score*/
-void Print::printScore(bool b_IsColorGame, int playerscore)const
+void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const
 {
 	setTextColor(Color::WHITE);
 	gotoxy(38, 21);
 	cout << "Pacman Score: ";
 	if (b_IsColorGame)
 		setTextColor(Color::YELLOW);
-	cout << playerscore;
+	cout << playerScore;
 }
 
 

@@ -37,14 +37,9 @@ void Board::printPreviousBoard() const
 /* This function reset the board to the begining*/
 void Board::resetBoard()
 {
-    for (int i = 0; i < boardHight; i++)
-    {
-        for (int j = 0; j < boardWidth; j++)
-        {
-            if (board[i][j] == boardGarbageVal)
-                board[i][j] = bc;
-        }
-    }
+    for (int i = 0; i < HIGHT; i++)
+        for (int j = 0; j < WIDTH; j++)
+                board[i][j] = ' ';
 }
 
 

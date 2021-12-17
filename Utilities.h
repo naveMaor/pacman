@@ -23,6 +23,7 @@ enum characterEnum { w = 219, bc = 250, pacmanIcon = 2, ghostIcon= 36, defaltFru
 	space =  32, boardGarbageVal = 52, heart = 3};
 
 void gotoxy(int x, int y);
+void gotoxy(Point p);
 void setTextColor(Color);
 void hideCursor();
 void clearScreen();

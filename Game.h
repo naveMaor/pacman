@@ -27,6 +27,7 @@ private:
 	Board board;
 	Menu menu;
 	Print print;
+	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, alive = true;
 	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts;
 	
@@ -79,6 +80,7 @@ public:
 	// Print function
 	void winGame();
 	void gameOver();
+	void pauseGame()const;
 };
 
 #endif

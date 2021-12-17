@@ -70,6 +70,9 @@ void Game::initGame(bool b_color)
 	Width = board.getBoardWidth();
 	board.initBoard();
 	numOfGhosts = board.getNumOfGhosts();
+	gameInfo = board.getInfoPosition();
+	gameInfo.setX(gameInfo.getX() + 1);
+
 	setGameObjectsPositions();
 	
 	board.printBoard();
@@ -192,12 +195,11 @@ void Game::getUserKeyboard()
 		// ESC 
 		else if (ch == 27)
 		{
-			print.pauseGame();
+			pauseGame();
 			printPreviousGame();
 		}	
 	}
 }
-
 
 /* This function handle pacman move*/
 void Game::pacmanMove(Board & b, int &countMoves)
@@ -395,4 +397,22 @@ string Game:: choseScreen()
 {
 	menu.printScreenNames(screensNames);
 	return screensNames[menu.getUserChoice()];
+}
+
+/* This function handle paused game*/
+void Game::pauseGame() const
+{
+	char ch = 0;
+	bool b_Continue = false;
+
+	print.printPauseGame();
+	while (!b_Continue)
+	{
+		if (_kbhit())
+		{
+			ch = _getch();
+			if (ch == 27)
+				b_Continue = true;
+		}
+	}
 }

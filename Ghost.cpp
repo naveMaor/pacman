@@ -1,13 +1,10 @@
 #include "Ghost.h"
 
-
-
 void Ghost::initGameObject () 
 {
 	this->setColor(Color::WHITE);
 	this->setDirection(directions::Stay);
 }
-
 
 ///* This function remove ghost last character after pacman hit*/
 void Ghost::removeGhost(Board& b)
@@ -19,9 +16,7 @@ void Ghost::removeGhost(Board& b)
 		printBreadCrumbs(x, y);
 	else
 		cout << (char)space;
-
 }
-
 
 /* This function handle ghost hit*/
 bool Ghost::ghostHit(Point Body)
@@ -93,5 +88,4 @@ Point Ghost::minDistance(Point PlayerLocation, Board& board)
 		Point p1(-1, -1);
 		return p1;
 	}
-
 }
