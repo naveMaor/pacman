@@ -14,7 +14,6 @@ void Pacman::changePosition(Board& b)
 	Point nextPos = this->getBody();
 	nextPos.move(this->getDirection());
 
-
 	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
 
