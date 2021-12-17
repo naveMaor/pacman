@@ -20,7 +20,7 @@ void Ghost::changePosition(Board& b)
 		direction = rand() % 4;
 
 	this->setDirection(direction);
-	this->moveAndDraw();
+	this->move();
 
 	// If last ghost position was breadcrumb print breadcrumb
 	if (b.getBoardValFromPoint(x, y) == bc)

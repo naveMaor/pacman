@@ -28,7 +28,6 @@ public:
 	void setObjectIcon(char icon) { objectIcon = icon; }
 	char getObjectIcon() { return objectIcon; }
 
-	void moveAndDraw();
 	void move();
 	void draw() const;
 	virtual void initGameObject();

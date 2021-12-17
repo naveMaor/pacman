@@ -26,26 +26,26 @@ void Pacman::changePosition(Board& b)
 			b.setBoardValByPoint(x, y);
 		}
 
-		if (x == 1) {
+		if (x == 0) {
 			this->getBody().draw(space);
-			this->setBody(69, y);
+			this->setBody(b.getBoardWidth() - 1, y);
 		}
 
-		else if (x == 68) {
+		else if (x == b.getBoardWidth() - 1) {
 			this->getBody().draw(space);
 			this->setBody(0, y);
 		}
-		else if (y == 1)
+		else if (y == 0)
 		{
 			this->getBody().draw(space);
-			this->setBody(x, 19);
+			this->setBody(x, b.getBoardHight() - 1);
 		}
-		else if (y == 18)
+		else if (y == b.getBoardHight() - 1)
 		{
 			this->getBody().draw(space);
 			this->setBody(x, 0);
 		}
-		this->moveAndDraw();
+		this->move();
 	}
 
 	// if there is wall in the next move
@@ -60,9 +60,8 @@ void Pacman::changePosition(Board& b)
 			this->setPlusScore();
 		}
 		b.setBoardValByPoint(x, y);
-		this->moveAndDraw();
+		this->move();
 	}
-
 }
 
 /* This function remove pacman last character*/

@@ -3,7 +3,6 @@
 /* This function handle the game*/
 void Game::playGame()
 {
-	vector<string> screensNames = File::getScreensName(PATH);
 	int countMoves = 0, screenCount = 0, numOfScreens = screensNames.size();;
 	bool b_won = false, alive = true;
 	
@@ -118,7 +117,6 @@ void Game::removeGhosts()
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i].removeGhost(board);
 }
-
 
 /* This function get the user key board hit*/
 void Game::getUserKeyboard()
@@ -406,7 +404,7 @@ void Game::GhostchangeSmartPosition(Ghost& G)
 	else
 	{
 		G.changedirectionbyPoint(newPoint);
-		G.moveAndDraw();
+		G.move();
 
 		// If last ghost position was breadcrumb print breadcrumb
 		if (board.getBoardValFromPoint(x, y) == bc)
