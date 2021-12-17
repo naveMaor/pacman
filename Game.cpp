@@ -1,11 +1,12 @@
 #include "Game.h"
 
+
 /* This function handle the game*/
 void Game::playGame()
 {
 	int countMoves = 0, screenCount = 0, numOfScreens = screensNames.size();;
 	bool b_won = false, alive = true;
-	
+		
 	for (int i = 0; i < numOfScreens && alive; i++)
 	{
 		// If the the file is valid
@@ -73,8 +74,8 @@ void Game::initGame(bool b_color)
 void Game::gameSettings()
 {
 	clearScreen();
-	menu.printGameSettings(b_IsColorGame, gameSpeedVal);
-	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal);
+	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts, screenPath, screensNames);
+	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, screenPath, screensNames);
 
 	switch (menu.getUserChoice())
 	{
@@ -85,6 +86,12 @@ void Game::gameSettings()
 		gameSpeed();
 		break;
 	case 3:
+	
+		break;
+	case 4:
+		currScreenGame = choseScreen();
+		break;
+	case 5:
 		clearScreen();
 		break;
 	default:
@@ -433,4 +440,11 @@ void Game::setGameObjectsColors()
 		else if (i == 3)
 			ghosts[i].setColor(Color::BROWN);
 	}
+}
+
+/* This function */
+string Game:: choseScreen()
+{
+	menu.printScreenNames(screensNames);
+	return screensNames[menu.getUserChoice()];
 }

@@ -57,7 +57,6 @@ void Menu::printInstructions() const
 	clearScreen();
 }
 
-
 /* This function prints the pacman speed settings options*/
 void Menu::printPacmanSpeedOptions() const
 {
@@ -70,14 +69,11 @@ void Menu::printPacmanSpeedOptions() const
 		"Choice: ";
 }
 
-
-
 void Menu::printColorMenu()
 {
 	cout << "Do you want to use colors in the game?" << endl;
 	cout << "Press Y for yes or N for no" << endl;
 }
-
 
 
 /* Check if user input is correct*/
@@ -101,21 +97,17 @@ char Menu::stringToChar(string& s) const
 }
 
 
-
 /* This function check valid user input*/
 bool Menu::checkValidUserSettings(string input) const
 {
 	if (input.length() == 1 && userChoice != 0)
 	{
 		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
+		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3) || (userChoice == 4))
 			return true;
 	}
 	return false;
 }
-
-
-
 
 /* This function handle game menu speed settings input*/
 void Menu::handleGameMenuSpeedSettingsInput()
@@ -133,7 +125,6 @@ void Menu::handleGameMenuSpeedSettingsInput()
 	userChoice = stoi(input);
 }
 
-
 /* This function check valid speed settings input*/
 bool Menu::checkValidSpeedSettingsInput(string input) const
 {
@@ -146,7 +137,7 @@ bool Menu::checkValidSpeedSettingsInput(string input) const
 	return false;
 }
 
-void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed)
+void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, string screenPath, vector<string> screenNames)
 {
 	string input;
 	getline(cin, input);
@@ -155,13 +146,15 @@ void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed)
 	{
 		clearScreen();
 		cout << "You entered incorrect option, please choose again.\n\n";
-		printGameSettings(getIsColorGame, currentSpeed);
+		printGameSettings(getIsColorGame, currentSpeed, screenPath, screenNames);
 		getline(cin, input);
 	}
-	setUserChoice(stoi(input));
+	userChoice = stoi(input);
+	//setUserChoice(stoi(input));
 }
 
-void Menu::printGameSettings(bool getIsColorGame, int currentSpeed)const
+void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int NumberofGhosts,
+	string screenPath, vector<string> screenNames)
 {
 	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
@@ -171,8 +164,11 @@ void Menu::printGameSettings(bool getIsColorGame, int currentSpeed)const
 		"(2) Change pacman speed (current - ";
 	printCurrentSpeedGame(currentSpeed);
 	cout << ")\n"
-		"(3) Back to main menu";
-	cout << "\n"
+		"(3) Change number of ghosts (current - ";
+	//printCurrentNumberOfGhosts(NumberofGhosts);
+	cout << ")\n"
+		"(4) Choose specific screen from list \n"
+		"(5) Back to main menu\n"
 		"Choice: ";
 }
 
@@ -194,4 +190,48 @@ void Menu::printCurrentSpeedGame(int currentSpeed)const
 		cout << "hard";
 	else // currentSpeed == expertGameSpeed
 		cout << "expert";
+}
+
+/* This function print the name of the screens in the directory*/
+void Menu::printScreenNames(vector<string> screenNames) const
+{
+	clearScreen();
+	cout << "Choose screen from list: \n" << endl;
+	for (int i = 0; i < screenNames.size(); i++)
+		cout << i + 1 << ") " << screenNames[i] << endl;
+	cout << "Choice: ";
+}
+
+/* This function handle chosing specific screen*/
+void Menu::handleChoseScreen(vector<string> screenNames)
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidScreenInput(input))
+	{
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		printScreenNames(screenNames);
+		getline(cin, input);
+	}
+	userChoice = stoi(input);
+}
+
+/* This function check user input of the screen name*/
+bool Menu:: checkValidScreenInput(string input) const
+{
+	
+
+
+
+
+
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int speed = stoi(input);
+		if ((speed == 1) || (speed == 2) || (speed == 3) || (speed == 4))
+			return true;
+	}
+	return false;
 }

@@ -2,19 +2,18 @@
 #define GAME_H
 #include <iostream>
 #include <queue>
+#include <stdio.h>
 //todo might delete late
+#include "Utilities.h"
 #include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
 #include "Board.h"
 #include "Ghost.h"
-#include "Utilities.h"
 #include "Pacman.h"
 #include "Point.h"
 #include "Fruit.h"
 #include "File.h"
-#include <string>
-#include <stdio.h>
 #include "Print.h"
 
 //todo might delete late
@@ -28,12 +27,13 @@ public:
 	{}
 };
 
-
 class Game
 {
 private:
 	int Width, Hight;
-	vector<string> screensNames = File::getScreensName(PATH);
+	const string screenPath = ".";
+	string currScreenGame;
+	vector<string> screensNames = File::getScreensName(screenPath);
 	Ghost ghosts[4];
 	int numOfGhosts;
 	Pacman player;
@@ -56,6 +56,7 @@ public:
 	void drawGameObj()const;
 	void resetGame();
 	void chooseColor();
+	string choseScreen();
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
@@ -80,7 +81,6 @@ public:
 	void ghostsMove();
 	void GhostchangeSmartPosition(Ghost& G);
 
-
 	// Pacman functions
 	void pacmanMove(Board &b);
 	void getUserKeyboard();
@@ -92,8 +92,6 @@ public:
 	// Print function
 	void winGame();
 	void gameOver();
-
 };
-
 
 #endif
