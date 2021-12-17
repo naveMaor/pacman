@@ -6,7 +6,7 @@ void Pacman::initGameObject()
 	this->setDirection(Stay);
 }
 
-void Pacman::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
+void Pacman::changePosition(Board& b, int& countPacmanMoves)
 {
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();

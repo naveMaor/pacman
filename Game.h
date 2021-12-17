@@ -1,32 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
-#include <queue>
-//todo might delete late
 #include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
-#include "Board.h"
 #include "Ghost.h"
-#include "Utilities.h"
-#include "Pacman.h"
 #include "Point.h"
-#include "Fruit.h"
+#include "Print.h"
 #include "File.h"
+#include "Fruit.h"
+#include "Utilities.h"
 #include <string>
 #include <stdio.h>
-#include "Print.h"
 
-//todo might delete late
-struct  QItem {
-public:
-	int row;
-	int col;
-	Point p;
-	QItem(int x, int y,  Point p)
-		: row(x), col(y), p(p)
-	{}
-};
+
 
 
 class Game
@@ -34,7 +21,7 @@ class Game
 private:
 	int Width, Hight;
 	vector<string> screensNames = File::getScreensName(PATH);
-	Ghost ghosts[4];
+	Ghost* ghosts[4]{};
 	int numOfGhosts;
 	Pacman player;
 	Fruit fruit;
@@ -50,6 +37,7 @@ public:
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
+	void gameGhosts();
 	void initGameObj();
 	void printPreviousGame()const;
 	bool checkWin()const;
@@ -69,8 +57,7 @@ public:
 	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
 	void setGameObjectsPositions();
 	void setGameObjectsColors();
-
-	Point minDistance(Point GhostLocation, Point PlayerLocation);
+	void  setnumOfGhosts(int num){ numOfGhosts =num}
 
 	// Ghosts functions
 	void initGameAfterGhostHit();

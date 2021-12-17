@@ -4,6 +4,6 @@
 class GoodGhost : public Ghost
 {
 public:
-	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override;
+	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override; //
 };
 

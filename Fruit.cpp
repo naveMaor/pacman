@@ -35,7 +35,7 @@ void Fruit::setNewFruitlocation(Board& b)
 
 /* This function handle Fruit move*/
 
-void Fruit::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
+void Fruit::changePosition(Board& b, int& countPacmanMoves)
 {
 	if (countPacmanMoves % 20 == 0)
 	{

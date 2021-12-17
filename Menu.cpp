@@ -32,10 +32,6 @@ void Menu::printGameMenu() const
 }
 
 
-
-
-
-
 /* This function print pacman instructions*/
 void Menu::printInstructions() const
 {
@@ -70,6 +66,17 @@ void Menu::printPacmanSpeedOptions() const
 		"Choice: ";
 }
 
+/* This function prints the pacman speed settings options*/
+void Menu::printPacmanGhostsOptions() const
+{
+	setTextColor(Color::WHITE);
+	cout << "Please Number of ghosts\n"
+		"1. One\n"
+		"2. Two\n"
+		"3. Three\n"
+		"4. Four\n\n"
+		"Choice: ";
+}
 
 
 void Menu::printColorMenu()
@@ -77,7 +84,6 @@ void Menu::printColorMenu()
 	cout << "Do you want to use colors in the game?" << endl;
 	cout << "Press Y for yes or N for no" << endl;
 }
-
 
 
 /* Check if user input is correct*/
@@ -108,13 +114,11 @@ bool Menu::checkValidUserSettings(string input) const
 	if (input.length() == 1 && userChoice != 0)
 	{
 		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3))
+		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3) || (userChoice == 4))
 			return true;
 	}
 	return false;
 }
-
-
 
 
 /* This function handle game menu speed settings input*/
@@ -123,7 +127,7 @@ void Menu::handleGameMenuSpeedSettingsInput()
 	string input;
 	getline(cin, input);
 
-	while (!checkValidSpeedSettingsInput(input))
+	while (!checkValidGhostsInput(input))
 	{
 		clearScreen();
 		cout << "You enterd incorrect option, please choose again.\n\n";
@@ -131,6 +135,34 @@ void Menu::handleGameMenuSpeedSettingsInput()
 		getline(cin, input);
 	}
 	userChoice = stoi(input);
+}
+
+void Menu::handleGameMenuGhotsSettingsInput()
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidGhostsInput(input))
+	{
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		printPacmanGhostsOptions();
+		getline(cin, input);
+	}
+	userChoice = stoi(input);
+}
+
+
+/* This function check valid ghosts settings input*/
+bool Menu::checkValidGhostsInput(string input) const
+{
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int ghosts = stoi(input);
+		if ((ghosts == 1) || (ghosts == 2) || (ghosts == 3) || (ghosts == 4))
+			return true;
+	}
+	return false;
 }
 
 
@@ -146,7 +178,7 @@ bool Menu::checkValidSpeedSettingsInput(string input) const
 	return false;
 }
 
-void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed)
+void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts)
 {
 	string input;
 	getline(cin, input);
@@ -155,13 +187,13 @@ void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed)
 	{
 		clearScreen();
 		cout << "You entered incorrect option, please choose again.\n\n";
-		printGameSettings(getIsColorGame, currentSpeed);
+		printGameSettings(getIsColorGame, currentSpeed, NumberofGhosts);
 		getline(cin, input);
 	}
 	setUserChoice(stoi(input));
 }
 
-void Menu::printGameSettings(bool getIsColorGame, int currentSpeed)const
+void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int NumberofGhosts)const
 {
 	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
@@ -171,7 +203,10 @@ void Menu::printGameSettings(bool getIsColorGame, int currentSpeed)const
 		"(2) Change pacman speed (current - ";
 	printCurrentSpeedGame(currentSpeed);
 	cout << ")\n"
-		"(3) Back to main menu";
+		"(3) Change number of ghosts (current - ";
+	printCurrentNumberOfGhosts(NumberofGhosts);
+	cout << ")\n"
+		"(4) Back to main menu";
 	cout << "\n"
 		"Choice: ";
 }
@@ -195,3 +230,9 @@ void Menu::printCurrentSpeedGame(int currentSpeed)const
 	else // currentSpeed == expertGameSpeed
 		cout << "expert";
 }
+
+void Menu::printCurrentNumberOfGhosts(int NumberofGhosts)const
+{
+	cout << NumberofGhosts;
+}
+

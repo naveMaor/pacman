@@ -17,6 +17,10 @@ void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 		while (!checkValidMove(x, y, direction, b))
 			direction = rand() % 4;
 		this->setDirection(direction);
+		move();
+		// If last ghost position was breadcrumb print breadcrumb
+		if (b.getBoardValFromPoint(x, y) == bc)
+			printBreadCrumbs(x, y);
 	}
 	else
 	{
@@ -31,13 +35,12 @@ void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 		else
 		{
 			changedirectionbyPoint(newPoint);
-
+			move();
+			// If last ghost position was breadcrumb print breadcrumb
+			if (b.getBoardValFromPoint(x, y) == bc)
+				printBreadCrumbs(x, y);
 		}
 	}
-	move();
 
-	// If last ghost position was breadcrumb print breadcrumb
-	if (b.getBoardValFromPoint(x, y) == bc)
-		printBreadCrumbs(x, y);
 
 }
