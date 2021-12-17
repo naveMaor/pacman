@@ -67,6 +67,15 @@ void Menu::printPacmanSpeedOptions() const
 		"Choice: ";
 }
 
+void Menu::printPacmanGhostsLevelOptions() const
+{
+	setTextColor(Color::WHITE);
+	cout << "Please enter Ghosts level speed\n"
+		"1. Easy\n"
+		"2. Medium\n"
+		"3. Hard\n"
+		"Choice: ";
+}
 
 /* This function prints the pacman speed settings options*/
 void Menu::printPacmanGhostsOptions() const
@@ -113,7 +122,7 @@ bool Menu::checkValidUserSettings(string input) const
 	if (input.length() == 1 && userChoice != 0)
 	{
 		int userChoice = stoi(input);
-		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3) || (userChoice == 4))
+		if ((userChoice == 1) || (userChoice == 2) || (userChoice == 3) || (userChoice == 4) || (userChoice == 5))
 			return true;
 	}
 	return false;
@@ -126,7 +135,7 @@ void Menu::handleGameMenuSpeedSettingsInput()
 	string input;
 	getline(cin, input);
 
-	while (!checkValidGhostsInput(input))
+	while (!checkValidSpeedSettingsInput(input))
 	{
 		clearScreen();
 		cout << "You enterd incorrect option, please choose again.\n\n";
@@ -179,7 +188,7 @@ bool Menu::checkValidSpeedSettingsInput(string input) const
 }
 
 /* This function handle game menu settins input*/
-void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts,
+void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts, int GhostsLevel,
 	string screenPath, vector<string> screenNames)
 {
 	string input;
@@ -189,14 +198,13 @@ void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, in
 	{
 		clearScreen();
 		cout << "You entered incorrect option, please choose again.\n\n";
-		printGameSettings(getIsColorGame, currentSpeed, NumberofGhosts, screenPath, screenNames);
+		printGameSettings(getIsColorGame, currentSpeed, NumberofGhosts, GhostsLevel, screenPath, screenNames);
 		getline(cin, input);
 	}
 	userChoice = stoi(input);
 }
 
-void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int NumberofGhosts,
-	string screenPath, vector<string> screenNames)
+void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int NumberofGhosts, int GhostsLevel, string screenPath, vector<string> screenNames)
 {
 	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
@@ -209,8 +217,11 @@ void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int Numberof
 		"(3) Change number of ghosts (current - ";
 	printCurrentNumberOfGhosts(NumberofGhosts);
 	cout << ")\n"
-		"(4) Choose specific screen from list \n"
-		"(5) Back to main menu\n"
+		"(4) Choose a specific screen from list \n";
+	cout << ")\n"
+		"(5) Change ghosts Level (current - ";
+	printCurrentGhostsLevel(GhostsLevel);
+		"(6) Back to main menu\n"
 		"Choice: ";
 }
 
@@ -281,3 +292,38 @@ void Menu::printCurrentNumberOfGhosts(int NumberofGhosts)const
 }
 
 
+void Menu::printCurrentGhostsLevel(int GhostsLevel)const
+{
+	if (GhostsLevel == easy)
+		cout << "easy";
+	else if (GhostsLevel == Medium)
+		cout << "medium";
+	else if (GhostsLevel == Hard)
+		cout << "hard";
+}
+
+void Menu::handleGameMenuGhostsLevelSettingsInput()
+{
+	string input;
+	getline(cin, input);
+
+	while (!checkValidGhostsLevelInput(input))
+	{
+		clearScreen();
+		cout << "You enterd incorrect option, please choose again.\n\n";
+		printPacmanGhostsLevelOptions();
+		getline(cin, input);
+	}
+	userChoice = stoi(input);
+}
+
+bool Menu::checkValidGhostsLevelInput(string input) const
+{
+	if (input.length() == 1 && userChoice != 0)
+	{
+		int ghosts = stoi(input);
+		if ((ghosts == 1) || (ghosts == 2) || (ghosts == 3) )
+			return true;
+	}
+	return false;
+}
