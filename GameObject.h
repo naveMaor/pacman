@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 #include "Point.h"
 #include "Board.h"
 #include "MoveStrategy.h"
@@ -13,10 +14,12 @@ class GameObject
 	//MoveStrategy MoveStrategy;
 
 public:
+	GameObject(char objectIcon) : objectIcon(objectIcon) {}
 	// Constractor
 	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 
 	// GameObject functions
+	void setBody(Point point);
 	void setBody(int x, int y);
 	Point getBody() const {	return pBody;};
 	int getDirection() { return direction; }
@@ -39,3 +42,4 @@ public:
 
 };
 
+#endif

@@ -4,9 +4,18 @@
 void Game::playGame()
 {
 	int countMoves = 0;
-	bool b_won = false;
+	bool b_won = false, alive = true;
+	int screenCount = 0;
+	vector<string> screensNames = File::getScreensName(PATH);
+	int numOfScreens = screensNames.size();
+	
 
-	initGame(b_IsColorGame);
+	for (int i = 0; i < numOfScreens && alive; i++)
+	{
+			// If the the file is valid
+			if (File::fileToBoard(screensNames[i], board))
+			{
+				initGame(getIsColorGame());
 
 	while ((player.getLife() > 0) && (!b_won))
 	{
@@ -35,15 +44,23 @@ void Game::playGame()
 		}
 	}	
 
-	// If lose
-	if(player.getLife() == 0)
-		gameOver();
+				// If lose
+				if (player.getLife() == 0)
+				{
+					alive = false;
+					gameOver();
+				}
+			}
+	}	
 }
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
 {
 	clearScreen();
+	board.initBoard();
+	setGameObjectsPositions();
+	
 	board.printBoard();
 	initGameObj();
 
@@ -203,9 +220,11 @@ void Game::printPreviousGame() const
 void Game:: drawGameObj() const
 {
 	player.draw();
-	ghostOne.draw();
-	ghostTwo.draw();
-	fruit.draw(); 
+	
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].draw();
+	
+	fruit.draw();
 }
 
 /* This function check if the player eat all breadcrumbs he win!!*/
@@ -275,8 +294,8 @@ void Game::resetGame()
 void Game::initGameObj()
 {
 	player.initGameObject();
-	ghostOne.initGameObject();
-	ghostTwo.initGameObject();
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].initGameObject();
 	fruit.initGameObject();
 }
 
@@ -411,4 +430,16 @@ void Game::GhostchangeSmartPosition(Ghost &G)
 			G.printBreadCrumbs(x, y);
 	}
 
+void Game::unDisplayFruit()
+{
+
+}
+
+void Game::setGameObjectsPositions()
+{
+	player.setBody(board.getPacmanStartingPosition());
+	numOfGhosts = board.getNumOfGhosts();
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].setBody(board.getGhostStartingPosition(i));
+	
 }

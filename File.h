@@ -1,17 +1,26 @@
-#pragma once
-#include <iostream>
-#include <fstream>
-using std::ifstream;
+#ifndef FILE_H
+#define FIlE_H
+#define _CRT_SECURE_NO_WARNINGS
 
-static class File
+#include <iostream>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include "Utilities.h"
+#include "Board.h"
+
+using std::vector;
+using std::fstream;
+using std::filesystem::directory_iterator;
+
+class File
 {
-	ifstream screenFile;
-	
+	static bool openFile(string const filePath);
 
 public:
-	void openFile(char* fileName);
-
-
+	static vector<string> getScreensName(string const PATH); ///// moved to game.cpp
+	static bool fileToBoard(string const fileName, Board &board);
 
 };
 
+#endif

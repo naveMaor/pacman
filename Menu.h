@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MENU_H
+#define MENU_H
 #include "Utilities.h"
 
 #include <string>
@@ -37,3 +38,4 @@ public:
 	int getUserChoice() const { return userChoice; }
 };
 
+#endif
