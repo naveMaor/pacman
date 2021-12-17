@@ -23,7 +23,7 @@ public:
 	Ghost() : GameObject(ghostIcon) {}
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	void initGameObject() override;
-	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0; //
+	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0; 
 	void removeGhost(Board &b);
 	bool ghostHit(Point Body);
 	Point minDistance(Point PlayerLocation, Board& board);

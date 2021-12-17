@@ -75,7 +75,7 @@ void Game::gameSettings()
 {
 	clearScreen();
 	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts);
-	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal);
+	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, numOfGhosts);
 
 	switch (menu.getUserChoice())
 	{
@@ -208,7 +208,7 @@ bool Game::ghostsHit(Point Body)
 void Game::ghostsMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		GhostchangeSmartPosition(*ghosts[i]);
+		GhostchangeSmartPosition((*ghosts[i]));
 }
 
 
