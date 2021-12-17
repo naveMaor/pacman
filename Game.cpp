@@ -276,10 +276,8 @@ void Game::printPreviousGame() const
 void Game:: drawGameObj() const
 {
 	player.draw();
-	
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i]->draw();
-	
 	fruit.draw();
 }
 
@@ -287,7 +285,6 @@ void Game:: drawGameObj() const
 bool Game:: checkWin() const
 {	
 	return 	player.getScore() == maxScoreInCurrScreen;
-	//return 	player.getScore() == 10;
 }
 
 /* This function handle win situation*/
