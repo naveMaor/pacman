@@ -3,15 +3,18 @@
 
 void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
-	Point newPoint = minDistance(PlayerLocation, b);
-	Point tmp(-1, -1);
-	int x = getBody().getX();
-	int y = getBody().getY();
-	if (newPoint == tmp)
+	if (countPacmanMoves % 3 == 0)
+	{
+
+		Point newPoint = minDistance(PlayerLocation, b);
+		Point tmp(-1, -1);
+		int x = getBody().getX();
+		int y = getBody().getY();
+		if (newPoint == tmp)
 		{
 
 		}
-	else
+		else
 		{
 			changedirectionbyPoint(newPoint);
 			move();
@@ -20,4 +23,5 @@ void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 			if (b.getBoardValFromPoint(x, y) == bc)
 				printBreadCrumbs(x, y);
 		}
+	}
 }

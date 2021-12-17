@@ -65,9 +65,9 @@ public:
 	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
 	bool ghostsHit(Point Body);
+	void checkGhostsHit(Point Body);
 	void removeGhosts();	
-	void ghostsMove();
-	void GhostchangeSmartPosition(Ghost& G);
+	void ghostsMove(int& countMoves, Point PlayerLocation);
 
 	// Pacman functions
 	void pacmanMove(Board& b, int& countMoves);
