@@ -144,7 +144,7 @@ void Game::initGameAfterGhostHit()
 void Game::removeGhosts()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].removeGhost(board);
+		ghosts[i]->removeGhost(board);
 }
 
 /* This function get the user key board hit*/
@@ -197,7 +197,7 @@ bool Game::ghostsHit(Point Body)
 {
 	bool b_Hit = false;
 	for (int i = 0; i < numOfGhosts && !b_Hit; i++)
-		if (ghosts[i].ghostHit(Body))
+		if (ghosts[i]->ghostHit(Body))
 			b_Hit = true;
 	return b_Hit;
 }
@@ -208,7 +208,7 @@ bool Game::ghostsHit(Point Body)
 void Game::ghostsMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		GhostchangeSmartPosition(ghosts[i]);
+		GhostchangeSmartPosition(*ghosts[i]);
 }
 
 
@@ -236,7 +236,7 @@ void Game:: drawGameObj() const
 	player.draw();
 	
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].draw();
+		ghosts[i]->draw();
 	
 	fruit.draw();
 }
@@ -306,7 +306,7 @@ void Game::initGameObj()
 {
 	player.initGameObject();
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].initGameObject();
+		ghosts[i]->initGameObject();
 	fruit.initGameObject();
 }
 
@@ -357,7 +357,7 @@ void Game::setGameObjectsPositions()
 {
 	player.setBody(board.getPacmanStartingPosition());
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].setBody(board.getGhostStartingPosition(i));
+		ghosts[i]->setBody(board.getGhostStartingPosition(i));
 	fruit.setNewFruitlocation(board);
 }
 
@@ -367,13 +367,13 @@ void Game::setGameObjectsColors()
 	for (int i = 0; i < numOfGhosts; i++)
 	{
 		if (i == 0)
-			ghosts[i].setColor(Color::LIGHTCYAN);
+			ghosts[i]->setColor(Color::LIGHTCYAN);
 		else if (i == 1)
-			ghosts[i].setColor(Color::LIGHTGREEN);
+			ghosts[i]->setColor(Color::LIGHTGREEN);
 		else if (i == 2)
-			ghosts[i].setColor(Color::LIGHTBLUE);
+			ghosts[i]->setColor(Color::LIGHTBLUE);
 		else if (i == 3)
-			ghosts[i].setColor(Color::BROWN);
+			ghosts[i]->setColor(Color::BROWN);
 	}
 	fruit.setColor(Color::MAGENTA);
 
