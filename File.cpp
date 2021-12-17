@@ -49,6 +49,7 @@ bool File::fileToBoard(string const screenPath, Board& board)
 			}
 			hight++;
 		}
+		screenFile.close();
 		board.setBoardHight(hight);
 	}
 	

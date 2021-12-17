@@ -5,6 +5,7 @@ class NoviceGhost :public Ghost
 {
 public:
 	NoviceGhost() {};
+	~NoviceGhost() { delete[] this; }
 	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override;
 };
 
