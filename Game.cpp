@@ -3,54 +3,48 @@
 /* This function handle the game*/
 void Game::playGame()
 {
-	int countMoves = 0;
-	bool b_won = false, alive = true;
-	int screenCount = 0;
 	vector<string> screensNames = File::getScreensName(PATH);
-	int numOfScreens = screensNames.size();
+	int countMoves = 0, screenCount = 0, numOfScreens = screensNames.size();;
+	bool b_won = false, alive = true;
 	
-
 	for (int i = 0; i < numOfScreens && alive; i++)
 	{
-			// If the the file is valid
-			if (File::fileToBoard(screensNames[i], board))
+		// If the the file is valid
+		if (File::fileToBoard(screensNames[i], board))
+		{
+			initGame(getIsColorGame());
+
+			while ((player.getLife() > 0) && (!b_won))
 			{
-				initGame(getIsColorGame());
+				print.printScore(b_IsColorGame, player.getScore());
+				fruit.fruitPlay(countMoves, board);
 
-	while ((player.getLife() > 0) && (!b_won))
-	{
-		print.printScore(b_IsColorGame, player.getScore());
-		fruit.fruitPlay(countMoves, board);
+				if (countMoves % 3 == 0)
+					ghostsMove();
 
-		if (countMoves % 3 == 0)
-		{
-			ghostsMove();
-		}
-
-		Sleep(gameSpeedVal);
-		pacmanMove(board);
-		countMoves++;
+				Sleep(gameSpeedVal);
+				pacmanMove(board);
+				countMoves++;
 		
-		if (ghostsHit())
-			initGameAfterGhostHit();
+				if (ghostsHit())
+					initGameAfterGhostHit();
 
-		checkPacmanHitFruit();
+				checkPacmanHitFruit();
 
-		if (checkWin())
-		{
-			b_won = true;
-			print.printScore(b_IsColorGame, player.getScore());
-			winGame();
-		}
-	}	
-
-				// If lose
-				if (player.getLife() == 0)
+				if (checkWin())
 				{
-					alive = false;
-					gameOver();
+					b_won = true;
+					print.printScore(b_IsColorGame, player.getScore());
+					winGame();
 				}
+			}	
+			// If lose
+			if (player.getLife() == 0)
+			{
+				alive = false;
+				gameOver();
 			}
+		}
 	}	
 }
 
@@ -58,6 +52,8 @@ void Game::playGame()
 void Game::initGame(bool b_color)
 {
 	clearScreen();
+	Hight = board.getBoardHight();
+	Width = board.getBoardWidth();
 	board.initBoard();
 	numOfGhosts = board.getNumOfGhosts();
 	setGameObjectsPositions();
@@ -328,7 +324,7 @@ void Game::checkPacmanHitFruit()
 	{
 		int Oldscore = player.getScore();
 		player.setScore(Oldscore + fruit.getFruitScore());
-		win += fruit.getFruitScore();
+		maxScoreInCurrScreen += fruit.getFruitScore();
 		fruit.setshowfruit();
 		gotoxy(pPlayer.getX(), pPlayer.getY());
 		player.draw();
@@ -344,13 +340,9 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 	// To keep track of visited QItems. Marking
 	// blocked cells as visited.
 	bool visited[HIGHT][WIDTH] = { false };
-
-
 	// init source
 	source.row = PlayerLocation.getX();
 	source.col = PlayerLocation.getY();
-
-
 
 	// applying BFS on matrix cells starting from source
 	std::queue<QItem> q;
@@ -363,48 +355,46 @@ Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
 
 		// Destination found;
 		if (GhostLocation.getX() == curr.row && GhostLocation.getY() == curr.col)
-		{
 			return curr.p;
-		}
 
 		Pcurr.setX(curr.row);
 		Pcurr.setY(curr.col);
 
+		// moving down
+		if (curr.col + 1 < Width && player.checkValidPos(curr.row, curr.col + 1, board) && visited[curr.row][curr.col + 1] == false)
+		{
+			q.push(QItem(curr.row, curr.col + 1, Pcurr));
+			visited[curr.row][curr.col + 1] = true;
+		}
 
-
-		// moving up
+		// moving left
 		if (curr.row - 1 >= 0 && player.checkValidPos(curr.row - 1, curr.col, board) && visited[curr.row - 1][curr.col] == false)
 		{
 				q.push(QItem(curr.row - 1, curr.col, Pcurr));
 				visited[curr.row - 1][curr.col] = true;
 		}
-		// moving down
-		if (curr.row + 1 < HIGHT && player.checkValidPos(curr.row + 1, curr.col, board)  && visited[curr.row + 1][curr.col] == false)
+		// moving right
+		if (curr.row + 1 < Hight && player.checkValidPos(curr.row + 1, curr.col, board) && visited[curr.row + 1][curr.col] == false)
 		{
 				q.push(QItem(curr.row + 1, curr.col, Pcurr));
 				visited[curr.row + 1][curr.col] = true;
 		}
-		// moving left
+		// moving up
 		if (curr.col - 1 >= 0 && player.checkValidPos(curr.row, curr.col - 1, board) && visited[curr.row][curr.col - 1] == false)
 		{
 				q.push(QItem(curr.row, curr.col - 1, Pcurr));
 				visited[curr.row][curr.col - 1] = true;
 		}
-		// moving right
-		if (curr.col + 1 < WIDTH &&  player.checkValidMove(curr.row, curr.col, Right, board) && visited[curr.row][curr.col + 1] == false)
-		{
-				q.push(QItem(curr.row, curr.col + 1, Pcurr));
-				visited[curr.row][curr.col + 1] = true;
-		}
+		
 	}
 	Point p1(-1, -1);
 	return p1;
 }
 
 
-void Game::GhostchangeSmartPosition(Ghost &G)
+void Game::GhostchangeSmartPosition(Ghost& G)
 {
-	Point newPoint = minDistance(G.getBody(),player.getBody());
+	Point newPoint = minDistance(G.getBody(), player.getBody());
 	Point tmp(-1, -1);
 	int x = G.getBody().getX();
 	int y = G.getBody().getY();
@@ -417,14 +407,13 @@ void Game::GhostchangeSmartPosition(Ghost &G)
 		G.changedirectionbyPoint(newPoint);
 		G.moveAndDraw();
 
-
 		// If last ghost position was breadcrumb print breadcrumb
 		if (board.getBoardValFromPoint(x, y) == bc)
 			G.printBreadCrumbs(x, y);
 	}
+}
 
-
-void Game::setGameObjectsPositions()
+void Game::setGameObjectsPositions() 
 {
 	player.setBody(board.getPacmanStartingPosition());
 	for (int i = 0; i < numOfGhosts; i++)

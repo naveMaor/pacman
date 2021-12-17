@@ -85,7 +85,7 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 	unsigned char charAtNextPoint = b.getBoardValFromPoint(x, y);
 
 	// If the ghost out of board
-	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
+	if ((x == b.getBoardWidth()) || (x == 0) || (y == 0) || (y == b.getBoardHight()))
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
@@ -98,7 +98,7 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 bool GameObject::checkValidPos(int x, int y, Board& b)
 {
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
-	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
+	if ((x == b.getBoardWidth()) || (x == 0) || (y == 0) || (y == b.getBoardHight()))
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move

@@ -25,8 +25,7 @@ public:
 	Point p;
 	QItem(int x, int y,  Point p)
 		: row(x), col(y), p(p)
-	{
-	}
+	{}
 };
 
 
@@ -55,8 +54,6 @@ private:
 	Fruit fruit = {5,5};*/
 	Ghost ghosts[4];
 	int numOfGhosts;
-	//Ghost ghostOne;
-	//Ghost ghostTwo;
 	Pacman player;
 	Fruit fruit;
 	Board board;
@@ -87,9 +84,9 @@ public:
 
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
-	void setGameObjectsPositions();
 	void setMaxScoreInCurrScreen(int score) { maxScoreInCurrScreen = score; }
 	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
+	void setGameObjectsPositions();
 	void setGameObjectsColors();
 
 	Point minDistance(Point GhostLocation, Point PlayerLocation);
@@ -115,14 +112,6 @@ public:
 	void winGame();
 	void gameOver();
 
-
-
-
-
-
-
-
-	
 };
 
 

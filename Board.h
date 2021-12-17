@@ -22,7 +22,6 @@ public:
 	void const printBoard() const;
     void printPreviousBoard() const;
     void resetBoard();
-    bool breadcrumbleft() const;
     void initBoard();
 
     // This function return the value in the board of request place, the x and y that requested are opposite in the board

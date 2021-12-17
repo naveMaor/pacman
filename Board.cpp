@@ -48,20 +48,6 @@ void Board::resetBoard()
 }
 
 
-bool Board::breadcrumbleft() const
-{
-    for (int i = 0; i < boardHight; i++)
-    {
-        for (int j = 0; j < boardWidth; j++)
-        {
-            if (board[i][j] == bc)
-                return true;
-        }
-    }
-    return false;
-}
-
-
 void Board:: setBoardLine(int hight, char* line,int width)
 {
     for (int x = 0; x < width; x++)
