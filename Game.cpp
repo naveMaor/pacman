@@ -21,7 +21,7 @@ void Game::playGame()
 				if (countMoves % 3 == 0)
 					ghostsMove();
 
-				if (ghostsHit())
+				if (ghostsHit(player.getBody()))
 					initGameAfterGhostHit();
 
 				Sleep(gameSpeedVal);
@@ -165,22 +165,16 @@ void Game::pacmanMove(Board & b)
 }
 
 /* This function check if the ghost hit the pacman*/
-bool Game::ghostsHit()
+bool Game::ghostsHit(Point Body)
 {
 	bool b_Hit = false;
 	for (int i = 0; i < numOfGhosts && !b_Hit; i++)
-		if (ghostHit(ghosts[i]))
+		if (ghosts[i].ghostHit(Body))
 			b_Hit = true;
 	return b_Hit;
 }
 
-/* This function handle ghost hit*/
-bool Game::ghostHit(Ghost ghost)
-{
-	if (ghost.getBody() == player.getBody())
-		return true;
-	return false;
-}
+
 
 /* This function handle ghosts move*/
 void Game::ghostsMove()
@@ -398,7 +392,7 @@ void Game::GhostchangeSmartPosition(Ghost& G)
 	Point tmp(-1, -1);
 	int x = G.getBody().getX();
 	int y = G.getBody().getY();
-	if (newPoint == tmp)
+	if (newPoint == tmp )
 	{
 
 	}
@@ -418,6 +412,7 @@ void Game::setGameObjectsPositions()
 	player.setBody(board.getPacmanStartingPosition());
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i].setBody(board.getGhostStartingPosition(i));
+	fruit.setNewFruitlocation(board);
 }
 
 void Game::setGameObjectsColors()
@@ -434,4 +429,6 @@ void Game::setGameObjectsColors()
 		else if (i == 3)
 			ghosts[i].setColor(Color::BROWN);
 	}
+	fruit.setColor(Color::MAGENTA);
+
 }

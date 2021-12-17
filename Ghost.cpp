@@ -39,3 +39,12 @@ void Ghost::removeGhost(Board& b)
 		cout << (char)space;
 
 }
+
+
+/* This function handle ghost hit*/
+bool Ghost::ghostHit(Point Body)
+{
+	if (this->getBody() == Body)
+		return true;
+	return false;
+}

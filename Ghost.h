@@ -22,7 +22,7 @@ public:
 	void initGameObject() override;
 	void changePosition(Board& b) override;
 	void removeGhost(Board &b);
-
+	bool ghostHit(Point Body);
 
 
 };

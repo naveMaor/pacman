@@ -18,7 +18,7 @@ using std::string;
 enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000 };
 enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300, hardGameSpeed = 140, expertGameSpeed = 70 };
 enum characterEnum { w = 219, bc = 250, pacmanIcon = 2, ghostIcon= 36, defaltFruitIcon = 53, 
-	space =  32, boardGarbageVal = 52, heart = 3};
+	space =  32, boardGarbageVal = 52, heart = 3, ghostBoardVal =51, fruitBoardVal=50};
 //const string PATH = "C:\\Users\\Meital\\source\\repos\\naveMaor\\pacman\\";
 const string PATH = ".";
 

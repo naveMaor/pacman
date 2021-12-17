@@ -75,7 +75,7 @@ public:
 	// Ghosts functions
 	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
-	bool ghostsHit();
+	bool ghostsHit(Point Body);
 	void removeGhosts();	
 	void ghostsMove();
 	void GhostchangeSmartPosition(Ghost& G);
