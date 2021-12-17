@@ -28,7 +28,7 @@ void Fruit::setNewFruitlocation(Board& b)
 	{
 		newx = randomBetween(0, b.getBoardWidth() - 1);
 		newy = randomBetween(0, b.getBoardHight() - 1);
-		valid = b.getBoardValFromPoint(newx, newy);
+		valid = checkValidPos(newx, newy, b);
 	}
 	setBody(newx, newy);
 }

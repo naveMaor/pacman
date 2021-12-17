@@ -322,12 +322,13 @@ void Game::checkPacmanHitFruit()
 
 	if (pPlayer == pFruit)
 	{
+		gotoxy(pPlayer.getX(), pPlayer.getY());
+		player.draw();
 		int Oldscore = player.getScore();
 		player.setScore(Oldscore + fruit.getFruitScore());
 		maxScoreInCurrScreen += fruit.getFruitScore();
 		fruit.setshowfruit();
-		gotoxy(pPlayer.getX(), pPlayer.getY());
-		player.draw();
+		fruit.setNewFruitlocation(board);
 	}
 }
 
