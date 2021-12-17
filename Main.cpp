@@ -4,6 +4,7 @@ int main()
 {
 	Game game;
 	Menu menu;
+	string screen = game.getScreenNames()[0];
 
 	setTextColor(Color::WHITE);
 	int userChoice = menu.menu();
@@ -13,13 +14,13 @@ int main()
 		{
 		case 1: // all game
 		{
-			game.playGame(false);
+			game.playGame(false, screen);
 			break;
 		}
 		case 2: // single game
 		{
-			menu.handleChooseScreen(game.getScreenNames());
-			game.playGame(true);
+			screen = menu.handleChooseScreen(game.getScreenNames());
+			game.playGame(true, screen);
 			break;
 		}
 		case 3:

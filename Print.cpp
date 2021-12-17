@@ -6,7 +6,7 @@ void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 	if (b_IsColorGame)
 		setTextColor(Color::GREEN);
 	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "You won the game!" << endl;
 	Sleep(longPauseWindow);
 }
@@ -16,14 +16,14 @@ void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
 	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "You lost!";
 	Sleep(longPauseWindow);
 }
 
 void Print::resetGameInfoPrints(Point gameInfoPosition) const
 {
-	gotoxy(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "                  ";
 }
 
@@ -32,7 +32,7 @@ void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife
 {
 	setTextColor(Color::WHITE);
 	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "Lives: ";
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
@@ -66,7 +66,7 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 	if (b_IsColorGame)
 		setTextColor(Color::RED);
 	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "You hit the ghost!" << endl;
 	Sleep(shortPauseWindow);
 	resetGameInfoPrints(gameInfoPosition);
@@ -77,7 +77,7 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const
 {
 	setTextColor(Color::WHITE);
-	gotoxy(gameInfoPosition.getX() + 10);
+	gotoxy(gameInfoPosition.getX() + 10, gameInfoPosition.getY());
 	cout << "Score: ";
 	if (b_IsColorGame)
 		setTextColor(Color::YELLOW);

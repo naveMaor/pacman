@@ -19,10 +19,12 @@ void gotoxy(int x, int y)
 	hideCursor();
 }
 
+/*
 void gotoxy(Point point)
 {
 	gotoxy(point.getX(), point.getY());
 }
+*/
 
 /* This function change the text color of the window*/
 void setTextColor(Color colorToSet) {

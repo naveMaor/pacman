@@ -246,7 +246,7 @@ void Menu::printScreenNames(vector<string> screenNames) const
 }
 
 /* This function handle chosing specific screen*/
-void Menu::handleChooseScreen(vector<string> screenNames)
+string Menu::handleChooseScreen(vector<string> screenNames)
 {
 	string input;
 	getline(cin, input);
@@ -259,6 +259,7 @@ void Menu::handleChooseScreen(vector<string> screenNames)
 		getline(cin, input);
 	}
 	userChoice = stoi(input);
+	return screenNames[userChoice];
 }
 
 /* This function check user input of the screen name*/
