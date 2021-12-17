@@ -37,7 +37,7 @@ void Game::playSingleGame()
 		checkGhostsHit(player.getBody());
 
 		Sleep(gameSpeedVal);
-		player.changePosition(board, countMoves);
+		pacmanMove(board, countMoves);
 
 		checkPacmanHitFruit();
 
@@ -462,3 +462,5 @@ void Game::pauseGame() const
 		}
 	}
 }
+
+
