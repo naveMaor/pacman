@@ -101,7 +101,8 @@ void Game::gameSettings()
 		clearScreen();
 		break;
 	case 5:
-
+		gameGhostsLevel();
+		break;
 	default:
 		break;
 	}
