@@ -2,7 +2,6 @@
 #define GHOST_H
 #include "Point.h"
 #include "GameObject.h"
-#include "MoveStrategy.h"
 #include <queue>
 
 struct  QItem {

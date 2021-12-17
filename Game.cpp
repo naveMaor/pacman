@@ -34,16 +34,11 @@ void Game::playSingleGame()
 	{
 		print.printScore(b_IsColorGame, player.getScore());
 		fruit.changePosition(board, countMoves);
-
-		if (countMoves % 3 == 0)
-			ghostsMove();
-
-		if (ghostsHit(player.getBody()))
-			initGameAfterGhostHit();
+		ghostsMove(countMoves, player.getBody());
+		checkGhostsHit(player.getBody());
 
 		Sleep(gameSpeedVal);
-		pacmanMove(board, countMoves);
-		countMoves++;
+		player.changePosition(board, countMoves);
 
 		checkPacmanHitFruit();
 
@@ -216,13 +211,21 @@ bool Game::ghostsHit(Point Body)
 	return b_Hit;
 }
 
+void Game::checkGhostsHit(Point Body)
+{
+	if (ghostsHit(Body))
+	{
+		initGameAfterGhostHit();
+	}
+}
+
 
 
 /* This function handle ghosts move*/
-void Game::ghostsMove()
+void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		GhostchangeSmartPosition((*ghosts[i]));
+		ghosts[i]->changePosition(board, countMoves, PlayerLocation);
 }
 
 
