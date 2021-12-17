@@ -7,13 +7,13 @@
 class Print
 {
 public:
-	void winGame(bool b_IsColorGame) const;
-	void gameOver(bool b_IsColorGame) const;
-	void resetPrintLife(Point gameInfoPosition) const;
+	void winGame(Point gameInfoPosition, bool b_IsColorGame) const;
+	void gameOver(Point gameInfoPosition, bool b_IsColorGame) const;
+	void resetGameInfoPrints(Point gameInfoPosition) const;
 	void printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const;
 	void clearCenter()const;
 	void printPauseGame() const;
-	void printPlayerHitGhost(bool b_IsColorGame)const;
+	void printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const;
 	void printScore(Point gameInfoPosition, bool b_IsColorGame, int playerscore)const;
 	void removePrintPlayerHitGhost()const;
 	//removePacman

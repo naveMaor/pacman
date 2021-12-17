@@ -1,25 +1,27 @@
 #include "Print.h"
 
 
-void Print::winGame(bool b_IsColorGame) const
+void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 {
 	if (b_IsColorGame)
 		setTextColor(Color::GREEN);
-	gotoxy(26, 23);
-	cout << "You won the game!!!" << endl;
+	resetGameInfoPrints(gameInfoPosition);
+	gotoxy(gameInfoPosition);
+	cout << "You won the game!" << endl;
 	Sleep(longPauseWindow);
 }
 
-void Print::gameOver(bool b_IsColorGame) const
+void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 {
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
-	gotoxy(30, 23);
+	resetGameInfoPrints(gameInfoPosition);
+	gotoxy(gameInfoPosition);
 	cout << "You lost!";
 	Sleep(longPauseWindow);
 }
 
-void Print::resetPrintLife(Point gameInfoPosition) const
+void Print::resetGameInfoPrints(Point gameInfoPosition) const
 {
 	gotoxy(gameInfoPosition);
 	cout << "                  ";
@@ -29,8 +31,8 @@ void Print::resetPrintLife(Point gameInfoPosition) const
 void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const
 {
 	setTextColor(Color::WHITE);
-	resetPrintLife(gameInfoPosition);
-	gotoxy(gameInfoPosition.getX() + 1, gameInfoPosition.getY());
+	resetGameInfoPrints(gameInfoPosition);
+	gotoxy(gameInfoPosition);
 	cout << "Lives: ";
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
@@ -59,12 +61,15 @@ void Print::printPauseGame() const
 }
 
 /* This function print player hit ghost message*/
-void Print::printPlayerHitGhost(bool b_IsColorGame)const
+void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 {
 	if (b_IsColorGame)
 		setTextColor(Color::RED);
-	gotoxy(26, 23);
+	resetGameInfoPrints(gameInfoPosition);
+	gotoxy(gameInfoPosition);
 	cout << "You hit the ghost!" << endl;
+	Sleep(shortPauseWindow);
+	resetGameInfoPrints(gameInfoPosition);
 }
 
 
@@ -72,8 +77,8 @@ void Print::printPlayerHitGhost(bool b_IsColorGame)const
 void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const
 {
 	setTextColor(Color::WHITE);
-	gotoxy(38, 21);
-	cout << "Pacman Score: ";
+	gotoxy(gameInfoPosition.getX() + 10);
+	cout << "Score: ";
 	if (b_IsColorGame)
 		setTextColor(Color::YELLOW);
 	cout << playerScore;

@@ -2,6 +2,7 @@
 
 void Pacman::initGameObject()
 {
+	this->life = 3;
 	this->setColor(Color::WHITE);
 	this->setDirection(Stay);
 }
@@ -23,6 +24,7 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 		if (charAtPoint == bc) // if there was at curr pos then raise score
 		{
 			this->setPlusScore();
+			b.eatBreadCrumb();
 			b.setBoardValByPoint(x, y);
 		}
 
@@ -58,6 +60,7 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 		// if there breadcrumb
 		if (charAtPoint == bc)
 		{
+			b.eatBreadCrumb();
 			this->setPlusScore();
 		}
 		b.setBoardValByPoint(x, y);

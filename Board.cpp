@@ -56,7 +56,7 @@ void Board:: setBoardLine(int hight, char* line,int width)
         else
         {
             board[hight][x] = bc;
-            breadCrumbsCount++;
+            breadCrumbsLeft++;
 
             if (line[x] == '$')
             {

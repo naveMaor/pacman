@@ -15,8 +15,6 @@
 #include "GoodGhost.h"
 #include "BestGhost.h"
 
-
-
 class Game
 {
 private:
