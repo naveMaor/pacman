@@ -51,7 +51,13 @@
     <ClCompile Include="Print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MoveStrategy.cpp">
+    <ClCompile Include="NoviceGhost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoodGhost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BestGhost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +98,13 @@
     <ClInclude Include="Print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MoveStrategy.h">
+    <ClInclude Include="NoviceGhost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GoodGhost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BestGhost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

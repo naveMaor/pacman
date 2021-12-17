@@ -27,7 +27,7 @@ public:
 	int	getLife() const { return life; };
 	void setLife(int newLife) { life = newLife; };
 	void remove();
-	void changePosition(Board& b) override;
+	void changePosition(Board& b, int& countPacmanMoves);
 
 };
 

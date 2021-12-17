@@ -143,13 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BestGhost.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="GoodGhost.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MoveStrategy.cpp" />
+    <ClCompile Include="NoviceGhost.cpp" />
     <ClCompile Include="Print.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -158,6 +160,7 @@
     <ClCompile Include="Board.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BestGhost.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Fruit.h" />
@@ -165,8 +168,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="GoodGhost.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="MoveStrategy.h" />
+    <ClInclude Include="NoviceGhost.h" />
     <ClInclude Include="Print.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Pacman.h" />

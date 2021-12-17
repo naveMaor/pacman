@@ -17,17 +17,18 @@ void Game::playGame()
 			while ((player.getLife() > 0) && (!b_won))
 			{
 				print.printScore(b_IsColorGame, player.getScore());
-				fruit.fruitPlay(countMoves, board);
+				fruit.changePosition(board, countMoves);
 
 				if (countMoves % 3 == 0)
 					ghostsMove();
 
+				if (ghostsHit(player.getBody()))
+					initGameAfterGhostHit();
+
 				Sleep(gameSpeedVal);
-				pacmanMove(board);
+				pacmanMove(board, countMoves);
 				countMoves++;
 		
-				if (ghostsHit())
-					initGameAfterGhostHit();
 
 				checkPacmanHitFruit();
 
@@ -75,7 +76,7 @@ void Game::gameSettings()
 {
 	clearScreen();
 	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts, screenPath, screensNames);
-	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, screenPath, screensNames);
+	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, numOfGhosts, screenPath, screensNames);
 
 	switch (menu.getUserChoice())
 	{
@@ -86,7 +87,7 @@ void Game::gameSettings()
 		gameSpeed();
 		break;
 	case 3:
-	
+		gameGhosts();
 		break;
 	case 4:
 		currScreenGame = choseScreen();
@@ -94,6 +95,31 @@ void Game::gameSettings()
 	case 5:
 		clearScreen();
 		break;
+	default:
+		break;
+	}
+}
+
+void Game::gameGhosts()
+{
+	clearScreen();
+	menu.printPacmanGhostsOptions();
+	menu.handleGameMenuGhotsSettingsInput();
+	switch (menu.getUserChoice())
+	{
+	case 1:
+		numOfGhosts=1;
+		break;
+	case 2:
+		numOfGhosts=2;
+		break;
+	case 3:
+		numOfGhosts = 3;
+		break;
+	case 4:
+		numOfGhosts = 4;
+		break;
+
 	default:
 		break;
 	}
@@ -122,7 +148,7 @@ void Game::initGameAfterGhostHit()
 void Game::removeGhosts()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].removeGhost(board);
+		ghosts[i]->removeGhost(board);
 }
 
 /* This function get the user key board hit*/
@@ -164,35 +190,29 @@ void Game::getUserKeyboard()
 
 
 /* This function handle pacman move*/
-void Game::pacmanMove(Board & b)
+void Game::pacmanMove(Board & b, int &countMoves)
 {
 	getUserKeyboard();
-	player.changePosition(b);
+	player.changePosition(b, countMoves);
 }
 
 /* This function check if the ghost hit the pacman*/
-bool Game::ghostsHit()
+bool Game::ghostsHit(Point Body)
 {
 	bool b_Hit = false;
 	for (int i = 0; i < numOfGhosts && !b_Hit; i++)
-		if (ghostHit(ghosts[i]))
+		if (ghosts[i]->ghostHit(Body))
 			b_Hit = true;
 	return b_Hit;
 }
 
-/* This function handle ghost hit*/
-bool Game::ghostHit(Ghost ghost)
-{
-	if (ghost.getBody() == player.getBody())
-		return true;
-	return false;
-}
+
 
 /* This function handle ghosts move*/
 void Game::ghostsMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		GhostchangeSmartPosition(ghosts[i]);
+		GhostchangeSmartPosition((*ghosts[i]));
 }
 
 
@@ -220,7 +240,7 @@ void Game:: drawGameObj() const
 	player.draw();
 	
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].draw();
+		ghosts[i]->draw();
 	
 	fruit.draw();
 }
@@ -290,7 +310,7 @@ void Game::initGameObj()
 {
 	player.initGameObject();
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].initGameObject();
+		ghosts[i]->initGameObject();
 	fruit.initGameObject();
 }
 
@@ -337,93 +357,12 @@ void Game::checkPacmanHitFruit()
 	}
 }
 
-
-Point Game::minDistance(Point GhostLocation, Point PlayerLocation)
-{
-	Point Pcurr(0, 0);
-	QItem source(PlayerLocation.getX(), PlayerLocation.getY(), Pcurr);
-
-	// To keep track of visited QItems. Marking
-	// blocked cells as visited.
-	bool visited[HIGHT][WIDTH] = { false };
-	// init source
-	source.row = PlayerLocation.getX();
-	source.col = PlayerLocation.getY();
-
-	// applying BFS on matrix cells starting from source
-	std::queue<QItem> q;
-	q.push(source);
-	visited[source.col][source.row] = true;
-	while (!q.empty())
-	{
-		QItem curr = q.front();
-		q.pop();
-
-		// Destination found;
-		if (GhostLocation.getX() == curr.row && GhostLocation.getY() == curr.col)
-			return curr.p;
-
-		Pcurr.setX(curr.row);
-		Pcurr.setY(curr.col);
-
-		// moving right
-		if (curr.row + 1 < Width && player.checkValidPos(curr.row + 1, curr.col, board) && visited[curr.col][curr.row + 1] == false)
-		{
-			q.push(QItem(curr.row + 1, curr.col, Pcurr));
-			visited[curr.col][curr.row + 1] = true;
-		}
-		// moving down
-		if (curr.col + 1 < Hight && player.checkValidPos(curr.row, curr.col + 1, board) && visited[curr.col + 1][curr.row] == false)
-		{
-			q.push(QItem(curr.row, curr.col + 1, Pcurr));
-			visited[curr.col + 1][curr.row] = true;
-		}
-
-		// moving left
-		if (curr.row - 1 >= 0 && player.checkValidPos(curr.row - 1, curr.col, board) && visited[curr.col][curr.row - 1] == false)
-		{
-				q.push(QItem(curr.row - 1, curr.col, Pcurr));
-				visited[curr.col][curr.row - 1] = true;
-		}
-		
-		// moving up
-		if (curr.col - 1 >= 0 && player.checkValidPos(curr.row, curr.col - 1, board) && visited[curr.col - 1][curr.row] == false)
-		{
-				q.push(QItem(curr.row, curr.col - 1, Pcurr));
-				visited[curr.col - 1][curr.row] = true;
-		}		
-	}
-	Point p1(-1, -1);
-	return p1;
-}
-
-
-void Game::GhostchangeSmartPosition(Ghost& G)
-{
-	Point newPoint = minDistance(G.getBody(), player.getBody());
-	Point tmp(-1, -1);
-	int x = G.getBody().getX();
-	int y = G.getBody().getY();
-	if (newPoint == tmp)
-	{
-
-	}
-	else
-	{
-		G.changedirectionbyPoint(newPoint);
-		G.move();
-
-		// If last ghost position was breadcrumb print breadcrumb
-		if (board.getBoardValFromPoint(x, y) == bc)
-			G.printBreadCrumbs(x, y);
-	}
-}
-
 void Game::setGameObjectsPositions() 
 {
 	player.setBody(board.getPacmanStartingPosition());
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i].setBody(board.getGhostStartingPosition(i));
+		ghosts[i]->setBody(board.getGhostStartingPosition(i));
+	fruit.setNewFruitlocation(board);
 }
 
 void Game::setGameObjectsColors()
@@ -432,13 +371,13 @@ void Game::setGameObjectsColors()
 	for (int i = 0; i < numOfGhosts; i++)
 	{
 		if (i == 0)
-			ghosts[i].setColor(Color::LIGHTCYAN);
+			ghosts[i]->setColor(Color::LIGHTCYAN);
 		else if (i == 1)
-			ghosts[i].setColor(Color::LIGHTGREEN);
+			ghosts[i]->setColor(Color::LIGHTGREEN);
 		else if (i == 2)
-			ghosts[i].setColor(Color::LIGHTBLUE);
+			ghosts[i]->setColor(Color::LIGHTBLUE);
 		else if (i == 3)
-			ghosts[i].setColor(Color::BROWN);
+			ghosts[i]->setColor(Color::BROWN);
 	}
 }
 

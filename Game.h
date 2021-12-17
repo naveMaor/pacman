@@ -1,31 +1,18 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
-#include <queue>
-#include <stdio.h>
-//todo might delete late
-#include "Utilities.h"
 #include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
-#include "Board.h"
 #include "Ghost.h"
-#include "Pacman.h"
 #include "Point.h"
-#include "Fruit.h"
+#include "Print.h"
 #include "File.h"
+#include <string>
+#include <stdio.h>
 #include "Print.h"
 
-//todo might delete late
-struct  QItem {
-public:
-	int row;
-	int col;
-	Point p;
-	QItem(int x, int y,  Point p)
-		: row(x), col(y), p(p)
-	{}
-};
+
 
 class Game
 {
@@ -33,8 +20,8 @@ private:
 	int Width, Hight;
 	const string screenPath = ".";
 	string currScreenGame;
-	vector<string> screensNames = File::getScreensName(screenPath);
-	Ghost ghosts[4];
+	vector<string> screensNames = File::getScreensName(PATH);
+	Ghost* ghosts[4]{};
 	int numOfGhosts;
 	Pacman player;
 	Fruit fruit;
@@ -50,6 +37,7 @@ public:
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
+	void gameGhosts();
 	void initGameObj();
 	void printPreviousGame()const;
 	bool checkWin()const;
@@ -71,18 +59,16 @@ public:
 	void setGameObjectsPositions();
 	void setGameObjectsColors();
 
-	Point minDistance(Point GhostLocation, Point PlayerLocation);
-
 	// Ghosts functions
 	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
-	bool ghostsHit();
+	bool ghostsHit(Point Body);
 	void removeGhosts();	
 	void ghostsMove();
 	void GhostchangeSmartPosition(Ghost& G);
 
 	// Pacman functions
-	void pacmanMove(Board &b);
+	void pacmanMove(Board& b, int& countMoves);
 	void getUserKeyboard();
 	
 
