@@ -21,12 +21,13 @@ void Game::playGame()
 				if (countMoves % 3 == 0)
 					ghostsMove();
 
+				if (ghostsHit())
+					initGameAfterGhostHit();
+
 				Sleep(gameSpeedVal);
 				pacmanMove(board);
 				countMoves++;
 		
-				if (ghostsHit())
-					initGameAfterGhostHit();
 
 				checkPacmanHitFruit();
 
