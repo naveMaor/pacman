@@ -35,6 +35,7 @@ void GameObject::draw() const
 	pBody.draw(objectIcon);
 }
 
+
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);

@@ -32,26 +32,8 @@ public:
 class Game
 {
 private:
-	enum initObjLocation {
-		pacmanStartX = 1, pacmanStartY = 1,
-		ghostOneStartX = 3, ghostOneStartY = 9,
-		ghostTwoStartX = 14, ghostTwoStartY = 14
-	};
-
-	//------------------
 	int Width, Hight;
-	//------------------
-
-
-
-
-	//--------------
-
-
-	/*Ghost ghostOne = {ghostOneStartX,ghostOneStartY};
-	Ghost ghostTwo = {ghostTwoStartX,ghostTwoStartY };
-	Pacman player = {pacmanStartX,pacmanStartY};
-	Fruit fruit = {5,5};*/
+	vector<string> screensNames = File::getScreensName(PATH);
 	Ghost ghosts[4];
 	int numOfGhosts;
 	Pacman player;
@@ -62,7 +44,6 @@ private:
 	bool b_IsColorGame = true;
 	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0;
 	
-
 public:
 	// Game functions
 	void playGame();
