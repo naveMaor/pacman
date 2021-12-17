@@ -39,16 +39,15 @@ private:
 	Fruit fruit = {5,5};*/
 	Ghost ghosts[4];
 	int numOfGhosts;
-	Ghost ghostOne;
-	Ghost ghostTwo;
+	//Ghost ghostOne;
+	//Ghost ghostTwo;
 	Pacman player;
 	Fruit fruit;
 	Board board;
 	Menu menu;
 	bool b_IsColorGame = true;
-	int gameSpeedVal = mediumGameSpeed;
-
-
+	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0;
+	
 
 public:
 	// Game functions
@@ -75,11 +74,18 @@ public:
 	void clearCenter()const;
 	void resetGame();
 	void chooseColor();
+
 	bool getIsColorGame() const { return b_IsColorGame; };
-	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	int getGameSpeedVal() const { return gameSpeedVal; }
+	int getMaxScoreInCurrScreen() const{ return maxScoreInCurrScreen; }
+	int getScoreOfAllWinnedScreens() const{ return scoreOfAllWinnedScreens; }
+
+	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
 	void setGameObjectsPositions();
+	void setMaxScoreInCurrScreen(int score) { maxScoreInCurrScreen = score; }
+	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
+	void setGameObjectsColors();
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
@@ -98,6 +104,7 @@ public:
 	// Fruit functions
 	void initFruit();
 	void ghostHitFruit();
+	bool isGhostHitFruit();
 	void pacmanHitFruit();
 	void unDisplayFruit();
 	void fruitMove();

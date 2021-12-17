@@ -65,16 +65,15 @@ void Game::initGame(bool b_color)
 {
 	clearScreen();
 	board.initBoard();
+	numOfGhosts = board.getNumOfGhosts();
 	setGameObjectsPositions();
 	
 	board.printBoard();
+	setMaxScoreInCurrScreen(board.getBreadCrumbsCount());
 	initGameObj();
 
-	if (b_color) {
-		player.setColor(Color::YELLOW);
-		ghostOne.setColor(Color::LIGHTGREEN);
-		ghostTwo.setColor(Color::LIGHTCYAN);
-	}
+	if (b_color)
+		setGameObjectsColors();
 
 	drawGameObj();
 	printScore();
@@ -117,10 +116,8 @@ void Game::initGameAfterGhostHit()
 		removePrintPlayerHitGhost();
 		removeGhosts();
 		removePacman();
-		player.setBody(pacmanStartX, pacmanStartY);
+		setGameObjectsPositions();
 		player.setDirection(Stay);
-		ghostOne.setBody(ghostOneStartX, ghostOneStartY);
-		ghostTwo.setBody(ghostTwoStartX, ghostTwoStartY);
 		drawGameObj();
 	}
 }
@@ -151,10 +148,8 @@ void Game::removePacman()
 /* This function remove ghosts last character after pacman hit*/
 void Game::removeGhosts()
 {
-	ghostOne.removeGhost(board);
-	ghostTwo.removeGhost(board);
-	//removeGhost(ghostOne);
-	//removeGhost(ghostTwo);
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].removeGhost(board);
 }
 
 
@@ -221,8 +216,6 @@ void Game::pauseGame()
 }
 
 
-
-
 /* This function handle pacman move*/
 void Game::pacmanMove(Board & b)
 {
@@ -233,7 +226,11 @@ void Game::pacmanMove(Board & b)
 /* This function check if the ghost hit the pacman*/
 bool Game::ghostsHit()
 {
-	return(ghostHit(ghostOne) || ghostHit(ghostTwo));
+	bool b_Hit = false;
+	for (int i = 0; i < numOfGhosts && !b_Hit; i++)
+		if (ghostHit(ghosts[i]))
+			b_Hit = true;
+	return b_Hit;
 }
 
 /* This function handle ghost hit*/
@@ -247,9 +244,8 @@ bool Game::ghostHit(Ghost ghost)
 /* This function handle ghosts move*/
 void Game::ghostsMove()
 {
-	ghostOne.changePosition(board);
-	ghostTwo.changePosition(board);
-
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i].changePosition(board);
 }
 
 
@@ -300,9 +296,7 @@ void Game::printPreviousGame() const
 {
 	clearScreen();
 	board.printPreviousBoard();
-	player.draw();
-	ghostOne.draw();
-	ghostTwo.draw();
+	drawGameObj();
 	printScore();
 	printLife();
 }
@@ -320,13 +314,15 @@ void Game:: drawGameObj() const
 
 /* This function check if the player eat all breadcrumbs he win!!*/
 bool Game:: checkWin() const
-{
-	return !board.breadcrumbleft();
+{	
+	return 	player.getScore() == maxScoreInCurrScreen;
 }
 
 /* This function handle win situation*/
 void Game::winGame()
 {
+	setWinnedScore(maxScoreInCurrScreen);
+
 	if(getIsColorGame())
 		setTextColor(Color::GREEN);
 	gotoxy(26, 23);	
@@ -385,9 +381,8 @@ void Game::clearCenter() const
 void Game::resetGame()
 {
 	initGameObj();
-	player.setBody(pacmanStartX, pacmanStartY);
-	ghostOne.setBody(ghostOneStartX, ghostOneStartY);
-	ghostTwo.setBody(ghostTwoStartX, ghostTwoStartY);
+	player.setScore(0);
+	setGameObjectsPositions();
 	board.resetBoard();
 }
 
@@ -407,7 +402,6 @@ void Game::gameSpeed()
 	clearScreen();
 	menu.printPacmanSpeedOptions();
 	menu.handleGameMenuSpeedSettingsInput();
-	//switch (userChoice)
 	switch (menu.getUserChoice())
 	{
 	case 1:
@@ -486,13 +480,11 @@ void Game::printCurrentSpeedGame() const
 /* This function init fruit location*/
 void Game::initFruit()
 {
-
 	Point fruitLocation(rand() % (Width+1) + 0, rand() % (Hight+1) + 0);
 
-	while (fruitLocation == ghostOne.getBody() ||
-		fruitLocation == ghostTwo.getBody() ||
+	while (isGhostHitFruit() ||
 		fruitLocation == player.getBody() ||
-		board.getBoardValFromPoint(fruitLocation.getX(), fruitLocation.getY()) == w)
+		board.getBoardValFromPoint(fruitLocation) == w)
 	{
 		fruitLocation.setX(rand() % Width + 0);
 		fruitLocation.setY(rand() % Hight + 0);
@@ -526,31 +518,32 @@ void Game::hideOrShowFruit()
 	}
 
 }
-//todo improve this fanc
+
+/* This function check if ghost hit the fruit*/
+bool Game:: isGhostHitFruit()
+{
+	for (int i = 0; i < numOfGhosts; i++)
+		if (ghosts[i].getBody() == fruit.getBody())
+			return true;
+	return false;
+}
+
+
+// Check and handle if ghost hit the fruit
 void Game::ghostHitFruit()
 {
-	Point pGhostOne = ghostOne.getBody();
-	Point pGhostTwo = ghostTwo.getBody();
-	Point pFruit = fruit.getBody();
-
-	if (pGhostOne.getX() == pFruit.getX() && pGhostOne.getY() == pFruit.getY())
-	{
-		gotoxy(pGhostOne.getX(), pGhostOne.getY());
-		ghostOne.draw();
-	}
-	if (pGhostTwo.getX() == pFruit.getX() && pGhostTwo.getY() == pFruit.getY())
-	{
-		gotoxy(pGhostTwo.getX(), pGhostTwo.getY());
-		ghostTwo.draw();
-	}
+	for (int i = 0; i < numOfGhosts; i++)
+		if (ghosts[i].getBody() == fruit.getBody())
+		{
+			gotoxy(ghosts[i].getBody().getX(), ghosts[i].getBody().getY());
+			ghosts[i].draw();
+		}
 }
 
 void Game::pacmanHitFruit()
 {
 	Point pPlayer = player.getBody();
-	Point pFruit = fruit.getBody();
-
-	if (pPlayer.getX() == pFruit.getX() && pPlayer.getY() == pFruit.getY())
+	if (pPlayer == fruit.getBody())
 	{
 		int Oldscore = player.getScore();
 		player.setScore(Oldscore + fruit.getFruitScore());
@@ -567,8 +560,22 @@ void Game::unDisplayFruit()
 void Game::setGameObjectsPositions()
 {
 	player.setBody(board.getPacmanStartingPosition());
-	numOfGhosts = board.getNumOfGhosts();
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i].setBody(board.getGhostStartingPosition(i));
-	
+}
+
+void Game::setGameObjectsColors()
+{
+	player.setColor(Color::YELLOW);
+	for (int i = 0; i < numOfGhosts; i++)
+	{
+		if (i == 0)
+			ghosts[i].setColor(Color::LIGHTCYAN);
+		else if (i == 1)
+			ghosts[i].setColor(Color::LIGHTGREEN);
+		else if (i == 2)
+			ghosts[i].setColor(Color::LIGHTBLUE);
+		else if (i == 3)
+			ghosts[i].setColor(Color::BROWN);
+	}
 }

@@ -1,5 +1,6 @@
 #include "Utilities.h"
 #include "Color.h"
+#include "Point.h"
 
 using std::cout;
 using std::endl;
@@ -16,6 +17,11 @@ void gotoxy(int x, int y)
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
 	hideCursor();
+}
+
+void gotoxy(Point point)
+{
+	gotoxy(point.getX(), point.getY());
 }
 
 /* This function change the text color of the window*/

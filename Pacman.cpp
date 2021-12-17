@@ -4,8 +4,6 @@ void Pacman::initGameObject()
 {
 	this->setColor(Color::WHITE);
 	this->setDirection(Stay);
-	score = 0;
-	life = 3;
 }
 
 void Pacman::changePosition(Board& b)

@@ -10,7 +10,7 @@ Board::Board()
 /* This function print the board*/
 void const Board::printBoard() const
 {  
-    for (int i = 0; i < boardHight; i++)
+    for (int i = 0; i <= boardHight; i++)
     {
         for (int j = 0; j < boardWidth; j++)
             cout << board[i][j];
@@ -100,7 +100,7 @@ void Board::initBoard()
         else
         {
             for (j = 0; j < 20; j++)
-                if(j == 0 || j== 20)
+                if(j == 0 || j == 19)
                     board[hight][j] = w;
                 else
                     board[hight][j] = ' ';

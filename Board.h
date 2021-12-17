@@ -20,22 +20,26 @@ class Board
 public:
     Board();
 	void const printBoard() const;
-    // This function return the value in the board of request place, the x and y that requested are opposite in the board
-    unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
-    void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
-    void setBoardLine(int hight, char* line, int width);
     void printPreviousBoard() const;
     void resetBoard();
     bool breadcrumbleft() const;
     void initBoard();
-    int getBoardWidth() { return boardWidth; }
-    int getBoardHight() { return boardHight; }
+
+    // This function return the value in the board of request place, the x and y that requested are opposite in the board
+    unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
+    unsigned char getBoardValFromPoint(Point point)const { return board[point.getY()][point.getX()]; };
+    int getBoardWidth() const { return boardWidth; }
+    int getBoardHight() const { return boardHight; }
+    int getNumOfGhosts() const { return ghostCount; }
+    int getBreadCrumbsCount() const { return breadCrumbsCount; }
+    Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
+    Point getGhostStartingPosition(int index) const{ return ghostStartingPositions[index]; }
+    Point getInfoPosition() const { return infoPosition; }
+
+    void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
+    void setBoardLine(int hight, char* line, int width);
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };
-    int getNumOfGhosts() { return ghostCount; }
-    Point getPacmanStartingPosition() { return pacmanStartingPosition; }
-    Point getGhostStartingPosition(int index) { return ghostStartingPositions[index]; }
-    Point getInfoPosition() { return infoPosition; }
     
 };
 
