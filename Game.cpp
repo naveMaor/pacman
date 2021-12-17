@@ -2,51 +2,64 @@
 
 
 /* This function handle the game*/
-void Game::playGame()
+void Game::playGame(bool isSingleGame, string screenName)
 {
-	int countMoves = 0, screenCount = 0, numOfScreens = screensNames.size();;
-	bool b_won = false, alive = true;
-		
-	for (int i = 0; i < numOfScreens && alive; i++)
+	int screenCount = 0, numOfScreens = screensNames.size();;		
+
+	if (isSingleGame)
 	{
-		// If the the file is valid
-		if (File::fileToBoard(screensNames[i], board))
+		if (File::fileToBoard(screenName, board))
+			playSingleGame();
+	}
+	else // full game
+	{
+		for (int i = 0; i < numOfScreens && alive; i++)
 		{
-			initGame(getIsColorGame());
-
-			while ((player.getLife() > 0) && (!b_won))
-			{
-				print.printScore(b_IsColorGame, player.getScore());
-				fruit.changePosition(board, countMoves);
-
-				if (countMoves % 3 == 0)
-					ghostsMove();
-
-				if (ghostsHit(player.getBody()))
-					initGameAfterGhostHit();
-
-				Sleep(gameSpeedVal);
-				pacmanMove(board, countMoves);
-				countMoves++;
-		
-
-				checkPacmanHitFruit();
-
-				if (checkWin())
-				{
-					b_won = true;
-					print.printScore(b_IsColorGame, player.getScore());
-					winGame();
-				}
-			}	
-			// If lose
-			if (player.getLife() == 0)
-			{
-				alive = false;
-				gameOver();
-			}
+			// If the the file is valid
+			if (File::fileToBoard(screensNames[i], board))
+				playSingleGame();
 		}
-	}	
+	}
+}
+
+/* This function play one single game*/
+void Game::playSingleGame()
+{
+	int countMoves = 0;
+	bool b_won = false;
+
+	initGame(getIsColorGame());
+
+	while ((player.getLife() > 0) && (!b_won))
+	{
+		print.printScore(b_IsColorGame, player.getScore());
+		fruit.changePosition(board, countMoves);
+
+		if (countMoves % 3 == 0)
+			ghostsMove();
+
+		if (ghostsHit(player.getBody()))
+			initGameAfterGhostHit();
+
+		Sleep(gameSpeedVal);
+		pacmanMove(board, countMoves);
+		countMoves++;
+
+		checkPacmanHitFruit();
+
+		if (checkWin())
+		{
+			b_won = true;
+			print.printScore(b_IsColorGame, player.getScore());
+			winGame();
+		}
+	}
+	// If lose
+	if (player.getLife() == 0)
+	{
+		alive = false;
+		gameOver();
+	}
 }
 
 /* This fnction init the game*/
@@ -90,9 +103,6 @@ void Game::gameSettings()
 		gameGhosts();
 		break;
 	case 4:
-		currScreenGame = choseScreen();
-		break;
-	case 5:
 		clearScreen();
 		break;
 	default:
@@ -334,7 +344,6 @@ void Game::gameSpeed()
 	case 4:
 		setGameSpeed(expertGameSpeed);
 		break;
-
 	default:
 		break;
 	}

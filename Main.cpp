@@ -11,12 +11,18 @@ int main()
 	{
 		switch (userChoice)
 		{
-		case 1:
+		case 1: // all game
 		{
-			game.playGame();
+			game.playGame(false);
 			break;
 		}
-		case 2:
+		case 2: // single game
+		{
+			menu.handleChooseScreen(game.getScreenNames());
+			game.playGame(true);
+			break;
+		}
+		case 3:
 		{
 			game.gameSettings();
 			break;

@@ -10,7 +10,7 @@
 #include "File.h"
 #include <string>
 #include <stdio.h>
-#include "Print.h"
+#include "Fruit.h"
 
 
 
@@ -20,20 +20,20 @@ private:
 	int Width, Hight;
 	const string screenPath = ".";
 	string currScreenGame;
-	vector<string> screensNames = File::getScreensName(PATH);
+	vector<string> screensNames = File::getScreensName(screenPath);
 	Ghost* ghosts[4]{};
-	int numOfGhosts;
 	Pacman player;
 	Fruit fruit;
 	Board board;
 	Menu menu;
 	Print print;
-	bool b_IsColorGame = true;
-	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0;
+	bool b_IsColorGame = true, singleGame = false, alive = true;
+	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts;
 	
 public:
 	// Game functions
-	void playGame();
+	void playGame(bool isSingleGame, string screenName);
+	void playSingleGame();
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
@@ -51,6 +51,7 @@ public:
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	int getMaxScoreInCurrScreen() const{ return maxScoreInCurrScreen; }
 	int getScoreOfAllWinnedScreens() const{ return scoreOfAllWinnedScreens; }
+	vector<string> getScreenNames() const { return screensNames; }
 
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }

@@ -26,11 +26,11 @@ public:
 	bool checkValidUserInput(string userChoice)const;
 	bool checkValidUserSettings(string input) const;
 	bool checkValidSpeedSettingsInput(string input) const;
-	bool checkValidScreenInput(string input) const;
+	bool checkValidScreenInput(string input, vector<string> screenNames) const;
 
 	void handleGameMenuSpeedSettingsInput();
 	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts, string screenPath, vector<string> screenNames);
-	void handleChoseScreen(vector<string> screenNames);
+	void handleChooseScreen(vector<string> screenNames);
 
 	void printCurrentNumberOfGhosts(int NumberofGhosts)const;
 	void printPacmanGhostsOptions() const;
