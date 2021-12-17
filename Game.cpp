@@ -16,7 +16,7 @@ void Game::playGame()
 			while ((player.getLife() > 0) && (!b_won))
 			{
 				print.printScore(b_IsColorGame, player.getScore());
-				fruit.fruitPlay(countMoves, board);
+				fruit.changePosition(board, countMoves,player.getBody());
 
 				if (countMoves % 3 == 0)
 					ghostsMove();
@@ -25,7 +25,7 @@ void Game::playGame()
 					initGameAfterGhostHit();
 
 				Sleep(gameSpeedVal);
-				pacmanMove(board);
+				pacmanMove(board, countMoves);
 				countMoves++;
 		
 
@@ -158,10 +158,10 @@ void Game::getUserKeyboard()
 
 
 /* This function handle pacman move*/
-void Game::pacmanMove(Board & b)
+void Game::pacmanMove(Board & b, int &countMoves)
 {
 	getUserKeyboard();
-	player.changePosition(b);
+	player.changePosition(b, countMoves,player.getBody());
 }
 
 /* This function check if the ghost hit the pacman*/

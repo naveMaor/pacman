@@ -31,7 +31,7 @@ public:
 	void move();
 	void draw() const;
 	virtual void initGameObject();
-	virtual void changePosition(Board& b) =0;
+	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) =0;
 	void printBreadCrumbs(int x, int y);
 	void changedirectionbyPoint(Point p);
 	static bool checkValidPos(int x, int y, Board& b);

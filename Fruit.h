@@ -22,10 +22,10 @@ public:
 	void setNewFruitScore();
 	void setNewFruitlocation(Board& b);
 	void initFruit(Board& b);
-	void changePosition(Board& b) override;
+	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override;
 	void setshowfruit() { showfruit = (!showfruit); };
 	void hideOrShowFruit(Board& b);
-	void fruitPlay(int countMoves, Board & b);
+	//void fruitPlay(int countMoves, Board & b);
 };
 
 #endif 

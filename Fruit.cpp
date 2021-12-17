@@ -35,22 +35,36 @@ void Fruit::setNewFruitlocation(Board& b)
 
 /* This function handle Fruit move*/
 
-void Fruit::changePosition(Board& b)
+void Fruit::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
-	int x = this->getBody().getX();
-	int y = this->getBody().getY();
-	int direction = randomBetween(0, 4);
+	if (countPacmanMoves % 20 == 0)
+	{
+		this->setshowfruit();
+		this->hideOrShowFruit(b);
+		if (!this->getshowfruit())
+		{
+			this->setNewFruitScore();
+		}
+	}
 
-	// If wall get new random direction
-	while (!checkValidMove(x, y, direction, b))
-		direction = randomBetween(0, 4);
+	if (countPacmanMoves % 4 == 0 && showfruit)
+	{
+		int x = this->getBody().getX();
+		int y = this->getBody().getY();
+		int direction = randomBetween(0, 4);
 
-	this->setDirection(direction);
-	this->move();
+		// If wall get new random direction
+		while (!checkValidMove(x, y, direction, b))
+			direction = randomBetween(0, 4);
 
-	// If last ghost position was breadcrumb print breadcrumb
-	if (b.getBoardValFromPoint(x, y) == bc)
-		printBreadCrumbs(x, y);
+		this->setDirection(direction);
+		this->move();
+
+		// If last ghost position was breadcrumb print breadcrumb
+		if (b.getBoardValFromPoint(x, y) == bc)
+			printBreadCrumbs(x, y);
+	}
+
 }
 
 
@@ -70,20 +84,20 @@ void Fruit::hideOrShowFruit(Board& b)
 	}
 }
 
-void Fruit::fruitPlay(int countMoves, Board& b)
-{
-	if (countMoves % 20 == 0)
-	{
-		this->setshowfruit();
-		this->hideOrShowFruit(b);
-			if (!this->getshowfruit())
-			{
-			this->setNewFruitScore();
-			}
-	}
-
-	if (countMoves % 4 == 0 && this->getshowfruit())
-	{
-		this->changePosition(b);
-	}
-}
+//void Fruit::fruitPlay(int countMoves, Board& b)
+//{
+//	if (countMoves % 20 == 0)
+//	{
+//		this->setshowfruit();
+//		this->hideOrShowFruit(b);
+//			if (!this->getshowfruit())
+//			{
+//			this->setNewFruitScore();
+//			}
+//	}
+//
+//	if (countMoves % 4 == 0 && this->getshowfruit())
+//	{
+//		this->changePosition(b);
+//	}
+//}

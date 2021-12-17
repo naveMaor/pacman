@@ -82,7 +82,7 @@ public:
 
 
 	// Pacman functions
-	void pacmanMove(Board &b);
+	void pacmanMove(Board& b, int& countMoves);
 	void getUserKeyboard();
 	
 

@@ -6,7 +6,7 @@ void Pacman::initGameObject()
 	this->setDirection(Stay);
 }
 
-void Pacman::changePosition(Board& b)
+void Pacman::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();
@@ -46,6 +46,7 @@ void Pacman::changePosition(Board& b)
 			this->setBody(x, 0);
 		}
 		this->move();
+		countPacmanMoves++;
 	}
 
 	// if there is wall in the next move
