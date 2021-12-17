@@ -2,6 +2,7 @@
 #define GHOST_H
 #include "Point.h"
 #include "GameObject.h"
+#include "MoveStrategy.h"
 
 
 
@@ -24,15 +25,6 @@ public:
 
 
 
-	// Ghost functions
-	/*void move();
-	void draw() const;
-	void setGhostBody(int newX, int newY);
-	Point getGhostBody() const;
-	void setGhostDirection(int direction);
-	Color getColor() const { return this->getColor(); };
-	void setColor(Color color);
-	void initGhost();*/
 };
 
 #endif

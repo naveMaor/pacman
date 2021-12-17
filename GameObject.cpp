@@ -21,16 +21,8 @@ void GameObject::setColor(Color color)
 {
 	this->color = color;
 }
-
+//todo: fix balagan
 void GameObject::move()
-{
-	pBody.draw(space);
-	pBody.move(direction);
-	draw();
-}
-
-
-void GameObject::moveAndDraw()
 {
 	pBody.draw(space);
 	pBody.move(direction);
@@ -42,6 +34,14 @@ void GameObject::draw() const
 	setTextColor(color);
 	pBody.draw(objectIcon);
 }
+
+void GameObject::moveAndDraw()
+{
+	pBody.draw(space);
+	pBody.move(direction);
+	draw();
+}
+
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
@@ -101,11 +101,41 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 	if ((x == 69) || (x == 0) || (y == 0) || (y == 19))
 		return false;
 
-	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon))
+	// If wall, tunnel or ghost this isn't valid move
+	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon) || ((charAtPoint>=53) && (charAtPoint <=57)))
 		return false;
 
 	return true;
 
 }
 
+void GameObject::changedirectionbyPoint(Point NewP)
+{
+	int Bodyx = pBody.getX();
+	int Bodyy = pBody.getY();
+	int NewPx = NewP.getX();
+	int NewPy = NewP.getY();
+
+//	Go UP
+	if (NewPx < Bodyx)
+	{
+		setDirection(Left);
+	}
+
+//	Go Right
+	else if (NewPx > Bodyx)
+	{
+		setDirection(Right);
+	}
+
+//	Go Up
+	else if (NewPy < Bodyy)
+	{
+		setDirection(Up);
+	}
+	//	Go Down
+	else if (NewPy > Bodyy)
+	{
+		setDirection(Down);
+	}
+}

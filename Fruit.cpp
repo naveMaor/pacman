@@ -1,7 +1,7 @@
 #include "Fruit.h"
 
 
-void Fruit ::setNewFruitScore()
+void Fruit::setNewFruitScore()
 {
 	char num = randomBetween(53, 57);
 	while (num == fruitScore)
@@ -21,13 +21,13 @@ void Fruit::initFruit(Board& b)
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = randomBetween(0, WIDTH-1);
-	int newy = randomBetween(0, HIGHT-1);
+	int newx = randomBetween(0, WIDTH - 1);
+	int newy = randomBetween(0, HIGHT - 1);
 	bool valid = checkValidPos(newx, newy, b);
 	while (!valid)
 	{
-		newx = randomBetween(0, HIGHT);
-		newy = randomBetween(0, WIDTH);
+		newx = randomBetween(0, WIDTH - 1);
+		newy = randomBetween(0, HIGHT - 1);
 		valid = b.getBoardValFromPoint(newx, newy);
 	}
 	setBody(newx, newy);
@@ -51,4 +51,47 @@ void Fruit::changePosition(Board& b)
 	// If last ghost position was breadcrumb print breadcrumb
 	if (b.getBoardValFromPoint(x, y) == bc)
 		printBreadCrumbs(x, y);
+}
+
+
+void Fruit::hideOrShowFruit(Board& b)
+{
+	if (showfruit)
+	{
+		this->draw();
+	}
+	else
+	{
+		unsigned char c = b.getBoardValFromPoint(this->getBody().getX(), this->getBody().getY());
+		gotoxy(this->getBody().getX(), this->getBody().getY());
+		if (c == boardGarbageVal)
+		{
+			cout << (char)space;
+		}
+		else
+		{
+			cout << c;
+		}
+		setNewFruitlocation(b);
+
+
+	}
+}
+
+void Fruit::fruitPlay(int countMoves, Board& b)
+{
+	if (countMoves % 20 == 0)
+	{
+		this->setshowfruit();
+		this->hideOrShowFruit(b);
+			if (!this->getshowfruit())
+			{
+			this->setNewFruitScore();
+			}
+	}
+
+	if (countMoves % 4 == 0 && this->getshowfruit())
+	{
+		this->changePosition(b);
+	}
 }

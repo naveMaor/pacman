@@ -24,7 +24,10 @@ public:
 	bool checkValidUserSettings(string input) const;
 	void handleGameMenuSpeedSettingsInput();
 	bool checkValidSpeedSettingsInput(string input) const;
-	
+	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed);
+	void printGameSettings(bool getIsColorGame, int currentSpeed) const;
+	void printIsColorGame(bool getIsColorGame) const;
+	void printCurrentSpeedGame(int currentSpeed )const;
 	
 	
 

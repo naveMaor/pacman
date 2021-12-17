@@ -17,14 +17,15 @@ public:
 	};
 
 	// Functions
-	char getFruitScore() const { return fruitScore; };
+	int getFruitScore() const { return fruitScore-'0'; };
 	bool getshowfruit() const { return showfruit; }
 	void setNewFruitScore();
 	void setNewFruitlocation(Board& b);
 	void initFruit(Board& b);
 	void changePosition(Board& b) override;
 	void setshowfruit() { showfruit = (!showfruit); };
-
+	void hideOrShowFruit(Board& b);
+	void fruitPlay(int countMoves, Board & b);
 };
 
 #endif 

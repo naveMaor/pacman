@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
+#include <queue>
+//todo might delete late
 #include "Menu.h"
 #include "Board.h"
 #include "Pacman.h"
@@ -13,14 +15,28 @@
 #include "File.h"
 #include <string>
 #include <stdio.h>
+#include "Print.h"
+
+//todo might delete late
+struct  QItem {
+public:
+	int row;
+	int col;
+	Point p;
+	QItem(int x, int y,  Point p)
+		: row(x), col(y), p(p)
+	{
+	}
+};
+
 
 class Game
 {
 private:
 	enum initObjLocation {
 		pacmanStartX = 1, pacmanStartY = 1,
-		ghostOneStartX = 50, ghostOneStartY = 14,
-		ghostTwoStartX = 10, ghostTwoStartY = 3
+		ghostOneStartX = 3, ghostOneStartY = 9,
+		ghostTwoStartX = 14, ghostTwoStartY = 14
 	};
 
 	//------------------
@@ -45,6 +61,7 @@ private:
 	Fruit fruit;
 	Board board;
 	Menu menu;
+	Print print;
 	bool b_IsColorGame = true;
 	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0;
 	
@@ -54,27 +71,15 @@ public:
 	void playGame();
 	void initGame(bool b_color);
 	void gameSettings();
-	void printPlayerHitGhost()const;
-	void printGameSettings() const;
-	void printIsColorGame() const;
-	void handleGameMenuSettingsInput();
-	void printCurrentSpeedGame()const;
 	void gameSpeed();
 	void initGameObj();
-	void pauseGame();
 	void printPreviousGame()const;
 	bool checkWin()const;
-	void winGame();
-	void gameOver();
-	void printLife()const;
-	void resetPrintLife() const;
-	void printScore()const;
-	void removePrintPlayerHitGhost()const;
 	void drawGameObj()const;
-	void clearCenter()const;
 	void resetGame();
 	void chooseColor();
 
+	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
 	int getGameSpeedVal() const { return gameSpeedVal; }
 	int getMaxScoreInCurrScreen() const{ return maxScoreInCurrScreen; }
@@ -87,44 +92,36 @@ public:
 	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
 	void setGameObjectsColors();
 
+	Point minDistance(Point GhostLocation, Point PlayerLocation);
+
 	// Ghosts functions
 	void initGameAfterGhostHit();
 	bool ghostHit(Ghost ghost);
 	bool ghostsHit();
 	void removeGhosts();	
 	void ghostsMove();
+	void GhostchangeSmartPosition(Ghost& G);
 
 
 	// Pacman functions
 	void pacmanMove(Board &b);
 	void getUserKeyboard();
-	void removePacman();
 	
 
 	// Fruit functions
-	void initFruit();
-	void ghostHitFruit();
-	bool isGhostHitFruit();
-	void pacmanHitFruit();
-	void unDisplayFruit();
-	void fruitMove();
-	void hideOrShowFruit();
+	void checkPacmanHitFruit();
+
+	// Print function
+	void winGame();
+	void gameOver();
 
 
 
-	//------------------------------------
-	// Thos functions move to menu class 
-	// 
-	//
-	//int menu();
-	//void printGameMenu()const;
-	//void printPacmanSpeedOptions()const;
-	//void printInstructions()const;
-	//bool checkValidUserInput(string userChoice)const;
-//	char stringToChar(string& s)const;
-//	bool checkValidUserSettings(string input) const;
-	//void handleGameMenuSpeedSettingsInput();
-	//bool checkValidSpeedSettingsInput(string input) const;
+
+
+
+
+
 	
 };
 

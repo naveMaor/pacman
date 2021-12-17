@@ -149,6 +149,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MoveStrategy.cpp" />
+    <ClCompile Include="Print.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Pacman.cpp" />
@@ -164,6 +166,8 @@
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MoveStrategy.h" />
+    <ClInclude Include="Print.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />
