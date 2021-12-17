@@ -48,13 +48,11 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 			this->setBody(x, 0);
 		}
 		this->move();
-		countPacmanMoves++;
 	}
-
-	// if there is wall in the next move
 	else if (charAtnextPoint == w)
+	{
 		this->setDirection(4);
-
+	}
 	else
 	{
 		// if there breadcrumb
@@ -66,6 +64,8 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 		b.setBoardValByPoint(x, y);
 		this->move();
 	}
+	
+	countPacmanMoves++;
 }
 
 /* This function remove pacman last character*/
