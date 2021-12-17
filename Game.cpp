@@ -405,7 +405,7 @@ void Game::GhostchangeSmartPosition(Ghost& G)
 	else
 	{
 		G.changedirectionbyPoint(newPoint);
-		G.moveAndDraw();
+		G.move();
 
 		// If last ghost position was breadcrumb print breadcrumb
 		if (board.getBoardValFromPoint(x, y) == bc)

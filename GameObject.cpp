@@ -35,13 +35,6 @@ void GameObject::draw() const
 	pBody.draw(objectIcon);
 }
 
-void GameObject::moveAndDraw()
-{
-	pBody.draw(space);
-	pBody.move(direction);
-	draw();
-}
-
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
@@ -66,7 +59,6 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
 		y++;
 		break;
 	}
-
 }
 
 ///* This function print breadcrumbs at point*/
@@ -106,7 +98,6 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 		return false;
 
 	return true;
-
 }
 
 void GameObject::changedirectionbyPoint(Point NewP)
@@ -118,24 +109,17 @@ void GameObject::changedirectionbyPoint(Point NewP)
 
 //	Go UP
 	if (NewPx < Bodyx)
-	{
 		setDirection(Left);
-	}
 
 //	Go Right
 	else if (NewPx > Bodyx)
-	{
 		setDirection(Right);
-	}
 
 //	Go Up
 	else if (NewPy < Bodyy)
-	{
 		setDirection(Up);
-	}
+
 	//	Go Down
 	else if (NewPy > Bodyy)
-	{
 		setDirection(Down);
-	}
 }
