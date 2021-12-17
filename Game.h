@@ -57,7 +57,6 @@ public:
 	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
 	void setGameObjectsPositions();
 	void setGameObjectsColors();
-	void  setnumOfGhosts(int num){ numOfGhosts =num}
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
