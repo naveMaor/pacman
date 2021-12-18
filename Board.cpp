@@ -48,14 +48,23 @@ void Board:: setBoardLine(int hight, char* line,int width)
     for (int x = 0; x < width; x++)
     {
         if (line[x] == '#')
-            board[hight][x] = w;
+        {
+            board[hight][x] = wall;
+            if (isFirstWall == true)
+            {
+                boardStartHight = hight;
+                boardStartWidth = x;
+                isFirstWall = false;
+            }
+                
+        }
         else if (line[x] == '&')
             infoPosition = { x, hight };
         else if (line[x] == '%')
             board[hight][x] = ' ';
         else
         {
-            board[hight][x] = bc;
+            board[hight][x] = breadCrumb;
             breadCrumbsLeft++;            
 
             if (line[x] == '$')
@@ -73,6 +82,11 @@ void Board::initInfoPosition()
 {
     int hight = infoPosition.getY() - 1;
     int j = 0, x = infoPosition.getX();
+
+    for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT); i++)
+        for (j = x; (j < x + 20) && j < WIDTH; j++)
+            board[hight][j] = gameInfoArea;
+    /*
     gotoxy(x, hight);
     for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT) ; i++)
     {
@@ -100,10 +114,20 @@ void Board::initInfoPosition()
         gotoxy(infoPosition.getX(), i+1);
     }
     gotoxy(0,0);
-
+    */
 }
 
 Point Board:: getGhostStartingPosition(int index) const 
 {
     return ghostStartingPositions[index]; 
+}
+
+void Board:: initBoardData(int& Hight, int& Width, Point& gameInfo)
+{
+    Hight = boardHight;
+    Width = boardWidth;
+    initInfoPosition();
+    gameInfo = infoPosition;
+    gameInfo.setX(gameInfo.getX() + 1);
+    printBoard();
 }

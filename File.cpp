@@ -40,8 +40,6 @@ bool File::fileToBoard(string const screenPath, Board& board)
 				}
 				board.setBoardWidth(width);
 			}
-			
-			//cout << line << endl;
 			if (line.length() != 0)
 			{
 				strcpy(cLine, line.c_str());

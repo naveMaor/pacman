@@ -28,7 +28,7 @@ public:
 	void setLife(int newLife) { life = newLife; };
 	void remove();
 	void changePosition(Board& b, int& countPacmanMoves);
-
+	bool isValidMove(Board& b);
 };
 
 #endif

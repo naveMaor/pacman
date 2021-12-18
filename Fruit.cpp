@@ -61,7 +61,7 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 		this->move();
 
 		// If last ghost position was breadcrumb print breadcrumb
-		if (b.getBoardValFromPoint(x, y) == bc)
+		if (b.getBoardValFromPoint(x, y) == breadCrumb)
 			printBreadCrumbs(x, y);
 	}
 

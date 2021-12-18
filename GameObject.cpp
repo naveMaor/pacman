@@ -69,7 +69,7 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
 ///* This function print breadcrumbs at point*/
 void GameObject::printBreadCrumbs(int x, int y)
 {
-	unsigned char breadCrumb = bc;
+	unsigned char breadCrumb = breadCrumb;
 	setTextColor(Color::WHITE);
 	gotoxy(x, y);
 	cout << breadCrumb;
@@ -86,7 +86,7 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon))
+	if ((charAtNextPoint == wall) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon))
 		return false;
 
 	return true;
@@ -99,7 +99,7 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move
-	if ((charAtPoint == w) || (charAtPoint == space) || (charAtPoint == ghostIcon) || ((charAtPoint>=53) && (charAtPoint <=57)))
+	if ((charAtPoint == wall) || (charAtPoint == space) || (charAtPoint == ghostIcon) || ((charAtPoint>=53) && (charAtPoint <=57)))
 		return false;
 
 	return true;
@@ -135,7 +135,7 @@ void GameObject::removeObject(Board& b)
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();
 	gotoxy(x, y);
-	if (b.getBoardValFromPoint(x, y) == bc)
+	if (b.getBoardValFromPoint(x, y) == breadCrumb)
 	{
 		setTextColor(Color::WHITE);
 		printBreadCrumbs(x, y);

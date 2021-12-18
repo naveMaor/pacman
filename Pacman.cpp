@@ -7,6 +7,35 @@ void Pacman::initGameObject()
 	this->setDirection(Stay);
 }
 
+bool Pacman::isValidMove(Board& b)
+{
+	Point nextPos = this->getBody();// current location
+	nextPos.move(this->getDirection());
+	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
+	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardStartWidth(), hight = b.getBoardStartHight();
+
+	// if next move is wall return false
+	if ((charAtnextPoint == wall)|| charAtnextPoint == gameInfoArea)
+		return false;
+
+	if (y == hight && b.getBoardValFromPoint(x, 0) != wall && b.getBoardValFromPoint(x, 0) != gameInfoArea)
+
+	else if (y <= hight && y >= -1)
+	{
+		if (y == hight && b.getBoardValFromPoint(x, 0) != wall && b.getBoardValFromPoint(x, 0) != gameInfoArea)
+			return true;
+		else if (y == -1 && b.getBoardValFromPoint(x, hight - 1) != wall)
+			return true;
+		else
+			return true;
+	}
+		
+	else if (x < wall && x > 0)
+		return true;
+	
+
+}
+
 void Pacman::changePosition(Board& b, int& countPacmanMoves)
 {
 	int x = this->getBody().getX();
@@ -14,15 +43,39 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 
 	Point nextPos = this->getBody();
 	nextPos.move(this->getDirection());
-
-	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
+	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
+
+
+	if (b.getBoardValFromPoint(x, y) == breadCrumb)
+	{
+		score++;
+		b.eatBreadCrumb();
+		b.setBoardValByPoint(x, y); // sign we was here
+	}
+	
+	if (isValidMove(b))
+	{
+		if (isTunnel())
+			moveTunnel()
+		else
+			this->move();
+	}
+	
+
+
+
+
+
+
+
+
 
 	
 		// If player is going through tunnel
-		if (charAtnextPoint == space)
-		{
-			if (charAtPoint == bc) // if there was at curr pos then raise score
+		//if (charAtnextPoint == space)
+		//{
+			if (charAtPoint == breadCrumb) // if there was at curr pos then raise score
 			{
 				this->setPlusScore();
 				b.eatBreadCrumb();
@@ -48,15 +101,16 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 				this->getBody().draw(space);
 				this->setBody(x, 0);
 			}
-			this->move();
-		}
-		else if (charAtnextPoint == w)
-			this->setDirection(4);
+			//this->move();
+		//}
+		//else
+			if (charAtnextPoint == wall)
+				this->setDirection(4);
 
 		else
 		{
 			// if there breadcrumb
-			if (charAtPoint == bc)
+			if (charAtPoint == breadCrumb)
 			{
 				b.eatBreadCrumb();
 				this->setPlusScore();

@@ -63,13 +63,9 @@ void Game::playSingleGame()
 void Game::initGame(bool b_color)
 {
 	clearScreen();
-	Hight = board.getBoardHight();
-	Width = board.getBoardWidth();
-	board.initInfoPosition();
+
+	board.initBoardData(Hight, Width, gameInfo);
 	numOfGhosts = board.getNumOfGhosts();
-	gameInfo = board.getInfoPosition();
-	gameInfo.setX(gameInfo.getX() + 1);
-	board.printBoard();
 	setMaxScoreInCurrScreen(board.getBreadCrumbsLeft());
 	initGameObj();
 	setGameObjectsPositions();

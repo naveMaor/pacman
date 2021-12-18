@@ -9,12 +9,12 @@ enum sizeEnum { WIDTH = 80, HIGHT = 25 };
 
 class Board
 {
+    bool isFirstWall = true;
     unsigned char board[HIGHT][WIDTH] = {};
-    int boardWidth, boardHight;
-    int breadCrumbsLeft = 0;
+    int boardWidth, boardHight, boardStartHight, boardStartWidth;
+    int breadCrumbsLeft = 0, ghostCount = 0;;
     Point pacmanStartingPosition;
     Point ghostStartingPositions[4];
-    int ghostCount = 0;
     Point infoPosition;
     
 public:
@@ -22,13 +22,16 @@ public:
 	void const printBoard() const;
     void printPreviousBoard() const;
     void resetBoard();
+    void initBoardData(int &Hight,int & Width,Point& gameInfo);
     void initInfoPosition();
 
     // This function return the value in the board of request place, the x and y that requested are opposite in the board
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
     unsigned char getBoardValFromPoint(Point point)const { return board[point.getY()][point.getX()]; };
     int getBoardWidth() const { return boardWidth; }
+    int getBoardStartWidth() const { return boardStartWidth; }
     int getBoardHight() const { return boardHight; }
+    int getBoardStartHight() const { return boardStartHight; }
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
