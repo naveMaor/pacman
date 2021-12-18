@@ -16,44 +16,45 @@ vector<string> File::getScreensName(string const PATH)
 	return filesVector;
 }
 
-bool File::fileToBoard(string const screenPath, Board& board)
+void File::fileToBoard(Board& board)
 {
-	int width = 0, lineNum = 0;
+	int lineNum = 0;
+	size_t width = 0;
 	char cLine[80] = {};
 	string line;
-	bool openFileSuccess = openFile(screenPath);
 	
-	if (openFileSuccess)
-	{	
-		while (getline(screenFile, line))
-		{
-			width = (int)line.length();
+	while (getline(screenFile, line))
+	{
+		width = line.length();
 
-			// Get the width of the board by the first line of the file
-			if (lineNum == 0)
-			{
-				if (width == 0)
-				{
-					cout << "The width of the screen is 0, moving to the next screen" << endl;
-					Sleep(shortPauseWindow);
-					return false;
-				}
-				board.setBoardWidth(width);
-			}
-			if (line.length() != 0)
-			{
-				strcpy(cLine, line.c_str());
-				board.setBoardLine(lineNum, cLine, width);
-			}
+		// Get the width of the board by the first line of the file
+		if (lineNum == 0)
+		{
+			handleFirstLine(board, width, line[0]); // add validation
+			board.setBoardWidth(width);
+		}
+		
+		if (width != 0)
+		{
+			strcpy(cLine, line.c_str());
+			board.setBoardLine(lineNum, cLine, width);
 			lineNum++;
 		}
-		screenFile.close();
-		board.setBoardHight(lineNum);
 	}
-	
-	return openFileSuccess;
+		board.setBoardHight(lineNum);
 }
 
+void File::handleFirstLine(Board& board, size_t &width, char firstLetter)
+{
+	if (width == 0 || width == 2)
+	{
+		cout << "The width of the screen is two short, moving to the next screen" << endl;
+		Sleep(shortPauseWindow);
+	}
+	else if (width == 1)
+		if (firstLetter == '&')
+			width = 20;
+}
 
 bool File::openFile(string const filePath)
 {
@@ -62,4 +63,11 @@ bool File::openFile(string const filePath)
 		return true;
 	cout << "Could not open the file in the directory: " << filePath << endl;
 	return false;
+}
+bool File::isValidFile(string const fileName, Board& board)
+{
+	bool openFileSuccess = openFile(fileName);
+	fileToBoard(board);
+	screenFile.close();
+	return true;
 }

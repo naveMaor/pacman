@@ -15,7 +15,5 @@ public:
 	void printPauseGame() const;
 	void printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const;
 	void printScore(Point gameInfoPosition, bool b_IsColorGame, int playerscore)const;
-	void removePrintPlayerHitGhost()const;
-	//removePacman
 };
 

@@ -96,12 +96,12 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 bool GameObject::checkValidPos(int x, int y, Board& b)
 {
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
-	if ((x == b.getBoardStartWidth()) || (x == b.getBoardWidth()) ||
-		(y == b.getBoardStartHight()) || (y == b.getBoardEndHight()))
+	if ((x <= b.getBoardStartWidth()) || (x >= b.getBoardWidth()) ||
+		(y <= b.getBoardStartHight()) || (y >= b.getBoardEndHight()))
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move
-	if ((charAtPoint == wall) || (charAtPoint == space) || (charAtPoint == ghostIcon))
+	if ((charAtPoint == wall) || (charAtPoint == space) || (charAtPoint == ghostIcon) || (charAtPoint == gameInfoArea))
 		return false;
 	return true;
 }

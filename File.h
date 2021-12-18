@@ -16,11 +16,12 @@ using std::filesystem::directory_iterator;
 class File
 {
 	static bool openFile(string const filePath);
+	static void handleFirstLine(Board& board, size_t& width, char firstLetter);
 
 public:
 	static vector<string> getScreensName(string const PATH); ///// moved to game.cpp
-	static bool fileToBoard(string const fileName, Board &board);
-
+	static void fileToBoard(Board &board);
+	static bool isValidFile(string const fileName, Board& board);
 };
 
 #endif

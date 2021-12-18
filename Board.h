@@ -16,13 +16,18 @@ class Board
     Point pacmanStartingPosition;
     Point ghostStartingPositions[4];
     Point infoPosition;
+
+protected:
+    bool isPacmanExist = false, isGameInfoExist = false;
+
     
 public:
     Board();
 	void const printBoard() const;
     void resetBoard();
-    void initBoardData(int &Hight,int & Width,Point& gameInfo);
+    void initBoardData(Point& gameInfo);
     void initInfoPosition();
+    void resetBoardDataMembers();
 
     // This function return the value in the board of request place, the x and y that requested are opposite in the board
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
@@ -35,7 +40,7 @@ public:
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
-    Point getGhostStartingPosition(int index) const;
+    Point getGhostStartingPosition(int index) const { return ghostStartingPositions[index]; }
     Point getInfoPosition() const { return infoPosition; }
 
     void eatBreadCrumb() { breadCrumbsLeft--; }
@@ -43,6 +48,7 @@ public:
     void setBoardLine(int hight, char* line, int width);
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };
+    void setPacmanExist(bool isExist) { isPacmanExist = isExist; }
     
 };
 

@@ -8,7 +8,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 	alive = true;
 	if (isSingleGame)
 	{
-		if (File::fileToBoard(screenName, board))
+		if (File::isValidFile(screenName, board))
 			playSingleGame();
 	}
 	else // full game
@@ -16,7 +16,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 		for (int i = 0; i < numOfScreens && alive; i++)
 		{
 			// If the the file is valid
-			if (File::fileToBoard(screensNames[i], board))
+			if (File::isValidFile(screenName, board))
 				playSingleGame();
 		}
 	}
@@ -36,12 +36,10 @@ void Game::playSingleGame()
 		if (checkWin())
 		{
 			b_won = true;
-			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			winGame();
 		}
 		else
 		{
-			checkGhostsHit(player.getBody());
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
 			ghostsMove(countMoves, player.getBody());
@@ -62,10 +60,8 @@ void Game::playSingleGame()
 void Game::initGame(bool b_color)
 {
 	clearScreen();
-
-	board.initBoardData(Hight, Width, gameInfo);
+	board.initBoardData(gameInfo);
 	numOfGhosts = board.getNumOfGhosts();
-	setMaxScoreInCurrScreen(board.getBreadCrumbsLeft());
 	initGameObj();
 	setGameObjectsPositions();
 
@@ -73,8 +69,10 @@ void Game::initGame(bool b_color)
 		setGameObjectsColors();
 
 	drawGameObj();
-	print.printScore(gameInfo, b_IsColorGame, player.getScore());
+
+	print.resetGameInfoPrints(gameInfo);
 	print.printLife(gameInfo, b_IsColorGame, player.getLife());
+	print.printScore(gameInfo, b_IsColorGame, player.getScore());
 }
 
 /* This function handle settings options*/
@@ -242,6 +240,7 @@ void Game::checkGhostsHit(Point Body)
 /* This function handle ghosts move*/
 void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
+	checkGhostsHit(PlayerLocation);
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i]->changePosition(board, countMoves, PlayerLocation);
 }
@@ -252,9 +251,7 @@ void Game::gameOver()
 {
 	print.gameOver(gameInfo, b_IsColorGame);
 	for (int i = 0; i < numOfGhosts; i++)
-	{
 		delete ghosts[i];
-	}
 	resetGame();
 	clearScreen();
 }
@@ -281,14 +278,13 @@ void Game:: drawGameObj() const
 /* This function check if the player eat all breadcrumbs he win!!*/
 bool Game:: checkWin() const
 {	
-	//return 	player.getScore() == maxScoreInCurrScreen;
 	return board.getBreadCrumbsLeft() <= 0;
 }
 
 /* This function handle win situation*/
 void Game::winGame()
 {
-//	setWinnedScore(maxScoreInCurrScreen);
+	print.printScore(gameInfo, b_IsColorGame, player.getScore());
 	print.winGame(gameInfo, b_IsColorGame);
 	resetGame();
 	clearScreen();
@@ -333,11 +329,11 @@ void Game::chooseColor()
 /* This function reset the game when starting again*/
 void Game::resetGame()
 {
-	initGameObj();
 	player.setScore(0);
-	setGameObjectsPositions();
+	board.resetBoardDataMembers();
 	board.resetBoard();
 }
+
 
 /* This function init pacman and ghosts*/
 void Game::initGameObj()

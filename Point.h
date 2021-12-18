@@ -15,7 +15,7 @@ enum directions
 class Point
 {
 private:
-	int x = 1, y = 1;
+	int x = -1, y = -1;
 
 public:
 	//constractor

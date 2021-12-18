@@ -10,9 +10,9 @@ Board::Board()
 /* This function print the board*/
 void const Board::printBoard() const
 {  
-    for (int i = boardStartHight; i <= boardEndHight; i++)
+    for (int i = 0; i < boardHight; i++)
     {
-        for (int j = boardStartWidth; j < boardWidth; j++)
+        for (int j = 0; j < boardWidth; j++)
         {
             if (board[i][j] == boardGarbageVal )
                 cout << (char)space;
@@ -35,7 +35,10 @@ void Board::resetBoard()
 
 void Board:: setBoardLine(int hight, char* line,int width)
 {
-    for (int x = 0; x < width; x++)
+    if(isGameInfoExist)
+        while (board[hight][infoPosition.getX()] == gameInfoArea)
+            hight++;
+    for (int x = 0; x < width && x < WIDTH; x++)
     {
         if (line[x] == '#')
         {
@@ -53,7 +56,10 @@ void Board:: setBoardLine(int hight, char* line,int width)
             }
         }
         else if (line[x] == '&')
+        {
+            isGameInfoExist = true;
             infoPosition = { x, hight };
+        }
         else if (line[x] == '%')
             board[hight][x] = ' ';
         else
@@ -67,7 +73,10 @@ void Board:: setBoardLine(int hight, char* line,int width)
                 ghostCount++;
             }
             else if (line[x] == '@')
+            {
+                setPacmanExist(true);
                 pacmanStartingPosition = { x, hight };
+            }
         }
     } 
     isFirstWallInLine = true;
@@ -75,31 +84,33 @@ void Board:: setBoardLine(int hight, char* line,int width)
 
 void Board::initInfoPosition() 
 {
-    int hight = infoPosition.getY() - 1;
-    int j = 0, x = infoPosition.getX();
+    int j = 0, x = infoPosition.getX(), y = infoPosition.getY();
 
-    for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT); i++)
+    for (int i = y; i < y + 3 && (y + 3 < HIGHT); i++)
+    {
+//        gotoxy(x, i);
         for (j = x; (j < x + 20) && j < WIDTH; j++)
         {
-            if (board[hight][j] == breadCrumb)
+            if (board[i][j] == breadCrumb)
                 breadCrumbsLeft--;
-            board[hight][j] = gameInfoArea;
-
+            board[i][j] = gameInfoArea;
+            //if (i == y || i == y + 2)                
+              //  cout << (unsigned char)gameInfoArea;
         }
+    }
+    //gotoxy(boardStartWidth, boardStartHight);
 }
 
-Point Board:: getGhostStartingPosition(int index) const 
-{
-    return ghostStartingPositions[index]; 
-}
 
-void Board:: initBoardData(int& Hight, int& Width, Point& gameInfo)
+void Board:: initBoardData(Point& gameInfo)
 {
-
-    Hight = boardHight;
-    Width = boardWidth;
     initInfoPosition();
     gameInfo = infoPosition;
-    gameInfo.setX(gameInfo.getX() + 1);
     printBoard();
+}
+
+void Board::resetBoardDataMembers()
+{
+    isFirstWallInLine = isFirstWall = true;
+    breadCrumbsLeft = ghostCount = boardWidth = boardHight = boardStartHight = boardStartWidth = boardEndHight = 0;
 }

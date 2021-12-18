@@ -18,7 +18,6 @@
 class Game
 {
 private:
-	int Width, Hight;
 	const string screenPath = ".";
 	string currScreenGame;
 	vector<string> screensNames = File::getScreensName(screenPath);
