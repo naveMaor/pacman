@@ -35,10 +35,10 @@ void Game::playSingleGame()
 		print.printScore(gameInfo, b_IsColorGame, player.getScore());
 		fruit.changePosition(board, countMoves);
 		ghostsMove(countMoves, player.getBody());
-		checkGhostsHit(player.getBody());
 
 		Sleep(gameSpeedVal);
 		pacmanMove(board, countMoves);
+		checkGhostsHit(player.getBody());
 
 		checkPacmanHitFruit();
 
@@ -258,6 +258,10 @@ void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 void Game::gameOver()
 {
 	print.gameOver(gameInfo, b_IsColorGame);
+	for (int i = 0; i < numOfGhosts; i++)
+	{
+		delete ghosts[i];
+	}
 	resetGame();
 	clearScreen();
 }
@@ -350,17 +354,17 @@ void Game::initGameObj()
 		{
 		case 1:
 		{
-			ghosts[i] = new NoviceGhost;
+			ghosts[i] = new NoviceGhost();
 			break;
 		}
 		case 2:
 		{
-			ghosts[i] = new GoodGhost;
+			ghosts[i] = new GoodGhost();
 			break;
 		}
 		case 3:
 		{
-			ghosts[i] = new BestGhost;
+			ghosts[i] = new BestGhost();
 			break;
 		}
 		default:

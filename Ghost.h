@@ -20,6 +20,7 @@ class Ghost : public GameObject
 public:
 	// Constractor
 	Ghost() : GameObject(ghostIcon) {}
+	virtual ~Ghost() { }
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	void initGameObject() override;
 	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0; 
