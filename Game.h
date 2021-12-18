@@ -39,7 +39,7 @@ public:
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
-	void gameGhosts();
+	//void gameGhosts();
 	void initGameObj();
 	void printPreviousGame()const;
 	bool checkWin()const;

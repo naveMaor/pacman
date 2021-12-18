@@ -32,10 +32,10 @@ public:
 	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts, int GhostsLevel,string screenPath, vector<string> screenNames);
 	string handleChooseScreen(vector<string> screenNames);
 
-	void printCurrentNumberOfGhosts(int NumberofGhosts)const;
-	void printPacmanGhostsOptions() const;
-	void handleGameMenuGhotsSettingsInput();
-	bool checkValidGhostsInput(string input) const;
+	//void printCurrentNumberOfGhosts(int NumberofGhosts)const;
+	//void printPacmanGhostsOptions() const;
+	//void handleGameMenuGhotsSettingsInput();
+	//bool checkValidGhostsInput(string input) const;
 
 
 	void printCurrentGhostsLevel(int GhostsLevel)const;

@@ -37,7 +37,7 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 	{
 		score++;
 		b.eatBreadCrumb();
-		b.setBoardValByPoint(x, y); // sign we was here
+		b.setBoardValByPoint(x, y); 
 	}
 	
 	if (isValidMove(b))

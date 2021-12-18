@@ -93,12 +93,9 @@ void Game::gameSettings()
 		gameSpeed();
 		break;
 	case 3:
-		gameGhosts();
-		break;
-	case 4:
 		gameGhostsLevel();
 		break;
-	case 5:
+	case 4:
 		clearScreen();
 		break;
 	default:
@@ -128,30 +125,6 @@ void Game::gameGhostsLevel()
 }
 
 
-void Game::gameGhosts()
-{
-	clearScreen();
-	menu.printPacmanGhostsOptions();
-	menu.handleGameMenuGhotsSettingsInput();
-	switch (menu.getUserChoice())
-	{
-	case 1:
-		numOfGhosts=1;
-		break;
-	case 2:
-		numOfGhosts=2;
-		break;
-	case 3:
-		numOfGhosts = 3;
-		break;
-	case 4:
-		numOfGhosts = 4;
-		break;
-
-	default:
-		break;
-	}
-}
 
 /* This function init the game after ghost hit pacman*/
 void Game::initGameAfterGhostHit()
