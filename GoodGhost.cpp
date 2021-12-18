@@ -22,7 +22,10 @@ void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 			move();
 			// If last ghost position was breadcrumb print breadcrumb
 			if (b.getBoardValFromPoint(x, y) == bc)
+			{
+				setTextColor(Color::WHITE);
 				printBreadCrumbs(x, y);
+			}
 		}
 		else
 		{
@@ -40,7 +43,10 @@ void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 				move();
 				// If last ghost position was breadcrumb print breadcrumb
 				if (b.getBoardValFromPoint(x, y) == bc)
+				{
+					setTextColor(Color::WHITE);
 					printBreadCrumbs(x, y);
+				}
 			}
 		}
 
