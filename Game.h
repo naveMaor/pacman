@@ -30,7 +30,7 @@ private:
 	Print print;
 	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, alive = true;
-	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts, GhostsLevel = 1;
+	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts, GhostsLevel = Hard;
 	
 public:
 	// Game functions
