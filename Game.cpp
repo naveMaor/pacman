@@ -32,22 +32,26 @@ void Game::playSingleGame()
 
 	while ((player.getLife() > 0) && (!b_won))
 	{
-		checkGhostsHit(player.getBody());
-		print.printScore(gameInfo, b_IsColorGame, player.getScore());
-		fruit.changePosition(board, countMoves);
-		ghostsMove(countMoves, player.getBody());
-
-		Sleep(gameSpeedVal);
-		pacmanMove(board, countMoves);
-
-		checkPacmanHitFruit();
-
+		
 		if (checkWin())
 		{
 			b_won = true;
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			winGame();
 		}
+		else
+		{
+			checkGhostsHit(player.getBody());
+			print.printScore(gameInfo, b_IsColorGame, player.getScore());
+			fruit.changePosition(board, countMoves);
+			ghostsMove(countMoves, player.getBody());
+
+			Sleep(gameSpeedVal);
+			pacmanMove(board, countMoves);
+
+			checkGhostsHit(player.getBody());
+			checkPacmanHitFruit();
+		}		
 	}
 	// If lose
 	if (player.getLife() == 0)
@@ -63,7 +67,7 @@ void Game::initGame(bool b_color)
 	clearScreen();
 	Hight = board.getBoardHight();
 	Width = board.getBoardWidth();
-	board.initBoard();
+	board.initInfoPosition();
 	numOfGhosts = board.getNumOfGhosts();
 	gameInfo = board.getInfoPosition();
 	gameInfo.setX(gameInfo.getX() + 1);
@@ -160,19 +164,17 @@ void Game::gameGhosts()
 void Game::initGameAfterGhostHit()
 {
 	player.setLife(player.getLife() - 1);
-	print.printLife(gameInfo, b_IsColorGame,player.getLife());
-	
 	if (player.getLife() > 0)
 	{
 		print.printPlayerHitGhost(gameInfo, b_IsColorGame);
-		Sleep(shortPauseWindow);
-		print.resetGameInfoPrints(gameInfo);
 		removeGhosts();
 		player.remove();
 		fruit.removeObject(board);
 		setGameObjectsPositions();
 		player.setDirection(Stay);
 		drawGameObj();
+		print.resetGameInfoPrints(gameInfo);
+		print.printLife(gameInfo, b_IsColorGame, player.getLife());
 	}
 }
 
@@ -240,9 +242,7 @@ bool Game::ghostsHit(Point Body)
 void Game::checkGhostsHit(Point Body)
 {
 	if (ghostsHit(Body))
-	{
 		initGameAfterGhostHit();
-	}
 }
 
 
@@ -289,7 +289,7 @@ void Game:: drawGameObj() const
 bool Game:: checkWin() const
 {	
 	//return 	player.getScore() == maxScoreInCurrScreen;
-	return board.getBreadCrumbsLeft() == 0;
+	return board.getBreadCrumbsLeft() <= 0;
 }
 
 /* This function handle win situation*/
@@ -299,6 +299,7 @@ void Game::winGame()
 	print.winGame(gameInfo, b_IsColorGame);
 	resetGame();
 	clearScreen();
+	setTextColor(Color::WHITE);
 }
 
 /* This function*/
@@ -406,7 +407,7 @@ void Game::checkPacmanHitFruit()
 	Point pPlayer = player.getBody();
 	Point pFruit = fruit.getBody();
 
-	if (pPlayer == pFruit)
+	if ((pPlayer == pFruit) && fruit.getshowfruit())
 	{
 		gotoxy(pPlayer.getX(), pPlayer.getY());
 		player.draw();

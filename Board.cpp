@@ -69,25 +69,38 @@ void Board:: setBoardLine(int hight, char* line,int width)
     }      
 }
 
-void Board::initBoard() 
+void Board::initInfoPosition() 
 {
     int hight = infoPosition.getY() - 1;
     int j = 0;
+    gotoxy(infoPosition.getX(), hight);
     for (int i = 0; i < 3; i++)
     {
         if (i==0 || i == 2)
             for (j = 0; j < 20; j++)
+            {
                 board[hight][j] = w;
+                cout << board[hight][j];
+            }
         else
         {
             for (j = 0; j < 20; j++)
-                if(j == 0 || j == 19)
+                if (j == 0 || j == 19)
+                {
                     board[hight][j] = w;
+                    cout << board[hight][j];
+                }
                 else
+                {
                     board[hight][j] = ' ';
+                    cout << " ";
+                }
         }
+        cout << endl;
         hight++;
     }
+    gotoxy(0,0);
+
 }
 
 Point Board:: getGhostStartingPosition(int index) const 

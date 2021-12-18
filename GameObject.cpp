@@ -35,6 +35,7 @@ void GameObject::draw() const
 {
 	setTextColor(color);
 	pBody.draw(objectIcon);
+	setTextColor(Color:: WHITE);
 }
 
 
