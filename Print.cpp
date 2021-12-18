@@ -7,7 +7,7 @@ void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 		setTextColor(Color::GREEN);
 	resetGameInfoPrints(gameInfoPosition);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
-	cout << "You won the game!" << endl;
+	cout << "You won this game!" << endl;
 	Sleep(longPauseWindow);
 }
 

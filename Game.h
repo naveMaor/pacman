@@ -70,6 +70,7 @@ public:
 	void checkGhostsHit(Point Body);
 	void removeGhosts();	
 	void ghostsMove(int& countMoves, Point PlayerLocation);
+	bool checkghostcollision(Ghost& g1, Ghost& g2);
 
 	// Pacman functions
 	void pacmanMove(Board& b, int& countMoves);
