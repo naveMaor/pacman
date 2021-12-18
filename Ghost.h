@@ -21,12 +21,13 @@ public:
 	// Constractor
 	Ghost() : GameObject(ghostIcon) {}
 	virtual ~Ghost() { }
+	Ghost(const Ghost&) = delete;
+	Ghost& operator=(const Ghost&) = delete;
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	void initGameObject() override;
 	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0; 
 	bool ghostHit(Point Body);
 	Point minDistance(Point PlayerLocation, Board& board);
-
 };
 
 #endif

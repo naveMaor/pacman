@@ -10,9 +10,9 @@ Board::Board()
 /* This function print the board*/
 void const Board::printBoard() const
 {  
-    for (int i = 0; i <= boardHight; i++)
+    for (int i = boardStartHight; i <= boardEndHight; i++)
     {
-        for (int j = 0; j < boardWidth; j++)
+        for (int j = boardStartWidth; j < boardWidth; j++)
         {
             if (board[i][j] == boardGarbageVal )
                 cout << (char)space;
