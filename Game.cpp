@@ -42,7 +42,7 @@ void Game::playSingleGame()
 
 		checkPacmanHitFruit();
 
-		if (board.getBreadCrumbsLeft() == 0)
+		if (checkWin())
 		{
 			b_won = true;
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
