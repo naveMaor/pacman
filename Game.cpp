@@ -45,7 +45,6 @@ void Game::playSingleGame()
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
 			ghostsMove(countMoves, player.getBody());
-
 			Sleep(gameSpeedVal);
 			pacmanMove(board, countMoves);
 			checkPacmanHitFruit();
@@ -264,7 +263,7 @@ void Game::gameOver()
 void Game::printPreviousGame() const
 {
 	clearScreen();
-	board.printPreviousBoard();
+	board.printBoard();
 	drawGameObj();
 	print.printScore(gameInfo, b_IsColorGame, player.getScore());
 	print.printLife(gameInfo, b_IsColorGame, player.getLife());

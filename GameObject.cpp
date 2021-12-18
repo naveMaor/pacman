@@ -69,7 +69,7 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
 ///* This function print breadcrumbs at point*/
 void GameObject::printBreadCrumbs(int x, int y)
 {
-	unsigned char breadCrumb = breadCrumb;
+	unsigned char breadCrumb = UTILITIES_H::breadCrumb;
 	setTextColor(Color::WHITE);
 	gotoxy(x, y);
 	cout << breadCrumb;

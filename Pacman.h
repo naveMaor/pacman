@@ -28,6 +28,9 @@ public:
 	void setLife(int newLife) { life = newLife; };
 	void remove();
 	void changePosition(Board& b, int& countPacmanMoves);
+	void moveTunnel(Board& b);
+
+	bool isTunnel(Board& b);
 	bool isValidMove(Board& b);
 };
 

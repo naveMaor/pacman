@@ -13,26 +13,16 @@ void const Board::printBoard() const
     for (int i = 0; i <= boardHight; i++)
     {
         for (int j = 0; j < boardWidth; j++)
-            cout << board[i][j];
-        cout << endl;
-    } 
-};
-
-/* This function print the previous board before pausing*/
-void Board::printPreviousBoard() const
-{
-    for (int i = 0; i < boardHight; i++)
-    {
-        for (int j = 0; j < boardWidth; j++)
         {
-            if (board[i][j] == boardGarbageVal)
+            if (board[i][j] == boardGarbageVal || board[i][j] == gameInfoArea)
                 cout << (char)space;
             else
                 cout << board[i][j];
         }
         cout << endl;
-    }
-}
+    } 
+};
+
 
 /* This function reset the board to the begining*/
 void Board::resetBoard()
@@ -56,7 +46,11 @@ void Board:: setBoardLine(int hight, char* line,int width)
                 boardStartWidth = x;
                 isFirstWall = false;
             }
-                
+            if (isFirstWallInLine == true)
+            {
+                isFirstWallInLine = false;
+                boardEndHight++;
+            }
         }
         else if (line[x] == '&')
             infoPosition = { x, hight };
@@ -75,7 +69,8 @@ void Board:: setBoardLine(int hight, char* line,int width)
             else if (line[x] == '@')
                 pacmanStartingPosition = { x, hight };
         }
-    }      
+    } 
+    isFirstWallInLine = true;
 }
 
 void Board::initInfoPosition() 
@@ -86,35 +81,6 @@ void Board::initInfoPosition()
     for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT); i++)
         for (j = x; (j < x + 20) && j < WIDTH; j++)
             board[hight][j] = gameInfoArea;
-    /*
-    gotoxy(x, hight);
-    for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT) ; i++)
-    {
-        if (i == hight || i == hight + 2)
-            for (j = x; (j < x + 20) && j < WIDTH; j++)
-            {
-                board[hight][j] = w;
-                cout << board[hight][j];
-            }
-        else
-        {
-            for (j = x; (j < x + 20) && j < WIDTH; j++)
-                if (j == x || j == x + 19)
-                {
-                    board[hight][j] = w;
-                    cout << board[hight][j];
-                }
-                else
-                {
-                    board[hight][j] = ' ';
-                    cout << " ";
-                }
-        }
-        //hight++;
-        gotoxy(infoPosition.getX(), i+1);
-    }
-    gotoxy(0,0);
-    */
 }
 
 Point Board:: getGhostStartingPosition(int index) const 
@@ -124,6 +90,7 @@ Point Board:: getGhostStartingPosition(int index) const
 
 void Board:: initBoardData(int& Hight, int& Width, Point& gameInfo)
 {
+
     Hight = boardHight;
     Width = boardWidth;
     initInfoPosition();

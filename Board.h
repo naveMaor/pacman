@@ -9,9 +9,9 @@ enum sizeEnum { WIDTH = 80, HIGHT = 25 };
 
 class Board
 {
-    bool isFirstWall = true;
+    bool isFirstWall = true, isFirstWallInLine = true;
     unsigned char board[HIGHT][WIDTH] = {};
-    int boardWidth, boardHight, boardStartHight, boardStartWidth;
+    int boardWidth = 0, boardHight = 0, boardStartHight = 0, boardStartWidth = 0, boardEndHight = 0;
     int breadCrumbsLeft = 0, ghostCount = 0;;
     Point pacmanStartingPosition;
     Point ghostStartingPositions[4];
@@ -20,7 +20,6 @@ class Board
 public:
     Board();
 	void const printBoard() const;
-    void printPreviousBoard() const;
     void resetBoard();
     void initBoardData(int &Hight,int & Width,Point& gameInfo);
     void initInfoPosition();
@@ -32,6 +31,7 @@ public:
     int getBoardStartWidth() const { return boardStartWidth; }
     int getBoardHight() const { return boardHight; }
     int getBoardStartHight() const { return boardStartHight; }
+    int getBoardEndHight() const { return boardEndHight; }
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
