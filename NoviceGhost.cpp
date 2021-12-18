@@ -17,7 +17,7 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 				direction = rand() % 4;
 			this->setDirection(direction);
 		}
-		this->move();
+		move();
 
 		// If last ghost position was breadcrumb print breadcrumb
 		if (b.getBoardValFromPoint(x, y) == bc)

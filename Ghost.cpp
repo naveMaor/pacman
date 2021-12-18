@@ -6,20 +6,6 @@ void Ghost::initGameObject ()
 	this->setDirection(directions::Stay);
 }
 
-///* This function remove ghost last character after pacman hit*/
-//void Ghost::removeGhost(Board& b)
-//{
-//	int x = this->getBody().getX();
-//	int y = this->getBody().getY();
-//	gotoxy(x, y);
-//	if (b.getBoardValFromPoint(x, y) == bc)
-//	{
-//		SetTextColor(Color::WHITE);
-//		printBreadCrumbs(x, y);
-//	}
-//	else
-//		cout << (char)space;
-//}
 
 /* This function handle ghost hit*/
 bool Ghost::ghostHit(Point Body)
