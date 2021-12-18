@@ -216,7 +216,6 @@ void Game::checkGhostsHit(Point Body)
 /* This function handle ghosts move*/
 void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
-
 	if (numOfGhosts == 1)
 	{
 		ghosts[0]->changePosition(board, countMoves, PlayerLocation);
@@ -244,14 +243,14 @@ void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 		}
 		else if (checkghostcollision(*ghosts[0], *ghosts[2]))
 		{
-			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
-			ghosts[1]->setDirection(Stay);
+			ghosts[0]->setDirection(Stay);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
 		else if (checkghostcollision(*ghosts[1], *ghosts[2]))
 		{
-			ghosts[0]->setDirection(Stay);
-			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[1]->setDirection(Stay);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
 		else
@@ -277,7 +276,10 @@ bool Game::checkghostcollision(Ghost &g1, Ghost &g2)
 	{
 		return true;
 	}
-	else return false;
+	else
+	{
+		return false;
+	}
 }
 
 
