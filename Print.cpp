@@ -31,7 +31,6 @@ void Print::resetGameInfoPrints(Point gameInfoPosition) const
 void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const
 {
 	setTextColor(Color::WHITE);
-	resetGameInfoPrints(gameInfoPosition);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "Life:";
 	if (b_IsColorGame)
