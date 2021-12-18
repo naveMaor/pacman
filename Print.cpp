@@ -33,14 +33,14 @@ void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife
 	setTextColor(Color::WHITE);
 	resetGameInfoPrints(gameInfoPosition);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
-	cout << "Lives: ";
+	cout << "Life:";
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
 	for (int i = 0; i < playerlife; i++)
 		cout << (char)heart;
+	
 }
 /* This function clear the center of the screen when pausing the game*/
-
 void Print::clearCenter()const
 {
 	for (int j = 0; j < 5; j++)
@@ -77,8 +77,8 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const
 {
 	setTextColor(Color::WHITE);
-	gotoxy(gameInfoPosition.getX() + 10, gameInfoPosition.getY());
-	cout << "Score: ";
+	gotoxy(gameInfoPosition.getX() + 9, gameInfoPosition.getY());
+	cout << "Score:";
 	if (b_IsColorGame)
 		setTextColor(Color::YELLOW);
 	cout << playerScore;

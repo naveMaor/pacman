@@ -42,7 +42,7 @@ void Game::playSingleGame()
 
 		checkPacmanHitFruit();
 
-		if (board.getBreadCrumbsLeft() == 0)
+		if (checkWin())
 		{
 			b_won = true;
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
@@ -99,13 +99,12 @@ void Game::gameSettings()
 		gameGhosts();
 		break;
 	case 4:
-		menu.handleChooseScreen(screensNames);
-		break;
-	case 5:
 		gameGhostsLevel();
 		break;
-	default:
+	case 5:
 		clearScreen();
+		break;
+	default:
 		break;
 	}
 }
@@ -167,7 +166,7 @@ void Game::initGameAfterGhostHit()
 	{
 		print.printPlayerHitGhost(gameInfo, b_IsColorGame);
 		Sleep(shortPauseWindow);
-		print.removePrintPlayerHitGhost();
+		print.resetGameInfoPrints(gameInfo);
 		removeGhosts();
 		player.remove();
 		fruit.removeObject(board);
@@ -289,13 +288,14 @@ void Game:: drawGameObj() const
 /* This function check if the player eat all breadcrumbs he win!!*/
 bool Game:: checkWin() const
 {	
-	return 	player.getScore() == maxScoreInCurrScreen;
+	//return 	player.getScore() == maxScoreInCurrScreen;
+	return board.getBreadCrumbsLeft() == 0;
 }
 
 /* This function handle win situation*/
 void Game::winGame()
 {
-	setWinnedScore(maxScoreInCurrScreen);
+//	setWinnedScore(maxScoreInCurrScreen);
 	print.winGame(gameInfo, b_IsColorGame);
 	resetGame();
 	clearScreen();
