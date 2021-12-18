@@ -25,7 +25,5 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 			setTextColor(Color::WHITE);
 			printBreadCrumbs(x, y);
 		}
-	}
-
-	
+	}	
 }

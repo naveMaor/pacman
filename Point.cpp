@@ -48,3 +48,8 @@ bool operator== (const Point& pointOne, const Point& pointTwo)
 {
 	return ((pointOne.getX() == pointTwo.getX()) && (pointOne.getY() == pointTwo.getY()));
 }
+
+bool operator!= (const Point& pointOne, const Point& pointTwo)
+{
+	return !(pointOne == pointTwo);
+}

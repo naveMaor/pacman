@@ -5,18 +5,13 @@ void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 {
 	if (countPacmanMoves % 3 == 0)
 	{
-
 		Point newPoint = minDistance(PlayerLocation, b);
 		Point tmp(-1, -1);
 		int x = getBody().getX();
 		int y = getBody().getY();
-		if (newPoint == tmp)
+		if (newPoint != tmp)
 		{
-
-		}
-		else
-		{
-			changedirectionbyPoint(newPoint);
+			changeDirectionByPoint(newPoint);
 			move();
 
 			// If last ghost position was breadcrumb print breadcrumb

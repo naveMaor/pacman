@@ -32,10 +32,10 @@ public:
 	void draw() const;
 	virtual void initGameObject();
 	void printBreadCrumbs(int x, int y);
-	void changedirectionbyPoint(Point p);
+	void changeDirectionByPoint(Point p);
 	static bool checkValidPos(int x, int y, Board& b);
 	static bool checkValidMove(int x, int y, int dir, Board &b);
-	static void IlustrateNextMove(int& x, int& y, int dir, Board &b);
+	static void IlustrateNextMove(int& x, int& y, int dir);
 	void removeObject(Board& b);
 
 };

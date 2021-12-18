@@ -29,6 +29,7 @@ public:
 	void setY(int newY) { y = newY; }
 	int	getY() const;
 	friend bool operator== (const Point& pointOne, const Point& pointTwo);
+	friend bool operator!= (const Point& pointOne, const Point& pointTwo);
 };
 
 #endif

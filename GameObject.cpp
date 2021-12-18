@@ -39,7 +39,6 @@ void GameObject::draw() const
 }
 
 
-
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
@@ -47,7 +46,7 @@ void GameObject::initGameObject()
 }
 
 ///* This function ilustrate the next move*/
-void GameObject::IlustrateNextMove(int& x, int& y, int dir, Board& b)
+void GameObject::IlustrateNextMove(int& x, int& y, int dir)
 {
 	switch (dir)
 	{
@@ -78,15 +77,17 @@ void GameObject::printBreadCrumbs(int x, int y)
 ///* This function check if next move is valid */
 bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 {
-	IlustrateNextMove(x, y, dir, b);
+	IlustrateNextMove(x, y, dir);
 	unsigned char charAtNextPoint = b.getBoardValFromPoint(x, y);
 
-	// If the ghost out of board
-	if ((x == b.getBoardWidth()) || (x == 0) || (y == 0) || (y == b.getBoardHight()))
+	// If the game object out of board
+	if ((x == b.getBoardStartWidth()) || (x == b.getBoardWidth()) ||
+		(y == b.getBoardStartHight()) || (y == b.getBoardEndHight()))
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtNextPoint == wall) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon))
+	if ((charAtNextPoint == wall) || (charAtNextPoint == space) || 
+		(charAtNextPoint == ghostIcon) || (charAtNextPoint == gameInfoArea))
 		return false;
 
 	return true;
@@ -95,17 +96,17 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 bool GameObject::checkValidPos(int x, int y, Board& b)
 {
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
-	if ((x == b.getBoardWidth()) || (x == 0) || (y == 0) || (y == b.getBoardHight()))
+	if ((x == b.getBoardStartWidth()) || (x == b.getBoardWidth()) ||
+		(y == b.getBoardStartHight()) || (y == b.getBoardEndHight()))
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move
-	if ((charAtPoint == wall) || (charAtPoint == space) || (charAtPoint == ghostIcon) || ((charAtPoint>=53) && (charAtPoint <=57)))
+	if ((charAtPoint == wall) || (charAtPoint == space) || (charAtPoint == ghostIcon))
 		return false;
-
 	return true;
 }
 
-void GameObject::changedirectionbyPoint(Point NewP)
+void GameObject::changeDirectionByPoint(Point NewP)
 {
 	int Bodyx = pBody.getX();
 	int Bodyy = pBody.getY();

@@ -21,16 +21,16 @@ void Fruit::initFruit(Board& b)
 
 void Fruit::setNewFruitlocation(Board& b)
 {
-	int newx = randomBetween(0, b.getBoardWidth());
-	int newy = randomBetween(0, b.getBoardHight());
-	bool valid = checkValidPos(newx, newy, b);
+	int newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
+	int newY = randomBetween(b.getBoardStartWidth(), b.getBoardEndHight());
+	bool valid = checkValidPos(newX, newY, b);
 	while (!valid)
 	{
-		newx = randomBetween(0, b.getBoardWidth());
-		newy = randomBetween(0, b.getBoardHight());
-		valid = checkValidPos(newx, newy, b);
+		newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
+		newY = randomBetween(b.getBoardStartWidth(), b.getBoardEndHight());
+		valid = checkValidPos(newX, newY, b);
 	}
-	setBody(newx, newy);
+	setBody(newX, newY);
 }
 
 /* This function handle Fruit move*/
@@ -64,7 +64,6 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 		if (b.getBoardValFromPoint(x, y) == breadCrumb)
 			printBreadCrumbs(x, y);
 	}
-
 }
 
 

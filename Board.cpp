@@ -14,7 +14,7 @@ void const Board::printBoard() const
     {
         for (int j = 0; j < boardWidth; j++)
         {
-            if (board[i][j] == boardGarbageVal || board[i][j] == gameInfoArea)
+            if (board[i][j] == boardGarbageVal )
                 cout << (char)space;
             else
                 cout << board[i][j];
@@ -80,7 +80,12 @@ void Board::initInfoPosition()
 
     for (int i = hight; i < hight + 3 && (hight + 3 < HIGHT); i++)
         for (j = x; (j < x + 20) && j < WIDTH; j++)
+        {
+            if (board[hight][j] == breadCrumb)
+                breadCrumbsLeft--;
             board[hight][j] = gameInfoArea;
+
+        }
 }
 
 Point Board:: getGhostStartingPosition(int index) const 
