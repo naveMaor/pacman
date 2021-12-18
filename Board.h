@@ -36,7 +36,8 @@ public:
     Point getInfoPosition() const { return infoPosition; }
 
     void eatBreadCrumb() { breadCrumbsLeft--; }
-    void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
+    void setBoardToGarbageValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
+    void setBoardValByPoint(int x, int y, unsigned char val) { board[y][x] = val; }; // Set to val
     void setBoardLine(int hight, char* line, int width);
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };

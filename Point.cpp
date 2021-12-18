@@ -2,7 +2,7 @@
 
 
 /* This function draw requested char in point*/
-void Point::draw(char ch)  const {
+void Point::drawChar(char ch)  const {
 	gotoxy(x, y);
 	cout << ch;
 }

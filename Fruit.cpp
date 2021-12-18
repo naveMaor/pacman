@@ -39,9 +39,9 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 {
 	if (countPacmanMoves % 20 == 0)
 	{
-		this->setshowfruit();
-		this->hideOrShowFruit(b);
-		if (!this->getshowfruit())
+		setshowfruit();
+		hideOrShowFruit(b);
+		if (!showfruit)
 		{
 			this->setNewFruitScore();
 		}
@@ -58,11 +58,7 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 			direction = randomBetween(0, 4);
 
 		this->setDirection(direction);
-		this->move();
-
-		// If last ghost position was breadcrumb print breadcrumb
-		if (b.getBoardValFromPoint(x, y) == bc)
-			printBreadCrumbs(x, y);
+		this->move(b);
 	}
 
 }
@@ -77,10 +73,13 @@ void Fruit::hideOrShowFruit(Board& b)
 		unsigned char c = b.getBoardValFromPoint(this->getBody().getX(), this->getBody().getY());
 		gotoxy(this->getBody().getX(), this->getBody().getY());
 		setTextColor(Color::WHITE);
-		if (c == boardGarbageVal)
-			cout << (char)space;
-		else
-			cout << c;
+		if (c != ghostIcon)
+		{
+			if (c == boardGarbageVal)
+				cout << (char)space;
+			else
+				cout << c;
+		}
 		setNewFruitlocation(b);
 	}
 }

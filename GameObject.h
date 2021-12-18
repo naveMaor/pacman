@@ -7,15 +7,17 @@
 class GameObject
 {
 	// GameObject data members
-	Point pBody;
 	Color color = Color::WHITE;
-	char objectIcon;
 	int direction = 3;
+	Point pBody;
+	char objectIcon;
 
+protected:
+	unsigned char lastboardval = 0;
 public:
-	GameObject(char objectIcon) : objectIcon(objectIcon) {}
+	GameObject(char objectIcon) : objectIcon(objectIcon){}
 	// Constractor
-	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
+	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon){};
 
 	// GameObject functions
 	void setBody(Point point);
@@ -28,7 +30,7 @@ public:
 	void setObjectIcon(char icon) { objectIcon = icon; }
 	char getObjectIcon() { return objectIcon; }
 
-	void move();
+	void move(Board & b);
 	void draw() const;
 	virtual void initGameObject();
 	void printBreadCrumbs(int x, int y);
@@ -37,6 +39,7 @@ public:
 	static bool checkValidMove(int x, int y, int dir, Board &b);
 	static void IlustrateNextMove(int& x, int& y, int dir, Board &b);
 	void removeObject(Board& b);
+	void MoveOfPacman();
 
 };
 

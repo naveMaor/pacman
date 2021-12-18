@@ -24,17 +24,46 @@ void GameObject::setColor(Color color)
 	this->color = color;
 }
 //todo: fix balagan
-void GameObject::move()
+void GameObject::move(Board& b)
 {
-	pBody.draw(space);
+	if (lastboardval == 0)
+	{
+		unsigned char ch = b.getBoardValFromPoint(pBody);
+		if (ch == bc)
+		{
+			setTextColor(Color::WHITE);
+			pBody.drawChar(bc);
+			b.setBoardValByPoint(pBody.getX(), pBody.getY(), bc);
+		}
+		else
+		{
+			pBody.drawChar(space);
+			b.setBoardToGarbageValByPoint(pBody.getX(), pBody.getY());
+		}
+	}
+	else
+	{
+		if (lastboardval == bc)
+		{
+			pBody.drawChar(bc);
+			b.setBoardValByPoint(pBody.getX(), pBody.getY(), bc);
+		}
+		else
+		{
+			pBody.drawChar(space);
+			b.setBoardToGarbageValByPoint(pBody.getX(), pBody.getY());
+		}
+	}
 	pBody.move(direction);
-	draw();
+	lastboardval = b.getBoardValFromPoint(pBody); // save the value before changing in board
+	b.setBoardValByPoint(pBody.getX(), pBody.getY(), objectIcon);// change calue in board
+	draw(); //
 }
 
 void GameObject::draw() const
 {
 	setTextColor(color);
-	pBody.draw(objectIcon);
+	pBody.drawChar(objectIcon);
 	setTextColor(Color:: WHITE);
 }
 
@@ -86,7 +115,7 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
-	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon))
+	if ((charAtNextPoint == w) || (charAtNextPoint == space) || (charAtNextPoint == ghostIcon) || ((charAtNextPoint >= 53) && (charAtNextPoint <= 57)))
 		return false;
 
 	return true;
@@ -142,4 +171,12 @@ void GameObject::removeObject(Board& b)
 	}
 	else
 		cout << (char)space;
+}
+
+
+void GameObject::MoveOfPacman()
+{
+	getBody().drawChar(space);
+	getBody().move(getDirection());
+	draw();
 }

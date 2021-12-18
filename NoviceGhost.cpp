@@ -6,6 +6,7 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 	{
 		int x = getBody().getX();
 		int y = getBody().getY();
+		lastboardval = b.getBoardValFromPoint(x, y);
 		int direction = getDirection();
 		bool validMove = checkValidMove(x, y, direction, b);
 		if (countPacmanMoves % 20 == 0 || (!validMove))
@@ -17,14 +18,7 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 				direction = rand() % 4;
 			this->setDirection(direction);
 		}
-		move();
-
-		// If last ghost position was breadcrumb print breadcrumb
-		if (b.getBoardValFromPoint(x, y) == bc)
-		{
-			setTextColor(Color::WHITE);
-			printBreadCrumbs(x, y);
-		}
+		move(b);
 	}
 
 	
