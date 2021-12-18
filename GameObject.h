@@ -36,6 +36,7 @@ public:
 	static bool checkValidPos(int x, int y, Board& b);
 	static bool checkValidMove(int x, int y, int dir, Board &b);
 	static void IlustrateNextMove(int& x, int& y, int dir, Board &b);
+	void removeObject(Board& b);
 
 };
 

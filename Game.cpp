@@ -32,13 +32,13 @@ void Game::playSingleGame()
 
 	while ((player.getLife() > 0) && (!b_won))
 	{
+		checkGhostsHit(player.getBody());
 		print.printScore(gameInfo, b_IsColorGame, player.getScore());
 		fruit.changePosition(board, countMoves);
 		ghostsMove(countMoves, player.getBody());
 
 		Sleep(gameSpeedVal);
 		pacmanMove(board, countMoves);
-		checkGhostsHit(player.getBody());
 
 		checkPacmanHitFruit();
 
@@ -170,6 +170,7 @@ void Game::initGameAfterGhostHit()
 		print.removePrintPlayerHitGhost();
 		removeGhosts();
 		player.remove();
+		fruit.removeObject(board);
 		setGameObjectsPositions();
 		player.setDirection(Stay);
 		drawGameObj();
@@ -180,7 +181,7 @@ void Game::initGameAfterGhostHit()
 void Game::removeGhosts()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i]->removeGhost(board);
+		ghosts[i]->removeObject(board);
 }
 
 /* This function get the user key board hit*/
@@ -439,6 +440,7 @@ void Game::setGameObjectsColors()
 		else if (i == 3)
 			ghosts[i]->setColor(Color::BROWN);
 	}
+	fruit.setColor(Color::LIGHTRED);
 }
 
 /* This function */

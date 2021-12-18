@@ -38,6 +38,7 @@ void GameObject::draw() const
 }
 
 
+
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
@@ -125,4 +126,19 @@ void GameObject::changedirectionbyPoint(Point NewP)
 	//	Go Down
 	else if (NewPy > Bodyy)
 		setDirection(Down);
+}
+
+/* This function remove Object last character after pacman hit*/
+void GameObject::removeObject(Board& b)
+{
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+	gotoxy(x, y);
+	if (b.getBoardValFromPoint(x, y) == bc)
+	{
+		setTextColor(Color::WHITE);
+		printBreadCrumbs(x, y);
+	}
+	else
+		cout << (char)space;
 }

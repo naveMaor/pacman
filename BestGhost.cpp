@@ -21,7 +21,10 @@ void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 
 			// If last ghost position was breadcrumb print breadcrumb
 			if (b.getBoardValFromPoint(x, y) == bc)
+			{
+				setTextColor(Color::WHITE);
 				printBreadCrumbs(x, y);
+			}
 		}
 	}
 }
