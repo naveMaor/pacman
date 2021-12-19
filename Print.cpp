@@ -62,7 +62,7 @@ void Print::printPauseGame(Point gameInfoPosition) const
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "Game paused!";
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY()+ 2 );
-	cout << "Press ESC to continue";
+	cout << "ESC to continue";
 }
 
 /* This function print player hit ghost message*/
@@ -87,4 +87,12 @@ void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerSc
 	if (b_IsColorGame)
 		setTextColor(Color::YELLOW);
 	cout << playerScore;
+}
+
+/* This function print game info data area after pause the game*/
+void Print:: printGameInfoAfterPause(Point gameInfoPosition, bool b_IsColorGame, int score, int life) const
+{
+	resetGameInfoPrints(gameInfoPosition);
+	printScore(gameInfoPosition, b_IsColorGame, score);
+	printLife(gameInfoPosition, b_IsColorGame, life);
 }

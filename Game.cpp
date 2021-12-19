@@ -16,7 +16,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 		for (int i = 0; i < numOfScreens && alive; i++)
 		{
 			// If the the file is valid
-			if (File::isValidFile(screenName, board))
+			if (File::isValidFile(screensNames[i], board))
 				playSingleGame();
 		}
 	}
@@ -69,10 +69,7 @@ void Game::initGame(bool b_color)
 		setGameObjectsColors();
 
 	drawGameObj();
-
-	print.resetGameInfoPrints(gameInfo);
-	print.printLife(gameInfo, b_IsColorGame, player.getLife());
-	print.printScore(gameInfo, b_IsColorGame, player.getScore());
+	print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());
 }
 
 /* This function handle settings options*/
@@ -262,8 +259,7 @@ void Game::printPreviousGame() const
 	clearScreen();
 	board.printBoard();
 	drawGameObj();
-	print.printScore(gameInfo, b_IsColorGame, player.getScore());
-	print.printLife(gameInfo, b_IsColorGame, player.getLife());
+	print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());	
 }
 
 /* This function draw ghosts and player*/
@@ -456,6 +452,7 @@ void Game::pauseGame() const
 				b_Continue = true;
 		}
 	}
+	print.resetGameInfoPrints(gameInfo);
 }
 
 

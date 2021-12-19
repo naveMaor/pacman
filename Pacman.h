@@ -29,9 +29,8 @@ public:
 	void remove();
 	void changePosition(Board& b, int& countPacmanMoves);
 	void moveTunnel(Board& b);
-
-	bool isTunnel(Board& b);
-	bool isValidMove(Board& b);
+	bool isTunnel(Board& b, int x, int y, int width, int hight, int startBoardX, int startBoardY);
+	bool isValidMove(Board& b, bool& is_Tunnel);
 };
 
 #endif

@@ -14,7 +14,7 @@ void const Board::printBoard() const
     {
         for (int j = 0; j < boardWidth; j++)
         {
-            if (board[i][j] == boardGarbageVal )
+            if ((board[i][j] == boardGarbageVal) || board[i][j] == gameInfoArea)
                 cout << (char)space;
             else
                 cout << board[i][j];
@@ -88,17 +88,13 @@ void Board::initInfoPosition()
 
     for (int i = y; i < y + 3 && (y + 3 < HIGHT); i++)
     {
-//        gotoxy(x, i);
         for (j = x; (j < x + 20) && j < WIDTH; j++)
         {
             if (board[i][j] == breadCrumb)
                 breadCrumbsLeft--;
             board[i][j] = gameInfoArea;
-            //if (i == y || i == y + 2)                
-              //  cout << (unsigned char)gameInfoArea;
         }
     }
-    //gotoxy(boardStartWidth, boardStartHight);
 }
 
 

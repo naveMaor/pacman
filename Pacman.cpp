@@ -7,27 +7,38 @@ void Pacman::initGameObject()
 	this->setDirection(Stay);
 }
 
-bool Pacman::isValidMove(Board& b)
+bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 {
 	Point nextPos = this->getBody(); // current location
 	nextPos.move(this->getDirection()); // next location
 	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
-	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardWidth(), hight = b.getBoardEndHight() + 1;
-	int startBoardX = b.getBoardStartWidth() - 1, startBoardY = b.getBoardStartHight() - 1;
+	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardWidth(), hight = b.getBoardEndHight();
+	int startBoardX = b.getBoardStartWidth(), startBoardY = b.getBoardStartHight();
+
+	if (charAtnextPoint == breadCrumb)
+		return true;
 
 	// if next move is wall or game info area return false
-	if ((charAtnextPoint == wall)|| charAtnextPoint == gameInfoArea)
+	if ((charAtnextPoint == wall) || (charAtnextPoint == gameInfoArea))
 		return false;
 
 	// if out of board bounds
-	else if (y < startBoardY || y > hight || x < startBoardX || x > width)
-		return false;
-
+	else if (y <= startBoardY || y >= hight || x <= startBoardX || x >= width)
+	{
+		if (isTunnel(b, x, y, width, hight, startBoardX, startBoardY))
+		{
+			is_Tunnel = true;
+			return true;
+		}
+		else
+			return false;
+	}
 	return true;
 }
 
 void Pacman::changePosition(Board& b, int& countPacmanMoves)
 {
+	bool is_Tunnel = false;
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();
 	
@@ -40,9 +51,9 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 		b.setBoardValByPoint(x, y); // sign we was here
 	}
 	
-	if (isValidMove(b))
+	if (isValidMove(b, is_Tunnel))
 	{
-		if (isTunnel(b))
+		if (is_Tunnel)
 			moveTunnel(b);
 		else
 			move();
@@ -57,22 +68,17 @@ void Pacman::remove()
 	cout << (char)space;
 }
 
-bool Pacman::isTunnel(Board &b)
+bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoardX, int startBoardY)
 {
-	Point nextPos = this->getBody(); // current location
-	nextPos.move(this->getDirection()); // next location
-	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
-	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardWidth(), hight = b.getBoardEndHight() + 1;
-	int startBoardX = b.getBoardStartWidth() - 1, startBoardY = b.getBoardStartHight() - 1;
 
 	// if top tunnel
-	if (y == startBoardY)
+	if (y == startBoardY-1)
 		if (b.getBoardValFromPoint(x, hight - 1) != wall && b.getBoardValFromPoint(x, hight - 1) != gameInfoArea)
 			return true;
-	if(y == hight)
+	if(y == hight + 1)
 		if (b.getBoardValFromPoint(x, startBoardY + 1) != wall && b.getBoardValFromPoint(x, startBoardY + 1) != gameInfoArea)
 			return true;
-	if(x == startBoardX)
+	if(x == startBoardX-1)
 		if (b.getBoardValFromPoint(width - 1, y) != wall && b.getBoardValFromPoint(width - 1, y) != gameInfoArea)
 			return true;
 	if (x == width)
