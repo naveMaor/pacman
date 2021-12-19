@@ -446,7 +446,7 @@ void Game::pauseGame() const
 	char ch = 0;
 	bool b_Continue = false;
 
-	print.printPauseGame();
+	print.printPauseGame(gameInfo);
 	while (!b_Continue)
 	{
 		if (_kbhit())

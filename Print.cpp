@@ -3,26 +3,27 @@
 
 void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 {
+	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
 		setTextColor(Color::GREEN);
-	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY()+1);
 	cout << "You won the game!!!!" << endl;
 	Sleep(longPauseWindow);
 }
 
 void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 {
+	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
 		setTextColor(Color::LIGHTRED);
-	resetGameInfoPrints(gameInfoPosition);
-	gotoxy(gameInfoPosition.getX() + 5, gameInfoPosition.getY());
+	gotoxy(gameInfoPosition.getX() + 5, gameInfoPosition.getY()+1);
 	cout << "You lost!!";
 	Sleep(longPauseWindow);
 }
 
 void Print::resetGameInfoPrints(Point gameInfoPosition) const
 {
+	setTextColor(Color::WHITE);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "~~~~~~~~~~~~~~~~~~~~";
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + 1);
@@ -45,31 +46,31 @@ void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife
 	
 }
 /* This function clear the center of the screen when pausing the game*/
-void Print::clearCenter()const
+void Print::clearForPauseGame(Point gameInfoPosition)const
 {
-	for (int j = 0; j < 5; j++)
+	for (int j = 0; j < 3; j++)
 	{
-		gotoxy(20, 8 + j);
-		cout << "                                  ";
+		gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + j);
+		cout << "                    ";
 	}
 }
 
-void Print::printPauseGame() const
+void Print::printPauseGame(Point gameInfoPosition) const
 {
 	setTextColor(Color::WHITE);
-	clearCenter();
-	gotoxy(27, 9);
+	clearForPauseGame(gameInfoPosition);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "Game paused!";
-	gotoxy(27, 11);
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY()+ 2 );
 	cout << "Press ESC to continue";
 }
 
 /* This function print player hit ghost message*/
 void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 {
+	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
 		setTextColor(Color::RED);
-	resetGameInfoPrints(gameInfoPosition);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + 1);
 	cout << "You hit the ghost!!!" << endl;
 	Sleep(shortPauseWindow);

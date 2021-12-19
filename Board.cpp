@@ -33,7 +33,7 @@ void Board::resetBoard()
 }
 
 
-void Board:: setBoardLine(int hight, char* line,int width)
+void Board:: setBoardLine(int hight, const char* line,int width)
 {
     if(isGameInfoExist)
         while (board[hight][infoPosition.getX()] == gameInfoArea)

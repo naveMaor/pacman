@@ -45,7 +45,7 @@ public:
 
     void eatBreadCrumb() { breadCrumbsLeft--; }
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
-    void setBoardLine(int hight, char* line, int width);
+    void setBoardLine(int hight, const char* line, int width);
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };
     void setPacmanExist(bool isExist) { isPacmanExist = isExist; }

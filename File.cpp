@@ -20,7 +20,7 @@ void File::fileToBoard(Board& board)
 {
 	int lineNum = 0;
 	size_t width = 0;
-	char cLine[80] = {};
+	//char cLine[80] = {};
 	string line;
 	
 	while (getline(screenFile, line))
@@ -36,8 +36,7 @@ void File::fileToBoard(Board& board)
 		
 		if (width != 0)
 		{
-			strcpy(cLine, line.c_str());
-			board.setBoardLine(lineNum, cLine, width);
+			board.setBoardLine(lineNum, line.c_str(), width);
 			lineNum++;
 		}
 	}

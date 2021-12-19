@@ -11,8 +11,8 @@ public:
 	void gameOver(Point gameInfoPosition, bool b_IsColorGame) const;
 	void resetGameInfoPrints(Point gameInfoPosition) const;
 	void printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const;
-	void clearCenter()const;
-	void printPauseGame() const;
+	void clearForPauseGame(Point gameInfoPosition)const;
+	void printPauseGame(Point gameInfoPosition) const;
 	void printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const;
 	void printScore(Point gameInfoPosition, bool b_IsColorGame, int playerscore)const;
 };
