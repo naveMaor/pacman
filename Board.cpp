@@ -141,6 +141,8 @@ void Board::handleGameInfo(int hight, int x)
         infoPosition = { x, hight };
         initInfoPosition();
     }
+    else
+        board[hight][x] = breadCrumb;
 }
 
 void Board::adjustBoardLineType(int& hight)

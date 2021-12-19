@@ -15,7 +15,7 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardWidth(), hight = b.getBoardEndHight();
 	int startBoardX = b.getBoardStartWidth(), startBoardY = b.getBoardStartHight();
 
-	if (charAtnextPoint == breadCrumb)
+	if ((charAtnextPoint == breadCrumb) || (charAtnextPoint == boardGarbageVal))
 		return true;
 
 	// if next move is wall or game info area return false
@@ -42,9 +42,9 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 	int x = this->getBody().getX();
 	int y = this->getBody().getY();
 	
-	unsigned char currentLocation = b.getBoardValFromPoint(x, y);
+	unsigned char currentLocationVal = b.getBoardValFromPoint(x, y);
 
-	if (currentLocation == breadCrumb)
+	if (currentLocationVal == breadCrumb)
 	{
 		score++;
 		b.eatBreadCrumb();
@@ -75,10 +75,10 @@ bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoa
 	if (y == startBoardY-1)
 		if (b.getBoardValFromPoint(x, hight - 1) != wall && b.getBoardValFromPoint(x, hight - 1) != gameInfoArea)
 			return true;
-	if(y == hight + 1)
+	if (y == hight + 1)
 		if (b.getBoardValFromPoint(x, startBoardY + 1) != wall && b.getBoardValFromPoint(x, startBoardY + 1) != gameInfoArea)
 			return true;
-	if(x == startBoardX-1)
+	if ((x == startBoardX-1))
 		if (b.getBoardValFromPoint(width - 1, y) != wall && b.getBoardValFromPoint(width - 1, y) != gameInfoArea)
 			return true;
 	if (x == width)
