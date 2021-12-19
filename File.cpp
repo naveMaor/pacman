@@ -40,7 +40,7 @@ void File::fileToBoard(Board& board)
 			lineNum++;
 		}
 	}
-		board.setBoardHight(lineNum);
+		board.setBoardHight(lineNum + board.getBoardStartHight());
 }
 
 void File::handleFirstLine(Board& board, size_t &width, char firstLetter)

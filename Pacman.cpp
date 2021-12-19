@@ -90,7 +90,7 @@ bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoa
 void Pacman::moveTunnel(Board& b)
 {
 	int highest = b.getBoardStartHight();
-	int Lowest = b.getBoardHight() - 1;
+	int Lowest = b.getBoardEndHight();
 	int mostLeft = b.getBoardStartWidth();
 	int mostRight = b.getBoardWidth() - 1;
 

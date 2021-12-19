@@ -37,7 +37,11 @@ void Board:: setBoardLine(int hight, const char* line,int width)
 {
     if(isGameInfoExist)
         while (board[hight][infoPosition.getX()] == gameInfoArea)
+        {
+            boardStartHight++;
+            boardEndHight++;
             hight++;
+        }
     for (int x = 0; x < width && x < WIDTH; x++)
     {
         if (line[x] == '#')
@@ -59,6 +63,7 @@ void Board:: setBoardLine(int hight, const char* line,int width)
         {
             isGameInfoExist = true;
             infoPosition = { x, hight };
+            initInfoPosition();
         }
         else if (line[x] == '%')
             board[hight][x] = ' ';
