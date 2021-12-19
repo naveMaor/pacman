@@ -38,7 +38,7 @@ public:
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
-	void gameGhosts();
+	//void gameGhosts();
 	void initGameObj();
 	void printPreviousGame()const;
 	bool checkWin()const;
@@ -69,6 +69,7 @@ public:
 	void checkGhostsHit(Point Body);
 	void removeGhosts();	
 	void ghostsMove(int& countMoves, Point PlayerLocation);
+	bool checkghostcollision(Ghost& g1, Ghost& g2);
 
 	// Pacman functions
 	void pacmanMove(Board& b, int& countMoves);

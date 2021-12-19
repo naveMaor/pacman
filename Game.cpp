@@ -43,6 +43,7 @@ void Game::playSingleGame()
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
 			ghostsMove(countMoves, player.getBody());
+			checkGhostsHit(player.getBody());
 			Sleep(gameSpeedVal);
 			pacmanMove(board, countMoves);
 			checkPacmanHitFruit();
@@ -88,12 +89,9 @@ void Game::gameSettings()
 		gameSpeed();
 		break;
 	case 3:
-		gameGhosts();
-		break;
-	case 4:
 		gameGhostsLevel();
 		break;
-	case 5:
+	case 4:
 		clearScreen();
 		break;
 	default:
@@ -123,30 +121,6 @@ void Game::gameGhostsLevel()
 }
 
 
-void Game::gameGhosts()
-{
-	clearScreen();
-	menu.printPacmanGhostsOptions();
-	menu.handleGameMenuGhotsSettingsInput();
-	switch (menu.getUserChoice())
-	{
-	case 1:
-		numOfGhosts=1;
-		break;
-	case 2:
-		numOfGhosts=2;
-		break;
-	case 3:
-		numOfGhosts = 3;
-		break;
-	case 4:
-		numOfGhosts = 4;
-		break;
-
-	default:
-		break;
-	}
-}
 
 /* This function init the game after ghost hit pacman*/
 void Game::initGameAfterGhostHit()
@@ -237,9 +211,70 @@ void Game::checkGhostsHit(Point Body)
 /* This function handle ghosts move*/
 void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
-	checkGhostsHit(PlayerLocation);
-	for (int i = 0; i < numOfGhosts; i++)
-		ghosts[i]->changePosition(board, countMoves, PlayerLocation);
+	if (numOfGhosts == 1)
+	{
+		ghosts[0]->changePosition(board, countMoves, PlayerLocation);
+	}
+	else if (numOfGhosts == 2)
+	{
+		if(checkghostcollision(*ghosts[0], *ghosts[1]))
+		{
+			ghosts[0]->setDirection(Stay);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+		}
+		else
+		{
+			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+		}
+	}
+	else if (numOfGhosts == 3)
+	{
+		if (checkghostcollision(*ghosts[0], *ghosts[1]))
+		{
+			ghosts[0]->setDirection(Stay);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
+		}
+		else if (checkghostcollision(*ghosts[0], *ghosts[2]))
+		{
+			ghosts[0]->setDirection(Stay);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
+		}
+		else if (checkghostcollision(*ghosts[1], *ghosts[2]))
+		{
+			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[1]->setDirection(Stay);
+			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
+		}
+		else
+		{
+			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
+			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
+		}
+	}
+	else if (numOfGhosts == 4)
+	{
+		for (int i = 0; i < numOfGhosts; i++)
+		{
+			ghosts[i]->changePosition(board, countMoves, PlayerLocation);
+		}
+	}
+
+}
+
+bool Game::checkghostcollision(Ghost &g1, Ghost &g2)
+{
+	if (g1.getBody() == g2.getBody())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
