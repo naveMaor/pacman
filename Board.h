@@ -49,7 +49,13 @@ public:
     void setBoardWidth(int width) { boardWidth = width; };
     void setBoardHight(int hight) { boardHight = hight; };
     void setPacmanExist(bool isExist) { isPacmanExist = isExist; }
-    
+  
+    void handleWall(int hight, int x);
+    void handleGhost(int hight, int x);
+    void handlePacman(int hight, int x);
+    void handleGameInfo(int hight, int x);
+    void adjustBoardLineType(int& hight);
+
 };
 
 #endif
