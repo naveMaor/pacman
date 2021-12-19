@@ -35,11 +35,14 @@ void Board::resetBoard()
 /* This function get the line from the board*/
 void Board:: setBoardLine(int hight, const char* line,int width)
 {
+    int x = 0;
     if (isGameInfoExist)
-        adjustBoardLineType(hight);
+        adjustBoardLineType(hight, x);
 
-    for (int x = 0; x < width && x < WIDTH; x++)
+    for (x; x < width && x < WIDTH; x++)
     {
+        board[hight][x] = line[x];
+        
         if (line[x] == '#')
             handleWall(hight, x);
 
@@ -49,14 +52,18 @@ void Board:: setBoardLine(int hight, const char* line,int width)
             board[hight][x] = ' ';
         else
         {
-            board[hight][x] = breadCrumb;
-            breadCrumbsLeft++;            
+            if (board[hight][x] != gameInfoArea)
+            {
+                board[hight][x] = breadCrumb;
+                breadCrumbsLeft++;
+            }
 
             if (line[x] == '$')
                 handleGhost(hight, x);
             else if (line[x] == '@')
                 handlePacman(hight, x);
         }
+        
     } 
     isFirstWallInLine = true;
 }
@@ -145,12 +152,23 @@ void Board::handleGameInfo(int hight, int x)
         board[hight][x] = breadCrumb;
 }
 
-void Board::adjustBoardLineType(int& hight)
+void Board::adjustBoardLineType(int& hight, int &x)
 {
+    while (board[hight][x] == gameInfoArea)
+        x++;
+    /*
     while (board[hight][infoPosition.getX()] == gameInfoArea)
     {
         boardStartHight++;
         boardEndHight++;
         hight++;
     }
+    */
+}
+
+bool Board:: isInGameInfoArea(Point point)
+{
+    if (getBoardValFromPoint(point) == gameInfoArea)
+        return true;
+    return false;
 }

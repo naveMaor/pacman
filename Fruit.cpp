@@ -22,12 +22,12 @@ void Fruit::initFruit(Board& b)
 void Fruit::setNewFruitlocation(Board& b)
 {
 	int newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
-	int newY = randomBetween(b.getBoardStartWidth(), b.getBoardEndHight());
+	int newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
 	bool valid = checkValidPos(newX, newY, b);
 	while (!valid)
 	{
 		newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
-		newY = randomBetween(b.getBoardStartWidth(), b.getBoardEndHight());
+		newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
 		valid = checkValidPos(newX, newY, b);
 	}
 	setBody(newX, newY);
@@ -42,9 +42,8 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 		this->setshowfruit();
 		this->hideOrShowFruit(b);
 		if (!this->getshowfruit())
-		{
 			this->setNewFruitScore();
-		}
+		
 	}
 
 	if (countPacmanMoves % 4 == 0 && showfruit)

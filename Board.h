@@ -19,8 +19,7 @@ class Board
 
 protected:
     bool isPacmanExist = false, isGameInfoExist = false;
-
-    
+  
 public:
     Board();
 	void const printBoard() const;
@@ -42,6 +41,7 @@ public:
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
     Point getGhostStartingPosition(int index) const { return ghostStartingPositions[index]; }
     Point getInfoPosition() const { return infoPosition; }
+    bool isInGameInfoArea(Point point);
 
     void eatBreadCrumb() { breadCrumbsLeft--; }
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
@@ -54,8 +54,7 @@ public:
     void handleGhost(int hight, int x);
     void handlePacman(int hight, int x);
     void handleGameInfo(int hight, int x);
-    void adjustBoardLineType(int& hight);
-
+    void adjustBoardLineType(int& hight, int& x);
 };
 
 #endif

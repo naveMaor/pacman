@@ -19,7 +19,7 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 		return true;
 
 	// if next move is wall or game info area return false
-	if ((charAtnextPoint == wall) || (charAtnextPoint == gameInfoArea))
+	if (charAtnextPoint == wall)
 		return false;
 
 	// if out of board bounds
@@ -33,6 +33,8 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 		else
 			return false;
 	}
+	else if (charAtnextPoint == gameInfoArea)
+		return false;
 	return true;
 }
 
@@ -72,10 +74,11 @@ bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoa
 {
 
 	// if top tunnel
-	if (y == startBoardY-1)
+	//if (y == startBoardY-1)
+	if (y == - 1)
 		if (b.getBoardValFromPoint(x, hight - 1) != wall && b.getBoardValFromPoint(x, hight - 1) != gameInfoArea)
 			return true;
-	if (y == hight + 1)
+	if (y == hight)
 		if (b.getBoardValFromPoint(x, startBoardY + 1) != wall && b.getBoardValFromPoint(x, startBoardY + 1) != gameInfoArea)
 			return true;
 	if ((x == startBoardX-1))
@@ -90,7 +93,7 @@ bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoa
 void Pacman::moveTunnel(Board& b)
 {
 	int highest = b.getBoardStartHight();
-	int Lowest = b.getBoardEndHight();
+	int Lowest = b.getBoardEndHight()-1;
 	int mostLeft = b.getBoardStartWidth();
 	int mostRight = b.getBoardWidth() - 1;
 
