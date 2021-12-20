@@ -79,8 +79,8 @@ void Game::initGame(bool b_color)
 void Game::gameSettings()
 {
 	clearScreen();
-	menu.printGameSettings(b_IsColorGame, gameSpeedVal, numOfGhosts, GhostsLevel, screenPath, screensNames);
-	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, numOfGhosts, GhostsLevel, screenPath, screensNames);
+	menu.printGameSettings(b_IsColorGame, gameSpeedVal, GhostsLevel);
+	menu.handleGameMenuSettingsInput(b_IsColorGame, gameSpeedVal, GhostsLevel);
 
 	switch (menu.getUserChoice())
 	{

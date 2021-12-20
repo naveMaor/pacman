@@ -1,29 +1,31 @@
 #include "GameObject.h"
 
+/* This function set the body of the gameobject at point*/
 void GameObject::setBody(Point point)
 {
 	this-> pBody = point; // low copy
-	/*pBody.setX(point.getX());
-	pBody.setY(point.getX());*/
 }
 
+/* Thsi function set the body of gameobject at x and y*/
 void GameObject::setBody(int x, int y)
 {
 	this->pBody.setX(x);
 	this->pBody.setY(y);
 }
 
-
+/* This function set the direction of gameobject*/
 void GameObject::setDirection(int direction)
 {
 	this->direction = direction;
 }
 
+/* This function set the color of gameobject*/
 void GameObject::setColor(Color color)
 {
 	this->color = color;
 }
-//todo: fix balagan
+
+// This function move the gameobject and delete the last place by space
 void GameObject::move()
 {
 	pBody.draw(space);
@@ -31,6 +33,7 @@ void GameObject::move()
 	draw();
 }
 
+/* This function draw the game object by his color at his current place*/
 void GameObject::draw() const
 {
 	setTextColor(color);
@@ -38,14 +41,14 @@ void GameObject::draw() const
 	setTextColor(Color:: WHITE);
 }
 
-
+/* This function init gameobject*/
 void GameObject::initGameObject()
 {
 	setColor(Color::WHITE);
 	setDirection(Stay);
 }
 
-///* This function ilustrate the next move*/
+/* This function ilustrate the next move*/
 void GameObject::IlustrateNextMove(int& x, int& y, int dir)
 {
 	switch (dir)
@@ -94,12 +97,12 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 	return true;
 }
 
+/* This function check Valid position*/
 bool GameObject::checkValidPos(int x, int y, Board& b)
 {
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
 	if ((x <= b.getBoardStartWidth()) || (x >= b.getBoardWidth()) ||
 		(y <= b.getBoardStartHight()) || (y >= b.getBoardEndHight()))
-		//(y <= b.getBoardStartHight()) || (y >= b.getBoardHight()))
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move
@@ -108,27 +111,28 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 	return true;
 }
 
-void GameObject::changeDirectionByPoint(Point NewP)
+/* This function chande direction by point*/
+void GameObject::changeDirectionByPoint(Point newPoint)
 {
-	int Bodyx = pBody.getX();
-	int Bodyy = pBody.getY();
-	int NewPx = NewP.getX();
-	int NewPy = NewP.getY();
+	int bodyX = pBody.getX();
+	int bodyY = pBody.getY();
+	int newPointX = newPoint.getX();
+	int newPointY = newPoint.getY();
 
-//	Go UP
-	if (NewPx < Bodyx)
+	//	Go UP
+	if (newPointX < bodyX)
 		setDirection(Left);
 
-//	Go Right
-	else if (NewPx > Bodyx)
+	//	Go Right
+	else if (newPointX > bodyX)
 		setDirection(Right);
 
-//	Go Up
-	else if (NewPy < Bodyy)
+	//	Go Up
+	else if (newPointY < bodyY)
 		setDirection(Up);
 
 	//	Go Down
-	else if (NewPy > Bodyy)
+	else if (newPointY > bodyY)
 		setDirection(Down);
 }
 

@@ -26,11 +26,9 @@ enum characterEnum { wall = 219, breadCrumb = 250, pacmanIcon = 2, ghostIcon= 36
 const string screenPath = ".";
 
 void gotoxy(int x, int y);
-//void gotoxy(Point point);
 void setTextColor(Color);
 void hideCursor();
 void clearScreen();
-int randomBetween(int min, int max);
 
 
 #endif

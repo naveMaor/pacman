@@ -24,7 +24,6 @@ void const Board::printBoard() const
     } 
 };
 
-
 /* This function reset the board to the begining*/
 void Board::resetBoard()
 {

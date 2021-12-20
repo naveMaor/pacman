@@ -16,6 +16,7 @@ vector<string> File::getScreensName(string const PATH)
 	return filesVector;
 }
 
+/* This function reading the file and transfer to board*/
 void File::fileToBoard(Board& board)
 {
 	int rowHightInFile = 0;
@@ -45,6 +46,7 @@ void File::fileToBoard(Board& board)
 	board.setBoardHight(rowHightInFile - 1 + board.getBoardStartHight());
 }
 
+/* This function handle the first line of the board*/
 void File::handleFirstLine(Board& board, size_t &width, char firstLetter)
 {
 	if (width == 0 || width == 2)
@@ -57,6 +59,7 @@ void File::handleFirstLine(Board& board, size_t &width, char firstLetter)
 			width = 20;
 }
 
+/* This function open the file*/
 bool File::openFile(string const filePath)
 {
 	screenFile.open(filePath);
@@ -65,10 +68,15 @@ bool File::openFile(string const filePath)
 	cout << "Could not open the file in the directory: " << filePath << endl;
 	return false;
 }
+
+/* This function check if this is valid file*/
 bool File::isValidFile(string const fileName, Board& board)
 {
-	bool openFileSuccess = openFile(fileName);
-	fileToBoard(board);
-	screenFile.close();
-	return true;
+	if (openFile(fileName))
+	{
+		fileToBoard(board);
+		screenFile.close();
+		return true;
+	}
+	return false;
 }

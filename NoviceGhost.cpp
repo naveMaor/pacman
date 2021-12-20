@@ -1,5 +1,6 @@
 #include "NoviceGhost.h"
 
+/* This function change the position of the ghost*/
 void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
 	if (countPacmanMoves % 3 == 0)

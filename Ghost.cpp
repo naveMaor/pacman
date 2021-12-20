@@ -1,11 +1,5 @@
 #include "Ghost.h"
 
-void Ghost::initGameObject () 
-{
-	this->setColor(Color::WHITE);
-	this->setDirection(directions::Stay);
-}
-
 
 /* This function handle ghost hit*/
 bool Ghost::ghostHit(Point Body)

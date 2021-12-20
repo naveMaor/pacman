@@ -25,7 +25,8 @@ public:
 	void changePosition(Board& b, int& countPacmanMoves); 
 	void setshowfruit() { showfruit = (!showfruit); };
 	void hideOrShowFruit(Board& b);
-	//void fruitPlay(int countMoves, Board & b);
+	int randomBetween(int min, int max);
+
 };
 
 #endif 

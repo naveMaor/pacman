@@ -19,13 +19,6 @@ void gotoxy(int x, int y)
 	hideCursor();
 }
 
-/*
-void gotoxy(Point point)
-{
-	gotoxy(point.getX(), point.getY());
-}
-*/
-
 /* This function change the text color of the window*/
 void setTextColor(Color colorToSet) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)colorToSet);
@@ -41,12 +34,9 @@ void hideCursor()
 	SetConsoleCursorInfo(myconsole, &CURSOR);//second argument need pointer
 }
 
+/* This function clear the screen*/
 void clearScreen()
 {
 	system("cls");
 }
 
-int randomBetween(int min, int max)
-{
-	return min + (rand() % static_cast<int>(max - min + 1));
-}

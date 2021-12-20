@@ -1,6 +1,6 @@
 #include "Print.h"
 
-
+/* This function print win game*/
 void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 {
 	resetGameInfoPrints(gameInfoPosition);
@@ -11,6 +11,7 @@ void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 	Sleep(longPauseWindow);
 }
 
+/* This function print game over*/
 void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 {
 	resetGameInfoPrints(gameInfoPosition);
@@ -21,6 +22,7 @@ void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 	Sleep(longPauseWindow);
 }
 
+/* This function rest g ame info prints*/
 void Print::resetGameInfoPrints(Point gameInfoPosition) const
 {
 	setTextColor(Color::WHITE);
@@ -55,6 +57,7 @@ void Print::clearForPauseGame(Point gameInfoPosition)const
 	}
 }
 
+/* This function print pause game*/
 void Print::printPauseGame(Point gameInfoPosition) const
 {
 	setTextColor(Color::WHITE);
@@ -78,7 +81,6 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 	Sleep(shortPauseWindow);
 	resetGameInfoPrints(gameInfoPosition);
 }
-
 
 /* This function print pacman score*/
 void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const

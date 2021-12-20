@@ -1,6 +1,6 @@
 #include "Fruit.h"
 
-
+/* This functio nset fruit new score*/
 void Fruit::setNewFruitScore()
 {
 	char num = randomBetween(53, 57);
@@ -12,31 +12,30 @@ void Fruit::setNewFruitScore()
 	this->setObjectIcon(fruitScore);
 }
 
-
+/* This function init fruit*/
 void Fruit::initFruit(Board& b)
 {
 	initGameObject();
 	setNewFruitlocation(b);
 }
 
+/* This function set new fruit location*/
 void Fruit::setNewFruitlocation(Board& b)
 {
 	int newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
-	//int newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
-	int newY = randomBetween(b.getBoardStartHight(), b.getBoardHight());
+	int newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
 	bool valid = checkValidPos(newX, newY, b);
+
 	while (!valid)
 	{
 		newX = randomBetween(b.getBoardStartWidth(), b.getBoardWidth());
-		//newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
-		newY = randomBetween(b.getBoardStartHight(), b.getBoardHight());
+		newY = randomBetween(b.getBoardStartHight(), b.getBoardEndHight());
 		valid = checkValidPos(newX, newY, b);
 	}
 	setBody(newX, newY);
 }
 
 /* This function handle Fruit move*/
-
 void Fruit::changePosition(Board& b, int& countPacmanMoves)
 {
 	if (countPacmanMoves % 20 == 0)
@@ -67,7 +66,7 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 	}
 }
 
-
+/* This function hid or show the fruit on the screen*/
 void Fruit::hideOrShowFruit(Board& b)
 {
 	if (showfruit)
@@ -85,3 +84,8 @@ void Fruit::hideOrShowFruit(Board& b)
 	}
 }
 
+/* This function get random between two numbers*/
+int Fruit::randomBetween(int min, int max)
+{
+	return min + (rand() % static_cast<int>(max - min + 1));
+}

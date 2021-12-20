@@ -1,6 +1,5 @@
 #include "Point.h"
 
-
 /* This function draw requested char in point*/
 void Point::draw(char ch)  const {
 	gotoxy(x, y);
@@ -49,11 +48,13 @@ bool operator== (const Point& pointOne, const Point& pointTwo)
 	return ((pointOne.getX() == pointTwo.getX()) && (pointOne.getY() == pointTwo.getY()));
 }
 
+/* This freind function overloading != opeartor for point*/
 bool operator!= (const Point& pointOne, const Point& pointTwo)
 {
 	return !(pointOne == pointTwo);
 }
 
+/* This freind function overloading = opeartor for point*/
 Point& Point:: operator= (const Point& point)
 {
 	this->setX(point.getX());

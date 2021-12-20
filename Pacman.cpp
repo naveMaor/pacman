@@ -1,5 +1,6 @@
 #include "Pacman.h"
 
+/* this function init pacman*/
 void Pacman::initGameObject()
 {
 	this->life = 3;
@@ -7,6 +8,7 @@ void Pacman::initGameObject()
 	this->setDirection(Stay);
 }
 
+/* this function check if the next move is valid*/
 bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 {
 	Point nextPos = this->getBody(); // current location
@@ -35,6 +37,7 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 	return true;
 }
 
+/* This function move the pacman*/
 void Pacman::changePosition(Board& b, int& countPacmanMoves)
 {
 	bool is_Tunnel = false;
@@ -66,7 +69,6 @@ void Pacman::remove()
 	gotoxy(this->getBody().getX(), this->getBody().getY());
 	cout << (char)space;
 }
-
 
 /* This function check if the next location is a tunnel*/
 bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoardXMinusOne, int startBoardYMinusOne)

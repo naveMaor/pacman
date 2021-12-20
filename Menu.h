@@ -18,31 +18,24 @@ public:
 	void printInstructions()const;
 	void printPacmanSpeedOptions()const;
 	void printColorMenu();
-	void printGameSettings(bool getIsColorGame, int currentSpeed, int NumberofGhosts, int GhostsLevel, string screenPath, vector<string> screenNames);
+	void printGameSettings(bool getIsColorGame, int currentSpeed, int GhostsLevel);
 	void printIsColorGame(bool getIsColorGame) const;
 	void printCurrentSpeedGame(int currentSpeed)const;
 	void printScreenNames(vector<string> screenNames)const;
+	void printCurrentGhostsLevel(int GhostsLevel)const;
+	void printPacmanGhostsLevelOptions() const;
 
 	bool checkValidUserInput(string userChoice)const;
 	bool checkValidUserSettings(string input) const;
 	bool checkValidSpeedSettingsInput(string input) const;
 	bool checkValidScreenInput(string input, vector<string> screenNames) const;
-
-	void handleGameMenuSpeedSettingsInput();
-	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int NumberofGhosts, int GhostsLevel,string screenPath, vector<string> screenNames);
-	string handleChooseScreen(vector<string> screenNames);
-
-	//void printCurrentNumberOfGhosts(int NumberofGhosts)const;
-	//void printPacmanGhostsOptions() const;
-	//void handleGameMenuGhotsSettingsInput();
-	//bool checkValidGhostsInput(string input) const;
-
-
-	void printCurrentGhostsLevel(int GhostsLevel)const;
-	void printPacmanGhostsLevelOptions() const;
-	void handleGameMenuGhostsLevelSettingsInput();
 	bool checkValidGhostsLevelInput(string input) const;
-	/// Changes
+
+	string handleChooseScreen(vector<string> screenNames);
+	void handleGameMenuSpeedSettingsInput();
+	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int GhostsLevel);
+	void handleGameMenuGhostsLevelSettingsInput();
+
 	void setUserChoice(int newUserChoice) { userChoice = newUserChoice; }
 	int getUserChoice() const { return userChoice; }
 };
