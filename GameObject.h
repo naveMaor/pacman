@@ -6,6 +6,7 @@
 
 class GameObject
 {
+protected:
 	// GameObject data members
 	Point pBody;
 	Color color = Color::WHITE;
