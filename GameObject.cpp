@@ -82,7 +82,8 @@ bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 
 	// If the game object out of board
 	if ((x == b.getBoardStartWidth()) || (x == b.getBoardWidth()) ||
-		(y == b.getBoardStartHight()) || (y == b.getBoardEndHight()))
+		//(y == b.getBoardStartHight()) || (y == b.getBoardEndHight()))
+		(y == b.getBoardStartHight()) || (y == b.getBoardHight()))
 		return false;
 
 	// If the next move is wall, tunnel or ghost this isn't valid move
@@ -98,6 +99,7 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 	unsigned char charAtPoint = b.getBoardValFromPoint(x, y);
 	if ((x <= b.getBoardStartWidth()) || (x >= b.getBoardWidth()) ||
 		(y <= b.getBoardStartHight()) || (y >= b.getBoardEndHight()))
+		//(y <= b.getBoardStartHight()) || (y >= b.getBoardHight()))
 		return false;
 
 	// If wall, tunnel or ghost this isn't valid move

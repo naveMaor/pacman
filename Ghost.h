@@ -20,7 +20,7 @@ class Ghost : public GameObject
 public:
 	// Constractor
 	Ghost() : GameObject(ghostIcon) {}
-	virtual ~Ghost() { }
+	virtual ~Ghost() {}
 	Ghost(const Ghost&) = delete;
 	Ghost& operator=(const Ghost&) = delete;
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};

@@ -1,6 +1,6 @@
 #include "BestGhost.h"
 
-
+/* Thsi function change the position of best ghost*/
 void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
 	if (countPacmanMoves % 3 == 0)

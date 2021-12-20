@@ -18,29 +18,31 @@ vector<string> File::getScreensName(string const PATH)
 
 void File::fileToBoard(Board& board)
 {
-	int lineNum = 0;
+	int rowHightInFile = 0;
 	size_t width = 0;
-	//char cLine[80] = {};
 	string line;
+	string emptyLine = "                                                                                ";
 	
 	while (getline(screenFile, line))
 	{
 		width = line.length();
 
 		// Get the width of the board by the first line of the file
-		if (lineNum == 0)
+		if (rowHightInFile == 0)
 		{
-			handleFirstLine(board, width, line[0]); // add validation
+			handleFirstLine(board, width, line[0]); 
 			board.setBoardWidth(width);
 		}
 		
 		if (width != 0)
-		{
-			board.setBoardLine(lineNum, line.c_str(), width);
-			lineNum++;
-		}
+			board.setBoardLine(rowHightInFile, line.c_str(), width);
+		else // emptyLine
+			board.setBoardLine(rowHightInFile, emptyLine.c_str(), width);
+		rowHightInFile++;
 	}
-		board.setBoardHight(lineNum + board.getBoardStartHight());
+
+	// first row is zero
+	board.setBoardHight(rowHightInFile - 1 + board.getBoardStartHight());
 }
 
 void File::handleFirstLine(Board& board, size_t &width, char firstLetter)

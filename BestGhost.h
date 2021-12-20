@@ -6,8 +6,7 @@ class BestGhost :public Ghost
 {
 public:
 	BestGhost() {};
-	virtual ~BestGhost() { }
-
+	 ~BestGhost() override {}
 	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override;
 };
 

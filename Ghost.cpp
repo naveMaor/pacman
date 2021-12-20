@@ -15,13 +15,13 @@ bool Ghost::ghostHit(Point Body)
 	return false;
 }
 
-
+/* This function chase after pacman*/
 Point Ghost::minDistance(Point PlayerLocation, Board& board)
 {
 	{
 		Point Pcurr(0, 0);
 		QItem source(PlayerLocation.getX(), PlayerLocation.getY(), Pcurr);
-		int Hight = board.getBoardHight();
+		int Hight = board.getBoardEndHight();
 		int Width = board.getBoardWidth();
 
 		// To keep track of visited QItems. Marking

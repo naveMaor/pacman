@@ -13,19 +13,14 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 	nextPos.move(this->getDirection()); // next location
 	unsigned char charAtnextPoint = b.getBoardValFromPoint(nextPos.getX(), nextPos.getY());
 	int x = nextPos.getX(), y = nextPos.getY(), width = b.getBoardWidth(), hight = b.getBoardEndHight();
-	int startBoardX = b.getBoardStartWidth(), startBoardY = b.getBoardStartHight();
+	int startBoardXMinusOne = b.getBoardStartWidth() - 1, startBoardYMinusOne = b.getBoardStartHight() - 1;
 
-	if ((charAtnextPoint == breadCrumb) || (charAtnextPoint == boardGarbageVal))
+	if ((charAtnextPoint == breadCrumb) || (charAtnextPoint == boardGarbageVal) || (charAtnextPoint == cleanGameArea))
 		return true;
 
-	// if next move is wall or game info area return false
-	if (charAtnextPoint == wall)
-		return false;
-
-	// if out of board bounds
-	else if (y <= startBoardY || y >= hight || x <= startBoardX || x >= width)
+	else if (y <= startBoardYMinusOne || y >= hight || x <= startBoardXMinusOne || x >= width)
 	{
-		if (isTunnel(b, x, y, width, hight, startBoardX, startBoardY))
+		if (isTunnel(b, x, y, width, hight, startBoardXMinusOne, startBoardYMinusOne))
 		{
 			is_Tunnel = true;
 			return true;
@@ -33,7 +28,9 @@ bool Pacman::isValidMove(Board& b, bool& is_Tunnel)
 		else
 			return false;
 	}
-	else if (charAtnextPoint == gameInfoArea)
+
+	// if next move is wall or game info area return false
+	else if ((charAtnextPoint == wall) || (charAtnextPoint == gameInfoArea))
 		return false;
 	return true;
 }
@@ -70,55 +67,53 @@ void Pacman::remove()
 	cout << (char)space;
 }
 
-bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoardX, int startBoardY)
-{
 
+/* This function check if the next location is a tunnel*/
+bool Pacman::isTunnel(Board& b, int x, int y, int width, int hight, int startBoardXMinusOne, int startBoardYMinusOne)
+{
 	// if top tunnel
-	//if (y == startBoardY-1)
-	if (y == - 1)
-		if (b.getBoardValFromPoint(x, hight - 1) != wall && b.getBoardValFromPoint(x, hight - 1) != gameInfoArea)
+	if (y == - 1) // check if there tunnel in bottom
+		if (b.getBoardValFromPoint(x, hight) != wall && b.getBoardValFromPoint(x, hight) != gameInfoArea)
 			return true;
-	if (y == hight)
-		if (b.getBoardValFromPoint(x, startBoardY + 1) != wall && b.getBoardValFromPoint(x, startBoardY + 1) != gameInfoArea)
+	if (y == hight + 1)
+		if (b.getBoardValFromPoint(x, startBoardYMinusOne + 1) != wall && b.getBoardValFromPoint(x, startBoardYMinusOne + 1) != gameInfoArea)
 			return true;
-	if ((x == startBoardX-1))
+	if (x == startBoardXMinusOne)
 		if (b.getBoardValFromPoint(width - 1, y) != wall && b.getBoardValFromPoint(width - 1, y) != gameInfoArea)
 			return true;
 	if (x == width)
-		if (b.getBoardValFromPoint(startBoardX, y) != wall && b.getBoardValFromPoint(startBoardX, y) != gameInfoArea)
+		if (b.getBoardValFromPoint(startBoardXMinusOne + 1, y) != wall && b.getBoardValFromPoint(startBoardXMinusOne + 1, y) != gameInfoArea)
 			return true;
 	return false;
 }
 
+/* This function getting the correct x and y of the pacman for getting into tunnel*/
 void Pacman::moveTunnel(Board& b)
 {
 	int highest = b.getBoardStartHight();
-	int Lowest = b.getBoardEndHight()-1;
+	int Lowest = b.getBoardEndHight();
 	int mostLeft = b.getBoardStartWidth();
 	int mostRight = b.getBoardWidth() - 1;
 
-	if (highest == getBody().getY())
-	{
-		getBody().draw(space);
-		setBody(getBody().getX(), Lowest);
-		draw();
-	}
-	else if (Lowest == getBody().getY())
-	{
-		getBody().draw(space);
-		setBody(getBody().getX(), highest);
-		draw();
-	}
-	else if (mostLeft == getBody().getX())
-	{
-		getBody().draw(space);
-		setBody(mostRight, getBody().getY());
-		draw();
-	}
+	if (mostLeft == getBody().getX())
+		moveTunnelPrint(mostRight, getBody().getY());
+
 	else if (mostRight == getBody().getX())
-	{
-		getBody().draw(space);
-		setBody(mostLeft, getBody().getY());
-		draw();
-	}
+		moveTunnelPrint(mostLeft, getBody().getY());
+
+	else if (highest == getBody().getY())
+		moveTunnelPrint(getBody().getX(), Lowest);
+		
+	else if (Lowest == getBody().getY())
+		moveTunnelPrint(getBody().getX(), highest);
+		
+	
+}
+
+/* This function print the pacman in the next tunnel location*/
+void Pacman::moveTunnelPrint(int x, int y)
+{
+	remove();
+	setBody(x, y);
+	draw();
 }

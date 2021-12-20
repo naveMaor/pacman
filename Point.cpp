@@ -53,3 +53,10 @@ bool operator!= (const Point& pointOne, const Point& pointTwo)
 {
 	return !(pointOne == pointTwo);
 }
+
+Point& Point:: operator= (const Point& point)
+{
+	this->setX(point.getX());
+	this->setY(point.getY());
+	return *this;
+}

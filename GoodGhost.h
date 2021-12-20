@@ -5,8 +5,7 @@ class GoodGhost : public Ghost
 {
 public:
 	GoodGhost() {};
-	virtual ~GoodGhost() { }
+	~GoodGhost() override {}
 	void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) override; 
-
 };
 

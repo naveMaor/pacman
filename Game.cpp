@@ -4,8 +4,8 @@
 /* This function handle the game*/
 void Game::playGame(bool isSingleGame, string screenName)
 {
-	int screenCount = 0, numOfScreens = screensNames.size();;	
-	alive = true;
+	size_t numOfScreens = screensNames.size();
+
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
@@ -13,13 +13,14 @@ void Game::playGame(bool isSingleGame, string screenName)
 	}
 	else // full game
 	{
-		for (int i = 0; i < numOfScreens && alive; i++)
+		for (auto i = 0; i < numOfScreens && continueGame; i++)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
 				playSingleGame();
 		}
 	}
+	resetGame();
 }
 
 /* This function play one single game*/
@@ -30,7 +31,7 @@ void Game::playSingleGame()
 
 	initGame(getIsColorGame());
 
-	while ((player.getLife() > 0) && (!b_won))
+	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
 		
 		if (checkWin())
@@ -44,15 +45,16 @@ void Game::playSingleGame()
 			fruit.changePosition(board, countMoves);
 			ghostsMove(countMoves, player.getBody());
 			checkGhostsHit(player.getBody());
+			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
 			pacmanMove(board, countMoves);
-			checkPacmanHitFruit();
+			
 		}		
 	}
 	// If lose
 	if (player.getLife() == 0)
 	{
-		alive = false;
+		continueGame = false;
 		gameOver();
 	}
 }
@@ -99,6 +101,7 @@ void Game::gameSettings()
 	}
 }
 
+/* This function init the ghost level mode*/
 void Game::gameGhostsLevel()
 {
 	clearScreen();
@@ -119,8 +122,6 @@ void Game::gameGhostsLevel()
 		break;
 	}
 }
-
-
 
 /* This function init the game after ghost hit pacman*/
 void Game::initGameAfterGhostHit()
@@ -166,11 +167,11 @@ void Game::getUserKeyboard()
 		// Left
 		else if ((ch == 'a') || (ch == 'A'))
 			player.setDirection(0);
-		
+
 		// Right
 		else if ((ch == 'd') || (ch == 'D'))
 			player.setDirection(1);
-		
+
 		// Stay
 		else if ((ch == 's') || (ch == 'S'))
 			player.setDirection(4);
@@ -179,8 +180,12 @@ void Game::getUserKeyboard()
 		else if (ch == 27)
 		{
 			pauseGame();
-			printPreviousGame();
-		}	
+			if (continueGame)
+			{
+				printPreviousGame();
+				print.resetGameInfoPrints(gameInfo);
+			}
+		}
 	}
 }
 
@@ -188,7 +193,8 @@ void Game::getUserKeyboard()
 void Game::pacmanMove(Board & b, int &countMoves)
 {
 	getUserKeyboard();
-	player.changePosition(b, countMoves);
+	if (continueGame)
+		player.changePosition(b, countMoves);
 }
 
 /* This function check if the ghost hit the pacman*/
@@ -201,6 +207,7 @@ bool Game::ghostsHit(Point Body)
 	return b_Hit;
 }
 
+/* This function check ghosts hit*/
 void Game::checkGhostsHit(Point Body)
 {
 	if (ghostsHit(Body))
@@ -212,12 +219,11 @@ void Game::checkGhostsHit(Point Body)
 void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 {
 	if (numOfGhosts == 1)
-	{
 		ghosts[0]->changePosition(board, countMoves, PlayerLocation);
-	}
+
 	else if (numOfGhosts == 2)
 	{
-		if(checkghostcollision(*ghosts[0], *ghosts[1]))
+		if(checkGhostCollision(*ghosts[0], *ghosts[1]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
@@ -230,19 +236,19 @@ void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 	}
 	else if (numOfGhosts == 3)
 	{
-		if (checkghostcollision(*ghosts[0], *ghosts[1]))
+		if (checkGhostCollision(*ghosts[0], *ghosts[1]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
-		else if (checkghostcollision(*ghosts[0], *ghosts[2]))
+		else if (checkGhostCollision(*ghosts[0], *ghosts[2]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
-		else if (checkghostcollision(*ghosts[1], *ghosts[2]))
+		else if (checkGhostCollision(*ghosts[1], *ghosts[2]))
 		{
 			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[1]->setDirection(Stay);
@@ -256,25 +262,17 @@ void Game::ghostsMove(int & countMoves, Point PlayerLocation)
 		}
 	}
 	else if (numOfGhosts == 4)
-	{
 		for (int i = 0; i < numOfGhosts; i++)
-		{
 			ghosts[i]->changePosition(board, countMoves, PlayerLocation);
-		}
-	}
-
 }
 
-bool Game::checkghostcollision(Ghost &g1, Ghost &g2)
+/* This function check ghost collision*/
+bool Game::checkGhostCollision(Ghost &g1, Ghost &g2)
 {
 	if (g1.getBody() == g2.getBody())
-	{
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
 
@@ -284,7 +282,6 @@ void Game::gameOver()
 	print.gameOver(gameInfo, b_IsColorGame);
 	for (int i = 0; i < numOfGhosts; i++)
 		delete ghosts[i];
-	resetGame();
 	clearScreen();
 }
 
@@ -352,7 +349,6 @@ void Game::chooseColor()
 	}
 
 	cout << "Press any key to return the menu\n" << endl;
-
 	char c = _getch();
 	clearScreen();
 }
@@ -360,7 +356,10 @@ void Game::chooseColor()
 /* This function reset the game when starting again*/
 void Game::resetGame()
 {
+	setTextColor(Color::WHITE);
 	player.setScore(0);
+	continueGame = true;
+	singleGame = false;
 	board.resetBoardDataMembers();
 	board.resetBoard();
 }
@@ -422,6 +421,7 @@ void Game::gameSpeed()
 	}
 }
 
+/* This function check if pacman hit fruit*/
 void Game::checkPacmanHitFruit()
 {
 	Point pPlayer = player.getBody();
@@ -433,12 +433,12 @@ void Game::checkPacmanHitFruit()
 		player.draw();
 		int Oldscore = player.getScore();
 		player.setScore(Oldscore + fruit.getFruitScore());
-		maxScoreInCurrScreen += fruit.getFruitScore();
 		fruit.setshowfruit();
 		fruit.setNewFruitlocation(board);
 	}
 }
 
+/* This function set the game object position from board*/
 void Game::setGameObjectsPositions() 
 {
 	player.setBody(board.getPacmanStartingPosition());
@@ -447,6 +447,7 @@ void Game::setGameObjectsPositions()
 	fruit.setNewFruitlocation(board);
 }
 
+/* This function set game object color if this is color game*/
 void Game::setGameObjectsColors()
 {
 	player.setColor(Color::YELLOW);
@@ -464,7 +465,7 @@ void Game::setGameObjectsColors()
 	fruit.setColor(Color::LIGHTRED);
 }
 
-/* This function */
+/* This function handle choosing specific screen*/
 string Game:: choseScreen()
 {
 	menu.printScreenNames(screensNames);
@@ -472,7 +473,7 @@ string Game:: choseScreen()
 }
 
 /* This function handle paused game*/
-void Game::pauseGame() const
+void Game::pauseGame() 
 {
 	char ch = 0;
 	bool b_Continue = false;
@@ -485,9 +486,18 @@ void Game::pauseGame() const
 			ch = _getch();
 			if (ch == 27)
 				b_Continue = true;
+			else if (ch == 'g' || ch == 'G')
+			{
+				b_Continue = true;
+				exitGame();
+			}
 		}
 	}
-	print.resetGameInfoPrints(gameInfo);
 }
 
-
+/* This function exit game*/
+void Game :: exitGame()
+{
+	continueGame = false;
+	clearScreen();
+}

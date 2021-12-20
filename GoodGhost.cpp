@@ -1,6 +1,6 @@
 #include "GoodGhost.h"
 
-
+/* Thsi function change the position of good ghost*/
 void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation)
 {
 	if (countPacmanMoves % 3 == 0)
@@ -11,9 +11,7 @@ void::GoodGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 		if (countPacmanMoves % 20 >= 0 && countPacmanMoves % 20 <= 5)
 		{
 			if (countPacmanMoves % 20 == 0)
-			{
 				direction = rand() % 4;
-			}
 
 			// If not valid get new random direction
 			while (!checkValidMove(x, y, direction, b))

@@ -30,6 +30,8 @@ public:
 	int	getY() const;
 	friend bool operator== (const Point& pointOne, const Point& pointTwo);
 	friend bool operator!= (const Point& pointOne, const Point& pointTwo);
+	Point& operator= (const Point& point);
+	
 };
 
 #endif

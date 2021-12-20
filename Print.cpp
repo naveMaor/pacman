@@ -61,6 +61,8 @@ void Print::printPauseGame(Point gameInfoPosition) const
 	clearForPauseGame(gameInfoPosition);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
 	cout << "Game paused!";
+	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + 1);
+	cout << "G to exit!";
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY()+ 2 );
 	cout << "ESC to continue";
 }

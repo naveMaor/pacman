@@ -18,7 +18,6 @@
 class Game
 {
 private:
-	const string screenPath = ".";
 	string currScreenGame;
 	vector<string> screensNames = File::getScreensName(screenPath);
 	Ghost* ghosts[4]{};
@@ -28,8 +27,8 @@ private:
 	Menu menu;
 	Print print;
 	Point gameInfo;
-	bool b_IsColorGame = true, singleGame = false, alive = true;
-	int gameSpeedVal = mediumGameSpeed, maxScoreInCurrScreen, scoreOfAllWinnedScreens = 0, numOfGhosts, GhostsLevel = Hard;
+	bool b_IsColorGame = true, singleGame = false, continueGame = true;
+	int gameSpeedVal = mediumGameSpeed, numOfGhosts, GhostsLevel = Hard;
 	
 public:
 	// Game functions
@@ -38,7 +37,6 @@ public:
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
-	//void gameGhosts();
 	void initGameObj();
 	void printPreviousGame()const;
 	bool checkWin()const;
@@ -51,25 +49,20 @@ public:
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
 	int getGameSpeedVal() const { return gameSpeedVal; }
-	int getMaxScoreInCurrScreen() const{ return maxScoreInCurrScreen; }
-	int getScoreOfAllWinnedScreens() const{ return scoreOfAllWinnedScreens; }
 	vector<string> getScreenNames() const { return screensNames; }
 
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
-	void setMaxScoreInCurrScreen(int score) { maxScoreInCurrScreen = score; }
-	void setWinnedScore(int score) { scoreOfAllWinnedScreens += score; }
 	void setGameObjectsPositions();
 	void setGameObjectsColors();
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
-	bool ghostHit(Ghost ghost);
 	bool ghostsHit(Point Body);
 	void checkGhostsHit(Point Body);
 	void removeGhosts();	
 	void ghostsMove(int& countMoves, Point PlayerLocation);
-	bool checkghostcollision(Ghost& g1, Ghost& g2);
+	bool checkGhostCollision(Ghost& g1, Ghost& g2);
 
 	// Pacman functions
 	void pacmanMove(Board& b, int& countMoves);
@@ -82,7 +75,8 @@ public:
 	// Print function
 	void winGame();
 	void gameOver();
-	void pauseGame()const;
+	void pauseGame();
+	void exitGame();
 };
 
 #endif
