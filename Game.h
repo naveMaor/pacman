@@ -45,6 +45,7 @@ public:
 	void chooseColor();
 	string choseScreen();
 	void gameGhostsLevel();
+	void pushdirectionsForObjects();
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };

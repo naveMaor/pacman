@@ -61,6 +61,7 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 			move();
 	}
 	countPacmanMoves++;
+	PushDirectionToVector(directionToChar());
 }
 
 /* This function remove pacman last character*/

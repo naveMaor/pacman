@@ -12,6 +12,7 @@ protected:
 	Color color = Color::WHITE;
 	char objectIcon;
 	int direction = 3;
+	vector<char> steps;
 
 public:
 	GameObject(char objectIcon) : objectIcon(objectIcon) {}
@@ -38,7 +39,8 @@ public:
 	static bool checkValidMove(int x, int y, int dir, Board &b);
 	static void IlustrateNextMove(int& x, int& y, int dir);
 	void removeObject(Board& b);
-
+	char directionToChar();
+	void PushDirectionToVector(char dir);
 };
 
 #endif

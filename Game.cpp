@@ -48,7 +48,6 @@ void Game::playSingleGame()
 			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
 			pacmanMove(board, countMoves);
-			
 		}		
 	}
 	// If lose
@@ -58,6 +57,7 @@ void Game::playSingleGame()
 		gameOver();
 	}
 }
+
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
@@ -74,6 +74,7 @@ void Game::initGame(bool b_color)
 	drawGameObj();
 	print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());
 }
+
 
 /* This function handle settings options*/
 void Game::gameSettings()

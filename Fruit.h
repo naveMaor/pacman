@@ -8,6 +8,7 @@ class Fruit : public GameObject
 {
 	char fruitScore = defaltFruitIcon;
 	bool showfruit = true;
+	vector<char> isShow;
 
 public:
 	Fruit() : GameObject(defaltFruitIcon) {}

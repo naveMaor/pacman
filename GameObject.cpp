@@ -68,6 +68,30 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir)
 	}
 }
 
+char GameObject::directionToChar()
+{
+	switch (direction)
+	{
+	case 0: // LEFT
+		return 'L';
+		break;
+	case 1: // RIGHT
+		return 'R';
+		break;
+	case 2: // UP
+		return 'U';
+		break;
+	case 3: // DOWN
+		return 'D';
+		break;
+	}
+}
+
+void GameObject::PushDirectionToVector(char dir)
+{
+	steps.push_back(dir);
+}
+
 ///* This function print breadcrumbs at point*/
 void GameObject::printBreadCrumbs(int x, int y)
 {
@@ -112,27 +136,27 @@ bool GameObject::checkValidPos(int x, int y, Board& b)
 }
 
 /* This function chande direction by point*/
-void GameObject::changeDirectionByPoint(Point newPoint)
+void GameObject::changeDirectionByPoint(Point nextPoint)
 {
 	int bodyX = pBody.getX();
 	int bodyY = pBody.getY();
-	int newPointX = newPoint.getX();
-	int newPointY = newPoint.getY();
+	int nextPointX = nextPoint.getX();
+	int nextPointY = nextPoint.getY();
 
 	//	Go UP
-	if (newPointX < bodyX)
+	if (nextPointX < bodyX)
 		setDirection(Left);
 
 	//	Go Right
-	else if (newPointX > bodyX)
+	else if (nextPointX > bodyX)
 		setDirection(Right);
 
 	//	Go Up
-	else if (newPointY < bodyY)
+	else if (nextPointY < bodyY)
 		setDirection(Up);
 
 	//	Go Down
-	else if (newPointY > bodyY)
+	else if (nextPointY > bodyY)
 		setDirection(Down);
 }
 

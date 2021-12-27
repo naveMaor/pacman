@@ -13,6 +13,7 @@ void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 		{
 			changeDirectionByPoint(newPoint);
 			move();
+			PushDirectionToVector(directionToChar());
 
 			// If last ghost position was breadcrumb print breadcrumb
 			if (b.getBoardValFromPoint(x, y) == breadCrumb)
@@ -22,4 +23,6 @@ void::BestGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLoc
 			}
 		}
 	}
+	else
+		PushDirectionToVector('S');
 }
