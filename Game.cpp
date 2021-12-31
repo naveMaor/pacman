@@ -10,6 +10,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 	{
 		if (File::isValidFile(screenName, board))
 		{
+			File::writeToFileStep(screenName, static_cast<char>(numOfGhosts));
 			playSingleGame();
 		}
 	}
@@ -19,11 +20,17 @@ void Game::playGame(bool isSingleGame, string screenName)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
+			{
+				File::writeToFileStep(screensNames[i], static_cast<char>(numOfGhosts));
 				playSingleGame();
+			}
+				
 		}
 	}
 	resetGame();
 }
+
+void Game::writesteps();
 
 /* This function play one single game*/
 void Game::playSingleGame()

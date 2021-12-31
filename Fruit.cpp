@@ -107,7 +107,7 @@ int Fruit::randomBetween(int min, int max)
 }
 
 void Fruit::PushLocationToVector(char first, char second)
-{
+{ 
 	std::pair<char, char> loc;
 	loc.first=first;
 	loc.second = second;

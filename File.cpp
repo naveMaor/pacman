@@ -81,18 +81,38 @@ bool File::isValidFile(string const fileName, Board& board)
 	return false;
 }
 
- void File::createStepfile(string const fileName)
+ string File::createStepfileName(string const fileName)
 {
 	string Newname = fileName;
 	Newname.erase(6, fileName.length() - 6);
 	Newname.append(".steps");
-	openFile(Newname);
+	return Newname;
 }
 
- void File::createResultfile(string const fileName)
+ string File::createResultfile(string const fileName)
  {
 	 string Newname = fileName;
 	 Newname.erase(6, fileName.length() - 6);
 	 Newname.append(".Result");
 	 openFile(Newname);
+	 return Newname;
+ }
+
+ void File::writeToFileStep(string const fileName, char ch)
+ {
+	 string s = createStepfileName(fileName);
+	 if (openFile(s))
+	 {
+		 screenFile << ch;
+	 }
+	 screenFile.close();
+ }
+
+ void File::writeToFileResult(string const fileName, char ch)
+ {
+
+	 if (openFile(fileName))
+	 {
+		 screenFile.
+	 }
  }
