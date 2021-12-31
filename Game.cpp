@@ -9,7 +9,9 @@ void Game::playGame(bool isSingleGame, string screenName)
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
+		{
 			playSingleGame();
+		}
 	}
 	else // full game
 	{

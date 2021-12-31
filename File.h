@@ -22,6 +22,9 @@ public:
 	static vector<string> getScreensName(string const PATH); ///// moved to game.cpp
 	static void fileToBoard(Board &board);
 	static bool isValidFile(string const fileName, Board& board);
+	static void createStepfile(string const fileName);
+	static void createResultfile(string const fileName);
+
 };
 
 #endif

@@ -80,3 +80,19 @@ bool File::isValidFile(string const fileName, Board& board)
 	}
 	return false;
 }
+
+ void File::createStepfile(string const fileName)
+{
+	string Newname = fileName;
+	Newname.erase(6, fileName.length() - 6);
+	Newname.append(".steps");
+	openFile(Newname);
+}
+
+ void File::createResultfile(string const fileName)
+ {
+	 string Newname = fileName;
+	 Newname.erase(6, fileName.length() - 6);
+	 Newname.append(".Result");
+	 openFile(Newname);
+ }
