@@ -78,6 +78,7 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 	else 
 		isShow.push_back('F');//PUT FLASE SHOW IN THE VECTOR
 
+	PushLocationToVector(static_cast<char>(pBody.getX()), static_cast<char>(pBody.getY()));
 
 }
 
@@ -103,4 +104,12 @@ void Fruit::hideOrShowFruit(Board& b)
 int Fruit::randomBetween(int min, int max)
 {
 	return min + (rand() % static_cast<int>(max - min + 1));
+}
+
+void Fruit::PushLocationToVector(char first, char second)
+{
+	std::pair<char, char> loc;
+	loc.first=first;
+	loc.second = second;
+	Location.push_back(loc);
 }

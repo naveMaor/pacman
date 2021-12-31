@@ -84,6 +84,10 @@ char GameObject::directionToChar()
 	case 3: // DOWN
 		return 'D';
 		break;
+	case 4: // STAY
+		return 'S';
+		break;
+
 	}
 }
 
