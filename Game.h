@@ -48,6 +48,7 @@ public:
 	void gameGhostsLevel();
 	void pushdirectionsForObjects();
 	void writesteps(string screenName);
+	void resetVectors();
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };

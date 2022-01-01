@@ -35,6 +35,7 @@ public:
 	bool isValidMove(Board& b, bool& is_Tunnel);
 	void PushLivesToVector();
 	char getValueFromLivesVector(int iteration) const;
+	void clearLivesVector() { Lives.clear(); }
 };
 
 #endif

@@ -55,6 +55,15 @@ void Game::writesteps(string screenName)
 	}
 }
 
+
+void Game::resetVectors() {
+	player.clearStepsVector();
+	player.clearLivesVector();
+	fruit.clearVectors();
+	for (int j = 0; j < numOfGhosts; j++)
+		ghosts[j]->clearStepsVector();
+}
+
 /* This function play one single game*/
 void Game::playSingleGame(string screenName)
 {

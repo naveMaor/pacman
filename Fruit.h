@@ -31,6 +31,7 @@ public:
 	void PushLocationToVector(char first, char second);
 	char getValueFromisShowVector(int iteration) const;
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
+	void clearVectors();
 };
 
 #endif 

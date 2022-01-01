@@ -43,6 +43,7 @@ public:
 	void PushDirectionToVector(char dir);
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;
+	void clearStepsVector() { steps.clear(); }
 };
 
 #endif

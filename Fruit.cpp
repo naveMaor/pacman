@@ -123,3 +123,10 @@ std::pair<char, char> Fruit::getValueFromLocationVector(int iteration) const
 {
 	return Location[iteration];
 }
+
+void Fruit::clearVectors()
+{
+	steps.clear();
+	isShow.clear();
+	Location.clear();
+}
