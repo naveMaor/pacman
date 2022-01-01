@@ -93,7 +93,7 @@ bool File::isValidFile(string const fileName, Board& board)
  string File::createStepfileName(string const fileName)
 {
 	string Newname = fileName;
-	Newname.erase(6, fileName.length() - 6);
+	Newname.erase(fileName.length() - 6);
 	Newname.append(".steps");
 	return Newname;
 }
@@ -101,7 +101,7 @@ bool File::isValidFile(string const fileName, Board& board)
  string File::createResultfile(string const fileName)
  {
 	 string Newname = fileName;
-	 Newname.erase(6, fileName.length() - 6);
+	 Newname.erase(fileName.length() - 6);
 	 Newname.append(".Result");
 	 openFile(Newname);
 	 return Newname;
@@ -111,11 +111,8 @@ bool File::isValidFile(string const fileName, Board& board)
  {
 	 string s = createStepfileName(fileName);
 	 std::ofstream writeFile(s);
-	 writeFile << ch;
-	 /*if (openFile(s))
-	 {
-		 screenFile << ch;
-	 }*/
+	 if(writeFile.is_open())
+		writeFile << ch;	
 	 screenFile.close();
  }
 
