@@ -23,19 +23,24 @@ void Game::playGame(bool isSingleGame, string screenName)
 			{
 				File::writeToFileStep(screensNames[i], static_cast<char>(numOfGhosts));
 				playSingleGame();
-			}
-				
+			}	
 		}
 	}
 	resetGame();
 }
 
-void Game::writesteps();
+void Game::writesteps()
+{
+	for (int i = 0; i < countMoves; i++)
+	{
+		getValueFromVector[]
+	}
+}
 
 /* This function play one single game*/
 void Game::playSingleGame()
 {
-	int countMoves = 0;
+	countMoves = 0;
 	bool b_won = false;
 
 	initGame(getIsColorGame());
@@ -52,11 +57,11 @@ void Game::playSingleGame()
 		{
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
-			ghostsMove(countMoves, player.getBody());
+			ghostsMove(player.getBody());
 			checkGhostsHit(player.getBody());
 			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
-			pacmanMove(board, countMoves);
+			pacmanMove(board);
 		}		
 	}
 	// If lose
@@ -200,7 +205,7 @@ void Game::getUserKeyboard()
 }
 
 /* This function handle pacman move*/
-void Game::pacmanMove(Board & b, int &countMoves)
+void Game::pacmanMove(Board & b)
 {
 	getUserKeyboard();
 	if (continueGame)
@@ -226,7 +231,7 @@ void Game::checkGhostsHit(Point Body)
 
 
 /* This function handle ghosts move*/
-void Game::ghostsMove(int & countMoves, Point PlayerLocation)
+void Game::ghostsMove(Point PlayerLocation)
 {
 	if (numOfGhosts == 1)
 		ghosts[0]->changePosition(board, countMoves, PlayerLocation);

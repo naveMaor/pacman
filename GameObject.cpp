@@ -178,3 +178,8 @@ void GameObject::removeObject(Board& b)
 	else
 		cout << (char)space;
 }
+
+char getValueFromVector(vector<char>& v, int iteration)
+{
+	return v[iteration];
+}

@@ -108,11 +108,11 @@ bool File::isValidFile(string const fileName, Board& board)
 	 screenFile.close();
  }
 
- void File::writeToFileResult(string const fileName, char ch)
- {
+ //void File::writeToFileResult(string const fileName, char ch)
+ //{
 
-	 if (openFile(fileName))
-	 {
-		 screenFile.
-	 }
- }
+	// if (openFile(fileName))
+	// {
+	//	 screenFile.
+	// }
+ //}

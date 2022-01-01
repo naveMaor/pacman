@@ -29,6 +29,7 @@ private:
 	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, continueGame = true;
 	int gameSpeedVal = mediumGameSpeed, numOfGhosts, GhostsLevel = Hard;
+	int countMoves = 0;
 	
 public:
 	// Game functions
@@ -63,11 +64,11 @@ public:
 	bool ghostsHit(Point Body);
 	void checkGhostsHit(Point Body);
 	void removeGhosts();	
-	void ghostsMove(int& countMoves, Point PlayerLocation);
+	void ghostsMove(Point PlayerLocation);
 	bool checkGhostCollision(Ghost& g1, Ghost& g2);
 
 	// Pacman functions
-	void pacmanMove(Board& b, int& countMoves);
+	void pacmanMove(Board& b);
 	void getUserKeyboard();
 	
 
