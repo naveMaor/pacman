@@ -8,10 +8,11 @@ void Game::playGame(bool isSingleGame, string screenName)
 	{
 		if (File::isValidFile(screenName, board))
 		{
-			if (File::createAndOpenFile(screenName))
-				File::writeCharToFile('c');
-			playSingleGame(screenName);
+			File::createAndOpenFile(screenName);
 			
+			playSingleGame(screenName);
+			File::closeFile();
+
 		}
 		else
 		{
@@ -38,6 +39,8 @@ void Game::playGame(bool isSingleGame, string screenName)
 
 void Game::writesteps(string screenName)
 {
+	File::writeCharToFile(numOfGhosts + '0');
+
 	std::pair<char, char> Locationpair;
 	for (int i = 0; i < countMoves; i++)
 	{
