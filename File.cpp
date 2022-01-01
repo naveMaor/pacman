@@ -1,7 +1,6 @@
 #include "File.h"
 
-static fstream screenFile;
-static ofstream writeFile;
+static fstream file;
 
 /* This function return vector of screens names*/
 vector <string> File::getScreensName(string const PATH)
@@ -26,7 +25,7 @@ bool File::fileToBoard(Board& board)
 	string currLine;
 	string emptyLine = "                                                                                ";
 	
-	while (getline(screenFile, currLine) && b_validFile)
+	while (getline(file, currLine) && b_validFile)
 	{
 		currLineWidth = currLine.length();
 
@@ -69,8 +68,8 @@ void File::handleFirstLine(size_t & currLineWidth, char firstLetter, bool & b_va
 /* This function open the file*/
 bool File::openFile(string const filePath)
 {
-	screenFile.open(filePath);
-	if (screenFile.is_open())
+	file.open(filePath);
+	if (file.is_open())
 		return true;
 	cout << "Could not open the file in the directory: " << filePath << endl;
 	Sleep(shortPauseWindow);
@@ -84,7 +83,7 @@ bool File::isValidFile(string const fileName, Board& board)
 	if (openFile(fileName))
 	{
 		b_isValid = fileToBoard(board);
-		screenFile.close();
+		file.close();
 		return b_isValid;
 	}
 	return false;
@@ -109,24 +108,22 @@ bool File::isValidFile(string const fileName, Board& board)
 
  void File::writeCharToFile(char ch)
  {
-	 writeFile.put(ch);
-	 writeFile.flush();
-
+	 file.put(ch);
  }
 
 
  bool File::createAndOpenFile(string const fileName)
  {
 	 string newFileName = createStepfileName(fileName);
-	 //std::ofstream writeFile(newFileName);
-	 writeFile.open(newFileName.c_str(), std::ios_base::out, std::ios_base::trunc);
+	 file.open(newFileName.c_str(), std::ios_base::out, std::ios_base::trunc);
 	 return true;
  }
 
  void File::closeFile()
  {
 
-	 writeFile.close();
+	 file.flush();
+	 file.close();
  }
 
  //void File::writeToFileResult(string const fileName, char ch)
