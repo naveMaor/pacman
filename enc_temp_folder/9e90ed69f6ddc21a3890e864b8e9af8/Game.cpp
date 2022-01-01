@@ -38,6 +38,7 @@ void Game::writesteps(string screenName)
 	std::pair<char, char> Locationpair;
 	for (int i = 0; i < countMoves; i++)
 	{
+<<<<<<< HEAD
 		Locationpair = fruit.getValueFromLocationVector(i);
 		//write fruit values
 		File::writeToFileStep(screenName, Locationpair.first);
@@ -52,6 +53,9 @@ void Game::writesteps(string screenName)
 			File::writeToFileStep(screenName, ghosts[j]->getValueFromStepsVector(i));
 		//write Live value
 		File::writeToFileStep(screenName, player.getValueFromLivesVector(i));
+=======
+		//getValueFromVector[]
+>>>>>>> 717528cc82d2ea905fd77caa5f23ebf8d70ff200
 	}
 }
 

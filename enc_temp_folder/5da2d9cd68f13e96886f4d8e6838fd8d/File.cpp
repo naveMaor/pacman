@@ -1,10 +1,9 @@
 #include "File.h"
 
 static fstream screenFile;
-static ofstream writeFile;
 
 /* This function return vector of screens names*/
-vector <string> File::getScreensName(string const PATH)
+vector<string> File::getScreensName(string const PATH)
 {
 	vector<string> filesVector;
 
@@ -18,52 +17,46 @@ vector <string> File::getScreensName(string const PATH)
 }
 
 /* This function reading the file and transfer to board*/
-bool File::fileToBoard(Board& board)
+void File::fileToBoard(Board& board)
 {
 	int rowHightInFile = 0;
-	bool b_validFile = true;
-	size_t currLineWidth = 0;
-	string currLine;
+	size_t width = 0;
+	string line;
 	string emptyLine = "                                                                                ";
 	
-	while (getline(screenFile, currLine) && b_validFile)
+	while (getline(screenFile, line))
 	{
-		currLineWidth = currLine.length();
+		width = line.length();
 
 		// Get the width of the board by the first line of the file
 		if (rowHightInFile == 0)
 		{
-			handleFirstLine(currLineWidth, currLine[0],b_validFile); 
-			board.setBoardWidth(currLineWidth);
+			handleFirstLine(board, width, line[0]); 
+			board.setBoardWidth(width);
 		}
 		
-		if (currLineWidth != 0)
-			board.setBoardLine(currLine.c_str());
+		if (width != 0)
+			board.setBoardLine(rowHightInFile, line.c_str(), width);
 		else // emptyLine
-			board.setBoardLine(emptyLine.c_str());
+			board.setBoardLine(rowHightInFile, emptyLine.c_str(), width);
 		rowHightInFile++;
-		b_validFile = board.getIsValidBoard();
 	}
 
-	return board.checkValidBoard() && b_validFile;
+	// first row is zero
+	board.setBoardHight(rowHightInFile - 1 + board.getBoardStartHight());
 }
 
 /* This function handle the first line of the board*/
-void File::handleFirstLine(size_t & currLineWidth, char firstLetter, bool & b_validScreen)
+void File::handleFirstLine(Board& board, size_t &width, char firstLetter)
 {
-	// If the first line of the screen is \n
-	if (currLineWidth == 0)
+	if (width == 0 || width == 2)
 	{
 		cout << "The width of the screen is two short, moving to the next screen" << endl;
-		b_validScreen = false;
 		Sleep(shortPauseWindow);
 	}
-	// If the first letter in the file is & and the width is 1 init the board width to 20
-	else if ((currLineWidth == 1) && (firstLetter == '&'))
-		currLineWidth = 20;
-	// If the first line is more than 80 chars limit it to 80
-	else if (currLineWidth > 80)
-		currLineWidth = 80;
+	else if (width == 1)
+		if (firstLetter == '&')
+			width = 20;
 }
 
 /* This function open the file*/
@@ -73,19 +66,17 @@ bool File::openFile(string const filePath)
 	if (screenFile.is_open())
 		return true;
 	cout << "Could not open the file in the directory: " << filePath << endl;
-	Sleep(shortPauseWindow);
 	return false;
 }
 
 /* This function check if this is valid file*/
 bool File::isValidFile(string const fileName, Board& board)
 {
-	bool b_isValid = true;
 	if (openFile(fileName))
 	{
-		b_isValid = fileToBoard(board);
+		fileToBoard(board);
 		screenFile.close();
-		return b_isValid;
+		return true;
 	}
 	return false;
 }
@@ -101,8 +92,8 @@ bool File::isValidFile(string const fileName, Board& board)
  string File::createResultfile(string const fileName)
  {
 	 string Newname = fileName;
-	 Newname.erase(fileName.length() - 6);
-	 Newname.append("Result");
+	 Newname.erase(6, fileName.length() - 6);
+	 Newname.append(".Result");
 	 openFile(Newname);
 	 return Newname;
  }
@@ -110,10 +101,10 @@ bool File::isValidFile(string const fileName, Board& board)
  void File::writeToFileStep(string const fileName, char ch)
  {
 	 string s = createStepfileName(fileName);
-	 std::ofstream writeFile(s);
-	 if(writeFile.is_open())
-		writeFile << ch;	
-	 screenFile.close();
+	 fstream fs;
+	 fs.open(s);
+	 fs << ch;
+	 fs.close();
  }
 
  //void File::writeToFileResult(string const fileName, char ch)

@@ -131,3 +131,8 @@ void Pacman::PushLivesToVector()
 {
 	Lives.push_back(life);
 }
+
+char Pacman::getValueFromLivesVector(int iteration) const
+{
+	return Lives[iteration];
+}

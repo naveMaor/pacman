@@ -34,7 +34,7 @@ public:
 	bool isTunnel(Board& b, int x, int y, int width, int hight);
 	bool isValidMove(Board& b, bool& is_Tunnel);
 	void PushLivesToVector();
-	
+	char getValueFromLivesVector(int iteration) const;
 };
 
 #endif

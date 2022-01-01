@@ -41,7 +41,8 @@ public:
 	void removeObject(Board& b);
 	char directionToChar();
 	void PushDirectionToVector(char dir);
-	char getValueFromVector(vector<char>& v,int iteration) const;
+	static char getValueFromVector(vector<char>& v,int iteration);
+	char getValueFromStepsVector(int iteration) const;
 };
 
 #endif

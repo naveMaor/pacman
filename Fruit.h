@@ -29,7 +29,8 @@ public:
 	void hideOrShowFruit(Board& b);
 	int randomBetween(int min, int max);
 	void PushLocationToVector(char first, char second);
-
+	char getValueFromisShowVector(int iteration) const;
+	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 };
 
 #endif 
