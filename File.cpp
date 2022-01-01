@@ -102,18 +102,31 @@ bool File::isValidFile(string const fileName, Board& board)
  {
 	 string Newname = fileName;
 	 Newname.erase(fileName.length() - 6);
-	 Newname.append("Result");
+	 Newname.append("result");
 	 openFile(Newname);
 	 return Newname;
  }
 
- void File::writeToFileStep(string const fileName, char ch)
+ void File::writeCharToFile(char ch)
  {
-	 string s = createStepfileName(fileName);
-	 std::ofstream writeFile(s);
-	 if(writeFile.is_open())
-		writeFile << ch;	
-	 screenFile.close();
+	 writeFile.put(ch);
+	 writeFile.flush();
+
+ }
+
+
+ bool File::createAndOpenFile(string const fileName)
+ {
+	 string newFileName = createStepfileName(fileName);
+	 //std::ofstream writeFile(newFileName);
+	 writeFile.open(newFileName.c_str(), std::ios_base::out, std::ios_base::trunc);
+	 return true;
+ }
+
+ void File::closeFile()
+ {
+
+	 writeFile.close();
  }
 
 

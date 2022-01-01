@@ -87,7 +87,9 @@ char GameObject::directionToChar()
 	case 4: // STAY
 		return 'S';
 		break;
-
+	defalut:
+		return 'S';
+		break;
 	}
 }
 
