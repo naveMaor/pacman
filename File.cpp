@@ -1,6 +1,7 @@
 #include "File.h"
 
 static fstream screenFile;
+static ofstream writeFile;
 
 /* This function return vector of screens names*/
 vector <string> File::getScreensName(string const PATH)
@@ -109,10 +110,12 @@ bool File::isValidFile(string const fileName, Board& board)
  void File::writeToFileStep(string const fileName, char ch)
  {
 	 string s = createStepfileName(fileName);
-	 if (openFile(s))
+	 std::ofstream writeFile(s);
+	 writeFile << ch;
+	 /*if (openFile(s))
 	 {
 		 screenFile << ch;
-	 }
+	 }*/
 	 screenFile.close();
  }
 

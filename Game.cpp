@@ -10,6 +10,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 		{
 			File::writeToFileStep(screenName, static_cast<char>(numOfGhosts));
 			playSingleGame();
+		}
 		else
 		{
 			cout << "Isn't valid screen, returning to the menu." << endl;
@@ -36,7 +37,7 @@ void Game::writesteps()
 {
 	for (int i = 0; i < countMoves; i++)
 	{
-		getValueFromVector[]
+		//getValueFromVector[]
 	}
 }
 

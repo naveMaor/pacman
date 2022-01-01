@@ -11,6 +11,7 @@
 
 using std::vector;
 using std::fstream;
+using std::ofstream;
 using std::filesystem::directory_iterator;
 
 class File
