@@ -179,7 +179,7 @@ void GameObject::removeObject(Board& b)
 		cout << (char)space;
 }
 
-char getValueFromVector(vector<char>& v, int iteration)
+char GameObject::getValueFromStepsVector(int iteration) const
 {
-	return v[iteration];
+	return steps[iteration];
 }

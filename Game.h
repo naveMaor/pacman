@@ -34,7 +34,7 @@ private:
 public:
 	// Game functions
 	void playGame(bool isSingleGame, string screenName);
-	void playSingleGame();
+	void playSingleGame(string screenName);
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
@@ -47,7 +47,7 @@ public:
 	string choseScreen();
 	void gameGhostsLevel();
 	void pushdirectionsForObjects();
-	void writesteps();
+	void writesteps(string screenName);
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };

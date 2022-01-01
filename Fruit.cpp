@@ -113,3 +113,13 @@ void Fruit::PushLocationToVector(char first, char second)
 	loc.second = second;
 	Location.push_back(loc);
 }
+
+char Fruit::getValueFromisShowVector(int iteration) const
+{
+	return isShow[iteration];
+}
+
+std::pair<char, char> Fruit::getValueFromLocationVector(int iteration) const
+{
+	return Location[iteration];
+}

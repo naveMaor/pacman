@@ -100,7 +100,11 @@ bool File::isValidFile(string const fileName, Board& board)
 
  void File::writeToFileStep(string const fileName, char ch)
  {
-
+	 string s = createStepfileName(fileName);
+	 fstream fs;
+	 fs.open(s);
+	 fs << ch;
+	 fs.close();
  }
 
  //void File::writeToFileResult(string const fileName, char ch)

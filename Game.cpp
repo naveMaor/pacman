@@ -11,7 +11,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 		if (File::isValidFile(screenName, board))
 		{
 			File::writeToFileStep(screenName, static_cast<char>(numOfGhosts));
-			playSingleGame();
+			playSingleGame(screenName);
 		}
 	}
 	else // full game
@@ -22,23 +22,37 @@ void Game::playGame(bool isSingleGame, string screenName)
 			if (File::isValidFile(screensNames[i], board))
 			{
 				File::writeToFileStep(screensNames[i], static_cast<char>(numOfGhosts));
-				playSingleGame();
+				playSingleGame(screenName);
 			}	
 		}
 	}
 	resetGame();
 }
 
-void Game::writesteps()
+void Game::writesteps(string screenName)
 {
+	std::pair<char, char> Locationpair;
 	for (int i = 0; i < countMoves; i++)
 	{
-		getValueFromVector[]
+		Locationpair = fruit.getValueFromLocationVector(i);
+		//write fruit values
+		File::writeToFileStep(screenName, Locationpair.first);
+		File::writeToFileStep(screenName, ',');
+		File::writeToFileStep(screenName, Locationpair.second);
+		File::writeToFileStep(screenName, fruit.getValueFromStepsVector(i));
+		File::writeToFileStep(screenName, fruit.getValueFromisShowVector(i));
+		//write player steps
+		File::writeToFileStep(screenName, player.getValueFromStepsVector(i));
+		//write ghosts steps
+		for (int j = 0; j < numOfGhosts; j++)
+			File::writeToFileStep(screenName, ghosts[j]->getValueFromStepsVector(i));
+		//write Live value
+		File::writeToFileStep(screenName, player.getValueFromLivesVector(i));
 	}
 }
 
 /* This function play one single game*/
-void Game::playSingleGame()
+void Game::playSingleGame(string screenName)
 {
 	countMoves = 0;
 	bool b_won = false;
@@ -64,6 +78,8 @@ void Game::playSingleGame()
 			pacmanMove(board);
 		}		
 	}
+	// Writes Steps
+	writesteps(screenName);
 	// If lose
 	if (player.getLife() == 0)
 	{
