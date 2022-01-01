@@ -25,8 +25,10 @@ public:
 	static bool isValidFile(string const fileName, Board& board);
 	static string createStepfileName(string const fileName);
 	static string createResultfile(string const fileName);
-	static void writeToFileStep(string const fileName,char ch);
+	static void writeCharToFile(char ch);
 	static void writeToFileResult(string const fileName, char ch);
+	static bool createAndOpenFile(string const fileName);
+	static void closeFile();
 
 };
 

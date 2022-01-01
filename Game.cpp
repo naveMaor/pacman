@@ -8,8 +8,10 @@ void Game::playGame(bool isSingleGame, string screenName)
 	{
 		if (File::isValidFile(screenName, board))
 		{
-			File::writeToFileStep(screenName, static_cast<char>(numOfGhosts));
+			if (File::createAndOpenFile(screenName))
+				File::writeCharToFile('c');
 			playSingleGame(screenName);
+			
 		}
 		else
 		{
@@ -25,8 +27,9 @@ void Game::playGame(bool isSingleGame, string screenName)
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
 			{
-				File::writeToFileStep(screensNames[i], static_cast<char>(numOfGhosts));
 				playSingleGame(screenName);
+				if (File::createAndOpenFile(screenName))
+					File::writeCharToFile('c');
 			}	
 		}
 	}
@@ -40,18 +43,18 @@ void Game::writesteps(string screenName)
 	{
 		Locationpair = fruit.getValueFromLocationVector(i);
 		//write fruit values
-		File::writeToFileStep(screenName, Locationpair.first);
-		File::writeToFileStep(screenName, ',');
-		File::writeToFileStep(screenName, Locationpair.second);
-		File::writeToFileStep(screenName, fruit.getValueFromStepsVector(i));
-		File::writeToFileStep(screenName, fruit.getValueFromisShowVector(i));
+		File::writeCharToFile(Locationpair.first);
+		File::writeCharToFile(',');
+		File::writeCharToFile(Locationpair.second);
+		File::writeCharToFile(fruit.getValueFromStepsVector(i));
+		File::writeCharToFile(fruit.getValueFromisShowVector(i));
 		//write player steps
-		File::writeToFileStep(screenName, player.getValueFromStepsVector(i));
+		File::writeCharToFile(player.getValueFromStepsVector(i));
 		//write ghosts steps
 		for (int j = 0; j < numOfGhosts; j++)
-			File::writeToFileStep(screenName, ghosts[j]->getValueFromStepsVector(i));
+			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
 		//write Live value
-		File::writeToFileStep(screenName, player.getValueFromLivesVector(i));
+		File::writeCharToFile(player.getValueFromLivesVector(i));
 	}
 }
 
