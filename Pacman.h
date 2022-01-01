@@ -13,6 +13,7 @@ private:
 
 	int score = 0;
 	int life = 3;
+	vector<char> Lives;
 	
 
 public:
@@ -32,6 +33,8 @@ public:
 	void moveTunnelPrint(int x, int y);
 	bool isTunnel(Board& b, int x, int y, int width, int hight);
 	bool isValidMove(Board& b, bool& is_Tunnel);
+	void PushLivesToVector();
+	
 };
 
 #endif

@@ -59,11 +59,27 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 
 		this->setDirection(direction);
 		this->move();
+		//PUT THE CURRENT DIRECTION IN THE VECTOR
+		PushDirectionToVector(directionToChar());
 
 		// If last ghost position was breadcrumb print breadcrumb
 		if (b.getBoardValFromPoint(x, y) == breadCrumb)
 			printBreadCrumbs(x, y);
 	}
+	else
+	{
+		//PUT STAY DIRECTION IN THE VECTOR
+		PushDirectionToVector('S');
+	}
+
+	//PUT TRUE SHOW IN THE VECTOR
+	if (showfruit)
+		isShow.push_back('T');
+	else 
+		isShow.push_back('F');//PUT FLASE SHOW IN THE VECTOR
+
+	PushLocationToVector(static_cast<char>(pBody.getX()), static_cast<char>(pBody.getY()));
+
 }
 
 /* This function hid or show the fruit on the screen*/
@@ -88,4 +104,12 @@ void Fruit::hideOrShowFruit(Board& b)
 int Fruit::randomBetween(int min, int max)
 {
 	return min + (rand() % static_cast<int>(max - min + 1));
+}
+
+void Fruit::PushLocationToVector(char first, char second)
+{ 
+	std::pair<char, char> loc;
+	loc.first=first;
+	loc.second = second;
+	Location.push_back(loc);
 }

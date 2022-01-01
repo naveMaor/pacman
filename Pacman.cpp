@@ -60,7 +60,14 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 			moveTunnel(b);
 		else
 			move();
+
+		PushDirectionToVector(directionToChar());
 	}
+	else
+	{
+		PushDirectionToVector('S');
+	}
+	PushLivesToVector();
 	countPacmanMoves++;
 }
 
@@ -118,4 +125,9 @@ void Pacman::moveTunnelPrint(int x, int y)
 	remove();
 	setBody(x, y);
 	draw();
+}
+
+void Pacman::PushLivesToVector()
+{
+	Lives.push_back(life);
 }

@@ -7,6 +7,8 @@ void Game::playGame(bool isSingleGame, string screenName)
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
+		{
+			File::writeToFileStep(screenName, static_cast<char>(numOfGhosts));
 			playSingleGame();
 		else
 		{
@@ -21,21 +23,27 @@ void Game::playGame(bool isSingleGame, string screenName)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
-				playSingleGame();
-			else
 			{
-				cout << "Isn't valid screen, moving to the next screen if exist." << endl;
-				Sleep(longPauseWindow);
-			}
+				File::writeToFileStep(screensNames[i], static_cast<char>(numOfGhosts));
+				playSingleGame();
+			}	
 		}
 	}
 	resetGame();
 }
 
+void Game::writesteps()
+{
+	for (int i = 0; i < countMoves; i++)
+	{
+		getValueFromVector[]
+	}
+}
+
 /* This function play one single game*/
 void Game::playSingleGame()
 {
-	int countMoves = 0;
+	countMoves = 0;
 	bool b_won = false;
 
 	initGame(b_IsColorGame);
@@ -52,11 +60,11 @@ void Game::playSingleGame()
 		{
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
-			ghostsMove(countMoves, player.getBody());
+			ghostsMove(player.getBody());
 			checkGhostsHit(player.getBody());
 			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
-			pacmanMove(board, countMoves);
+			pacmanMove(board);
 		}		
 	}
 	// If lose
@@ -66,6 +74,7 @@ void Game::playSingleGame()
 		gameOver();
 	}
 }
+
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
@@ -82,6 +91,7 @@ void Game::initGame(bool b_color)
 	drawGameObj();
 	print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());
 }
+
 
 /* This function handle settings options*/
 void Game::gameSettings()
@@ -198,7 +208,7 @@ void Game::getUserKeyboard()
 }
 
 /* This function handle pacman move*/
-void Game::pacmanMove(Board & b, int &countMoves)
+void Game::pacmanMove(Board & b)
 {
 	getUserKeyboard();
 	if (continueGame)
@@ -224,7 +234,7 @@ void Game::checkGhostsHit(Point Body)
 
 
 /* This function handle ghosts move*/
-void Game::ghostsMove(int & countMoves, Point PlayerLocation)
+void Game::ghostsMove(Point PlayerLocation)
 {
 	if (numOfGhosts == 1)
 		ghosts[0]->changePosition(board, countMoves, PlayerLocation);
