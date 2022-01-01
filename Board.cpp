@@ -2,9 +2,7 @@
 
 Board::Board()
 {
-    for (int i = 0; i < HIGHT; i++)
-        for (int j = 0; j < WIDTH; j++)
-            board[i][j] = ' ';
+    resetBoard();
 }
 
 /* This function print the board
@@ -27,80 +25,67 @@ void const Board::printBoard() const
 /* This function reset the board to the begining*/
 void Board::resetBoard()
 {
-    for (int i = 0; i < HIGHT; i++)
-        for (int j = 0; j < WIDTH; j++)
+    for (int i = 0; i < MAX_HIGHT; i++)
+        for (int j = 0; j < MAX_WIDTH; j++)
                 board[i][j] = ' ';
 }
 
 /* This function get the line from the board*/
-void Board:: setBoardLine(int hight, const char* line,int width)
+void Board:: setBoardLine(const char* currFileLine)
 {
-    bool isFirstWallInLine = true;
 
-    int x = 0;
-    if (isGameInfoExist)
-        adjustBoardLineType(hight, x);
-
-    for (x; x < width && x < WIDTH; x++)
+    for (int x = 0; x < boardWidth && isValidBoard; x++)
     {
-        board[hight][x] = line[x];
-        
-        if (line[x] == '#')
-            handleWall(hight, x, isFirstWallInLine);
-
-        else if (line[x] == '&')
-            handleGameInfo(hight, x);
-
-        else if (line[x] == '%')
-            handleCleanGameArea(hight, x);
-
-        else
+        // If this point isn't inside game info area
+        if (!isInGameInfoArea(Point(x, boardHight)))
         {
-            if (board[hight][x] != gameInfoArea)
-            {
-                board[hight][x] = breadCrumb;
-                breadCrumbsLeft++;
-            }
-
-            if (line[x] == '$')
-                handleGhost(hight, x);
-            else if (line[x] == '@')
-                handlePacman(hight, x);
-        }   
-        if (board[hight][x] != gameInfoArea)
-        {
-            // Getting the first gameobject that is not gameInfoArea and this is the first valid board line
-            if (!isStartHightSet)
-            {
-                boardStartHight = hight;
-                isStartHightSet = true;
-            }
-            // Getting the last gameobject that is not gameInfoArea and this is the last valid board line
-            boardEndHight = hight;
-        }    
+            if (currFileLine[x] == space) // BreadCrumb
+                handleBreadCrumb(boardHight, x);
+            else if (currFileLine[x] == '#') // Wall
+                board[boardHight][x] = wall;
+            else if (currFileLine[x] == '%') // Clean game area
+                board[boardHight][x] = cleanGameArea;
+            else if (currFileLine[x] == '$') // Ghost
+                handleGhost(boardHight, x);
+            else if (currFileLine[x] == '@') // Pacman
+                handlePacman(boardHight, x);
+            else if (currFileLine[x] == '&') // Game info area
+                handleGameInfo(boardHight, x);
+            else // Invalid char in the file
+                cout << "Invalid char: " << currFileLine[x] << endl;
+        }
     } 
+    boardHight++;
 }
 
 /* This function init the game info area in the board*/
 void Board::initInfoPosition() 
 {
-    int j = 0, x = infoPosition.getX(), y = infoPosition.getY();
+    int j, x = infoPosition.getX(), y = infoPosition.getY();
 
-    for (int i = y; i < y + 3 && (y + 3 < HIGHT); i++)
+    for (int i = y; i < y + 3 && (y + 3 < MAX_HIGHT); i++)
     {
-        for (j = x; (j < x + 20) && j < WIDTH; j++)
+        for (j = x; (j < x + 20) && j < MAX_WIDTH; j++) // game info area
         {
             if (board[i][j] == breadCrumb)
                 breadCrumbsLeft--;
             board[i][j] = gameInfoArea;
         }
+
+        for(j; j < boardWidth; j++) // complete the line with clean game area
+            board[i][j] = cleanGameArea;
+
+        if (i > boardHight) // if the '&' out of the board from bottom, increase the hight of the board
+            boardEndHight = i;
     }
 }
 
 /* This function init board data*/
 void Board:: initBoardData(Point& gameInfo)
 {
-    initInfoPosition();
+    boardHight -= 1; // After the loop of getting the data from the file the hight is increase in one two much
+    if (boardEndHight > boardHight)
+        boardHight = boardEndHight;
     gameInfo = infoPosition;
     printBoard();
 }
@@ -110,77 +95,81 @@ void Board::resetBoardDataMembers()
 {
     isPacmanExist = isGameInfoExist = false;
     isStartHightSet = false;
-    breadCrumbsLeft = ghostCount = boardWidth = boardHight = boardStartHight = boardEndHight = 0;
-    boardStartWidth = 80;
+    breadCrumbsLeft = ghostCount = boardWidth = boardHight = 0;
     infoPosition = { -1, -1 };
     pacmanStartingPosition = infoPosition = { -1, -1 };
     for(int i = 0; i < ghostCount; i++)
         ghostStartingPositions[i] = { -1, -1 };
 }
 
-/* This function handle getting wall in file*/
-void Board::handleWall(int hight, int x, bool& isFirstWallInLine)
-{
-    board[hight][x] = wall;
-
-    // Handle case the screen doesn't start from the most left (x = 0)
-    if (isFirstWallInLine == true)
-    {
-        isFirstWallInLine = false;
-        if (boardStartWidth > x)
-            boardStartWidth = x;
-    }
-}
 
 /* This function handle getting ghost in file*/
-void Board::handleGhost(int hight, int x)
+void Board::handleGhost(int boardHight, int x)
 {
     if (ghostCount <= 4)
     {
         ghostStartingPositions[ghostCount].setX(x);
-        ghostStartingPositions[ghostCount].setY(hight);
+        ghostStartingPositions[ghostCount].setY(boardHight);
         ghostCount++;
+        handleBreadCrumb(boardHight, x);
     }
     else
-        cout << "Two many ghosts in there board";
+    {
+        isValidBoard = false;
+        cout << "Two many ghosts in there board"<<endl;
+    }
 }
 
 /* This function handle getting pacman in file*/
-void Board::handlePacman(int hight, int x)
+void Board::handlePacman(int boardHight, int x)
 {
     if (!isPacmanExist) // take only first appear of pacman in board  
     {
         isPacmanExist = true;
-        pacmanStartingPosition = { x, hight };
+        pacmanStartingPosition = { x, boardHight };
+        handleBreadCrumb(boardHight, x);
+    }
+    else // More than one apear of '@' in the file
+    {
+    isValidBoard = false;
+    cout << "Two many ghosts in there board" << endl;
     }
 }
 
-/* This function handle getting game info in file - & */
-void Board::handleGameInfo(int hight, int x)
+
+/* This function handle getting game info in file - & 
+   The area that defined to the game info area is 20*3 */
+void Board::handleGameInfo(int boardHight, int x)
 {
+    // Handle the case there is more than & in the file
     if (!isGameInfoExist)
     {
-        isGameInfoExist = true;
-        infoPosition = { x, hight };
-        initInfoPosition();
+        
+        // Valid that there is enough place in the board
+        if ((boardHight + 3 < MAX_HIGHT) && (x + 20 < MAX_WIDTH))
+        {
+            // If this is the first line the board width may be change
+            if (boardHight == 0)
+                if (x + 20 > boardWidth)
+                    boardWidth = x + 20;
+
+            isGameInfoExist = true;
+            infoPosition = { x, boardHight };
+            initInfoPosition();
+        }
+        else
+        {
+            cout << "There isn't enough place in the board for the game info area." << endl;
+            isValidBoard = false;
+        }
     }
-    else // if already game info set print breadcrum instead
-        board[hight][x] = breadCrumb;
+    else // More than one apear of '&' in the file
+    {
+        cout << "There are more than one apear of '&' in the file." << endl;
+        isValidBoard = false;
+    }
 }
 
-/* This function handle getting clean area in file - % */
-void Board::handleCleanGameArea(int hight, int x)
-{
-    if(board[hight][x] != gameInfoArea)
-        board[hight][x] = cleanGameArea;
-}
-
-/* This function adjust board line type when is this is the gameinfo area and there are more chars to init*/
-void Board::adjustBoardLineType(int& hight, int &x)
-{
-    while (board[hight][x] == gameInfoArea)
-        x++;
-}
 
 /* This function check if this is the game info area*/
 bool Board:: isInGameInfoArea(Point point)
@@ -188,4 +177,23 @@ bool Board:: isInGameInfoArea(Point point)
     if (getBoardValFromPoint(point) == gameInfoArea)
         return true;
     return false;
+}
+
+
+/* This function add bread crumb to the game and count it*/
+void Board::handleBreadCrumb(int boardHight, int x)
+{
+    board[boardHight][x] = breadCrumb;
+    breadCrumbsLeft++;
+}
+
+
+/* This function check that the board include the must have game object- pacman and game info*/
+bool Board::checkValidBoard()
+{
+    if (!isPacmanExist)
+        cout << "Pacman isn't exist in file."<<endl;
+    if (!isGameInfoExist)
+        cout << "Game info isn't exist in file." << endl;
+    return isGameInfoExist && isPacmanExist;
 }

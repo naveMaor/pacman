@@ -4,20 +4,29 @@
 /* This function handle the game*/
 void Game::playGame(bool isSingleGame, string screenName)
 {
-	size_t numOfScreens = screensNames.size();
-
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
 			playSingleGame();
+		else
+		{
+			cout << "Isn't valid screen, returning to the menu." << endl;
+			Sleep(longPauseWindow);
+		}
 	}
 	else // full game
 	{
+		size_t numOfScreens = screensNames.size();
 		for (auto i = 0; i < numOfScreens && continueGame; i++)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
 				playSingleGame();
+			else
+			{
+				cout << "Isn't valid screen, moving to the next screen if exist." << endl;
+				Sleep(longPauseWindow);
+			}
 		}
 	}
 	resetGame();
@@ -29,7 +38,7 @@ void Game::playSingleGame()
 	int countMoves = 0;
 	bool b_won = false;
 
-	initGame(getIsColorGame());
+	initGame(b_IsColorGame);
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
@@ -48,7 +57,6 @@ void Game::playSingleGame()
 			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
 			pacmanMove(board, countMoves);
-			
 		}		
 	}
 	// If lose

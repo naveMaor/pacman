@@ -25,6 +25,8 @@ enum characterEnum { wall = 219, breadCrumb = 250, pacmanIcon = 2, ghostIcon= 36
 
 const string screenPath = ".";
 
+//vector <std::exception> exceptionsVec;
+
 void gotoxy(int x, int y);
 void setTextColor(Color);
 void hideCursor();

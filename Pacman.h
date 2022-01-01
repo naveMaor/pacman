@@ -30,7 +30,7 @@ public:
 	void changePosition(Board& b, int& countPacmanMoves);
 	void moveTunnel(Board& b);
 	void moveTunnelPrint(int x, int y);
-	bool isTunnel(Board& b, int x, int y, int width, int hight, int startBoardXMinusOne, int startBoardYMinusOne);
+	bool isTunnel(Board& b, int x, int y, int width, int hight);
 	bool isValidMove(Board& b, bool& is_Tunnel);
 };
 
