@@ -11,16 +11,17 @@
 
 using std::vector;
 using std::fstream;
+using std::ofstream;
 using std::filesystem::directory_iterator;
 
 class File
 {
 	static bool openFile(string const filePath);
-	static void handleFirstLine(Board& board, size_t& width, char firstLetter);
+	static void handleFirstLine( size_t& currLineWidth, char firstLetter, bool& b_validScreen);
 
 public:
 	static vector<string> getScreensName(string const PATH); ///// moved to game.cpp
-	static void fileToBoard(Board &board);
+	static bool fileToBoard(Board &board);
 	static bool isValidFile(string const fileName, Board& board);
 	static string createStepfileName(string const fileName);
 	static string createResultfile(string const fileName);

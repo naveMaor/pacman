@@ -5,20 +5,20 @@
 #include "Utilities.h"
 #include "Point.h"
 
-enum sizeEnum { WIDTH = 80, HIGHT = 25 };
+enum sizeEnum { MAX_WIDTH = 80, MAX_HIGHT = 25 };
 
 class Board
 {
     bool isStartHightSet = false;
-    unsigned char board[HIGHT][WIDTH] = {};
-    int boardWidth = 0, boardHight = 0, boardStartHight = 0, boardStartWidth = 80, boardEndHight = 0;
-    int breadCrumbsLeft = 0, ghostCount = 0;;
+    unsigned char board[MAX_HIGHT][MAX_WIDTH] = {};
+    int boardWidth = 0, boardHight = 0; // width and hight start from zero!!!
+    int breadCrumbsLeft = 0, ghostCount = 0, boardEndHight = 0;
     Point pacmanStartingPosition;
     Point ghostStartingPositions[4] = {};
     Point infoPosition;
 
 protected:
-    bool isPacmanExist = false, isGameInfoExist = false;
+    bool isPacmanExist = false, isGameInfoExist = false, isValidBoard = true, isGameInfoAtBottom = false;
   
 public:
     Board();
@@ -27,34 +27,36 @@ public:
     void initBoardData(Point& gameInfo);
     void initInfoPosition();
     void resetBoardDataMembers();
+    bool checkValidBoard();
 
     // This function return the value in the board of request place, the x and y that requested are opposite in the board
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };
     unsigned char getBoardValFromPoint(Point point)const { return board[point.getY()][point.getX()]; };
     int getBoardWidth() const { return boardWidth; }
-    int getBoardStartWidth() const { return boardStartWidth; }
     int getBoardHight() const { return boardHight; } // first hight is zero
-    int getBoardStartHight() const { return boardStartHight; }
-    int getBoardEndHight() const { return boardEndHight; }
+    //int getBoardEndHight() const { return boardEndHight; }
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
+    bool getIsValidBoard() const { return isValidBoard; }
     Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
     Point getGhostStartingPosition(int index) const { return ghostStartingPositions[index]; }
     Point getInfoPosition() const { return infoPosition; }
+    bool getIsGameInfoAtBottom() { isGameInfoAtBottom; };
+
     bool isInGameInfoArea(Point point);
 
     void eatBreadCrumb() { breadCrumbsLeft--; }
     void setBoardValByPoint(int x, int y) { board[y][x] = boardGarbageVal; }; // Set garabge value
-    void setBoardLine(int hight, const char* line, int width);
+    void setBoardLine(const char* currFileLine);
     void setBoardWidth(int width) { boardWidth = width; };
-    void setBoardHight(int hight) { boardHight = hight; }; // first hight is zero
+    void setBoardHight(int boardHight) { boardHight = boardHight; }; // first hight is zero
     void setPacmanExist(bool isExist) { isPacmanExist = isExist; }
-  
-    void handleWall(int hight, int x, bool& isFirstWallInLine);
-    void handleGhost(int hight, int x);
-    void handlePacman(int hight, int x);
-    void handleGameInfo(int hight, int x);
-    void handleCleanGameArea(int hight, int x);
-    void adjustBoardLineType(int& hight, int& x);
+
+    void handleGhost(int boardHight, int x);
+    void handlePacman(int boardHight, int x);
+    void handleGameInfo(int boardHight, int x);
+    void handleBreadCrumb(int boardHight, int x);
+    void handleCleanGameArea(int boardHight, int x);
+    
 };
 #endif

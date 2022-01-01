@@ -15,12 +15,12 @@ Point Ghost::minDistance(Point PlayerLocation, Board& board)
 	{
 		Point Pcurr(0, 0);
 		QItem source(PlayerLocation.getX(), PlayerLocation.getY(), Pcurr);
-		int Hight = board.getBoardEndHight();
+		int Hight = board.getBoardHight();
 		int Width = board.getBoardWidth();
 
 		// To keep track of visited QItems. Marking
 		// blocked cells as visited.
-		bool visited[HIGHT][WIDTH] = { false };
+		bool visited[MAX_HIGHT][MAX_WIDTH] = { false };
 		// init source
 		source.row = PlayerLocation.getX();
 		source.col = PlayerLocation.getY();
