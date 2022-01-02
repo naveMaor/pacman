@@ -46,9 +46,9 @@ void Game::writesteps(string screenName)
 	{
 		Locationpair = fruit.getValueFromLocationVector(i);
 		//write fruit values
-		File::writeCharToFile(Locationpair.first);
+		File::writeCharToFile(Locationpair.first + '0');
 		File::writeCharToFile(',');
-		File::writeCharToFile(Locationpair.second);
+		File::writeCharToFile(Locationpair.second + '0');
 		File::writeCharToFile(fruit.getValueFromStepsVector(i));
 		File::writeCharToFile(fruit.getValueFromisShowVector(i));
 		//write player steps
@@ -57,7 +57,7 @@ void Game::writesteps(string screenName)
 		for (int j = 0; j < numOfGhosts; j++)
 			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
 		//write Live value
-		File::writeCharToFile(player.getValueFromLivesVector(i));
+		File::writeCharToFile(player.getValueFromLivesVector(i) + '0');
 	}
 }
 
