@@ -97,7 +97,7 @@ bool File::isValidFile(string const fileName, Board& board)
 	return Newname;
 }
 
- string File::createResultfile(string const fileName)
+ string File::createResultfileName(string const fileName)
  {
 	 string Newname = fileName;
 	 Newname.erase(fileName.length() - 6);
@@ -112,11 +112,18 @@ bool File::isValidFile(string const fileName, Board& board)
  }
 
 
- bool File::createAndOpenFile(string const fileName)
+ void File::createAndOpenFile(string const fileName, int filetype)
  {
-	 string newFileName = createStepfileName(fileName);
+	 string newFileName;
+	 if (filetype == fileType::step)
+	 {
+		 newFileName = createStepfileName(fileName);
+	 }
+	 else
+	 {
+		 newFileName = createResultfileName(fileName);
+	 }
 	 file.open(newFileName.c_str(), std::ios_base::out, std::ios_base::trunc);
-	 return true;
  }
 
  void File::closeFile()

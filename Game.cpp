@@ -2,15 +2,15 @@
 
 
 /* This function handle the game*/
-void Game::playGame(bool isSingleGame, string screenName)
+void Game::playGame(bool isSingleGame, string screenName, bool savemode)
 {
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
 		{
-			File::createAndOpenFile(screenName);
+			File::createAndOpenFile(screenName, fileType::step);
 			
-			playSingleGame(screenName);
+			playSingleGame(screenName, savemode);
 			File::closeFile();
 
 		}
@@ -28,9 +28,7 @@ void Game::playGame(bool isSingleGame, string screenName)
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
 			{
-				playSingleGame(screenName);
-				if (File::createAndOpenFile(screenName))
-					File::writeCharToFile('c');
+				playSingleGame(screenName, savemode);
 			}	
 		}
 	}
@@ -59,6 +57,7 @@ void Game::writesteps(string screenName)
 		//write Live value
 		File::writeCharToFile(player.getValueFromLivesVector(i) + '0');
 	}
+	resetVectors();
 }
 
 
@@ -71,7 +70,7 @@ void Game::resetVectors() {
 }
 
 /* This function play one single game*/
-void Game::playSingleGame(string screenName)
+void Game::playSingleGame(string screenName, bool savemode)
 {
 	countMoves = 0;
 	bool b_won = false;
@@ -97,8 +96,12 @@ void Game::playSingleGame(string screenName)
 			pacmanMove(board);
 		}		
 	}
-	// Writes Steps
-	writesteps(screenName);
+
+	if (savemode)
+	{
+		// Writes Steps
+		writesteps(screenName);
+	}
 	// If lose
 	if (player.getLife() == 0)
 	{
@@ -330,6 +333,7 @@ bool Game::checkGhostCollision(Ghost &g1, Ghost &g2)
 void Game::gameOver()
 {
 	print.gameOver(gameInfo, b_IsColorGame);
+
 	for (int i = 0; i < numOfGhosts; i++)
 		delete ghosts[i];
 	clearScreen();

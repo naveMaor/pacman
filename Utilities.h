@@ -22,6 +22,9 @@ enum sleepEnum { shortPauseWindow = 2500, longPauseWindow = 4000 };
 enum gameSpeed { easyGameSpeed = 600, mediumGameSpeed = 300, hardGameSpeed = 140, expertGameSpeed = 70 };
 enum characterEnum { wall = 219, breadCrumb = 250, pacmanIcon = 2, ghostIcon= 36, defaltFruitIcon = 53, 
 	space =  32, boardGarbageVal = 52, heart = 3, gameInfoArea = 126, cleanGameArea = 37};
+enum fileType { step = 1, result = 2 };
+
+
 
 const string screenPath = ".";
 

@@ -33,8 +33,8 @@ private:
 	
 public:
 	// Game functions
-	void playGame(bool isSingleGame, string screenName);
-	void playSingleGame(string screenName);
+	void playGame(bool isSingleGame, string screenName, bool savemode);
+	void playSingleGame(string screenName, bool savemode);
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
@@ -46,7 +46,6 @@ public:
 	void chooseColor();
 	string choseScreen();
 	void gameGhostsLevel();
-	void pushdirectionsForObjects();
 	void writesteps(string screenName);
 	void resetVectors();
 

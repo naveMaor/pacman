@@ -278,3 +278,5 @@ bool Menu::checkValidGhostsLevelInput(string input) const
 	}
 	return false;
 }
+
+

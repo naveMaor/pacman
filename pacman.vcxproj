@@ -169,6 +169,7 @@
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="GoodGhost.h" />
+    <ClInclude Include="InputParser.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NoviceGhost.h" />
     <ClInclude Include="Print.h" />
