@@ -7,7 +7,7 @@
 class Fruit : public GameObject
 {
 	char fruitScore = defaltFruitIcon;
-	bool showfruit = true;
+	bool showFruit = true;
 	vector<char> isShow;
 	vector<std::pair<char, char>> Location;
 
@@ -20,15 +20,15 @@ public:
 
 	// Functions
 	int getFruitScore() const { return fruitScore-'0'; };
-	bool getshowfruit() const { return showfruit; }
+	bool getshowfruit() const { return showFruit; }
 	void setNewFruitScore();
 	void setNewFruitlocation(Board& b);
 	void initFruit(Board& b);
 	void changePosition(Board& b, int& countPacmanMoves); 
-	void setshowfruit() { showfruit = (!showfruit); };
+	void setShowFruit() { showFruit = (!showFruit); };
 	void hideOrShowFruit(Board& b);
 	int randomBetween(int min, int max);
-	void PushLocationToVector(char first, char second);
+	void pushLocationToVector(char first, char second);
 	char getValueFromisShowVector(int iteration) const;
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();

@@ -2,17 +2,24 @@
 
 
 /* This function handle the game*/
-void Game::playGame(bool isSingleGame, string screenName, bool savemode)
+void Game::playGame(bool isSingleGame, string screenName, bool saveMode)
 {
 	if (isSingleGame)
 	{
 		if (File::isValidFile(screenName, board))
 		{
 			File::createAndOpenFile(screenName, fileType::step);
-			
-			playSingleGame(screenName, savemode);
-			File::closeFile();
+			playSingleGame(screenName, saveMode);
+			File::closeWrittenFile();
 
+			/*
+			// writes Steps
+			if (saveMode)
+			{
+				File::createAndOpenFile(screenName, fileType::step);
+				writeStepsToFile(screenName);
+				File::closeWrittenFile();
+			}*/
 		}
 		else
 		{
@@ -27,35 +34,58 @@ void Game::playGame(bool isSingleGame, string screenName, bool savemode)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
-			{
-				playSingleGame(screenName, savemode);
-			}	
+				playSingleGame(screenName, saveMode);
 		}
 	}
 	resetGame();
 }
 
-void Game::writesteps(string screenName)
+void Game::writeStepsToFile(string screenName)
 {
+	// Write num of ghosts
 	File::writeCharToFile(numOfGhosts + '0');
+	File::writeCharToFile('\n');
 
-	std::pair<char, char> Locationpair;
+	std::pair<char, char> pFruitLocation;
+	char isFruitShow;
 	for (int i = 0; i < countMoves; i++)
 	{
-		Locationpair = fruit.getValueFromLocationVector(i);
-		//write fruit values
-		File::writeCharToFile(Locationpair.first + '0');
-		File::writeCharToFile(',');
-		File::writeCharToFile(Locationpair.second + '0');
-		File::writeCharToFile(fruit.getValueFromStepsVector(i));
-		File::writeCharToFile(fruit.getValueFromisShowVector(i));
-		//write player steps
+		isFruitShow = fruit.getValueFromisShowVector(i);
+
+		// Write fruit values
+		if (isFruitShow == 'T')
+		{
+			File::writeCharToFile(isFruitShow);
+			pFruitLocation = fruit.getValueFromLocationVector(i);
+			File::writeCharToFile('(');
+			File::writeNumToFileAsChar(pFruitLocation.first);
+			File::writeCharToFile(',');
+			File::writeNumToFileAsChar(pFruitLocation.second);
+			File::writeCharToFile(')');
+			File::writeCharToFile(fruit.getValueFromStepsVector(i));
+		}
+		else
+			File::writeCharToFile('F');
+
+		// Seperate
+		File::writeCharToFile('|');
+
+		// Write player steps
 		File::writeCharToFile(player.getValueFromStepsVector(i));
-		//write ghosts steps
+
+		// Seperate
+		File::writeCharToFile('|');
+
+		// Write ghosts steps
 		for (int j = 0; j < numOfGhosts; j++)
 			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
-		//write Live value
+
+		// Seperate
+		File::writeCharToFile('|');
+
+		// Write lives value
 		File::writeCharToFile(player.getValueFromLivesVector(i) + '0');
+		File::writeCharToFile('\n');
 	}
 	resetVectors();
 }
@@ -70,7 +100,7 @@ void Game::resetVectors() {
 }
 
 /* This function play one single game*/
-void Game::playSingleGame(string screenName, bool savemode)
+void Game::playSingleGame(string screenName, bool saveMode)
 {
 	countMoves = 0;
 	bool b_won = false;
@@ -97,11 +127,9 @@ void Game::playSingleGame(string screenName, bool savemode)
 		}		
 	}
 
-	if (savemode)
-	{
-		// Writes Steps
-		writesteps(screenName);
-	}
+	if (saveMode)
+		writeStepsToFile(screenName);
+
 	// If lose
 	if (player.getLife() == 0)
 	{
@@ -251,19 +279,19 @@ void Game::pacmanMove(Board & b)
 }
 
 /* This function check if the ghost hit the pacman*/
-bool Game::ghostsHit(Point Body)
+bool Game::ghostsHit(Point pacmanBody)
 {
 	bool b_Hit = false;
 	for (int i = 0; i < numOfGhosts && !b_Hit; i++)
-		if (ghosts[i]->ghostHit(Body))
+		if (ghosts[i]->ghostHit(pacmanBody))
 			b_Hit = true;
 	return b_Hit;
 }
 
 /* This function check ghosts hit*/
-void Game::checkGhostsHit(Point Body)
+void Game::checkGhostsHit(Point pacmanBody)
 {
-	if (ghostsHit(Body))
+	if (ghostsHit(pacmanBody))
 		initGameAfterGhostHit();
 }
 
@@ -276,7 +304,7 @@ void Game::ghostsMove(Point PlayerLocation)
 
 	else if (numOfGhosts == 2)
 	{
-		if(checkGhostCollision(*ghosts[0], *ghosts[1]))
+		if(checkGhostsCollision(*ghosts[0], *ghosts[1]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
@@ -289,19 +317,19 @@ void Game::ghostsMove(Point PlayerLocation)
 	}
 	else if (numOfGhosts == 3)
 	{
-		if (checkGhostCollision(*ghosts[0], *ghosts[1]))
+		if (checkGhostsCollision(*ghosts[0], *ghosts[1]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
-		else if (checkGhostCollision(*ghosts[0], *ghosts[2]))
+		else if (checkGhostsCollision(*ghosts[0], *ghosts[2]))
 		{
 			ghosts[0]->setDirection(Stay);
 			ghosts[1]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[2]->changePosition(board, countMoves, PlayerLocation);
 		}
-		else if (checkGhostCollision(*ghosts[1], *ghosts[2]))
+		else if (checkGhostsCollision(*ghosts[1], *ghosts[2]))
 		{
 			ghosts[0]->changePosition(board, countMoves, PlayerLocation);
 			ghosts[1]->setDirection(Stay);
@@ -320,7 +348,7 @@ void Game::ghostsMove(Point PlayerLocation)
 }
 
 /* This function check ghost collision*/
-bool Game::checkGhostCollision(Ghost &g1, Ghost &g2)
+bool Game::checkGhostsCollision(Ghost &g1, Ghost &g2)
 {
 	if (g1.getBody() == g2.getBody())
 		return true;
@@ -487,7 +515,7 @@ void Game::checkPacmanHitFruit()
 		player.draw();
 		int Oldscore = player.getScore();
 		player.setScore(Oldscore + fruit.getFruitScore());
-		fruit.setshowfruit();
+		fruit.setShowFruit();
 		fruit.setNewFruitlocation(board);
 	}
 }
@@ -555,3 +583,4 @@ void Game :: exitGame()
 	continueGame = false;
 	clearScreen();
 }
+

@@ -26,8 +26,9 @@ public:
 	static string createStepfileName(string const fileName);
 	static string createResultfileName(string const fileName);
 	static void writeCharToFile(char ch);
+	static void writeNumToFileAsChar(char ch);
 	static void createAndOpenFile(string const fileName, int filetype);
-	static void closeFile();
+	static void closeWrittenFile();
 
 };
 

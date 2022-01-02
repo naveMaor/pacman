@@ -93,7 +93,7 @@ char GameObject::directionToChar()
 	}
 }
 
-void GameObject::PushDirectionToVector(char dir)
+void GameObject::pushDirectionToVector(char dir)
 {
 	steps.push_back(dir);
 }

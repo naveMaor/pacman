@@ -89,57 +89,58 @@ bool File::isValidFile(string const fileName, Board& board)
 	return false;
 }
 
+/* This function create the correct name of steps file name*/
  string File::createStepfileName(string const fileName)
 {
-	string Newname = fileName;
-	Newname.erase(fileName.length() - 6);
-	Newname.append("steps");
-	return Newname;
+	string stepsFileName = fileName;
+	stepsFileName.erase(fileName.length() - 6);
+	stepsFileName.append("steps");
+	return stepsFileName;
 }
 
+ /* This function create the correct name of results file name*/
  string File::createResultfileName(string const fileName)
  {
-	 string Newname = fileName;
-	 Newname.erase(fileName.length() - 6);
-	 Newname.append("result");
-	 openFile(Newname);
-	 return Newname;
+	 string resultsFileName = fileName;
+	 resultsFileName.erase(fileName.length() - 6);
+	 resultsFileName.append("result");
+	 openFile(resultsFileName);
+	 return resultsFileName;
  }
 
+ /* This function write char to the opened file*/
  void File::writeCharToFile(char ch)
  {
 	 file.put(ch);
  }
 
-
- void File::createAndOpenFile(string const fileName, int filetype)
+ /* This function write two digit num to the opened file as char*/
+ void File:: writeNumToFileAsChar(char ch)
  {
-	 string newFileName;
-	 if (filetype == fileType::step)
+	 if (ch > 9)
 	 {
-		 newFileName = createStepfileName(fileName);
+		 writeCharToFile(ch / 10 + '0');
+		 writeCharToFile(ch % 10 + '0');
 	 }
 	 else
-	 {
+		 writeCharToFile(ch + '0');
+ }
+
+ /* This function create and open step and result files*/
+ void File::createAndOpenFile(string const fileName, int fileType)
+ {
+	 string newFileName;
+	 if (fileType == fileType::step) // steps file
+		 newFileName = createStepfileName(fileName);
+	 else // results file
 		 newFileName = createResultfileName(fileName);
-	 }
 	 file.open(newFileName.c_str(), std::ios_base::out, std::ios_base::trunc);
  }
 
- void File::closeFile()
+ /* This function close */
+ void File::closeWrittenFile()
  {
-
 	 file.flush();
 	 file.close();
  }
 
-
-
- //void File::writeToFileResult(string const fileName, char ch)
- //{
-
-	// if (openFile(fileName))
-	// {
-	//	 screenFile.
-	// }
- //}

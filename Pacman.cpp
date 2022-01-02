@@ -61,11 +61,11 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 		else
 			move();
 
-		PushDirectionToVector(directionToChar());
+		pushDirectionToVector(directionToChar());
 	}
 	else
 	{
-		PushDirectionToVector('S');
+		pushDirectionToVector('S');
 	}
 	PushLivesToVector();
 	countPacmanMoves++;

@@ -33,8 +33,8 @@ private:
 	
 public:
 	// Game functions
-	void playGame(bool isSingleGame, string screenName, bool savemode);
-	void playSingleGame(string screenName, bool savemode);
+	void playGame(bool isSingleGame, string screenName, bool saveMode);
+	void playSingleGame(string screenName, bool saveMode);
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
@@ -46,7 +46,7 @@ public:
 	void chooseColor();
 	string choseScreen();
 	void gameGhostsLevel();
-	void writesteps(string screenName);
+	void writeStepsToFile(string screenName);
 	void resetVectors();
 
 	// TODO: Delete next 4 function
@@ -61,11 +61,11 @@ public:
 
 	// Ghosts functions
 	void initGameAfterGhostHit();
-	bool ghostsHit(Point Body);
-	void checkGhostsHit(Point Body);
+	bool ghostsHit(Point pacmanBody);
+	void checkGhostsHit(Point pacmanBody);
 	void removeGhosts();	
 	void ghostsMove(Point PlayerLocation);
-	bool checkGhostCollision(Ghost& g1, Ghost& g2);
+	bool checkGhostsCollision(Ghost& g1, Ghost& g2);
 
 	// Pacman functions
 	void pacmanMove(Board& b);

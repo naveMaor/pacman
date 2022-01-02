@@ -19,7 +19,7 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 			this->setDirection(direction);
 		}
 		move();
-		PushDirectionToVector(directionToChar());
+		pushDirectionToVector(directionToChar());
 		// If last ghost position was breadcrumb print breadcrumb
 		if (b.getBoardValFromPoint(x, y) == breadCrumb)
 		{
@@ -28,5 +28,5 @@ void NoviceGhost::changePosition(Board& b, int& countPacmanMoves, Point PlayerLo
 		}
 	}
 	else
-		PushDirectionToVector('S');
+		pushDirectionToVector('S');
 }
