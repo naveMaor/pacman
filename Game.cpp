@@ -92,7 +92,7 @@ void Game::writeStepsToFile(const string& screenName)
 	resetVectors();
 }
 
-
+/* This function reset steps vectors*/
 void Game::resetVectors() {
 	player.clearStepsVector();
 	player.clearLivesVector();
@@ -177,6 +177,28 @@ void Game::playSaveSingleGame(string screenName)
 
 		continueGame = false;
 		gameOver();
+	}
+}
+
+/* This function play load mode*/
+void playLoadSingleGame(string screenName)
+{
+	string stepsFileData = File::readStepsFileToString(screenName);
+	string currGameStep, currGameObjStep;
+	stringstream stream(stepsFileData);
+	int numOfGhost = stepsFileData[0] - '0';
+
+	// Handle ghost / create or somethings
+
+
+	// Move to the begining of moves
+	getline(stream, currGameStep, '\n');
+	while (getline(stream, currGameStep, '\n'))
+	{
+		while (getline(currGameStep, currGameObjStep, '|'))
+		{
+
+		}
 	}
 }
 

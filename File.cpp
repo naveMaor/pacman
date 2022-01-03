@@ -174,3 +174,18 @@ void File::writeStringToFile(const string& str)
 	 file.close();
  }
 
+ /* This function read steps file to string*/
+ string File:: readStepsFileToString(const string& fileName)
+ {
+	 stringstream strStream;
+
+//	 int fileLength;
+	 file.open(fileName.c_str(), std::ios_base::in);
+	// file.seekg(0, std::ios::end);
+	 //fileLength = file.tellg();
+	 //file.seekg(0, std::ios::beg);
+	 strStream << file.rdbuf();
+	 file.close();
+	 return strStream.str();
+
+ }

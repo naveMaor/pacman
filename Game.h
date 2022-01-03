@@ -55,6 +55,9 @@ public:
 	void playSaveSingleGame(string screenName);
 	void checkAndSaveGhostsHit(Point pacmanBody);
 
+	// Load functions
+	void playLoadSingleGame(string screenName);
+
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };

@@ -6,12 +6,13 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <sstream> 
 #include "Utilities.h"
 #include "Board.h"
 
 using std::vector;
 using std::fstream;
-using std::ofstream;
+using std::stringstream;
 using std::filesystem::directory_iterator;
 
 class File
@@ -31,7 +32,7 @@ public:
 	static void writeStringToFile(const string& str);
 	static void createAndOpenFile(const string& fileName, int fileType);
 	static void closeWrittenFile();
-
+	static string readStepsFileToString(const string& fileName);
 };
 
 #endif
