@@ -3,7 +3,6 @@
 /* this function init pacman*/
 void Pacman::initGameObject()
 {
-	this->life = 3;
 	this->setColor(Color::WHITE);
 	this->setDirection(Stay);
 }

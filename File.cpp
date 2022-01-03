@@ -3,7 +3,7 @@
 static fstream file;
 
 /* This function return vector of screens names*/
-vector <string> File::getScreensName(string const PATH)
+vector <string> File::getScreensName(const string& PATH)
 {
 	vector<string> filesVector;
 
@@ -48,7 +48,7 @@ bool File::fileToBoard(Board& board)
 }
 
 /* This function handle the first line of the board*/
-void File::handleFirstLine(size_t & currLineWidth, char firstLetter, bool & b_validScreen)
+void File::handleFirstLine(size_t & currLineWidth, char& firstLetter, bool & b_validScreen)
 {
 	// If the first line of the screen is \n
 	if (currLineWidth == 0)
@@ -66,7 +66,7 @@ void File::handleFirstLine(size_t & currLineWidth, char firstLetter, bool & b_va
 }
 
 /* This function open the file*/
-bool File::openFile(string const filePath)
+bool File::openFile(const string filePath)
 {
 	file.open(filePath);
 	if (file.is_open())
@@ -77,7 +77,7 @@ bool File::openFile(string const filePath)
 }
 
 /* This function check if this is valid file*/
-bool File::isValidFile(string const fileName, Board& board)
+bool File::isValidFile(const string& fileName, Board& board)
 {
 	bool b_isValid = true;
 	if (openFile(fileName))
@@ -90,7 +90,7 @@ bool File::isValidFile(string const fileName, Board& board)
 }
 
 /* This function create the correct name of steps file name*/
- string File::createStepfileName(string const fileName)
+ string File::createStepfileName(const string& fileName)
 {
 	string stepsFileName = fileName;
 	stepsFileName.erase(fileName.length() - 6);
@@ -99,23 +99,22 @@ bool File::isValidFile(string const fileName, Board& board)
 }
 
  /* This function create the correct name of results file name*/
- string File::createResultfileName(string const fileName)
+ string File::createResultfileName(const string& fileName)
  {
 	 string resultsFileName = fileName;
 	 resultsFileName.erase(fileName.length() - 6);
 	 resultsFileName.append("result");
-	 openFile(resultsFileName);
 	 return resultsFileName;
  }
 
  /* This function write char to the opened file*/
- void File::writeCharToFile(char ch)
+ void File::writeCharToFile(const char& ch)
  {
 	 file.put(ch);
  }
 
  /* This function write two digit num to the opened file as char*/
- void File:: writeNumToFileAsChar(char ch)
+ void File:: writeCordinateToFileAsChar(const char& ch)
  {
 	 if (ch > 9)
 	 {
@@ -124,10 +123,41 @@ bool File::isValidFile(string const fileName, Board& board)
 	 }
 	 else
 		 writeCharToFile(ch + '0');
+
+ }
+
+ void File::writeCountMovesToFileAsChar(const int& num)
+ {
+	 if (num >= 0 && num <= 9)
+		 writeCharToFile(num + '0');
+	 else if (num > 999)
+	 {
+		 writeCharToFile(num / 1000 + '0');
+		 writeCharToFile((num / 100) % 10 + '0');
+		 writeCharToFile((num / 10) % 10 + '0');
+		 writeCharToFile(num % 10 + '0');
+	 }
+	 else if (num > 99)
+	 {
+		 writeCharToFile(num / 100 + '0');
+		 writeCharToFile((num / 10) % 10 + '0');
+		 writeCharToFile(num % 10 + '0');
+	 }
+	 else if (num > 9)
+	 {
+		 writeCharToFile(num / 10 + '0');
+		 writeCharToFile(num % 10 + '0');
+	 }
+ }
+
+ /* This function write string to the opened file*/
+void File::writeStringToFile(const string& str)
+ {
+	 file << str;
  }
 
  /* This function create and open step and result files*/
- void File::createAndOpenFile(string const fileName, int fileType)
+ void File::createAndOpenFile(const string& fileName, int fileType)
  {
 	 string newFileName;
 	 if (fileType == fileType::step) // steps file

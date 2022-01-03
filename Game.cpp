@@ -8,19 +8,12 @@ void Game::playGame(bool isSingleGame, string screenName, bool saveMode)
 	{
 		if (File::isValidFile(screenName, board))
 		{
-			File::createAndOpenFile(screenName, fileType::step);
-			playSingleGame(screenName, saveMode);
-			File::closeWrittenFile();
-
-			/*
-			// writes Steps
 			if (saveMode)
-			{
-				File::createAndOpenFile(screenName, fileType::step);
-				writeStepsToFile(screenName);
-				File::closeWrittenFile();
-			}*/
+				playSaveSingleGame(screenName);
+			else
+				playSingleGame(screenName);
 		}
+
 		else
 		{
 			cout << "Isn't valid screen, returning to the menu." << endl;
@@ -34,14 +27,21 @@ void Game::playGame(bool isSingleGame, string screenName, bool saveMode)
 		{
 			// If the the file is valid
 			if (File::isValidFile(screensNames[i], board))
-				playSingleGame(screenName, saveMode);
+			{
+				if (saveMode)
+					playSaveSingleGame(screensNames[i]);
+				else
+					playSingleGame(screensNames[i]);
+			}
 		}
 	}
 	resetGame();
 }
 
-void Game::writeStepsToFile(string screenName)
+void Game::writeStepsToFile(const string& screenName)
 {
+	File::createAndOpenFile(screenName, fileType::step);
+
 	// Write num of ghosts
 	File::writeCharToFile(numOfGhosts + '0');
 	File::writeCharToFile('\n');
@@ -58,9 +58,9 @@ void Game::writeStepsToFile(string screenName)
 			File::writeCharToFile(isFruitShow);
 			pFruitLocation = fruit.getValueFromLocationVector(i);
 			File::writeCharToFile('(');
-			File::writeNumToFileAsChar(pFruitLocation.first);
+			File::writeCordinateToFileAsChar(pFruitLocation.first);
 			File::writeCharToFile(',');
-			File::writeNumToFileAsChar(pFruitLocation.second);
+			File::writeCordinateToFileAsChar(pFruitLocation.second);
 			File::writeCharToFile(')');
 			File::writeCharToFile(fruit.getValueFromStepsVector(i));
 		}
@@ -87,6 +87,8 @@ void Game::writeStepsToFile(string screenName)
 		File::writeCharToFile(player.getValueFromLivesVector(i) + '0');
 		File::writeCharToFile('\n');
 	}
+
+	File::closeWrittenFile();
 	resetVectors();
 }
 
@@ -100,9 +102,8 @@ void Game::resetVectors() {
 }
 
 /* This function play one single game*/
-void Game::playSingleGame(string screenName, bool saveMode)
+void Game::playSingleGame(string screenName)
 {
-	countMoves = 0;
 	bool b_won = false;
 
 	initGame(b_IsColorGame);
@@ -126,10 +127,7 @@ void Game::playSingleGame(string screenName, bool saveMode)
 			pacmanMove(board);
 		}		
 	}
-
-	if (saveMode)
-		writeStepsToFile(screenName);
-
+	
 	// If lose
 	if (player.getLife() == 0)
 	{
@@ -138,6 +136,49 @@ void Game::playSingleGame(string screenName, bool saveMode)
 	}
 }
 
+void Game::playSaveSingleGame(string screenName)
+{
+	bool b_won = false;
+	initGame(b_IsColorGame);
+
+	// Open result file
+	File::createAndOpenFile(screenName, fileType::result);
+
+	while ((player.getLife() > 0) && (!b_won) && (continueGame))
+	{
+		if (checkWin())
+		{
+			writeWinToResultFile();
+			File::closeWrittenFile();
+			writeStepsToFile(screenName);
+			b_won = true;
+			winGame();
+		}
+		else
+		{
+			print.printScore(gameInfo, b_IsColorGame, player.getScore());
+			fruit.changePosition(board, countMoves);
+			ghostsMove(player.getBody());
+			checkAndSaveGhostsHit(player.getBody());
+			checkPacmanHitFruit();
+			Sleep(gameSpeedVal);
+			pacmanMove(board);
+		}
+	}
+
+	// If lose
+	if (player.getLife() == 0)
+	{
+		// Close result file
+		File::closeWrittenFile();
+
+		// Writes Steps
+		writeStepsToFile(screenName);
+
+		continueGame = false;
+		gameOver();
+	}
+}
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
@@ -295,6 +336,16 @@ void Game::checkGhostsHit(Point pacmanBody)
 		initGameAfterGhostHit();
 }
 
+/* This function check ghosts hit and write to result file*/
+void Game::checkAndSaveGhostsHit(Point pacmanBody)
+{
+	if (ghostsHit(pacmanBody))
+	{
+		writeDeathToResultFile();
+		initGameAfterGhostHit();
+	}
+}
+
 
 /* This function handle ghosts move*/
 void Game::ghostsMove(Point PlayerLocation)
@@ -439,6 +490,7 @@ void Game::chooseColor()
 void Game::resetGame()
 {
 	setTextColor(Color::WHITE);
+	countMoves = 0;
 	player.setScore(0);
 	continueGame = true;
 	singleGame = false;
@@ -582,5 +634,35 @@ void Game :: exitGame()
 {
 	continueGame = false;
 	clearScreen();
+}
+
+/* This function write to the current cordinates of pacman death to result file*/
+void Game::writeDeathToResultFile()
+{
+	File::writeStringToFile("The pacman died at: ");
+	File::writeCharToFile('(');
+	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
+	File::writeCharToFile(',');
+	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getY()));
+	File::writeCharToFile(')');
+	File::writeStringToFile(" after ");
+	File::writeCountMovesToFileAsChar(countMoves);
+	File::writeStringToFile(" moves.");
+	File::writeCharToFile('\n');
+}
+
+/* This function write to the current cordinates of pacman win to result file*/
+void Game::writeWinToResultFile()
+{
+	File::writeStringToFile("The pacman won the screen at: ");
+	File::writeCharToFile('(');
+	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
+	File::writeCharToFile(',');
+	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getY()));
+	File::writeCharToFile(')');
+	File::writeStringToFile(" after ");
+	File::writeCountMovesToFileAsChar(countMoves);
+	File::writeStringToFile(" moves.");
+	File::writeCharToFile('\n');
 }
 

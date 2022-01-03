@@ -34,7 +34,7 @@ private:
 public:
 	// Game functions
 	void playGame(bool isSingleGame, string screenName, bool saveMode);
-	void playSingleGame(string screenName, bool saveMode);
+	void playSingleGame(string screenName);
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
@@ -46,13 +46,19 @@ public:
 	void chooseColor();
 	string choseScreen();
 	void gameGhostsLevel();
-	void writeStepsToFile(string screenName);
+	void writeStepsToFile(const string& screenName);
+	void writeDeathToResultFile();
+	void writeWinToResultFile();
 	void resetVectors();
+
+	// Save functions
+	void playSaveSingleGame(string screenName);
+	void checkAndSaveGhostsHit(Point pacmanBody);
+
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
 	int getGameSpeedVal() const { return gameSpeedVal; }
-	vector<string> getScreenNames() const { return screensNames; }
 
 	void setIsColorGame(bool boolean) { b_IsColorGame = boolean; }
 	void setGameSpeed(int gameSpeed) { gameSpeedVal = gameSpeed; }
@@ -71,7 +77,6 @@ public:
 	void pacmanMove(Board& b);
 	void getUserKeyboard();
 	
-
 	// Fruit functions
 	void checkPacmanHitFruit();
 
