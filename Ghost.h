@@ -29,7 +29,7 @@ public:
 	bool ghostHit(Point Body);
 	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0;
 	static void setGhostsDirectionFromStepFile(Ghost** ghosts, int numOfGhosts, string loadStep);
-	static void loadModeMove(Board& board, string loadStep, Ghost** ghosts, int numOfGhosts);
+	static void loadModeMove(Board& board, Ghost** ghosts, int numOfGhosts);
 };
 
 #endif

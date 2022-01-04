@@ -96,11 +96,10 @@ void Game::playSaveSingleGame(string screenName)
 void Game:: playLoadSingleGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", ghostsMove, stepsFileData;
-	int start, end, numOfGhost;
+	int start, end, numOfGhost, countMoves = 0;
+	bool b_won = false;
 
 	initGame(b_IsColorGame);
-	File::closeFile();
-
 
 	stepsFileData = File::readStepsFileToString(screenName);
 	stringstream stream(stepsFileData);
@@ -108,25 +107,32 @@ void Game:: playLoadSingleGame(string screenName)
 
 	// Move to the begining of moves
 	getline(stream, currGameStep, '\n');
-	while (getline(stream, currGameStep, '\n'))
+
+	// Get step section
+	while (getline(stream, currGameStep, '\n') && (!b_won))
 	{
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
 
-		if (checkWin())
-			winGame();
-
+		// Set Directions
 		fruit.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
 		Ghost::setGhostsDirectionFromStepFile(ghosts, numOfGhost, ghostsMove);
 
+		print.printScore(gameInfo, b_IsColorGame, player.getScore());
 		fruit.move();
-		Ghost::loadModeMove(board, ghostsMove, ghosts, numOfGhost);
+		Ghost::loadModeMove(board, ghosts, numOfGhost);
 		checkGhostsHit(player.getBody());
-		checkPacmanHitFruit();
+  		checkPacmanHitFruit();
 		Sleep(gameSpeedVal);
-		player.move();
+		player.loadModeMove(board);
+
+		if (checkWin())
+		{
+			b_won = true;
+			winGame();
+		}
 	}
 
 	// If lose
@@ -683,6 +689,7 @@ void Game::resetVectors() {
 	fruit.clearVectors();
 	for (int j = 0; j < numOfGhosts; j++)
 		ghosts[j]->clearStepsVector();
+	
 }
 
 

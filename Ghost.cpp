@@ -74,7 +74,7 @@ Point Ghost::minDistance(Point PlayerLocation, Board& board)
 }
 
 /* This function handle the move of ghost*/
-void Ghost::loadModeMove(Board &board, string loadStep, Ghost** ghosts, int numOfGhosts)
+void Ghost::loadModeMove(Board &board, Ghost** ghosts, int numOfGhosts)
 {
 	int x, y;
 	for (int i = 0; i < numOfGhosts; i++)
@@ -83,14 +83,16 @@ void Ghost::loadModeMove(Board &board, string loadStep, Ghost** ghosts, int numO
 		x = ghosts[i]->getBody().getX();
 		y = ghosts[i]->getBody().getY();
 
-		// Change direction and move
-		ghosts[i]->move();
-
-		// If last position was breadcrumb print it
-		if (board.getBoardValFromPoint(x, y) == breadCrumb)
+		// Move if the direction isn't stay
+		if (ghosts[i]->direction != 4)
 		{
-			setTextColor(Color::WHITE);
-			printBreadCrumbs(x, y);
+			ghosts[i]->move();
+			// If last position was breadcrumb print it
+			if (board.getBoardValFromPoint(x, y) == breadCrumb)
+			{
+				setTextColor(Color::WHITE);
+				printBreadCrumbs(x, y);
+			}
 		}
 	}
 }

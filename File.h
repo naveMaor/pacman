@@ -32,7 +32,6 @@ public:
 	static void writeStringToFile(const string& str);
 	static void createAndOpenFile(const string& fileName, int fileType);
 	static void closeWrittenFile();
-	static void closeFile();
 	static string readStepsFileToString(const string& fileName);
 };
 

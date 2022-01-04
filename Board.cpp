@@ -9,6 +9,7 @@ Board::Board()
    The first boardHight is zero so we print includ the board hight*/
 void const Board::printBoard() const
 {  
+    setTextColor(Color::WHITE);
     for (int i = 0; i <= boardHight; i++)
     {
         for (int j = 0; j < boardWidth; j++)
@@ -116,7 +117,7 @@ void Board::handleGhost(int boardHight, int x)
     else
     {
         isValidBoard = false;
-        cout << "Two many ghosts in there board"<<endl;
+        cout << "Too many ghosts in there board" << endl;
     }
 }
 
@@ -132,7 +133,7 @@ void Board::handlePacman(int boardHight, int x)
     else // More than one apear of '@' in the file
     {
     isValidBoard = false;
-    cout << "Two many ghosts in there board" << endl;
+    cout << "Too many pacmans in there board" << endl;
     }
 }
 

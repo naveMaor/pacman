@@ -9,7 +9,7 @@ using std::cout;
 
 enum directions
 {
-	Left = 0, Right=1, Up = 2, Down = 3, Stay = 4
+	Left = 0, Right = 1, Up = 2, Down = 3, Stay = 4
 };
 
 class Point

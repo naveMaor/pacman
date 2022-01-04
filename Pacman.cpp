@@ -59,13 +59,11 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 			moveTunnel(b);
 		else
 			move();
-
 		pushDirectionToVector(directionToChar());
 	}
 	else
-	{
 		pushDirectionToVector('S');
-	}
+	
 	PushLivesToVector();
 	countPacmanMoves++;
 }
@@ -142,4 +140,26 @@ char Pacman::getValueFromLivesVector(int iteration) const
 void Pacman::setDirectionFromStepFile(string loadStep)
 {
 	direction = charToDirection(loadStep[0]);
+}
+
+
+void Pacman::loadModeMove(Board& board)
+{
+	bool is_Tunnel = false;
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+
+	unsigned char currentLocationVal = board.getBoardValFromPoint(x, y);
+
+	if (currentLocationVal == breadCrumb)
+	{
+		score++;
+		board.eatBreadCrumb();
+		board.setBoardValByPoint(x, y);
+	}
+
+	if (is_Tunnel)
+		moveTunnel(board);
+	else
+		move();
 }
