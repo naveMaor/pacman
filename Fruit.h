@@ -10,6 +10,7 @@ class Fruit : public GameObject
 	bool showFruit = true;
 	vector<char> isShow;
 	vector<std::pair<char, char>> Location;
+	vector<char> FruitScoreVector;
 
 public:
 	Fruit() : GameObject(defaltFruitIcon) {}
@@ -32,7 +33,7 @@ public:
 	char getValueFromisShowVector(int iteration) const;
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();
-	void handlestepsfile(string s) override;
+	void handlestepsfile(string & loadStep) override;
 };
 
 #endif 

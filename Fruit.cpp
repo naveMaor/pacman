@@ -119,6 +119,11 @@ char Fruit::getValueFromisShowVector(int iteration) const
 	return isShow[iteration];
 }
 
+char Fruit::getValueFromisShowVector(int iteration) const
+{
+	return FruitScoreVector[iteration];
+}
+
 /* This function get the value from the location vector*/
 std::pair<char, char> Fruit::getValueFromLocationVector(int iteration) const
 {
@@ -133,21 +138,29 @@ void Fruit::clearVectors()
 	Location.clear();
 }
 
-void Fruit::handlestepsfile(string& s)
+void Fruit::handlestepsfile(string& loadStep)
 {
 	int x, y;
-	x = s[1] - '0';
-	if (s[2] != ',')
+	x = loadStep[1] - '0';
+	if (loadStep[2] != ',')
 	{
-		x = (x * 10) + s[2] - '0';
-		y = s[3] - '0';
-		if (s[4] != ')')
+		x = (x * 10) + loadStep[2] - '0';
+		y = loadStep[4] - '0';
+		if (loadStep[5] != ')')
 		{
-			y = (y * 10) + s[4] - '0';
+			y = (y * 10) + loadStep[5] - '0';
 		}
 	}
 	else
 	{
-		y = s[2] - '0';
+		y = loadStep[3] - '0';
+		if (loadStep[4] != ')')
+		{
+			y = (y * 10) + loadStep[4] - '0';
+		}
 	}
+
+
+
+
 }
