@@ -113,7 +113,7 @@ void Game:: playLoadSingleGame(string screenName)
 	{
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
-
+		countMoves++;
 		// Set Directions
 		fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
@@ -125,7 +125,7 @@ void Game:: playLoadSingleGame(string screenName)
 		Ghost::loadModeMove(board, ghosts, numOfGhost);
 		checkGhostsHit(player.getBody());
   		checkPacmanHitFruit();
-		Sleep(gameSpeedVal);
+		Sleep(100);
 		player.loadModeMove(board);
 
 		if (checkWin())
@@ -688,7 +688,6 @@ void Game::resetVectors() {
 	fruit.clearVectors();
 	for (int j = 0; j < numOfGhosts; j++)
 		ghosts[j]->clearStepsVector();
-	
 }
 
 
@@ -706,7 +705,6 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 		else if (isLoadMode && isSilentMode)
 		{
 			playLoadSiletGame(screenName);
-
 		}
 
 		else
