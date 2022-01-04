@@ -39,8 +39,8 @@ public:
 	static bool checkValidMove(int x, int y, int dir, Board &b);
 	static void IlustrateNextMove(int& x, int& y, int dir);
 	void removeObject(Board& b);
-	char directionToChar();
-	int charToDirection(char direction);
+	char directionToChar() const;
+	int charToDirection(char direction) const;
 	void pushDirectionToVector(char dir);
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;
