@@ -40,7 +40,7 @@ public:
 	static void IlustrateNextMove(int& x, int& y, int dir);
 	void removeObject(Board& b);
 	char directionToChar();
-	int charToDirection(char direction);
+	int charToDirection(char charDirection);
 	void pushDirectionToVector(char dir);
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;

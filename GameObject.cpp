@@ -95,9 +95,9 @@ char GameObject::directionToChar()
 }
 
 /* This function change char to direction*/
-int GameObject::charToDirection(char direction)
+int GameObject::charToDirection(char charDirection)
 {
-	switch (direction)
+	switch (charDirection)
 	{
 	case 'L': // LEFT
 		return 0;
@@ -120,12 +120,13 @@ int GameObject::charToDirection(char direction)
 	}
 }
 
+/* This function push direction to vector*/
 void GameObject::pushDirectionToVector(char dir)
 {
 	steps.push_back(dir);
 }
 
-///* This function print breadcrumbs at point*/
+/* This function print breadcrumbs at point*/
 void GameObject::printBreadCrumbs(int x, int y)
 {
 	unsigned char breadCrumb = UTILITIES_H::breadCrumb;
@@ -134,7 +135,7 @@ void GameObject::printBreadCrumbs(int x, int y)
 	cout << breadCrumb;
 }
 
-///* This function check if next move is valid */
+/* This function check if next move is valid */
 bool GameObject::checkValidMove(int x, int y, int dir, Board& b)
 {
 	IlustrateNextMove(x, y, dir);
