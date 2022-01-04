@@ -37,7 +37,6 @@ int main(int argc, char** argv) {
 			{
 				if (input.cmdOptionExists("-save"))
 					game.playGame(false, screen, true);
-
 				else
 					game.playGame(false, screen, false);
 				break;

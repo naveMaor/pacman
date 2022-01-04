@@ -13,7 +13,6 @@ void Game::playGame(bool isSingleGame, string screenName, bool saveMode)
 			else
 				playSingleGame(screenName);
 		}
-
 		else
 		{
 			cout << "Isn't valid screen, returning to the menu." << endl;
@@ -53,19 +52,12 @@ void Game::writeStepsToFile(const string& screenName)
 		isFruitShow = fruit.getValueFromisShowVector(i);
 
 		// Write fruit values
-		if (isFruitShow == 'T')
-		{
-			File::writeCharToFile(isFruitShow);
-			pFruitLocation = fruit.getValueFromLocationVector(i);
-			File::writeCharToFile('(');
-			File::writeCordinateToFileAsChar(pFruitLocation.first);
-			File::writeCharToFile(',');
-			File::writeCordinateToFileAsChar(pFruitLocation.second);
-			File::writeCharToFile(')');
-			File::writeCharToFile(fruit.getValueFromStepsVector(i));
-		}
-		else
-			File::writeCharToFile('F');
+		pFruitLocation = fruit.getValueFromLocationVector(i);
+		File::writeCordinateToFileAsChar(pFruitLocation.first);
+		File::writeCharToFile(',');
+		File::writeCordinateToFileAsChar(pFruitLocation.second);
+		File::writeCharToFile(isFruitShow);
+		File::writeCharToFile(fruit.getValueFromStepsVector(i));
 
 		// Seperate
 		File::writeCharToFile('|');
@@ -181,13 +173,11 @@ void Game::playSaveSingleGame(string screenName)
 }
 
 /* This function play load mode*/
-void playLoadSingleGame(string screenName)
+void Game:: playLoadSingleGame(string screenName)
 {
-	string stepsFileData = File::readStepsFileToString(screenName);
-	string currGameStep, currGameObjStep;
+	string currGameStep, objectDelimeter= "|", stepsFileData = File::readStepsFileToString(screenName);
 	stringstream stream(stepsFileData);
-	int numOfGhost = stepsFileData[0] - '0';
-
+	int start, end, numOfGhost = stepsFileData[0] - '0';
 	// Handle ghost / create or somethings
 
 
@@ -195,12 +185,18 @@ void playLoadSingleGame(string screenName)
 	getline(stream, currGameStep, '\n');
 	while (getline(stream, currGameStep, '\n'))
 	{
-		while (getline(currGameStep, currGameObjStep, '|'))
-		{
 
-		}
+		start = 0;
+		end = currGameStep.find(objectDelimeter);
+		currGameStep.substr(start, end - start);
+		start = end + objectDelimeter.size();
+		end = currGameStep.find(objectDelimeter, start);
+
 	}
 }
+
+/* This function split objects */
+
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
