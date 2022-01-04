@@ -132,3 +132,22 @@ void Fruit::clearVectors()
 	isShow.clear();
 	Location.clear();
 }
+
+void Fruit::handlestepsfile(string& s)
+{
+	int x, y;
+	x = s[1] - '0';
+	if (s[2] != ',')
+	{
+		x = (x * 10) + s[2] - '0';
+		y = s[3] - '0';
+		if (s[4] != ')')
+		{
+			y = (y * 10) + s[4] - '0';
+		}
+	}
+	else
+	{
+		y = s[2] - '0';
+	}
+}
