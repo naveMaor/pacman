@@ -102,7 +102,7 @@ void Game:: playLoadSingleGame(string screenName)
 	File::closeFile();
 
 
-	stepsFileData = File::readStepsFileToString(screenName);
+	stepsFileData = File::readFileToString(screenName, fileType::step);
 	stringstream stream(stepsFileData);
 	numOfGhost = stepsFileData[0] - '0';
 
@@ -699,7 +699,7 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 
 		else if (isLoadMode && isSilentMode)
 		{
-			// load silent
+			playLoadSiletGame(screenName);
 
 		}
 
@@ -711,4 +711,19 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 		cout << "Isn't valid screen, returning to the menu." << endl;
 		Sleep(longPauseWindow);
 	}
+}
+
+
+void Game::playLoadSiletGame(string screenName)
+{
+	string currGameStep, objectDelimeter = "|", ghostsMove, resultFileData;
+	int start, end;
+	resultFileData = File::readFileToString(screenName, fileType::result);
+	stringstream stream(resultFileData);
+
+	getline(stream, currGameStep, '\n');
+	start = 0;
+	end = currGameStep.find(objectDelimeter);
+	splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
+
 }

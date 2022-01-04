@@ -142,6 +142,7 @@ void Fruit::clearVectors()
 	steps.clear();
 	isShow.clear();
 	Location.clear();
+	FruitScoreVector.clear();
 }
 
 void Fruit::setDirectionFromStepFile(string loadStep)

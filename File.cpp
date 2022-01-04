@@ -175,12 +175,16 @@ void File::writeStringToFile(const string& str)
  }
 
  /* This function read steps file to string*/
- string File:: readStepsFileToString(const string& fileName)
+ string File:: readFileToString(const string& fileName,int fileType)
  {
 	 stringstream strStream;
-	 string stepsFile = createStepfileName(fileName);
+	 string newFileName;
+	 if (fileType == fileType::step) // steps file
+		 newFileName = createStepfileName(fileName);
+	 else // results file
+		 newFileName = createResultfileName(fileName);
 //	 int fileLength;
-	 file.open(stepsFile.c_str(), std::ios_base::in);
+	 file.open(newFileName.c_str(), std::ios_base::in);
 	// file.seekg(0, std::ios::end);
 	 //fileLength = file.tellg();
 	 //file.seekg(0, std::ios::beg);
