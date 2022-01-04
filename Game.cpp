@@ -113,7 +113,7 @@ void Game:: playLoadSingleGame(string screenName)
 	{
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
-
+		countMoves++;
 		// Set Directions
 		fruit.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
