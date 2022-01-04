@@ -19,8 +19,6 @@ class Ghost : public GameObject
 protected:
 	Point minDistance(Point PlayerLocation, Board& board);
 
-
-
 public:
 	// Constractor
 	Ghost() : GameObject(ghostIcon) {}
@@ -30,7 +28,7 @@ public:
 	Ghost(int x, int y) : GameObject(x, y, ghostIcon){};
 	bool ghostHit(Point Body);
 	virtual void changePosition(Board& b, int& countPacmanMoves, Point PlayerLocation) = 0;
-
+	static void loadModeMove(Board& board, string loadStep, Ghost** ghosts, int numOfGhosts);
 };
 
 #endif

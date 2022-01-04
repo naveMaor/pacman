@@ -170,7 +170,7 @@ void Game::playSaveSingleGame(string screenName)
 /* This function play load mode*/
 void Game:: playLoadSingleGame(string screenName)
 {
-	string currGameStep, objectDelimeter= "|", stepsFileData = File::readStepsFileToString(screenName);
+	string currGameStep, objectDelimeter = "|", ghostsMove, stepsFileData = File::readStepsFileToString(screenName);
 	stringstream stream(stepsFileData);
 	int start, end, numOfGhost = stepsFileData[0] - '0';
 	// Handle ghost / create or somethings
@@ -182,12 +182,10 @@ void Game:: playLoadSingleGame(string screenName)
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
 		
-
-		// fruitLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
-		// pacmanLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
-		// ghostLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end), numOfGhosts);
-
-
+		fruit.handlestepsfile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		player.handleStepsFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
+		Ghost::loadModeMove(board, ghostsMove, ghosts, numOfGhost);
 
 	}
 }

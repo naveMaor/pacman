@@ -139,7 +139,7 @@ char Pacman::getValueFromLivesVector(int iteration) const
 }
 
 /* This function fake the pacman move in load mode*/
-void Pacman:: handleStepsFile(string& loadStep)
+void Pacman:: handleStepsFile(string loadStep)
 {
 	direction = charToDirection(loadStep[0]);
 	move();

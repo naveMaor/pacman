@@ -33,7 +33,7 @@ public:
 	char getValueFromisShowVector(int iteration) const;
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();
-	void handlestepsfile(string & loadStep) override;
+	void handlestepsfile(string loadStep) override;
 };
 
 #endif 

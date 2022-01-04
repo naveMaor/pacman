@@ -33,7 +33,7 @@ public:
 	void move();
 	void draw() const;
 	virtual void initGameObject();
-	void printBreadCrumbs(int x, int y);
+	static void printBreadCrumbs(int x, int y);
 	void changeDirectionByPoint(Point p);
 	static bool checkValidPos(int x, int y, Board& b);
 	static bool checkValidMove(int x, int y, int dir, Board &b);
@@ -45,7 +45,7 @@ public:
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;
 	void clearStepsVector() { steps.clear(); }
-	virtual void handleStepsFile(string& s) = 0;
+	virtual void handleStepsFile(string& s);
 };
 
 #endif
