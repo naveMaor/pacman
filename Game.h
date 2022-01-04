@@ -57,6 +57,7 @@ public:
 
 	// Load functions
 	void playLoadSingleGame(string screenName);
+	string splitObjectStepsByDel(string currGameStep, string objectDelimeter, int& start, int& end);
 
 
 	// TODO: Delete next 4 function

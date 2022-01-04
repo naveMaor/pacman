@@ -180,23 +180,31 @@ void Game:: playLoadSingleGame(string screenName)
 	int start, end, numOfGhost = stepsFileData[0] - '0';
 	// Handle ghost / create or somethings
 
-
 	// Move to the begining of moves
 	getline(stream, currGameStep, '\n');
 	while (getline(stream, currGameStep, '\n'))
 	{
-
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
-		currGameStep.substr(start, end - start);
-		start = end + objectDelimeter.size();
-		end = currGameStep.find(objectDelimeter, start);
+		
+
+		// fruitLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		// pacmanLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		// ghostLoad(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end), numOfGhosts);
+
+
 
 	}
 }
 
-/* This function split objects */
-
+/* This function split steps by objects */
+string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, int &start, int &end)
+{
+	string objectStep = currGameStep.substr(start, end - start);
+	start = end + objectDelimeter.size();
+	end = currGameStep.find(objectDelimeter, start);
+	return objectStep;
+}
 
 /* This fnction init the game*/
 void Game::initGame(bool b_color)
