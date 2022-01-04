@@ -35,7 +35,7 @@ public:
 	void pushScoreToVector(char score);
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();
-	void setDirectionFromStepFile(string loadStep);
+	void setFromStepFile(string loadStep);
 };
 
 #endif 

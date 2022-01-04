@@ -145,7 +145,7 @@ void Fruit::clearVectors()
 	FruitScoreVector.clear();
 }
 
-void Fruit::setDirectionFromStepFile(string loadStep)
+void Fruit::setFromStepFile(string loadStep)
 {
 	int x, y;
 	char Chardirection= loadStep.length() - 1, CharshowFruit = loadStep.length() - 2, CharfruitScore = loadStep.length() - 3;
@@ -177,6 +177,6 @@ void Fruit::setDirectionFromStepFile(string loadStep)
 	else 
 		showFruit = true;
 
-	fruitScore = CharfruitScore;
+	fruitScore = CharfruitScore +'0';
 
 }
