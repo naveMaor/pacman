@@ -78,6 +78,7 @@ void Fruit::changePosition(Board& b, int& countPacmanMoves)
 		isShow.push_back('F');
 
 	pushLocationToVector(static_cast<char>(pBody.getX()), static_cast<char>(pBody.getY()));
+	pushScoreToVector(fruitScore);
 }
 
 /* This function hid or show the fruit on the screen*/
@@ -113,13 +114,18 @@ void Fruit::pushLocationToVector(char first, char second)
 	Location.push_back(loc);
 }
 
+void Fruit::pushScoreToVector(char score)
+{
+	FruitScoreVector.push_back(score);
+}
+
 /* This function return if the fruit is show in current step count*/
 char Fruit::getValueFromisShowVector(int iteration) const
 {
 	return isShow[iteration];
 }
 
-char Fruit::getValueFromisShowVector(int iteration) const
+char Fruit::getValueFromScoreVector(int iteration) const
 {
 	return FruitScoreVector[iteration];
 }
@@ -170,6 +176,6 @@ void Fruit::handleStepsFile(string loadStep)
 	else 
 		showFruit = true;
 
-	fruitScore = CharfruitScore - '0';
+	fruitScore = CharfruitScore;
 
 }

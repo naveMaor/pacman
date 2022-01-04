@@ -56,6 +56,7 @@ void Game::writeStepsToFile(const string& screenName)
 		File::writeCharToFile(',');
 		File::writeCordinateToFileAsChar(pFruitLocation.second);
 		File::writeCharToFile(')');
+		File::writeCharToFile(fruit.getValueFromScoreVector(i));
 		File::writeCharToFile(fruit.getValueFromisShowVector(i));
 		File::writeCharToFile(fruit.getValueFromStepsVector(i));
 
