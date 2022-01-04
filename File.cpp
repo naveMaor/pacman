@@ -194,9 +194,3 @@ void File::writeStringToFile(const string& str)
 
  }
 
-
-
- void File::closeFile()
- {
-	 file.close();
- }

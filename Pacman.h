@@ -31,6 +31,7 @@ public:
 	char getValueFromLivesVector(int iteration) const;
 	void clearLivesVector() { Lives.clear(); }
 	void setDirectionFromStepFile(string loadStep);
+	void loadModeMove(Board& board);
 
 };
 

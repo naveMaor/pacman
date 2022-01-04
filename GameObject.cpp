@@ -88,7 +88,7 @@ char GameObject::directionToChar()
 	case 4: // STAY
 		return 'S';
 		break;
-	defalut:
+	default:
 		return 'S';
 		break;
 	}
@@ -114,7 +114,7 @@ int GameObject::charToDirection(char charDirection)
 	case 'S': // STAY
 		return 4;
 		break;
-	defalut:
+	default:
 		return 4;
 		break;
 	}
