@@ -182,7 +182,7 @@ void Game:: playLoadSingleGame(string screenName)
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
 		
-		fruit.handlestepsfile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		fruit.handleStepsFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		player.handleStepsFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
 		Ghost::loadModeMove(board, ghostsMove, ghosts, numOfGhost);

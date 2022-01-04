@@ -138,7 +138,7 @@ void Fruit::clearVectors()
 	Location.clear();
 }
 
-void Fruit::handleStepsFile(string& loadStep)
+void Fruit::handleStepsFile(string loadStep)
 {
 	int x, y;
 	char Chardirection= loadStep.length() - 1, CharshowFruit = loadStep.length() - 2, CharfruitScore = loadStep.length() - 3;
