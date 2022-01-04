@@ -138,10 +138,10 @@ void Fruit::clearVectors()
 	Location.clear();
 }
 
-void Fruit::handlestepsfile(string& loadStep)
+void Fruit::handleStepsFile(string& loadStep)
 {
 	int x, y;
-	char CharshowFruit = loadStep.length() - 2, CharfruitScore = loadStep.length() - 3;
+	char Chardirection= loadStep.length() - 1, CharshowFruit = loadStep.length() - 2, CharfruitScore = loadStep.length() - 3;
 	x = loadStep[1] - '0';
 	if (loadStep[2] != ',')
 	{
@@ -160,6 +160,8 @@ void Fruit::handlestepsfile(string& loadStep)
 			y = (y * 10) + loadStep[4] - '0';
 		}
 	}
+
+	direction = charToDirection(Chardirection);
 
 	if (CharshowFruit == 'F')
 	{
