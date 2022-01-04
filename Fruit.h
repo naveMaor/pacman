@@ -31,6 +31,10 @@ public:
 	int randomBetween(int min, int max);
 	void pushLocationToVector(char first, char second);
 	char getValueFromisShowVector(int iteration) const;
+	char getValueFromScoreVector(int iteration) const;
+
+	void pushScoreToVector(char score);
+
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();
 	void handleStepsFile(string & loadStep) override;
