@@ -6,16 +6,10 @@
 class Pacman : public GameObject
 {
 private:
-	// Pacman data members
-	/*Point pacmanBody;
-	int direction = 4;
-	Color color = Color::WHITE;*/
-
 	int score = 0;
 	int life = 3;
 	vector<char> Lives;
 	
-
 public:
 	// Constractor
 	Pacman() : GameObject(pacmanIcon) {}
