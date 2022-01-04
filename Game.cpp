@@ -611,14 +611,14 @@ void Game :: exitGame()
 /* This function write to the current cordinates of pacman death to result file*/
 void Game::writeDeathToResultFile()
 {
-	File::writeStringToFile("The pacman died at: ");
-	File::writeCharToFile('(');
+	File::writeStringToFile("Death");
+	File::writeCharToFile('|');
 	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
 	File::writeCharToFile(',');
 	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getY()));
-	File::writeCharToFile(')');
-	File::writeStringToFile(" after ");
+	File::writeCharToFile('|');
 	File::writeCountMovesToFileAsChar(countMoves);
+	File::writeCharToFile('|');
 	File::writeStringToFile(" moves.");
 	File::writeCharToFile('\n');
 }
@@ -626,14 +626,14 @@ void Game::writeDeathToResultFile()
 /* This function write to the current cordinates of pacman win to result file*/
 void Game::writeWinToResultFile()
 {
-	File::writeStringToFile("The pacman won the screen at: ");
-	File::writeCharToFile('(');
+	File::writeStringToFile("Win");
+	File::writeCharToFile('|');
 	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
 	File::writeCharToFile(',');
 	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getY()));
-	File::writeCharToFile(')');
-	File::writeStringToFile(" after ");
+	File::writeCharToFile('|');
 	File::writeCountMovesToFileAsChar(countMoves);
+	File::writeCharToFile('|');
 	File::writeStringToFile(" moves.");
 	File::writeCharToFile('\n');
 }
@@ -722,14 +722,58 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 
 void Game::playLoadSiletGame(string screenName)
 {
-	string currGameStep, objectDelimeter = "|", ghostsMove, resultFileData;
-	int start, end;
-	resultFileData = File::readFileToString(screenName, fileType::result);
-	stringstream stream(resultFileData);
+	string currGameStep, objectDelimeter = "|", ghostsMove, resultsFileData;
+	int start, end, numOfGhost, countMoves = 0;
+	bool b_won = false;
 
+	initGame(b_IsColorGame);
+
+	resultsFileData = File::readFileToString(screenName, fileType::result);
+	stringstream resultstream(resultsFileData);
+
+	// Move to the begining of moves
+	getline(resultstream, currGameStep, '\n');
+
+	// Get step section
+	while (getline(resultstream, currGameStep, '\n') && (!b_won))
+	{
+		start = 0;
+		end = currGameStep.find(objectDelimeter);
+
+		// Set Directions
+		fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+
+		print.printScore(gameInfo, b_IsColorGame, player.getScore());
+	}
+}
+
+
+void Game::LoadLineDataFromSteps(string screenName)
+{
+	string currGameStep, objectDelimeter = "|", ghostsMove, stepsFileData;
+	int start, end, numOfGhost, countMoves = 0;
+	bool b_won = false;
+
+	initGame(b_IsColorGame);
+
+	stepsFileData = File::readFileToString(screenName, fileType::step);
+	stringstream stream(stepsFileData);
+	numOfGhost = stepsFileData[0] - '0';
+
+	// Move to the begining of moves
 	getline(stream, currGameStep, '\n');
-	start = 0;
-	end = currGameStep.find(objectDelimeter);
-	splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
+
+	// Get step section
+	while (getline(stream, currGameStep, '\n') && (!b_won))
+	{
+		start = 0;
+		end = currGameStep.find(objectDelimeter);
+
+		// Set Directions
+		fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+
+	}
 
 }

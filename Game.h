@@ -60,6 +60,7 @@ public:
 	void playLoadSingleGame(string screenName);
 	string splitObjectStepsByDel(string currGameStep, string objectDelimeter, int& start, int& end);
 	void playLoadSiletGame(string screenName);
+	void LoadLineDataFromSteps(string screenName);
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
