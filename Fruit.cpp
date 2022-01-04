@@ -141,6 +141,7 @@ void Fruit::clearVectors()
 void Fruit::handlestepsfile(string& loadStep)
 {
 	int x, y;
+	char CharshowFruit = loadStep.length() - 2, CharfruitScore = loadStep.length() - 3;
 	x = loadStep[1] - '0';
 	if (loadStep[2] != ',')
 	{
@@ -160,7 +161,13 @@ void Fruit::handlestepsfile(string& loadStep)
 		}
 	}
 
+	if (CharshowFruit == 'F')
+	{
+		showFruit = false;
+	}
+	else 
+		showFruit = true;
 
-
+	fruitScore = CharfruitScore - '0';
 
 }
