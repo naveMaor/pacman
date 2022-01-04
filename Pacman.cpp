@@ -59,6 +59,7 @@ void Pacman::changePosition(Board& b, int& countPacmanMoves)
 			moveTunnel(b);
 		else
 			move();
+
 		pushDirectionToVector(directionToChar());
 	}
 	else
@@ -158,8 +159,11 @@ void Pacman::loadModeMove(Board& board)
 		board.setBoardValByPoint(x, y);
 	}
 
-	if (is_Tunnel)
-		moveTunnel(board);
-	else
-		move();
+	if (isValidMove(board, is_Tunnel))
+	{
+		if (is_Tunnel)
+			moveTunnel(board);
+		else
+			move();
+	}
 }
