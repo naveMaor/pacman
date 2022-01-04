@@ -385,7 +385,7 @@ bool Game::checkGhostsCollision(Ghost &g1, Ghost &g2)
 void Game::gameOver()
 {
 	print.gameOver(gameInfo, b_IsColorGame);
-
+	player.setScore(0);
 	for (int i = 0; i < numOfGhosts; i++)
 		delete ghosts[i];
 	clearScreen();
@@ -464,7 +464,6 @@ void Game::resetGame()
 {
 	setTextColor(Color::WHITE);
 	countMoves = 0;
-	player.setScore(0);
 	continueGame = true;
 	singleGame = false;
 	board.resetBoardDataMembers();
