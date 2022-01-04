@@ -46,17 +46,17 @@ void Game::writeStepsToFile(const string& screenName)
 	File::writeCharToFile('\n');
 
 	std::pair<char, char> pFruitLocation;
-	char isFruitShow;
 	for (int i = 0; i < countMoves; i++)
 	{
-		isFruitShow = fruit.getValueFromisShowVector(i);
 
 		// Write fruit values
 		pFruitLocation = fruit.getValueFromLocationVector(i);
+		File::writeCharToFile('(');
 		File::writeCordinateToFileAsChar(pFruitLocation.first);
 		File::writeCharToFile(',');
 		File::writeCordinateToFileAsChar(pFruitLocation.second);
-		File::writeCharToFile(isFruitShow);
+		File::writeCharToFile(')');
+		File::writeCharToFile(fruit.getValueFromisShowVector(i));
 		File::writeCharToFile(fruit.getValueFromStepsVector(i));
 
 		// Seperate
