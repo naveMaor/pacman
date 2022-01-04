@@ -72,11 +72,6 @@ void Game::writeStepsToFile(const string& screenName)
 		for (int j = 0; j < numOfGhosts; j++)
 			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
 
-		// Seperate
-		File::writeCharToFile('|');
-
-		// Write lives value
-		File::writeCharToFile(player.getValueFromLivesVector(i) + '0');
 		File::writeCharToFile('\n');
 	}
 

@@ -36,6 +36,8 @@ public:
 	void PushLivesToVector();
 	char getValueFromLivesVector(int iteration) const;
 	void clearLivesVector() { Lives.clear(); }
+	void handleStepsFile(string& loadStep) override;
+
 };
 
 #endif

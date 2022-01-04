@@ -68,6 +68,7 @@ void GameObject::IlustrateNextMove(int& x, int& y, int dir)
 	}
 }
 
+/* This function change directon to char*/
 char GameObject::directionToChar()
 {
 	switch (direction)
@@ -89,6 +90,32 @@ char GameObject::directionToChar()
 		break;
 	defalut:
 		return 'S';
+		break;
+	}
+}
+
+/* This function change char to direction*/
+int GameObject::charToDirection(char direction)
+{
+	switch (direction)
+	{
+	case 'L': // LEFT
+		return 0;
+		break;
+	case 'R': // RIGHT
+		return 1;
+		break;
+	case 'U': // UP
+		return 2;
+		break;
+	case 'D': // DOWN
+		return 3;
+		break;
+	case 'S': // STAY
+		return 4;
+		break;
+	defalut:
+		return 4;
 		break;
 	}
 }
@@ -180,6 +207,7 @@ void GameObject::removeObject(Board& b)
 		cout << (char)space;
 }
 
+/* This function return the value from the steps vector*/
 char GameObject::getValueFromStepsVector(int iteration) const
 {
 	return steps[iteration];

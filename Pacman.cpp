@@ -126,12 +126,20 @@ void Pacman::moveTunnelPrint(int x, int y)
 	draw();
 }
 
+/* This function push pacman lives to vector*/
 void Pacman::PushLivesToVector()
 {
 	Lives.push_back(life);
 }
 
+/* This function return the value from the steps vector*/
 char Pacman::getValueFromLivesVector(int iteration) const
 {
 	return Lives[iteration];
+}
+
+/* This function fake the pacman move in load mode*/
+void Pacman:: handleStepsFile(string& loadStep)
+{
+
 }
