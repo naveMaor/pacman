@@ -37,7 +37,7 @@ public:
 
 	std::pair<char, char> getValueFromLocationVector(int iteration) const;
 	void clearVectors();
-	void handleStepsFile(string loadStep) override;
+	void setDirectionFromStepFile(string loadStep);
 };
 
 #endif 

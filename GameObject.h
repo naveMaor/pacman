@@ -42,10 +42,10 @@ public:
 	char directionToChar();
 	int charToDirection(char charDirection);
 	void pushDirectionToVector(char dir);
+	//virtual void setDirectionFromStepFile(string loadStep);
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;
 	void clearStepsVector() { steps.clear(); }
-	virtual void handleStepsFile(string& s);
 };
 
 #endif

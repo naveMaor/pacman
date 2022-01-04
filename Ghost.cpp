@@ -84,7 +84,6 @@ void Ghost::loadModeMove(Board &board, string loadStep, Ghost** ghosts, int numO
 		y = ghosts[i]->getBody().getY();
 
 		// Change direction and move
-		ghosts[i]->direction = ghosts[i]->charToDirection(loadStep[i]);
 		ghosts[i]->move();
 
 		// If last position was breadcrumb print it
@@ -94,4 +93,12 @@ void Ghost::loadModeMove(Board &board, string loadStep, Ghost** ghosts, int numO
 			printBreadCrumbs(x, y);
 		}
 	}
+}
+
+/* This function change the direction of ghosts from steps file*/
+void Ghost:: setGhostsDirectionFromStepFile(Ghost** ghosts, int numOfGhosts, string loadStep)
+{
+	for (int i = 0; i < numOfGhosts; i++)
+		ghosts[i]->direction = ghosts[i]->charToDirection(loadStep[i]);
+
 }

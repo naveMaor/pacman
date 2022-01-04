@@ -12,9 +12,7 @@ int main(int argc, char** argv) {
 	{
 
 		if (input.cmdOptionExists("-load")) 
-		{
-			// Do Load with silet stuff
-		}
+			game.playGame(false, screen, false, true, true);
 		else
 		{
 			cout << "wrong input" << endl;
@@ -22,9 +20,8 @@ int main(int argc, char** argv) {
 		}
 	}
 	else if (input.cmdOptionExists("-load"))
-	{
-		// Do Load only stuff
-	}
+		game.playGame(false, screen, false, true, false);
+	
 	else
 	{
 		setTextColor(Color::WHITE);
@@ -36,18 +33,18 @@ int main(int argc, char** argv) {
 			case 1: // all game
 			{
 				if (input.cmdOptionExists("-save"))
-					game.playGame(false, screen, true);
+					game.playGame(false, screen, true, false, false);
 				else
-					game.playGame(false, screen, false);
+					game.playGame(false, screen, false, false, false);
 				break;
 			}
 			case 2: // single game
 			{
 				screen = menu.handleChooseScreen(File::getScreensName(screenPath));
 				if (input.cmdOptionExists("-save"))
-					game.playGame(true, screen, true);
+					game.playGame(true, screen, true, false, false);
 				else
-					game.playGame(true, screen, false);
+					game.playGame(true, screen, false, false, false);
 				break;
 			}
 			case 3:

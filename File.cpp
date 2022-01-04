@@ -178,9 +178,9 @@ void File::writeStringToFile(const string& str)
  string File:: readStepsFileToString(const string& fileName)
  {
 	 stringstream strStream;
-
+	 string stepsFile = createStepfileName(fileName);
 //	 int fileLength;
-	 file.open(fileName.c_str(), std::ios_base::in);
+	 file.open(stepsFile.c_str(), std::ios_base::in);
 	// file.seekg(0, std::ios::end);
 	 //fileLength = file.tellg();
 	 //file.seekg(0, std::ios::beg);
@@ -188,4 +188,11 @@ void File::writeStringToFile(const string& str)
 	 file.close();
 	 return strStream.str();
 
+ }
+
+
+
+ void File::closeFile()
+ {
+	 file.close();
  }

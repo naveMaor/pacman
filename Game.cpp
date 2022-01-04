@@ -1,92 +1,17 @@
 #include "Game.h"
 
-
 /* This function handle the game*/
-void Game::playGame(bool isSingleGame, string screenName, bool saveMode)
+void Game::playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode)
 {
 	if (isSingleGame)
-	{
-		if (File::isValidFile(screenName, board))
-		{
-			if (saveMode)
-				playSaveSingleGame(screenName);
-			else
-				playSingleGame(screenName);
-		}
-		else
-		{
-			cout << "Isn't valid screen, returning to the menu." << endl;
-			Sleep(longPauseWindow);
-		}
-	}
+		playByMode(screenName, isSaveMode, isLoadMode, isSilentMode);
 	else // full game
 	{
 		size_t numOfScreens = screensNames.size();
 		for (auto i = 0; i < numOfScreens && continueGame; i++)
-		{
-			// If the the file is valid
-			if (File::isValidFile(screensNames[i], board))
-			{
-				if (saveMode)
-					playSaveSingleGame(screensNames[i]);
-				else
-					playSingleGame(screensNames[i]);
-			}
-		}
+			playByMode(screensNames[i], isSaveMode, isLoadMode, isSilentMode);
 	}
 	resetGame();
-}
-
-void Game::writeStepsToFile(const string& screenName)
-{
-	File::createAndOpenFile(screenName, fileType::step);
-
-	// Write num of ghosts
-	File::writeCharToFile(numOfGhosts + '0');
-	File::writeCharToFile('\n');
-
-	std::pair<char, char> pFruitLocation;
-	for (int i = 0; i < countMoves; i++)
-	{
-
-		// Write fruit values
-		pFruitLocation = fruit.getValueFromLocationVector(i);
-		File::writeCharToFile('(');
-		File::writeCordinateToFileAsChar(pFruitLocation.first);
-		File::writeCharToFile(',');
-		File::writeCordinateToFileAsChar(pFruitLocation.second);
-		File::writeCharToFile(')');
-		File::writeCharToFile(fruit.getValueFromScoreVector(i));
-		File::writeCharToFile(fruit.getValueFromisShowVector(i));
-		File::writeCharToFile(fruit.getValueFromStepsVector(i));
-
-		// Seperate
-		File::writeCharToFile('|');
-
-		// Write player steps
-		File::writeCharToFile(player.getValueFromStepsVector(i));
-
-		// Seperate
-		File::writeCharToFile('|');
-
-		// Write ghosts steps
-		for (int j = 0; j < numOfGhosts; j++)
-			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
-
-		File::writeCharToFile('\n');
-	}
-
-	File::closeWrittenFile();
-	resetVectors();
-}
-
-/* This function reset steps vectors*/
-void Game::resetVectors() {
-	player.clearStepsVector();
-	player.clearLivesVector();
-	fruit.clearVectors();
-	for (int j = 0; j < numOfGhosts; j++)
-		ghosts[j]->clearStepsVector();
 }
 
 /* This function play one single game*/
@@ -115,7 +40,6 @@ void Game::playSingleGame(string screenName)
 			pacmanMove(board);
 		}		
 	}
-	
 	// If lose
 	if (player.getLife() == 0)
 	{
@@ -171,10 +95,16 @@ void Game::playSaveSingleGame(string screenName)
 /* This function play load mode*/
 void Game:: playLoadSingleGame(string screenName)
 {
-	string currGameStep, objectDelimeter = "|", ghostsMove, stepsFileData = File::readStepsFileToString(screenName);
+	string currGameStep, objectDelimeter = "|", ghostsMove, stepsFileData;
+	int start, end, numOfGhost;
+
+	initGame(b_IsColorGame);
+	File::closeFile();
+
+
+	stepsFileData = File::readStepsFileToString(screenName);
 	stringstream stream(stepsFileData);
-	int start, end, numOfGhost = stepsFileData[0] - '0';
-	// Handle ghost / create or somethings
+	numOfGhost = stepsFileData[0] - '0';
 
 	// Move to the begining of moves
 	getline(stream, currGameStep, '\n');
@@ -182,14 +112,31 @@ void Game:: playLoadSingleGame(string screenName)
 	{
 		start = 0;
 		end = currGameStep.find(objectDelimeter);
-		
-		fruit.handleStepsFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
-		player.handleStepsFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
-		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
-		Ghost::loadModeMove(board, ghostsMove, ghosts, numOfGhost);
 
+		if (checkWin())
+			winGame();
+
+		fruit.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
+		Ghost::setGhostsDirectionFromStepFile(ghosts, numOfGhost, ghostsMove);
+
+		fruit.move();
+		Ghost::loadModeMove(board, ghostsMove, ghosts, numOfGhost);
+		checkGhostsHit(player.getBody());
+		checkPacmanHitFruit();
+		Sleep(gameSpeedVal);
+		player.move();
+	}
+
+	// If lose
+	if (player.getLife() == 0)
+	{
+		continueGame = false;
+		gameOver();
 	}
 }
+
 
 /* This function split steps by objects */
 string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, int &start, int &end)
@@ -686,3 +633,82 @@ void Game::writeWinToResultFile()
 	File::writeCharToFile('\n');
 }
 
+void Game::writeStepsToFile(const string& screenName)
+{
+	File::createAndOpenFile(screenName, fileType::step);
+
+	// Write num of ghosts
+	File::writeCharToFile(numOfGhosts + '0');
+	File::writeCharToFile('\n');
+
+	std::pair<char, char> pFruitLocation;
+	for (int i = 0; i < countMoves; i++)
+	{
+
+		// Write fruit values
+		pFruitLocation = fruit.getValueFromLocationVector(i);
+		File::writeCharToFile('(');
+		File::writeCordinateToFileAsChar(pFruitLocation.first);
+		File::writeCharToFile(',');
+		File::writeCordinateToFileAsChar(pFruitLocation.second);
+		File::writeCharToFile(')');
+		File::writeCharToFile(fruit.getValueFromScoreVector(i));
+		File::writeCharToFile(fruit.getValueFromisShowVector(i));
+		File::writeCharToFile(fruit.getValueFromStepsVector(i));
+
+		// Seperate
+		File::writeCharToFile('|');
+
+		// Write player steps
+		File::writeCharToFile(player.getValueFromStepsVector(i));
+
+		// Seperate
+		File::writeCharToFile('|');
+
+		// Write ghosts steps
+		for (int j = 0; j < numOfGhosts; j++)
+			File::writeCharToFile(ghosts[j]->getValueFromStepsVector(i));
+
+		File::writeCharToFile('\n');
+	}
+
+	File::closeWrittenFile();
+	resetVectors();
+}
+
+/* This function reset steps vectors*/
+void Game::resetVectors() {
+	player.clearStepsVector();
+	player.clearLivesVector();
+	fruit.clearVectors();
+	for (int j = 0; j < numOfGhosts; j++)
+		ghosts[j]->clearStepsVector();
+}
+
+
+/* This function play the game by requierd mode*/
+void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode)
+{
+	if (File::isValidFile(screenName, board))
+	{
+		if (isSaveMode)
+			playSaveSingleGame(screenName);
+
+		else if (isLoadMode)
+			playLoadSingleGame(screenName);
+
+		else if (isLoadMode && isSilentMode)
+		{
+			// load silent
+
+		}
+
+		else
+			playSingleGame(screenName);
+	}
+	else
+	{
+		cout << "Isn't valid screen, returning to the menu." << endl;
+		Sleep(longPauseWindow);
+	}
+}

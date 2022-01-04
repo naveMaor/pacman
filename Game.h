@@ -33,8 +33,9 @@ private:
 	
 public:
 	// Game functions
-	void playGame(bool isSingleGame, string screenName, bool saveMode);
+	void playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void playSingleGame(string screenName);
+	void playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void initGame(bool b_color);
 	void gameSettings();
 	void gameSpeed();
