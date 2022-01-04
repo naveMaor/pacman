@@ -115,7 +115,7 @@ void Game:: playLoadSingleGame(string screenName)
 		end = currGameStep.find(objectDelimeter);
 		countMoves++;
 		// Set Directions
-		fruit.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
+		fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 		ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
 		Ghost::setGhostsDirectionFromStepFile(ghosts, numOfGhost, ghostsMove);
