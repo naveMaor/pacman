@@ -725,7 +725,7 @@ void Game::playLoadSilentGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData;
 	int  numOfGhost, countMoves = 0;
-	bool b_won = false,resultflag=true;
+	bool b_won = false;
 	char W_or_D;
 	Point resultPlayerloaction;
 	int x, y,resultFileMove, resultMovesNumber;
@@ -743,7 +743,7 @@ void Game::playLoadSilentGame(string screenName)
 	getline(Stepstream, currGameStep, '\n');
 
 	// Get step section
-	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && resultflag && (player.getLife() > 0))
+	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && (player.getLife() > 0))
 	{
 
 		LoadModeDataParameters(countMoves, numOfGhost, currGameStep, objectDelimeter);
@@ -761,16 +761,16 @@ void Game::playLoadSilentGame(string screenName)
 
 		if (checkWin())
 		{
+			winGame();
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
 				cout << " test failed " << endl;
 				return;
 			}
-			else
-			{
 				cout << "screen " <<screenName <<" passed" << endl;
-			}
+				Sleep(longPauseWindow);
+			
 		}
 	}
 
