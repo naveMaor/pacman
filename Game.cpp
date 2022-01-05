@@ -19,7 +19,7 @@ void Game::playSingleGame(string screenName)
 {
 	bool b_won = false;
 
-	initGame(b_IsColorGame);
+	initGame(b_IsColorGame, false);
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
@@ -48,34 +48,46 @@ void Game::playSingleGame(string screenName)
 	}
 }
 
+void Game::playGameStep(bool& b_won, bool isSaveMode)
+{
+	print.printScore(gameInfo, b_IsColorGame, player.getScore());
+	fruit.changePosition(board, countMoves);
+	ghostsMove(player.getBody());
+	if (isSaveMode)
+		checkAndSaveGhostsHit(player.getBody());
+	else
+		checkGhostsHit(player.getBody());
+	checkPacmanHitFruit();
+	Sleep(gameSpeedVal);
+	pacmanMove(board);
+
+	if (checkWin())
+	{
+		b_won = true;
+		winGame();
+	}
+}
+
+
 void Game::playSaveSingleGame(string screenName)
 {
 	bool b_won = false;
-	initGame(b_IsColorGame);
+	initGame(b_IsColorGame, false);
 
 	// Open result file
 	File::createAndOpenFile(screenName, fileType::result);
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
-	{
-		if (checkWin())
+	{	
+		playGameStep(b_won, true);
+		if (b_won)
 		{
 			writeWinToResultFile();
 			File::closeWrittenFile();
 			writeStepsToFile(screenName);
-			b_won = true;
-			winGame();
 		}
-		else
-		{
-			print.printScore(gameInfo, b_IsColorGame, player.getScore());
-			fruit.changePosition(board, countMoves);
-			ghostsMove(player.getBody());
-			checkAndSaveGhostsHit(player.getBody());
-			checkPacmanHitFruit();
-			Sleep(gameSpeedVal);
-			pacmanMove(board);
-		}
+			
+		
 	}
 
 	// If lose
@@ -101,29 +113,24 @@ string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, 
 	return objectStep;
 }
 
-/* This function init silent game*/
-void Game::initSilentGame()
-{
-	board.intiBoardDataInSilentMode();
-	numOfGhosts = board.getNumOfGhosts();
-	initGameObj();
-	setGameObjectsPositions();
-}
 
 /* This function init the game*/
-void Game::initGame(bool b_color)
+void Game::initGame(bool b_color, bool isSilentGame)
 {
-	clearScreen();
-	board.initBoardData(gameInfo);
+	board.initBoardData(gameInfo, false);
 	numOfGhosts = board.getNumOfGhosts();
 	initGameObj();
 	setGameObjectsPositions();
 
-	if (b_color)
-		setGameObjectsColors();
+	if (!isSilentGame)
+	{
+		clearScreen();
+		if (b_color)
+			setGameObjectsColors();
 
-	drawGameObj();
-	print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());
+		drawGameObj();
+		print.printGameInfoAfterPause(gameInfo, b_IsColorGame, player.getScore(), player.getLife());
+	}
 }
 
 

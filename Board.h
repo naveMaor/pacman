@@ -24,11 +24,10 @@ public:
     Board();
 	void const printBoard() const;
     void resetBoard();
-    void initBoardData(Point& gameInfo);
+    void initBoardData(Point& gameInfo, bool isSilentMode);
     void initInfoPosition();
     void resetBoardDataMembers();
     bool checkValidBoard();
-    void intiBoardDataInSilentMode();
 
     // This function return the value in the board of request place, the x and y that requested are opposite in the board
     unsigned char getBoardValFromPoint(int x, int y)const { return board[y][x]; };

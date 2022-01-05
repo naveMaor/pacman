@@ -82,21 +82,18 @@ void Board::initInfoPosition()
 }
 
 /* This function init board data*/
-void Board:: initBoardData(Point& gameInfo)
+void Board:: initBoardData(Point& gameInfo, bool isSilentMode)
 {
     boardHight -= 1; // After the loop of getting the data from the file the hight is increase in one two much
     if (boardEndHight > boardHight)
         boardHight = boardEndHight;
-    gameInfo = infoPosition;
-    printBoard();
+    if (!isSilentMode)
+    {
+        gameInfo = infoPosition;
+        printBoard();
+    }
 }
 
-void Board::intiBoardDataInSilentMode()
-{
-    boardHight -= 1; // After the loop of getting the data from the file the hight is increase in one two much
-    if (boardEndHight > boardHight)
-        boardHight = boardEndHight;
-}
 
 /* This function reset board data member after new game*/
 void Board::resetBoardDataMembers()
