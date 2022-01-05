@@ -91,6 +91,13 @@ void Board:: initBoardData(Point& gameInfo)
     printBoard();
 }
 
+void Board::intiBoardDataInSilentMode()
+{
+    boardHight -= 1; // After the loop of getting the data from the file the hight is increase in one two much
+    if (boardEndHight > boardHight)
+        boardHight = boardEndHight;
+}
+
 /* This function reset board data member after new game*/
 void Board::resetBoardDataMembers()
 {

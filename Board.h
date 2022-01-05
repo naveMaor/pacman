@@ -25,6 +25,7 @@ public:
 	void const printBoard() const;
     void resetBoard();
     void initBoardData(Point& gameInfo);
+    void intiBoardDataInSilentMode();
     void initInfoPosition();
     void resetBoardDataMembers();
     bool checkValidBoard();

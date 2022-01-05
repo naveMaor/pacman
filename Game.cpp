@@ -104,7 +104,7 @@ string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, 
 /* This function init silent game*/
 void Game::initSilentGame()
 {
-	board.initBoardData(gameInfo);
+	board.intiBoardDataInSilentMode();
 	numOfGhosts = board.getNumOfGhosts();
 	initGameObj();
 	setGameObjectsPositions();
@@ -569,21 +569,18 @@ void Game :: exitGame()
 void Game::writeDeathToResultFile()
 {
 	File::writeStringToFile("D");
-	File::writeCharToFile('|');
-	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
-	File::writeCharToFile(',');
-	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getY()));
-	File::writeCharToFile('|');
-	File::writeCountMovesToFileAsChar(countMoves);
-	File::writeCharToFile('|');
-	File::writeStringToFile(" moves.");
-	File::writeCharToFile('\n');
+	writeResultData();
 }
 
 /* This function write to the current cordinates of pacman win to result file*/
 void Game::writeWinToResultFile()
 {
 	File::writeStringToFile("W");
+	writeResultData();
+}
+
+void Game::writeResultData()
+{
 	File::writeCharToFile('|');
 	File::writeCordinateToFileAsChar(static_cast<char>(player.getBody().getX()));
 	File::writeCharToFile(',');
@@ -661,8 +658,6 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 		}
 		else if (isLoadMode)
 			playLoadSingleGame(screenName);
-
-
 
 		else
 			playSingleGame(screenName);

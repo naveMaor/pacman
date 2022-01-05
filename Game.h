@@ -50,6 +50,7 @@ public:
 	void writeStepsToFile(const string& screenName);
 	void writeDeathToResultFile();
 	void writeWinToResultFile();
+	void writeResultData();
 	void resetVectors();
 
 	// Save functions
