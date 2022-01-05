@@ -84,10 +84,9 @@ void Ghost::loadModeMove(Board &board, Ghost** ghosts, int numOfGhosts)
 		y = ghosts[i]->getBody().getY();
 
 		// Move if the direction isn't stay
-		if (ghosts[i]->direction != 4)
+		if ((ghosts[i]->direction != 4) && (ghosts[i]->checkValidMove(x, y, ghosts[i]->direction, board)))
 		{
-			if (ghosts[i]->checkValidMove(x, y, ghosts[i]->direction, board));
-				ghosts[i]->move();
+			ghosts[i]->move();
 			// If last position was breadcrumb print it
 			if (board.getBoardValFromPoint(x, y) == breadCrumb)
 			{

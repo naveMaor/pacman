@@ -117,7 +117,7 @@ void Board::handleGhost(int boardHight, int x)
     else
     {
         isValidBoard = false;
-        cout << "Too many ghosts in there board" << endl;
+        cout << "Too many ghosts in the board" << endl;
     }
 }
 
@@ -133,7 +133,7 @@ void Board::handlePacman(int boardHight, int x)
     else // More than one apear of '@' in the file
     {
     isValidBoard = false;
-    cout << "Too many pacmans in there board" << endl;
+    cout << "Too many pacmans in the board" << endl;
     }
 }
 
