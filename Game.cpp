@@ -83,7 +83,6 @@ void Game::playSaveSingleGame(string screenName)
 	{
 		// Close result file
 		File::closeWrittenFile();
-
 		// Writes Steps
 		writeStepsToFile(screenName);
 
@@ -91,8 +90,6 @@ void Game::playSaveSingleGame(string screenName)
 		gameOver();
 	}
 }
-
-/* This function play load mode*/
 
 
 /* This function split steps by objects */
@@ -104,7 +101,16 @@ string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, 
 	return objectStep;
 }
 
-/* This fnction init the game*/
+/* This function init silent game*/
+void Game::initSilentGame()
+{
+	board.initBoardData(gameInfo);
+	numOfGhosts = board.getNumOfGhosts();
+	initGameObj();
+	setGameObjectsPositions();
+}
+
+/* This function init the game*/
 void Game::initGame(bool b_color)
 {
 	clearScreen();
@@ -715,9 +721,6 @@ void Game::playLoadSingleGame(string screenName)
 
 
 
-
-
-
 void Game::playLoadSilentGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData;
@@ -785,7 +788,6 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	int x, y;
 	int start = 0, end = resultline.find(objectDelimeter);
 	
-
 	W_or_D = resultline[0];
 	LoadDataFromLine(x, y, 2, resultline);
 	resultPlayerloaction.setX(x);
@@ -802,6 +804,7 @@ void Game::LoadModeDataParameters(int& countMoves, int numOfGhost, string& currG
 	int start = 0;
 	int end = currGameStep.find(objectDelimeter);
 	countMoves++;
+
 	// Set Directions
 	fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 	player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
