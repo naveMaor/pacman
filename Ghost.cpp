@@ -102,5 +102,4 @@ void Ghost:: setGhostsDirectionFromStepFile(Ghost** ghosts, int numOfGhosts, str
 {
 	for (int i = 0; i < numOfGhosts; i++)
 		ghosts[i]->direction = ghosts[i]->charToDirection(loadStep[i]);
-
 }

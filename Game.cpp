@@ -18,23 +18,24 @@ void Game::playGame(bool isSingleGame, string screenName, bool isSaveMode, bool 
 void Game::playSingleGame(string screenName)
 {
 	bool b_won = false;
-
 	initGame(b_IsColorGame, false);
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
-		playGameStep(b_won, true);
-
+		playGameStep(true);
+		if (checkWin())
+		{
+			b_won = true;
+			winGame();
+		}
 	}
 	// If lose
 	if (player.getLife() == 0)
-	{
-		continueGame = false;
 		gameOver();
-	}
 }
 
-void Game::playGameStep(bool& b_won, bool isSaveMode)
+/* This function play single game step*/
+void Game::playGameStep(bool isSaveMode)
 {
 	print.printScore(gameInfo, b_IsColorGame, player.getScore());
 	fruit.changePosition(board, countMoves);
@@ -48,7 +49,7 @@ void Game::playGameStep(bool& b_won, bool isSaveMode)
 	pacmanMove(board);
 }
 
-
+/* This function play and save single game*/
 void Game::playSaveSingleGame(string screenName)
 {
 	bool b_won = false;
@@ -59,7 +60,7 @@ void Game::playSaveSingleGame(string screenName)
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{	
-		playGameStep(b_won, true);
+		playGameStep(true);
 		if (checkWin())
 		{
 			writeWinToResultFile();
@@ -78,7 +79,6 @@ void Game::playSaveSingleGame(string screenName)
 		// Writes Steps
 		writeStepsToFile(screenName);
 
-		continueGame = false;
 		gameOver();
 	}
 }
@@ -341,6 +341,7 @@ bool Game::checkGhostsCollision(Ghost &g1, Ghost &g2)
 /* This function handle game over*/
 void Game::gameOver()
 {
+	continueGame = false;
 	print.gameOver(gameInfo, b_IsColorGame);
 	player.setScore(0);
 	for (int i = 0; i < numOfGhosts; i++)

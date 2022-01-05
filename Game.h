@@ -36,7 +36,7 @@ public:
 	void playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void playSingleGame(string screenName);
 	void playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
-	void playGameStep(bool &b_won, bool isSaveMode);
+	void playGameStep(bool isSaveMode);
 	void initGame(bool b_color, bool isSilentGame);
 	void gameSettings();
 	void gameSpeed();
