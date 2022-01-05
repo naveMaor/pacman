@@ -754,7 +754,7 @@ void Game::playLoadSilentGame(string screenName)
 			getline(resultstream, currGameStep, '\n');
 			LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 		}
-		player.getBody().move(player.getDirection());
+		player.silentMove(board);
 
 		if (checkWin())
 		{
