@@ -46,6 +46,7 @@ public:
 	static char getValueFromVector(vector<char>& v,int iteration);
 	char getValueFromStepsVector(int iteration) const;
 	void clearStepsVector() { steps.clear(); }
+	void moveSilent();
 };
 
 #endif

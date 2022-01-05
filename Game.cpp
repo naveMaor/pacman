@@ -717,7 +717,7 @@ void Game::playLoadSingleGame(string screenName)
 
 void Game::playLoadSilentGame(string screenName)
 {
-	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData;
+	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData, currGameResult;
 	int  numOfGhost, countMoves = 0;
 	bool b_won = false;
 	char W_or_D;
@@ -729,7 +729,7 @@ void Game::playLoadSilentGame(string screenName)
 	stringstream resultstream(resultsFileData);
 	stringstream Stepstream(StepsFileData);
 	LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
-
+	getline(resultstream, currGameResult, '\n');
 	initGame(false, true);
 	numOfGhost = StepsFileData[0] - '0';
 
@@ -739,7 +739,6 @@ void Game::playLoadSilentGame(string screenName)
 	// Get step section
 	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && (player.getLife() > 0))
 	{
-
 		LoadModeDataParameters(countMoves, numOfGhost, currGameStep, objectDelimeter);
 		fruit.getBody().move(fruit.getDirection());
 		GhostsSilentModeMove();
@@ -750,8 +749,8 @@ void Game::playLoadSilentGame(string screenName)
 				cout << " test failed " << endl;
 				return;
 			}
-			getline(resultstream, currGameStep, '\n');
-			LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
+			if(getline(resultstream, currGameResult, '\n'))
+				LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, currGameResult, objectDelimeter);
 		}
 		player.silentMove(board);
 
@@ -774,7 +773,10 @@ void Game::playLoadSilentGame(string screenName)
 	{
 		continueGame = false;
 		cout << "screen " << screenName << " over" << endl;
-		gameOver();
+		Sleep(longPauseWindow);
+		for (int i = 0; i < numOfGhosts; i++)
+			delete ghosts[i];
+		//gameOver();
 	}
 }
 
@@ -792,7 +794,7 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	string s=splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	string s1 = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	resultline = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
-	MovesNumber = LoadNumberFromLine(resultline, 0);
+	MovesNumber = LoadNumberFromLine(resultline, 0)+1;
 }
 
 
@@ -849,6 +851,7 @@ void Game::GhostsSilentModeMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
 	{
-		ghosts[i]->getBody().move(ghosts[i]->getDirection());
+		ghosts[i]->moveSilent();
+
 	}
 }
