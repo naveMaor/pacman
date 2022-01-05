@@ -34,7 +34,7 @@ void Game::playSingleGame(string screenName)
 			print.printScore(gameInfo, b_IsColorGame, player.getScore());
 			fruit.changePosition(board, countMoves);
 			ghostsMove(player.getBody());
-			checkGhostsHit(player.getBody());
+			checkGhostsHit(player.getBody(), false);
 			checkPacmanHitFruit();
 			Sleep(gameSpeedVal);
 			pacmanMove(board);
@@ -267,11 +267,24 @@ bool Game::ghostsHit(Point pacmanBody)
 }
 
 /* This function check ghosts hit*/
-void Game::checkGhostsHit(Point pacmanBody)
+bool Game::checkGhostsHit(Point pacmanBody, bool isSilent)
 {
 	if (ghostsHit(pacmanBody))
-		initGameAfterGhostHit();
+	{
+		if (isSilent)
+		{
+			player.setLife(player.getLife() - 1);
+			setGameObjectsPositions();
+		}
+		else
+			initGameAfterGhostHit();
+		return true;
+	}
+	return false;
+		
 }
+
+
 
 /* This function check ghosts hit and write to result file*/
 void Game::checkAndSaveGhostsHit(Point pacmanBody)
@@ -657,14 +670,18 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 {
 	if (File::isValidFile(screenName, board))
 	{
+
+
 		if (isSaveMode)
 			playSaveSingleGame(screenName);
-		else if (isLoadMode && isSilentMode)
-		{
-			playLoadSilentGame(screenName);
-		}
 		else if (isLoadMode)
-			playLoadSingleGame(screenName);
+		{
+			if (isSilentMode)
+				playLoadSilentGame(screenName);
+			else
+				playLoadSingleGame(screenName);
+		}
+			
 
 		else
 			playSingleGame(screenName);
@@ -701,7 +718,7 @@ void Game::playLoadSingleGame(string screenName)
 		print.printScore(gameInfo, b_IsColorGame, player.getScore());
 		fruit.move();
 		Ghost::loadModeMove(board, ghosts, numOfGhost);
-		checkGhostsHit(player.getBody());
+		checkGhostsHit(player.getBody(),false);
 		checkPacmanHitFruit();
 		Sleep(100);
 		player.loadModeMove(board);
@@ -751,7 +768,7 @@ void Game::playLoadSilentGame(string screenName)
 		LoadModeDataParameters(countMoves, numOfGhost, currGameStep, objectDelimeter);
 		fruit.getBody().move(fruit.getDirection());
 		GhostsSilentModeMove();
-		if (ghostsHit(player.getBody()))
+		if (checkGhostsHit(player.getBody(),true))
 		{
 			if (W_or_D != 'D' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
