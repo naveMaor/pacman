@@ -60,6 +60,11 @@ public:
 	void playLoadSingleGame(string screenName);
 	string splitObjectStepsByDel(string currGameStep, string objectDelimeter, int& start, int& end);
 	void playLoadSiletGame(string screenName);
+	void LoadDataFromLine(int& x, int& y, int startindex, string& LineData);
+	int LoadNumberFromLine(string& LineData, int index);
+	void LoadsilentModeDataParameters(Point& resultPlayerloaction, char& W_or_D, int& MovesNumber, string& resultline, string objectDelimeter);
+	void LoadModeDataParameters(int & countMoves,int numOfGhost,string& currGameStep,string& objectDelimeter);
+	void GhostsSilentModeMove();
 
 	// TODO: Delete next 4 function
 	bool getIsColorGame() const { return b_IsColorGame; };
