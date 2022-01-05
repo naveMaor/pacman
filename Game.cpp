@@ -97,14 +97,14 @@ string Game::splitObjectStepsByDel(string currGameStep, string objectDelimeter, 
 /* This function init the game*/
 void Game::initGame(bool b_color, bool isSilentGame)
 {
-	board.initBoardData(gameInfo, false);
+	clearScreen();
+	board.initBoardData(gameInfo, isSilentGame);
 	numOfGhosts = board.getNumOfGhosts();
 	initGameObj();
 	setGameObjectsPositions();
 
 	if (!isSilentGame)
 	{
-		clearScreen();
 		if (b_color)
 			setGameObjectsColors();
 
@@ -671,7 +671,6 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 }
 
 
-
 void Game::playLoadSingleGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", stepsFileData;
@@ -714,7 +713,6 @@ void Game::playLoadSingleGame(string screenName)
 		gameOver();
 	}
 }
-
 
 
 void Game::playLoadSilentGame(string screenName)
