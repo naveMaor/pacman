@@ -651,7 +651,7 @@ void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool
 			playSaveSingleGame(screenName);
 		else if (isLoadMode && isSilentMode)
 		{
-			playLoadSilentGame(screenName);
+			playLoadSiletGame(screenName);
 		}
 		else if (isLoadMode)
 			playLoadSingleGame(screenName);
@@ -718,7 +718,7 @@ void Game::playLoadSingleGame(string screenName)
 
 
 
-void Game::playLoadSilentGame(string screenName)
+void Game::playLoadSiletGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData;
 	int  numOfGhost, countMoves = 0;
