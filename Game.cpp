@@ -750,7 +750,7 @@ void Game::playLoadSilentGame(string screenName)
 		{
 			if (W_or_D != 'D' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
-				cout << " test for screen" << screenName << "failed " << endl;
+				cout << "The test for screen " << screenName << " failed" << endl;
 				Sleep(longPauseWindow);
 				return;
 			}
@@ -764,14 +764,13 @@ void Game::playLoadSilentGame(string screenName)
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
-				cout << " test for screen" << screenName << "failed " << endl;
+				cout << "The test for screen " << screenName << " failed" << endl;
 				Sleep(longPauseWindow);
 				return;
 			}
-				cout << "Screen " <<screenName <<" passed" << endl;
+				cout << "The test for screen " << screenName <<" passed" << endl;
 				Sleep(longPauseWindow);
 				resetGame();
-			
 		}
 	}
 
@@ -852,11 +851,9 @@ int Game::LoadNumberFromLine(string& LineData , int index)
 	return x;
 }
 
+
 void Game::GhostsSilentModeMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
-	{
 		ghosts[i]->moveSilent();
-
-	}
 }
