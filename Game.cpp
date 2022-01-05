@@ -746,7 +746,7 @@ void Game::playLoadSilentGame(string screenName)
 		{
 			if (W_or_D != 'D' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
-				cout << " test failed " << endl;
+				cout << " test for screen" << screenName << "failed " << endl;
 				Sleep(longPauseWindow);
 				return;
 			}
@@ -760,11 +760,11 @@ void Game::playLoadSilentGame(string screenName)
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
-				cout << " test failed " << endl;
+				cout << " test for screen" << screenName << "failed " << endl;
 				Sleep(longPauseWindow);
 				return;
 			}
-				cout << "screen " <<screenName <<" passed" << endl;
+				cout << "Screen " <<screenName <<" passed" << endl;
 				Sleep(longPauseWindow);
 				resetGame();
 			
@@ -774,7 +774,7 @@ void Game::playLoadSilentGame(string screenName)
 	if (player.getLife() == 0)
 	{
 		continueGame = false;
-		cout << "screen " << screenName << " over" << endl;
+		cout << "At screen " << screenName << " the player lost" << endl;
 		Sleep(longPauseWindow);
 		for (int i = 0; i < numOfGhosts; i++)
 			delete ghosts[i];
