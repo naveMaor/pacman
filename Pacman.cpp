@@ -167,3 +167,27 @@ void Pacman::loadModeMove(Board& board)
 			move();
 	}
 }
+
+void Pacman::silentMove(Board& board)
+{
+	bool is_Tunnel = false;
+	int x = this->getBody().getX();
+	int y = this->getBody().getY();
+
+	unsigned char currentLocationVal = board.getBoardValFromPoint(x, y);
+
+	if (currentLocationVal == breadCrumb)
+	{
+		score++;
+		board.eatBreadCrumb();
+		board.setBoardValByPoint(x, y);
+	}
+
+	if (isValidMove(board, is_Tunnel))
+	{
+		if (is_Tunnel)
+			moveTunnel(board);
+		else
+			pBody.move(direction);
+	}
+}

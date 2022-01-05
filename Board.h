@@ -35,7 +35,6 @@ public:
     unsigned char getBoardValFromPoint(Point point)const { return board[point.getY()][point.getX()]; };
     int getBoardWidth() const { return boardWidth; }
     int getBoardHight() const { return boardHight; } // first hight is zero
-    //int getBoardEndHight() const { return boardEndHight; }
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     bool getIsValidBoard() const { return isValidBoard; }
@@ -57,7 +56,5 @@ public:
     void handlePacman(int boardHight, int x);
     void handleGameInfo(int boardHight, int x);
     void handleBreadCrumb(int boardHight, int x);
-    void handleCleanGameArea(int boardHight, int x);
-    
 };
 #endif

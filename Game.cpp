@@ -646,7 +646,7 @@ void Game::resetVectors() {
 
 
 /* This function play the game by requierd mode*/
-void Game:: playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode)
+void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode)
 {
 	if (File::isValidFile(screenName, board))
 	{
@@ -731,7 +731,6 @@ void Game::playLoadSilentGame(string screenName)
 	stringstream Stepstream(StepsFileData);
 	LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 
-
 	numOfGhost = StepsFileData[0] - '0';
 
 	// Move to the begining of moves
@@ -786,8 +785,8 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	W_or_D = resultline[0];
 	LoadDataFromLine(x, y, 2, resultline);
 	resultPlayerloaction.setX(x);
-	resultPlayerloaction.setX(y);
-	end = resultline.find(objectDelimeter);
+	resultPlayerloaction.setY(y);
+	//end = resultline.find(objectDelimeter);
 	splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	resultline = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	MovesNumber = LoadNumberFromLine(resultline, 0);
