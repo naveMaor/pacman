@@ -674,7 +674,7 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 void Game::playLoadSingleGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", stepsFileData;
-	int numOfGhost, countMoves = 0;
+	int numOfGhost;
 	bool b_won = false;
 
 	initGame(b_IsColorGame, false);
@@ -689,7 +689,7 @@ void Game::playLoadSingleGame(string screenName)
 	// Get step section
 	while (getline(stream, currGameStep, '\n') && (!b_won)&& (player.getLife() > 0))
 	{
-		LoadModeDataParameters(countMoves, numOfGhost, currGameStep, objectDelimeter);
+		LoadModeDataParameters(numOfGhost, currGameStep, objectDelimeter);
 
 		print.printScore(gameInfo, b_IsColorGame, player.getScore());
 		fruit.move();
@@ -718,7 +718,7 @@ void Game::playLoadSingleGame(string screenName)
 void Game::playLoadSilentGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData, currGameResult;
-	int  numOfGhost, countMoves = 0;
+	int  numOfGhost;
 	bool b_won = false;
 	char W_or_D;
 	Point resultPlayerloaction;
@@ -739,7 +739,7 @@ void Game::playLoadSilentGame(string screenName)
 	// Get step section
 	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && (player.getLife() > 0))
 	{
-		LoadModeDataParameters(countMoves, numOfGhost, currGameStep, objectDelimeter);
+		LoadModeDataParameters( numOfGhost, currGameStep, objectDelimeter);
 		fruit.getBody().move(fruit.getDirection());
 		GhostsSilentModeMove();
 		if (checkGhostsHit(player.getBody(),true))
@@ -747,24 +747,26 @@ void Game::playLoadSilentGame(string screenName)
 			if (W_or_D != 'D' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
 				cout << " test failed " << endl;
+				Sleep(longPauseWindow);
 				return;
 			}
 			if(getline(resultstream, currGameResult, '\n'))
 				LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, currGameResult, objectDelimeter);
 		}
-		player.silentMove(board);
+		player.silentMove(board,countMoves);
 
 		if (checkWin())
 		{
-			resetGame();
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
 				cout << " test failed " << endl;
+				Sleep(longPauseWindow);
 				return;
 			}
 				cout << "screen " <<screenName <<" passed" << endl;
 				Sleep(longPauseWindow);
+				resetGame();
 			
 		}
 	}
@@ -794,15 +796,14 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	string s=splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	string s1 = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	resultline = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
-	MovesNumber = LoadNumberFromLine(resultline, 0)+1;
+	MovesNumber = LoadNumberFromLine(resultline, 0);
 }
 
 
-void Game::LoadModeDataParameters(int& countMoves, int numOfGhost, string& currGameStep, string& objectDelimeter)
+void Game::LoadModeDataParameters( int numOfGhost, string& currGameStep, string& objectDelimeter)
 {
 	int start = 0;
 	int end = currGameStep.find(objectDelimeter);
-	countMoves++;
 
 	// Set Directions
 	fruit.setFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));

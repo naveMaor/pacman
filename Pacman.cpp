@@ -168,7 +168,7 @@ void Pacman::loadModeMove(Board& board)
 	}
 }
 
-void Pacman::silentMove(Board& board)
+void Pacman::silentMove(Board& board, int& countPacmanMoves)
 {
 	bool is_Tunnel = false;
 	int x = this->getBody().getX();
@@ -190,4 +190,5 @@ void Pacman::silentMove(Board& board)
 		else
 			pBody.move(direction);
 	}
+	countPacmanMoves++;
 }

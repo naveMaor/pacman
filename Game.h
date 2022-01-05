@@ -65,7 +65,7 @@ public:
 	void LoadDataFromLine(int& x, int& y, int startindex, string& LineData);
 	int LoadNumberFromLine(string& LineData, int index);
 	void LoadsilentModeDataParameters(Point& resultPlayerloaction, char& W_or_D, int& MovesNumber, string& resultline, string objectDelimeter);
-	void LoadModeDataParameters(int & countMoves,int numOfGhost,string& currGameStep,string& objectDelimeter);
+	void LoadModeDataParameters(int numOfGhost,string& currGameStep,string& objectDelimeter);
 
 	// Silent functions
 	void GhostsSilentModeMove();
