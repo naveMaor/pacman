@@ -33,6 +33,11 @@ void GameObject::move()
 	draw();
 }
 
+void GameObject::moveSilent()
+{
+	pBody.move(direction);
+}
+
 /* This function draw the game object by his color at his current place*/
 void GameObject::draw() const
 {
