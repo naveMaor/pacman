@@ -83,7 +83,7 @@ public:
 	// Ghosts functions
 	void initGameAfterGhostHit();
 	bool ghostsHit(Point pacmanBody);
-	void checkGhostsHit(Point pacmanBody);
+	bool checkGhostsHit(Point pacmanBody, bool isSilent);
 	void removeGhosts();	
 	void ghostsMove(Point PlayerLocation);
 	bool checkGhostsCollision(Ghost& g1, Ghost& g2);
