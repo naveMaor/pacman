@@ -736,12 +736,12 @@ void Game::playLoadSilentGame(string screenName)
 	stringstream Stepstream(StepsFileData);
 	LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 
-
+	initSilentGame();
 	numOfGhost = StepsFileData[0] - '0';
 
 	// Move to the begining of moves
 	getline(Stepstream, currGameStep, '\n');
-
+	
 	// Get step section
 	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && (player.getLife() > 0))
 	{
@@ -761,7 +761,7 @@ void Game::playLoadSilentGame(string screenName)
 
 		if (checkWin())
 		{
-			winGame();
+			resetGame();
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
