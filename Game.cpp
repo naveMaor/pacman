@@ -751,6 +751,8 @@ void Game::playLoadSilentGame(string screenName)
 				cout << " test failed " << endl;
 				return;
 			}
+			getline(resultstream, currGameStep, '\n');
+			LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 		}
 		player.getBody().move(player.getDirection());
 
@@ -786,9 +788,10 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	W_or_D = resultline[0];
 	LoadDataFromLine(x, y, 2, resultline);
 	resultPlayerloaction.setX(x);
-	resultPlayerloaction.setX(y);
+	resultPlayerloaction.setY(y);
 	end = resultline.find(objectDelimeter);
-	splitObjectStepsByDel(resultline, objectDelimeter, start, end);
+	string s=splitObjectStepsByDel(resultline, objectDelimeter, start, end);
+	string s1 = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	resultline = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	MovesNumber = LoadNumberFromLine(resultline, 0);
 }
@@ -838,6 +841,7 @@ int Game::LoadNumberFromLine(string& LineData , int index)
 	while (LineData[index]>='0'&& LineData[index] <= '9')
 	{
 		x = (x * 10) + LineData[index] - '0';
+		index++;
 	}
 	return x;
 }
