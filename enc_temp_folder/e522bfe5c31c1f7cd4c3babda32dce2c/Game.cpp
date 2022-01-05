@@ -725,7 +725,7 @@ void Game::playLoadSilentGame(string screenName)
 	bool b_won = false;
 	char W_or_D;
 	Point resultPlayerloaction;
-	int resultFileMove, resultMovesNumber;
+	int x, y,resultFileMove, resultMovesNumber;
 
 	resultsFileData = File::readFileToString(screenName, fileType::result);
 	StepsFileData = File::readFileToString(screenName, fileType::step);
