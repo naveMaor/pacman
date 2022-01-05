@@ -56,7 +56,7 @@ void Game::playGameStep(bool& b_won, bool isSaveMode)
 	if (isSaveMode)
 		checkAndSaveGhostsHit(player.getBody());
 	else
-		checkGhostsHit(player.getBody());
+		checkGhostsHit(player.getBody(),false);
 	checkPacmanHitFruit();
 	Sleep(gameSpeedVal);
 	pacmanMove(board);
@@ -701,7 +701,7 @@ void Game::playLoadSingleGame(string screenName)
 	int numOfGhost, countMoves = 0;
 	bool b_won = false;
 
-	initGame(b_IsColorGame);
+	initGame(b_IsColorGame, false);
 
 	stepsFileData = File::readFileToString(screenName, fileType::step);
 	stringstream stream(stepsFileData);
