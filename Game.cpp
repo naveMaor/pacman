@@ -731,11 +731,12 @@ void Game::playLoadSilentGame(string screenName)
 	stringstream Stepstream(StepsFileData);
 	LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 
+	initSilentGame();
 	numOfGhost = StepsFileData[0] - '0';
 
 	// Move to the begining of moves
 	getline(Stepstream, currGameStep, '\n');
-
+	
 	// Get step section
 	while (getline(Stepstream, currGameStep, '\n') && (!b_won) && (player.getLife() > 0))
 	{
@@ -750,12 +751,14 @@ void Game::playLoadSilentGame(string screenName)
 				cout << " test failed " << endl;
 				return;
 			}
+			getline(resultstream, currGameStep, '\n');
+			LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 		}
 		player.getBody().move(player.getDirection());
 
 		if (checkWin())
 		{
-			winGame();
+			resetGame();
 			b_won = true;
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
@@ -786,8 +789,9 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 	LoadDataFromLine(x, y, 2, resultline);
 	resultPlayerloaction.setX(x);
 	resultPlayerloaction.setY(y);
-	//end = resultline.find(objectDelimeter);
-	splitObjectStepsByDel(resultline, objectDelimeter, start, end);
+	end = resultline.find(objectDelimeter);
+	string s=splitObjectStepsByDel(resultline, objectDelimeter, start, end);
+	string s1 = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	resultline = splitObjectStepsByDel(resultline, objectDelimeter, start, end);
 	MovesNumber = LoadNumberFromLine(resultline, 0);
 }
@@ -837,6 +841,7 @@ int Game::LoadNumberFromLine(string& LineData , int index)
 	while (LineData[index]>='0'&& LineData[index] <= '9')
 	{
 		x = (x * 10) + LineData[index] - '0';
+		index++;
 	}
 	return x;
 }
