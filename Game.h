@@ -68,7 +68,6 @@ public:
 	void LoadModeDataParameters(int & countMoves,int numOfGhost,string& currGameStep,string& objectDelimeter);
 
 	// Silent functions
-	void initSilentGame();
 	void GhostsSilentModeMove();
 
 

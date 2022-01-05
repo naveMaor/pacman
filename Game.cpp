@@ -23,22 +23,8 @@ void Game::playSingleGame(string screenName)
 
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
-		
-		if (checkWin())
-		{
-			b_won = true;
-			winGame();
-		}
-		else
-		{
-			print.printScore(gameInfo, b_IsColorGame, player.getScore());
-			fruit.changePosition(board, countMoves);
-			ghostsMove(player.getBody());
-			checkGhostsHit(player.getBody(), false);
-			checkPacmanHitFruit();
-			Sleep(gameSpeedVal);
-			pacmanMove(board);
-		}		
+		playGameStep(b_won, true);
+
 	}
 	// If lose
 	if (player.getLife() == 0)
@@ -60,12 +46,6 @@ void Game::playGameStep(bool& b_won, bool isSaveMode)
 	checkPacmanHitFruit();
 	Sleep(gameSpeedVal);
 	pacmanMove(board);
-
-	if (checkWin())
-	{
-		b_won = true;
-		winGame();
-	}
 }
 
 
@@ -80,14 +60,14 @@ void Game::playSaveSingleGame(string screenName)
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{	
 		playGameStep(b_won, true);
-		if (b_won)
+		if (checkWin())
 		{
 			writeWinToResultFile();
 			File::closeWrittenFile();
 			writeStepsToFile(screenName);
+			b_won = true;
+			winGame();
 		}
-			
-		
 	}
 
 	// If lose
@@ -670,8 +650,6 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 {
 	if (File::isValidFile(screenName, board))
 	{
-
-
 		if (isSaveMode)
 			playSaveSingleGame(screenName);
 		else if (isLoadMode)
@@ -681,7 +659,6 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 			else
 				playLoadSingleGame(screenName);
 		}
-			
 
 		else
 			playSingleGame(screenName);
@@ -755,7 +732,7 @@ void Game::playLoadSilentGame(string screenName)
 	stringstream Stepstream(StepsFileData);
 	LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, resultsFileData, objectDelimeter);
 
-	initSilentGame();
+	initGame(false, true);
 	numOfGhost = StepsFileData[0] - '0';
 
 	// Move to the begining of moves
