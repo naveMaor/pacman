@@ -1,0 +1,13 @@
+-Fruit Location
+-Fruit Value
+-Fruit show
+-Fruit move
+-Pacman move
+-all ghosts move from the first(right) to last(left)
+ 
+S represent stay
+R represent right
+L represent left
+U represent up
+D represent down
+

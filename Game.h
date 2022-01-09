@@ -28,10 +28,13 @@ private:
 	Print print;
 	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, continueGame = true;
-	int gameSpeedVal = mediumGameSpeed, numOfGhosts, GhostsLevel = Hard;
+	int gameSpeedVal = mediumGameSpeed, numOfGhosts = 0, GhostsLevel = Hard;
 	int countMoves = 0;
 	
 public:
+	~Game() {}
+	Game& operator = (const Game& jo) = delete;
+
 	// Game functions
 	void playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void playSingleGame(string screenName);
@@ -100,6 +103,7 @@ public:
 	void gameOver();
 	void pauseGame();
 	void exitGame();
+
 };
 
 #endif

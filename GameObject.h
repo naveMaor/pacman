@@ -2,7 +2,6 @@
 #define GAMEOBJECT_H
 #include "Point.h"
 #include "Board.h"
-#include "MoveStrategy.h"
 
 class GameObject
 {

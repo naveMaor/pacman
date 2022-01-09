@@ -4,7 +4,6 @@
 int main(int argc, char** argv) {
 	Game game;
 	Menu menu;
-	//string screen = game.getScreenNames()[0];
 	string screen = File::getScreensName(screenPath)[0];
 	InputParser input(argc, argv);
 

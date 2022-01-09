@@ -726,7 +726,7 @@ void Game::playLoadSilentGame(string screenName)
 	bool b_won = false;
 	char W_or_D;
 	Point resultPlayerloaction;
-	int resultFileMove, resultMovesNumber;
+	int resultFileMove = 0, resultMovesNumber = 0;
 
 	resultsFileData = File::readFileToString(screenName, fileType::result);
 	StepsFileData = File::readFileToString(screenName, fileType::step);
@@ -786,6 +786,7 @@ void Game::playLoadSilentGame(string screenName)
 }
 
 
+/* This function load data in silent mode*/
 void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or_D,int& MovesNumber, string& resultline,string objectDelimeter)
 {
 	int x, y;
@@ -803,6 +804,7 @@ void Game::LoadsilentModeDataParameters(Point & resultPlayerloaction, char& W_or
 }
 
 
+/* This function load the mode data parameters and split the relevant data for each gameobject*/
 void Game::LoadModeDataParameters( int numOfGhost, string& currGameStep, string& objectDelimeter)
 {
 	int start = 0;
@@ -813,10 +815,11 @@ void Game::LoadModeDataParameters( int numOfGhost, string& currGameStep, string&
 	player.setDirectionFromStepFile(splitObjectStepsByDel(currGameStep, objectDelimeter, start, end));
 	string ghostsMove = splitObjectStepsByDel(currGameStep, objectDelimeter, start, end);
 	Ghost::setGhostsDirectionFromStepFile(ghosts, numOfGhost, ghostsMove);
-
 }
-//todo:transfer to generic class!!!
-void Game::LoadDataFromLine(int& x,int &y, int startindex, string& LineData)
+
+
+/* This function convert data from file*/
+void Game::LoadDataFromLine(int& x,int& y, int startindex, string& LineData)
 {
 	x = LineData[startindex] - '0';
 	if (LineData[startindex+1] != ',')
@@ -838,7 +841,7 @@ void Game::LoadDataFromLine(int& x,int &y, int startindex, string& LineData)
 	}
 }
 
-
+/* This function convert number from text*/
 int Game::LoadNumberFromLine(string& LineData , int index)
 {
 	int x = LineData[index] - '0';
@@ -852,6 +855,7 @@ int Game::LoadNumberFromLine(string& LineData , int index)
 }
 
 
+/* This function is move the ghost silent*/
 void Game::GhostsSilentModeMove()
 {
 	for (int i = 0; i < numOfGhosts; i++)
