@@ -8,7 +8,7 @@ void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 		setTextColor(Color::GREEN);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY()+1);
 	cout << "You won the game!!!!" << endl;
-	Sleep(longPauseWindow);
+	Sleep(SleepEnum::longPauseWindow);
 }
 
 /* This function print game over*/
@@ -19,7 +19,7 @@ void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 		setTextColor(Color::LIGHTRED);
 	gotoxy(gameInfoPosition.getX() + 5, gameInfoPosition.getY()+1);
 	cout << "You lost!!";
-	Sleep(longPauseWindow);
+	Sleep(SleepEnum::longPauseWindow);
 }
 
 /* This function rest g ame info prints*/
@@ -78,7 +78,7 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 		setTextColor(Color::RED);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + 1);
 	cout << "You hit the ghost!!!" << endl;
-	Sleep(shortPauseWindow);
+	Sleep(SleepEnum::shortPauseWindow);
 	resetGameInfoPrints(gameInfoPosition);
 }
 

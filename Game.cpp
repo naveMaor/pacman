@@ -669,7 +669,7 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 	else
 	{
 		cout << "Isn't valid screen, returning to the menu." << endl;
-		Sleep(longPauseWindow);
+		Sleep(SleepEnum::longPauseWindow);
 	}
 }
 
@@ -751,7 +751,7 @@ void Game::playLoadSilentGame(string screenName)
 			if (W_or_D != 'D' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
 				cout << "The test for screen " << screenName << " failed" << endl;
-				Sleep(longPauseWindow);
+				Sleep(SleepEnum::longPauseWindow);
 				return;
 			}
 			if(getline(resultstream, currGameResult, '\n'))
@@ -765,11 +765,11 @@ void Game::playLoadSilentGame(string screenName)
 			if (W_or_D != 'W' || resultPlayerloaction != player.getBody() || countMoves != resultMovesNumber)
 			{
 				cout << "The test for screen " << screenName << " failed" << endl;
-				Sleep(longPauseWindow);
+				Sleep(SleepEnum::longPauseWindow);
 				return;
 			}
 				cout << "The test for screen " << screenName <<" passed" << endl;
-				Sleep(longPauseWindow);
+				Sleep(SleepEnum::longPauseWindow);
 				resetGame();
 		}
 	}
@@ -778,7 +778,7 @@ void Game::playLoadSilentGame(string screenName)
 	{
 		continueGame = false;
 		cout << "At screen " << screenName << " the player lost" << endl;
-		Sleep(longPauseWindow);
+		Sleep(SleepEnum::longPauseWindow);
 		for (int i = 0; i < numOfGhosts; i++)
 			delete ghosts[i];
 		//gameOver();

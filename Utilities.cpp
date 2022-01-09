@@ -40,3 +40,8 @@ void clearScreen()
 	system("cls");
 }
 
+/* This function sleep*/
+void Sleep(SleepEnum time)
+{
+	Sleep((int)time);
+}

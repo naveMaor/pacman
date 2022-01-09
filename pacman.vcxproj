@@ -173,6 +173,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NoviceGhost.h" />
     <ClInclude Include="Print.h" />
+    <ClInclude Include="SleepEnum.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />

@@ -55,7 +55,7 @@ void File::handleFirstLine(size_t & currLineWidth, char& firstLetter, bool & b_v
 	{
 		cout << "The width of the screen is two short, moving to the next screen" << endl;
 		b_validScreen = false;
-		Sleep(shortPauseWindow);
+		Sleep(SleepEnum::shortPauseWindow);
 	}
 	// If the first letter in the file is & and the width is 1 init the board width to 20
 	else if ((currLineWidth == 1) && (firstLetter == '&'))
@@ -72,7 +72,7 @@ bool File::openFile(const string filePath)
 	if (file.is_open())
 		return true;
 	cout << "Could not open the file in the directory: " << filePath << endl;
-	Sleep(shortPauseWindow);
+	Sleep(SleepEnum::shortPauseWindow);
 	return false;
 }
 
