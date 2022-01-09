@@ -78,7 +78,6 @@ void Game::playSaveSingleGame(string screenName)
 		File::closeWrittenFile();
 		// Writes Steps
 		writeStepsToFile(screenName);
-
 		gameOver();
 	}
 }
@@ -246,6 +245,7 @@ bool Game::ghostsHit(Point pacmanBody)
 	return b_Hit;
 }
 
+
 /* This function check ghosts hit*/
 bool Game::checkGhostsHit(Point pacmanBody, bool isSilent)
 {
@@ -263,7 +263,6 @@ bool Game::checkGhostsHit(Point pacmanBody, bool isSilent)
 	return false;
 		
 }
-
 
 
 /* This function check ghosts hit and write to result file*/
@@ -328,6 +327,7 @@ void Game::ghostsMove(Point PlayerLocation)
 			ghosts[i]->changePosition(board, countMoves, PlayerLocation);
 }
 
+
 /* This function check ghost collision*/
 bool Game::checkGhostsCollision(Ghost &g1, Ghost &g2)
 {
@@ -348,6 +348,7 @@ void Game::gameOver()
 		delete ghosts[i];
 	clearScreen();
 }
+
 
 /* This function print the game before paused*/
 void Game::printPreviousGame() const
@@ -580,6 +581,7 @@ void Game::writeWinToResultFile()
 	writeResultData();
 }
 
+/* This function write to result file data*/
 void Game::writeResultData()
 {
 	File::writeCharToFile('|');
@@ -593,6 +595,7 @@ void Game::writeResultData()
 	File::writeCharToFile('\n');
 }
 
+/* This function write the game steps to steps file*/
 void Game::writeStepsToFile(const string& screenName)
 {
 	File::createAndOpenFile(screenName, fileType::step);
@@ -660,7 +663,6 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 			else
 				playLoadSingleGame(screenName);
 		}
-
 		else
 			playSingleGame(screenName);
 	}
@@ -672,6 +674,7 @@ void Game::playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool 
 }
 
 
+/* This function play load single game*/
 void Game::playLoadSingleGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", stepsFileData;
@@ -715,7 +718,7 @@ void Game::playLoadSingleGame(string screenName)
 	}
 }
 
-
+/* This function play load silent game*/
 void Game::playLoadSilentGame(string screenName)
 {
 	string currGameStep, objectDelimeter = "|", resultsFileData, StepsFileData, currGameResult;
@@ -754,7 +757,7 @@ void Game::playLoadSilentGame(string screenName)
 			if(getline(resultstream, currGameResult, '\n'))
 				LoadsilentModeDataParameters(resultPlayerloaction, W_or_D, resultMovesNumber, currGameResult, objectDelimeter);
 		}
-		player.silentMove(board,countMoves);
+		player.silentMove(board, countMoves);
 
 		if (checkWin())
 		{
