@@ -18,11 +18,11 @@ public:
 	void printInstructions()const;
 	void printPacmanSpeedOptions()const;
 	void printColorMenu();
-	void printGameSettings(bool getIsColorGame, int currentSpeed, int GhostsLevel);
+	void printGameSettings(bool getIsColorGame, int currentSpeed, GhostsLevel GhostsLevel);
 	void printIsColorGame(bool getIsColorGame) const;
 	void printCurrentSpeedGame(int currentSpeed)const;
 	void printScreenNames(vector<string> screenNames)const;
-	void printCurrentGhostsLevel(int GhostsLevel)const;
+	void printCurrentGhostsLevel(GhostsLevel GhostsLevel)const;
 	void printPacmanGhostsLevelOptions() const;
 
 	bool checkValidUserInput(string userChoice)const;
@@ -33,7 +33,7 @@ public:
 
 	string handleChooseScreen(vector<string> screenNames);
 	void handleGameMenuSpeedSettingsInput();
-	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int GhostsLevel);
+	void handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, GhostsLevel GhostsLevel);
 	void handleGameMenuGhostsLevelSettingsInput();
 
 	void setUserChoice(int newUserChoice) { userChoice = newUserChoice; }

@@ -28,7 +28,8 @@ private:
 	Print print;
 	Point gameInfo;
 	bool b_IsColorGame = true, singleGame = false, continueGame = true;
-	int gameSpeedVal = mediumGameSpeed, numOfGhosts, GhostsLevel = Hard;
+	int gameSpeedVal = mediumGameSpeed, numOfGhosts; //GhostsLevel = GhostsLevel::Hard;
+	GhostsLevel GhostsLevel = GhostsLevel::Hard;
 	int countMoves = 0;
 	
 public:

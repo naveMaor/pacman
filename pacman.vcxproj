@@ -168,6 +168,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="GhostsLevel.h" />
     <ClInclude Include="GoodGhost.h" />
     <ClInclude Include="InputParser.h" />
     <ClInclude Include="Menu.h" />

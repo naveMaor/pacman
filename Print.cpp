@@ -1,7 +1,7 @@
 #include "Print.h"
 
 /* This function print win game*/
-void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
+void Print::winGame(Point &gameInfoPosition, bool b_IsColorGame) const
 {
 	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
@@ -12,7 +12,7 @@ void Print::winGame(Point gameInfoPosition, bool b_IsColorGame) const
 }
 
 /* This function print game over*/
-void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
+void Print::gameOver(Point &gameInfoPosition, bool b_IsColorGame) const
 {
 	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
@@ -23,7 +23,7 @@ void Print::gameOver(Point gameInfoPosition, bool b_IsColorGame) const
 }
 
 /* This function rest g ame info prints*/
-void Print::resetGameInfoPrints(Point gameInfoPosition) const
+void Print::resetGameInfoPrints(Point &gameInfoPosition) const
 {
 	setTextColor(Color::WHITE);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY());
@@ -36,7 +36,7 @@ void Print::resetGameInfoPrints(Point gameInfoPosition) const
 }
 
 /* This function print pacman life*/
-void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife)const
+void Print::printLife(Point &gameInfoPosition, bool b_IsColorGame, int playerlife)const
 {
 	setTextColor(Color::WHITE);
 	gotoxy(gameInfoPosition.getX(), gameInfoPosition.getY() + 1);
@@ -48,7 +48,7 @@ void Print::printLife(Point gameInfoPosition, bool b_IsColorGame, int playerlife
 	
 }
 /* This function clear the center of the screen when pausing the game*/
-void Print::clearForPauseGame(Point gameInfoPosition)const
+void Print::clearForPauseGame(Point &gameInfoPosition)const
 {
 	for (int j = 0; j < 3; j++)
 	{
@@ -58,7 +58,7 @@ void Print::clearForPauseGame(Point gameInfoPosition)const
 }
 
 /* This function print pause game*/
-void Print::printPauseGame(Point gameInfoPosition) const
+void Print::printPauseGame(Point &gameInfoPosition) const
 {
 	setTextColor(Color::WHITE);
 	clearForPauseGame(gameInfoPosition);
@@ -71,7 +71,7 @@ void Print::printPauseGame(Point gameInfoPosition) const
 }
 
 /* This function print player hit ghost message*/
-void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
+void Print::printPlayerHitGhost(Point &gameInfoPosition, bool b_IsColorGame)const
 {
 	resetGameInfoPrints(gameInfoPosition);
 	if (b_IsColorGame)
@@ -83,7 +83,7 @@ void Print::printPlayerHitGhost(Point gameInfoPosition, bool b_IsColorGame)const
 }
 
 /* This function print pacman score*/
-void Print::printScore(Point gameInfoPosition,  bool b_IsColorGame, int playerScore)const
+void Print::printScore(Point &gameInfoPosition,  bool b_IsColorGame, int playerScore)const
 {
 	setTextColor(Color::WHITE);
 	gotoxy(gameInfoPosition.getX() + 10, gameInfoPosition.getY() + 1);

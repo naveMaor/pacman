@@ -144,7 +144,7 @@ bool Menu::checkValidSpeedSettingsInput(string input) const
 }
 
 /* This function handle game menu settins input*/
-void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, int GhostsLevel)
+void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, GhostsLevel GhostsLevel)
 {
 	string input;
 	getline(cin, input);
@@ -160,7 +160,7 @@ void Menu::handleGameMenuSettingsInput(bool getIsColorGame, int currentSpeed, in
 }
 
 /* This function print the game settings*/
-void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, int GhostsLevel)
+void Menu::printGameSettings(bool getIsColorGame, int currentSpeed, GhostsLevel GhostsLevel)
 {
 	setTextColor(Color::WHITE);
 	cout << "Pacman settings:\n"
@@ -241,13 +241,13 @@ bool Menu:: checkValidScreenInput(string input, vector<string> screenNames) cons
 }
 
 /* This function print current ghost level*/
-void Menu::printCurrentGhostsLevel(int GhostsLevel)const
+void Menu::printCurrentGhostsLevel(GhostsLevel GhostsLevel)const
 {
-	if (GhostsLevel == easy)
+	if (GhostsLevel == GhostsLevel::easy)
 		cout << "easy";
-	else if (GhostsLevel == Medium)
+	else if (GhostsLevel == GhostsLevel::Medium)
 		cout << "medium";
-	else if (GhostsLevel == Hard)
+	else if (GhostsLevel == GhostsLevel::Hard)
 		cout << "hard";
 }
 

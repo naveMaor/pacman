@@ -37,7 +37,7 @@ public:
     int getNumOfGhosts() const { return ghostCount; }
     int getBreadCrumbsLeft() const { return breadCrumbsLeft; }
     bool getIsValidBoard() const { return isValidBoard; }
-    Point getPacmanStartingPosition() const { return pacmanStartingPosition; }
+    const Point & getPacmanStartingPosition() const { return pacmanStartingPosition; }
     Point getGhostStartingPosition(int index) const { return ghostStartingPositions[index]; }
     Point getInfoPosition() const { return infoPosition; }
     bool getIsGameInfoAtBottom() { isGameInfoAtBottom; };

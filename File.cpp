@@ -3,7 +3,7 @@
 static fstream file;
 
 /* This function return vector of screens names*/
-vector <string> File::getScreensName(const string& PATH)
+vector <string> &File::getScreensName(const string& PATH)
 {
 	vector<string> filesVector;
 

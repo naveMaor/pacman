@@ -149,13 +149,13 @@ void Game::gameGhostsLevel()
 	switch (menu.getUserChoice())
 	{
 	case 1:
-		GhostsLevel = easy;
+		GhostsLevel = GhostsLevel::easy;
 		break;
 	case 2:
-		GhostsLevel = Medium;
+		GhostsLevel = GhostsLevel::Medium;
 		break;
 	case 3:
-		GhostsLevel = Hard;
+		GhostsLevel = GhostsLevel::Hard;
 		break;
 	default:
 		break;
@@ -437,17 +437,17 @@ void Game::initGameObj()
 	{
 		switch (GhostsLevel)
 		{
-		case 1:
+		case GhostsLevel::easy:
 		{
 			ghosts[i] = new NoviceGhost();
 			break;
 		}
-		case 2:
+		case GhostsLevel::Medium:
 		{
 			ghosts[i] = new GoodGhost();
 			break;
 		}
-		case 3:
+		case GhostsLevel::Hard:
 		{
 			ghosts[i] = new BestGhost();
 			break;

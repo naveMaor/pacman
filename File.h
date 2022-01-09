@@ -21,7 +21,7 @@ class File
 	static void handleFirstLine( size_t& currLineWidth, char& firstLetter, bool& b_validScreen);
 
 public:
-	static vector<string> getScreensName(const string& PATH);
+	static vector<string> & getScreensName(const string& PATH);
 	static bool fileToBoard(Board &board);
 	static bool isValidFile(const string& fileName, Board& board);
 	static string createStepfileName(const string& fileName);
