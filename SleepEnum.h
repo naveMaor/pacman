@@ -7,6 +7,4 @@ enum class SleepEnum
 	longPauseWindow = 4000
 };
 
-
-
 #endif
