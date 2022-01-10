@@ -1,17 +1,31 @@
 #include "Game.h"
 
 /* This function handle the game*/
-void Game::playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode)
+void Game::playGame(bool isSingleGame, bool isSaveMode, bool isLoadMode, bool isSilentMode)
 {
-	if (isSingleGame)
-		playByMode(screenName, isSaveMode, isLoadMode, isSilentMode);
-	else // full game
+	// check if there screens or not 
+	if (File::getAreThereScreens())
 	{
-		size_t numOfScreens = screensNames.size();
-		for (auto i = 0; i < numOfScreens && continueGame; i++)
-			playByMode(screensNames[i], isSaveMode, isLoadMode, isSilentMode);
+		if (isSingleGame)
+		{
+			string screenName = menu.handleChooseScreen(screensNames);
+			playByMode(screenName, isSaveMode, isLoadMode, isSilentMode);
+		}
+
+		else // full game
+		{
+			size_t numOfScreens = screensNames.size();
+			for (auto i = 0; i < numOfScreens && continueGame; i++)
+				playByMode(screensNames[i], isSaveMode, isLoadMode, isSilentMode);
+		}
+		resetGame();
 	}
-	resetGame();
+	else
+	{
+		clearScreen();
+		cout << "There aren't any screens." << endl;
+		Sleep(SleepEnum::longPauseWindow);
+	}	
 }
 
 /* This function play one single game*/

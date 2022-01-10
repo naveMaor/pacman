@@ -17,6 +17,7 @@ using std::filesystem::directory_iterator;
 
 class File
 {
+	
 	static bool openFile(string const filePath);
 	static void handleFirstLine( size_t& currLineWidth, char& firstLetter, bool& b_validScreen);
 
@@ -32,7 +33,7 @@ public:
 	static void writeStringToFile(const string& str);
 	static void createAndOpenFile(const string& fileName, int fileType);
 	static void closeWrittenFile();
-	static void closeFile();
+	static bool getAreThereScreens();
 	static string readFileToString(const string& fileName, int fileType);
 };
 

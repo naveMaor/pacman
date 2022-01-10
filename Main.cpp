@@ -4,14 +4,15 @@
 int main(int argc, char** argv) {
 	Game game;
 	Menu menu;
-	string screen = File::getScreensName(screenPath)[0];
+	bool areThereScreens = false;
+	//string screen = ""; //File::getScreensName(screenPath)[0];
 	InputParser input(argc, argv);
-
+	
 	if (input.cmdOptionExists("-silent"))
 	{
 
 		if (input.cmdOptionExists("-load")) 
-			game.playGame(false, screen, false, true, true);
+			game.playGame(false, false, true, true);
 		else
 		{
 			cout << "wrong input" << endl;
@@ -19,7 +20,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	else if (input.cmdOptionExists("-load"))
-		game.playGame(false, screen, false, true, false);
+		game.playGame(false, false, true, false);
 	
 	else
 	{
@@ -32,18 +33,18 @@ int main(int argc, char** argv) {
 			case 1: // all game
 			{
 				if (input.cmdOptionExists("-save"))
-					game.playGame(false, screen, true, false, false);
+					game.playGame(false, true, false, false);
 				else
-					game.playGame(false, screen, false, false, false);
+					game.playGame(false, false, false, false);
 				break;
 			}
 			case 2: // single game
 			{
-				screen = menu.handleChooseScreen(File::getScreensName(screenPath));
+				//screen = menu.handleChooseScreen(File::getScreensName(screenPath));
 				if (input.cmdOptionExists("-save"))
-					game.playGame(true, screen, true, false, false);
+					game.playGame(true, true, false, false);
 				else
-					game.playGame(true, screen, false, false, false);
+					game.playGame(true, false, false, false);
 				break;
 			}
 			case 3:

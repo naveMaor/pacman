@@ -1,5 +1,7 @@
 #include "File.h"
 
+//static bool areThereScreens = false;
+static bool areThereScreens = false;
 static fstream file;
 
 /* This function return vector of screens names*/
@@ -10,7 +12,10 @@ vector <string> File::getScreensName(const string& PATH)
 	for (const auto& file : directory_iterator(PATH))
 	{
 		if (file.path().extension() == ".screen")
+		{
 			filesVector.push_back(file.path().filename().string());
+			areThereScreens = true;
+		}
 	}
 	filesVector.shrink_to_fit();
 	return filesVector;
@@ -198,3 +203,14 @@ void File::writeStringToFile(const string& str)
 
  }
 
+ /* Return if there screens or not*/
+ bool File::getAreThereScreens()
+ {
+	 if (areThereScreens)
+		 return true;
+	 else
+		 return false;
+ }
+	
+	
+	

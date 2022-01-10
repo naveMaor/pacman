@@ -36,7 +36,7 @@ public:
 	Game& operator = (const Game& jo) = delete;
 
 	// Game functions
-	void playGame(bool isSingleGame, string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
+	void playGame(bool isSingleGame, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void playSingleGame(string screenName);
 	void playByMode(string screenName, bool isSaveMode, bool isLoadMode, bool isSilentMode);
 	void playGameStep(bool isSaveMode);
