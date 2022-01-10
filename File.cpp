@@ -25,8 +25,13 @@ bool File::fileToBoard(Board& board)
 	string currLine;
 	string emptyLine = "                                                                                ";
 	
-	while (getline(file, currLine) && b_validFile)
+	/*file.clear();
+	file.seekg(0, std::ios::beg); // after exist game
+	cout << file.tellg();*/
+
+	while (!file.eof() && b_validFile)
 	{
+		getline(file, currLine);
 		currLineWidth = currLine.length();
 
 		// Get the width of the board by the first line of the file
@@ -43,7 +48,6 @@ bool File::fileToBoard(Board& board)
 		rowHightInFile++;
 		b_validFile = board.getIsValidBoard();
 	}
-
 	return board.checkValidBoard() && b_validFile;
 }
 

@@ -23,7 +23,7 @@ void Game::playSingleGame(string screenName)
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{
 		playGameStep(true);
-		if (checkWin())
+		if (checkWin() && (continueGame))
 		{
 			b_won = true;
 			winGame();
@@ -61,7 +61,7 @@ void Game::playSaveSingleGame(string screenName)
 	while ((player.getLife() > 0) && (!b_won) && (continueGame))
 	{	
 		playGameStep(true);
-		if (checkWin())
+		if (checkWin() && (continueGame))
 		{
 			writeWinToResultFile();
 			File::closeWrittenFile();
@@ -222,6 +222,7 @@ void Game::getUserKeyboard()
 			{
 				printPreviousGame();
 				print.resetGameInfoPrints(gameInfo);
+				print.printLife(gameInfo, b_IsColorGame, player.getLife());
 			}
 		}
 	}

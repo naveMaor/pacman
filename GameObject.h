@@ -14,7 +14,7 @@ protected:
 	vector<char> steps;
 
 public:
-	GameObject(char objectIcon) : objectIcon(objectIcon) {}
+	GameObject(char objectIcon) : objectIcon(objectIcon) { steps.resize(2000); }
 	// Constractor
 	GameObject(int x, int y, char icon) : pBody(x, y), objectIcon(icon) {};
 
