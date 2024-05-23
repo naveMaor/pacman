@@ -1,6 +1,6 @@
 Programmed by:
-Oz Hayun: 209368695
-Nave Maor: 208523605
+Oz Hayun
+Nave Maor
 
 
 Bonuses:
